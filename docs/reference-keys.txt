@@ -1,5 +1,3 @@
-prerequisites
-how-to-use-github
 intro
 install-postgres
 r-script
