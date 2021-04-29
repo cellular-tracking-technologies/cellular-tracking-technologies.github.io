@@ -13,9 +13,9 @@ description: "This is a manual for the R data tools"
 ```{r, include=FALSE}
 options(tinytex.verbose = TRUE)
 ```
-# Prerequisites {-}
 
-A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you [started with installing R and RStudio](https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/).
+# Prerequisites {-}
+This is a manual for the R tools hosted at [our GitHub repository](https://github.com/cellular-tracking-technologies/data_tools). A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you [started with installing R and RStudio](https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/).
 
 ## How to use GitHub {-}
 1. Create an [account](https://github.com).
