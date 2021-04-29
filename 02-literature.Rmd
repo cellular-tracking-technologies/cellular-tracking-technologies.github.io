@@ -1,0 +1,85 @@
+# Start Here: Example Scripts
+
+* "example.R" shows you example implementations of the data management and node health functions (also read comments, functions that produce files are commented out)
+* "locate_example.R" is a template script for running the location functions  
+
+I suggest making your own copy of these scripts, renaming them, and modifying them with your file path inputs.
+
+# About the Functions
+There is a sub-folder within this repo named "functions" which is full of, well, scripts that contain functions! You'll notice they're often called (via source()) at the top of the example scripts. This loads in the custom functions that I have written to handle CTT data. Ultimately, these will be rolled into an R package.
+
+## Data Manager
+### load_data(infile)
+**Input**  
+The input folder ("infile") can contain any melange of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e. csv.gz files are just fine as they are).  
+
+**Output**  
+The function will return a list of 3 dataframes from the files in the folder you give it:  
+1. beep data  
+2. node health  
+3. GPS  
+
+## Node Health  
+### node_channel_plots(health, freq)  
+This function is the "engine" behind the export function. You can run it standalone with the following parameters, but you don't have to.  
+
+**Input**  
+1. health: the 2nd dataframe output by the load_data() function  
+2. freq: the time interval for which you want variables to be summarized  
+
+**Output**
+The output is a nested list for each combination of channel and node, with the following plots for each:  
+
+1. battery  
+2. RSSI  
+3. number of check-ins  
+4. scaled number of check-ins as line plot over scaled RSSI  
+5. box plot of node RSSI  
+
+### v2_plots(health, freq)  
+**Input**  
+1. health: the 2nd dataframe output by the load_data() function  
+2. freq: the time interval for which you want variables to be summarized  
+**Output** The output is a nested list for each combination of channel and node, with the following plots for each:   
+
+1. latitude  
+2. longitude  
+3. RSSI  
+4. dispersion  
+
+### node_plots(health, nodes, freq)  
+NOTE: THIS ONLY WORKS FOR V2  
+**Input**  
+1. health: the 2nd dataframe output by the load_data() function  
+2. nodes: list of nodes  
+3. freq: the time interval for which you want variables to be summarized  
+**Output** The output is a nested list for each node, with the following plots for each:  
+
+1. RSSI  
+2. number of check-ins  
+3. battery  
+4. time mismatches  
+5. small time mismatches  
+
+### gps_plots(gps, freq)  
+**Input**  
+1. gps: the 3rd data frame from the load_data() function  
+2. freq: the time interval of summary  
+**Output**  
+1. altitude  
+2. number of fixes  
+
+### export_node_channel_plots(health_data, freq, out_path, x, y, z)  
+**Input**  
+1. health_data: the 2nd dataframe output by the load_data() function  
+2. freq: the time interval for which you want variables to be summarized  
+3. out_path: where you want your plots to go  
+4. x: the plot for the 1st panel  
+5. y: the plot for the 2nd panel  
+6. z: the plot for the 3rd panel  
+
+To assign x, y and z, look at the description for node_channel_plots() and select those plot indices in the order you want them on the page.  
+
+### export_node_plots(health_data, freq, out_path, x, y, z)  
+NOTE: THIS ONLY WORKS FOR V2  
+same as above; indices for the plots can be chosen from the list under the node_plots() description  

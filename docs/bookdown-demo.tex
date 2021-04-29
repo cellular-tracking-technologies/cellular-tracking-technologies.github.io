@@ -1,0 +1,326 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Cellular Tracking Technologies: Data Tools},
+  pdfauthor={Jessica Gorzo},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{Cellular Tracking Technologies: Data Tools}
+\author{Jessica Gorzo}
+\date{2021-04-29}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{prerequisites}{%
+\chapter{Prerequisites}\label{prerequisites}}
+
+A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you \href{https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/}{started with installing R and RStudio}.
+
+\hypertarget{how-to-use-github}{%
+\section{How to use GitHub}\label{how-to-use-github}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create an \href{https://github.com}{account}.
+\item
+  Work through chapters 6-12 \href{https://happygitwithr.com/install-git.html}{here} if you need to install git, and connect it all with RStudio:
+\item
+  Follow the instructions (at least through 5) \href{https://r-bio.github.io/intro-git-rstudio/}{here} under ``How to do this using RStudio and GitHub?''
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  you don't need to enter the backticks in the shell
+\item
+  this example is a bit misleading because it doesn't include the .git, copy the link to the clipboard like before
+\item
+  RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  If you want to pull updates from here to your copy, see \href{https://happygitwithr.com/upstream-changes.html\#pull-changes-from-upstream}{chapter 31}.
+\end{enumerate}
+
+\hypertarget{intro}{%
+\chapter{API}\label{intro}}
+
+\hypertarget{install-postgres}{%
+\section{Install Postgres}\label{install-postgres}}
+
+If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.\\
+1. For simplicity, set your Postgres user name to be the same as your computer user name. Otherwise, you will need to pass it as an argument to the connection\\
+2. Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection
+
+\hypertarget{r-script}{%
+\section{R script}\label{r-script}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  As with the other R tools, I would suggest creating your own copy of ``api\_run.R'' within your local repository, and modify that file.
+\item
+  Set your ``outpath'' variable to wherever your files will live. If you have already been manually downloading files, use that as your ``outpath.''
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  The script will search that directory, and will only download files you haven't already downloaded.
+\item
+  It will create a nested folder structure within that directory in the following order: project name, station(s), file types, files
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  If you do not want to create a database\ldots{}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  comment out lines 8, 13-14
+\item
+  remove the ``conn'' argument from the get\_my\_data() function (line 11)
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  If you do want to create a database locally, set ``db\_name'' to the name of the Postgres database you created (line 7)
+\end{enumerate}
+
+\hypertarget{terminal}{%
+\section{Terminal}\label{terminal}}
+
+Run ``Rscript \textless path to your copy of api\_run.R\textgreater{}'' to run the script outside of RStudio (recommended)
+
+\hypertarget{start-here-example-scripts}{%
+\chapter{Start Here: Example Scripts}\label{start-here-example-scripts}}
+
+\begin{itemize}
+\tightlist
+\item
+  ``example.R'' shows you example implementations of the data management and node health functions (also read comments, functions that produce files are commented out)
+\item
+  ``locate\_example.R'' is a template script for running the location functions
+\end{itemize}
+
+I suggest making your own copy of these scripts, renaming them, and modifying them with your file path inputs.
+
+\hypertarget{about-the-functions}{%
+\chapter{About the Functions}\label{about-the-functions}}
+
+There is a sub-folder within this repo named ``functions'' which is full of, well, scripts that contain functions! You'll notice they're often called (via source()) at the top of the example scripts. This loads in the custom functions that I have written to handle CTT data. Ultimately, these will be rolled into an R package.
+
+\hypertarget{data-manager}{%
+\section{Data Manager}\label{data-manager}}
+
+\hypertarget{load_datainfile}{%
+\subsection{load\_data(infile)}\label{load_datainfile}}
+
+\textbf{Input}\\
+The input folder (``infile'') can contain any melange of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e.~csv.gz files are just fine as they are).
+
+\textbf{Output}\\
+The function will return a list of 3 dataframes from the files in the folder you give it:\\
+1. beep data\\
+2. node health\\
+3. GPS
+
+\hypertarget{node-health}{%
+\section{Node Health}\label{node-health}}
+
+\hypertarget{node_channel_plotshealth-freq}{%
+\subsection{node\_channel\_plots(health, freq)}\label{node_channel_plotshealth-freq}}
+
+This function is the ``engine'' behind the export function. You can run it standalone with the following parameters, but you don't have to.
+
+\textbf{Input}\\
+1. health: the 2nd dataframe output by the load\_data() function\\
+2. freq: the time interval for which you want variables to be summarized
+
+\textbf{Output}
+The output is a nested list for each combination of channel and node, with the following plots for each:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  battery\\
+\item
+  RSSI\\
+\item
+  number of check-ins\\
+\item
+  scaled number of check-ins as line plot over scaled RSSI\\
+\item
+  box plot of node RSSI
+\end{enumerate}
+
+\hypertarget{v2_plotshealth-freq}{%
+\subsection{v2\_plots(health, freq)}\label{v2_plotshealth-freq}}
+
+\textbf{Input}\\
+1. health: the 2nd dataframe output by the load\_data() function\\
+2. freq: the time interval for which you want variables to be summarized\\
+\textbf{Output} The output is a nested list for each combination of channel and node, with the following plots for each:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  latitude\\
+\item
+  longitude\\
+\item
+  RSSI\\
+\item
+  dispersion
+\end{enumerate}
+
+\hypertarget{node_plotshealth-nodes-freq}{%
+\subsection{node\_plots(health, nodes, freq)}\label{node_plotshealth-nodes-freq}}
+
+NOTE: THIS ONLY WORKS FOR V2\\
+\textbf{Input}\\
+1. health: the 2nd dataframe output by the load\_data() function\\
+2. nodes: list of nodes\\
+3. freq: the time interval for which you want variables to be summarized\\
+\textbf{Output} The output is a nested list for each node, with the following plots for each:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  RSSI\\
+\item
+  number of check-ins\\
+\item
+  battery\\
+\item
+  time mismatches\\
+\item
+  small time mismatches
+\end{enumerate}
+
+\hypertarget{gps_plotsgps-freq}{%
+\subsection{gps\_plots(gps, freq)}\label{gps_plotsgps-freq}}
+
+\textbf{Input}\\
+1. gps: the 3rd data frame from the load\_data() function\\
+2. freq: the time interval of summary\\
+\textbf{Output}\\
+1. altitude\\
+2. number of fixes
+
+\hypertarget{export_node_channel_plotshealth_data-freq-out_path-x-y-z}{%
+\subsection{export\_node\_channel\_plots(health\_data, freq, out\_path, x, y, z)}\label{export_node_channel_plotshealth_data-freq-out_path-x-y-z}}
+
+\textbf{Input}\\
+1. health\_data: the 2nd dataframe output by the load\_data() function\\
+2. freq: the time interval for which you want variables to be summarized\\
+3. out\_path: where you want your plots to go\\
+4. x: the plot for the 1st panel\\
+5. y: the plot for the 2nd panel\\
+6. z: the plot for the 3rd panel
+
+To assign x, y and z, look at the description for node\_channel\_plots() and select those plot indices in the order you want them on the page.
+
+\hypertarget{export_node_plotshealth_data-freq-out_path-x-y-z}{%
+\subsection{export\_node\_plots(health\_data, freq, out\_path, x, y, z)}\label{export_node_plotshealth_data-freq-out_path-x-y-z}}
+
+NOTE: THIS ONLY WORKS FOR V2\\
+same as above; indices for the plots can be chosen from the list under the node\_plots() description
+
+\end{document}

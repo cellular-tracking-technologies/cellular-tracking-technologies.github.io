@@ -1,0 +1,27 @@
+--- 
+title: "Cellular Tracking Technologies: Data Tools"
+author: "Jessica Gorzo"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is a manual for the R data tools"
+---
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+# Prerequisites
+
+A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you [started with installing R and RStudio](https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/).
+
+## How to use GitHub
+1. Create an [account](https://github.com).
+2. Work through chapters 6-12 [here](https://happygitwithr.com/install-git.html) if you need to install git, and connect it all with RStudio: 
+3. Follow the instructions (at least through 5) [here](https://r-bio.github.io/intro-git-rstudio/) under "How to do this using RStudio and GitHub?"
+  + you don't need to enter the backticks in the shell
+  + this example is a bit misleading because it doesn't include the .git, copy the link to the clipboard like before
+  + RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL
+4. If you want to pull updates from here to your copy, see [chapter 31](https://happygitwithr.com/upstream-changes.html#pull-changes-from-upstream).

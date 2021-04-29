@@ -1,0 +1,19 @@
+# API {#intro}
+
+## Install Postgres
+If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.  
+1. For simplicity, set your Postgres user name to be the same as your computer user name. Otherwise, you will need to pass it as an argument to the connection  
+2. Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection  
+
+## R script
+1. As with the other R tools, I would suggest creating your own copy of "api_run.R" within your local repository, and modify that file. 
+2. Set your "outpath" variable to wherever your files will live. If you have already been manually downloading files, use that as your "outpath."
+  * The script will search that directory, and will only download files you haven't already downloaded.
+  * It will create a nested folder structure within that directory in the following order: project name, station(s), file types, files
+3. If you do not want to create a database...
+  + comment out lines 8, 13-14
+  + remove the "conn" argument from the get_my_data() function (line 11)
+4. If you do want to create a database locally, set "db_name" to the name of the Postgres database you created (line 7)
+
+## Terminal
+Run "Rscript <path to your copy of api_run.R>" to run the script outside of RStudio (recommended)

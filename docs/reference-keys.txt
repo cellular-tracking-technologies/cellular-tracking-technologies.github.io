@@ -1,0 +1,17 @@
+prerequisites
+how-to-use-github
+intro
+install-postgres
+r-script
+terminal
+start-here-example-scripts
+about-the-functions
+data-manager
+load_datainfile
+node-health
+node_channel_plotshealth-freq
+v2_plotshealth-freq
+node_plotshealth-nodes-freq
+gps_plotsgps-freq
+export_node_channel_plotshealth_data-freq-out_path-x-y-z
+export_node_plotshealth_data-freq-out_path-x-y-z
