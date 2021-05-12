@@ -1,6 +1,7 @@
 intro
 install-postgres
-r-script
+your-token
+r-script-api_run.r
 terminal
 start-here-example-scripts
 about-the-functions
@@ -13,3 +14,10 @@ node_plotshealth-nodes-freq
 gps_plotsgps-freq
 export_node_channel_plotshealth_data-freq-out_path-x-y-z
 export_node_plotshealth_data-freq-out_path-x-y-z
+localization-methods
+primitive-weighted-average
+triangulation-functions
+data-prep
+calibration
+custom-distance-function
+triangulation

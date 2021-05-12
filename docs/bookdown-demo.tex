@@ -41,6 +41,46 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -80,7 +120,7 @@
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2021-04-29}
+\date{2021-05-12}
 
 \begin{document}
 \maketitle
@@ -138,14 +178,21 @@ If you choose to create a database out of your data (fair warning: in the future
 1. For simplicity, set your Postgres user name to be the same as your computer user name. Otherwise, you will need to pass it as an argument to the connection\\
 2. Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection
 
-\hypertarget{r-script}{%
-\section{R script}\label{r-script}}
+\hypertarget{your-token}{%
+\section{Your Token}\label{your-token}}
+
+Please request an API token through \href{https://celltracktech.com/support-radio-api/}{this form}. The token will appear on your account page when the request is fulfilled.
+
+\hypertarget{r-script-api_run.r}{%
+\section{R script: api\_run.R}\label{r-script-api_run.r}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   As with the other R tools, I would suggest creating your own copy of ``api\_run.R'' within your local repository, and modify that file.
+\item
+  Assign the API token you found above to the ``my\_token'' variable (line 6)\\
 \item
   Set your ``outpath'' variable to wherever your files will live. If you have already been manually downloading files, use that as your ``outpath.''
 \end{enumerate}
@@ -160,7 +207,7 @@ If you choose to create a database out of your data (fair warning: in the future
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
+\setcounter{enumi}{3}
 \tightlist
 \item
   If you do not want to create a database\ldots{}
@@ -176,7 +223,7 @@ If you choose to create a database out of your data (fair warning: in the future
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
+\setcounter{enumi}{4}
 \tightlist
 \item
   If you do want to create a database locally, set ``db\_name'' to the name of the Postgres database you created (line 7)
@@ -185,7 +232,7 @@ If you choose to create a database out of your data (fair warning: in the future
 \hypertarget{terminal}{%
 \section{Terminal}\label{terminal}}
 
-Run ``Rscript \textless path to your copy of api\_run.R\textgreater{}'' to run the script outside of RStudio (recommended)
+Run ``Rscript \textless path to your copy of api\_run.R\textgreater{}'' on the command line to run the script outside of RStudio (recommended)
 
 \hypertarget{start-here-example-scripts}{%
 \chapter{Start Here: Example Scripts}\label{start-here-example-scripts}}
@@ -324,5 +371,82 @@ To assign x, y and z, look at the description for node\_channel\_plots() and sel
 
 NOTE: THIS ONLY WORKS FOR V2\\
 same as above; indices for the plots can be chosen from the list under the node\_plots() description
+
+\hypertarget{localization-methods}{%
+\chapter{Localization Methods}\label{localization-methods}}
+
+\hypertarget{primitive-weighted-average}{%
+\section{Primitive: Weighted Average}\label{primitive-weighted-average}}
+
+This is simply a weighted average based on number of beeps on a node and max. RSSI values. It takes the following mandatory arguments:\\
+* freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g.~``3 min'')\\
+* beep\_data: raw beep data frame (e.g.~all\_data{[}{[}1{]}{]}{[}{[}1{]}{]} from example.R)\\
+* node: read in node file
+
+locations \textless- weighted\_average(freq = ``3 min'', beep\_data, node = nodes, node\_health, 0, tags)
+
+\hypertarget{triangulation-functions}{%
+\section{Triangulation Functions}\label{triangulation-functions}}
+
+\hypertarget{data-prep}{%
+\subsection{Data Prep}\label{data-prep}}
+
+This function prepares beep data to be input into the triangulation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{input <-}\StringTok{ }\KeywordTok{loc_prep}\NormalTok{(beep_data, nodes, freq)  }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calibration}{%
+\subsection{Calibration}\label{calibration}}
+
+This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.
+
+The calibration data frame needs the following column names:\\
+* pt: this can be any identifier for a given location used in the calibration\\
+* session\_id: this can be any identifier for the time period the tag was at this spot\\
+* start: the beginning of the time interval when the tag was placed at the point, in POSIXct UTC\\
+* end: the end of the time interval when the tag was placed at the point, in POSIXct UTC\\
+* TagId: the tag ID left at the point\\
+* TagLat: latitude of the point\\
+* TagLng: longitude of the point
+
+The option \texttt{calibrate\ =\ TRUE} is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass \texttt{calibrate\ =\ FALSE,\ freq\ =\ \textless{}interval\textgreater{}} for the time interval of interest.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{calibrated <-}\StringTok{ }\KeywordTok{calibrate}\NormalTok{(beep_data, calibration, nodes, }\DataTypeTok{calibrate =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This function returns a list, the items of which are\ldots{}\\
+1. data frame to be input into the triangulation\\
+2. a (see below)\\
+3. S (see below)\\
+4. K (see below)
+
+\hypertarget{custom-distance-function}{%
+\subsection{Custom Distance Function}\label{custom-distance-function}}
+
+You can pass a custom distance function, in the form of a string, that represents the relationship between RSSI and distance for your system. The string is the right side of the formula, where the left side is distance. The string needs to contain \texttt{x} which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{relation <-}\StringTok{ }\KeywordTok{relate}\NormalTok{(calibrated[[}\DecValTok{2}\NormalTok{]], calibrated[[}\DecValTok{3}\NormalTok{]], calibrated[[}\DecValTok{4}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{triangulation}{%
+\subsection{Triangulation}\label{triangulation}}
+
+This performs the triangulation with an input dataframe and defined distance relationship.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{triangulate}\NormalTok{(calibrated[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{distance =}\NormalTok{ relation)}
+\end{Highlighting}
+\end{Shaded}
 
 \end{document}
