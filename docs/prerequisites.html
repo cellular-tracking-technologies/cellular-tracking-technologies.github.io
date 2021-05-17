@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Prerequisites | Cellular Tracking Technologies: Data Tools</title>
+  <meta name="description" content="This is a manual for the R data tools" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Prerequisites | Cellular Tracking Technologies: Data Tools" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a manual for the R data tools" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Prerequisites | Cellular Tracking Technologies: Data Tools" />
+  
+  <meta name="twitter:description" content="This is a manual for the R data tools" />
+  
+
+<meta name="author" content="Jessica Gorzo" />
+
+
+<meta name="date" content="2021-05-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="intro.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">CTT Data Tools</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a></li>
+<li class="chapter" data-level="" data-path="prerequisites.html"><a href="prerequisites.html"><i class="fa fa-check"></i>Prerequisites</a><ul>
+<li class="chapter" data-level="" data-path="prerequisites.html"><a href="prerequisites.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#install-postgres"><i class="fa fa-check"></i><b>1.1</b> Install Postgres</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.2</b> Your Token</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.3</b> R script: api_run.R</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.4</b> Terminal</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html"><i class="fa fa-check"></i><b>2</b> Start Here: Example Scripts</a><ul>
+<li class="chapter" data-level="2.1" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#data-manager"><i class="fa fa-check"></i><b>2.1</b> Data Manager</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#load_datainfile"><i class="fa fa-check"></i><b>2.1.1</b> load_data(infile)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#node-health"><i class="fa fa-check"></i><b>2.2</b> Node Health</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#node_channel_plotshealth-freq"><i class="fa fa-check"></i><b>2.2.1</b> node_channel_plots(health, freq)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#v2_plotshealth-freq"><i class="fa fa-check"></i><b>2.2.2</b> v2_plots(health, freq)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#node_plotshealth-nodes-freq"><i class="fa fa-check"></i><b>2.2.3</b> node_plots(health, nodes, freq)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#gps_plotsgps-freq"><i class="fa fa-check"></i><b>2.2.4</b> gps_plots(gps, freq)</a></li>
+<li class="chapter" data-level="2.2.5" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#export_node_channel_plotshealth_data-freq-out_path-x-y-z"><i class="fa fa-check"></i><b>2.2.5</b> export_node_channel_plots(health_data, freq, out_path, x, y, z)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html#export_node_plotshealth_data-freq-out_path-x-y-z"><i class="fa fa-check"></i><b>2.2.6</b> export_node_plots(health_data, freq, out_path, x, y, z)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="localization-methods.html"><a href="localization-methods.html"><i class="fa fa-check"></i><b>3</b> Localization Methods</a><ul>
+<li class="chapter" data-level="3.1" data-path="localization-methods.html"><a href="localization-methods.html#primitive-weighted-average"><i class="fa fa-check"></i><b>3.1</b> Primitive: Weighted Average</a></li>
+<li class="chapter" data-level="3.2" data-path="localization-methods.html"><a href="localization-methods.html#triangulation-functions"><i class="fa fa-check"></i><b>3.2</b> Triangulation Functions</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="localization-methods.html"><a href="localization-methods.html#data-prep"><i class="fa fa-check"></i><b>3.2.1</b> Data Prep</a></li>
+<li class="chapter" data-level="3.2.2" data-path="localization-methods.html"><a href="localization-methods.html#calibration"><i class="fa fa-check"></i><b>3.2.2</b> Calibration</a></li>
+<li class="chapter" data-level="3.2.3" data-path="localization-methods.html"><a href="localization-methods.html#custom-distance-function"><i class="fa fa-check"></i><b>3.2.3</b> Custom Distance Function</a></li>
+<li class="chapter" data-level="3.2.4" data-path="localization-methods.html"><a href="localization-methods.html#triangulation"><i class="fa fa-check"></i><b>3.2.4</b> Triangulation</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Cellular Tracking Technologies: Data Tools</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="prerequisites" class="section level1 unnumbered">
+<h1>Prerequisites</h1>
+<p>This is a manual for the R tools hosted at <a href="https://github.com/cellular-tracking-technologies/data_tools">our GitHub repository</a>. A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you <a href="https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/">started with installing R and RStudio</a>.</p>
+<div id="how-to-use-github" class="section level2 unnumbered">
+<h2>How to use GitHub</h2>
+<ol style="list-style-type: decimal">
+<li>Create an <a href="https://github.com">account</a>.</li>
+<li>Work through chapters 6-12 <a href="https://happygitwithr.com/install-git.html">here</a> if you need to install git, and connect it all with RStudio:</li>
+<li>Follow the instructions (at least through 5) <a href="https://r-bio.github.io/intro-git-rstudio/">here</a> under “How to do this using RStudio and GitHub?”</li>
+</ol>
+<ul>
+<li>you don’t need to enter the backticks in the shell</li>
+<li>this example is a bit misleading because it doesn’t include the .git, copy the link to the clipboard like before</li>
+<li>RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>If you want to pull updates from here to your copy, see <a href="https://happygitwithr.com/upstream-changes.html#pull-changes-from-upstream">chapter 31</a>.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
