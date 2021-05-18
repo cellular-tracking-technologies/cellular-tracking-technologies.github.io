@@ -141,6 +141,10 @@ This is a manual for the R tools hosted at \href{https://github.com/cellular-tra
 \section*{How to use GitHub}\label{how-to-use-github}}
 \addcontentsline{toc}{section}{How to use GitHub}
 
+\hypertarget{getting-set-up}{%
+\subsection*{Getting Set Up}\label{getting-set-up}}
+\addcontentsline{toc}{subsection}{Getting Set Up}
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
@@ -149,17 +153,15 @@ This is a manual for the R tools hosted at \href{https://github.com/cellular-tra
 \item
   Work through chapters 6-12 \href{https://happygitwithr.com/install-git.html}{here} if you need to install git, and connect it all with RStudio:
 \item
-  Follow the instructions (at least through 5) \href{https://r-bio.github.io/intro-git-rstudio/}{here} under ``How to do this using RStudio and GitHub?''
+  Choose your own adventure from here: do you want the working branch you created synced with the main repository, or do you want your main branch synced? Once you've decided, move onto the next step.
 \end{enumerate}
 
 \begin{itemize}
 \tightlist
 \item
-  you don't need to enter the backticks in the shell
+  having your working branch synced makes sure you can easily pull the latest files into your work space, but to work around that you should make your own copies of files you alter to make sure files don't conflict when you pull updates\\
 \item
-  this example is a bit misleading because it doesn't include the .git, copy the link to the clipboard like before
-\item
-  RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL
+  having your main branch synced is a bit more of a conventional structure, and means that changes pulled won't automatically propagate to your working branch. you could e.g.~pull changes to the main branch, and use that as a reference to see what changes you want to pull into your working copy, and resolve conflicts before merging\\
 \end{itemize}
 
 \begin{enumerate}
@@ -167,8 +169,42 @@ This is a manual for the R tools hosted at \href{https://github.com/cellular-tra
 \setcounter{enumi}{3}
 \tightlist
 \item
+  Follow the instructions (at least through 5) \href{https://r-bio.github.io/intro-git-rstudio/}{here} under ``How to do this using RStudio and GitHub?''\\
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  you don't need to enter the back ticks in the shell\\
+\item
+  this example is a bit misleading because it doesn't include the .git, copy the link to the clipboard like before\\
+\item
+  RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL\\
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
   If you want to pull updates from here to your copy, see \href{https://happygitwithr.com/upstream-changes.html\#pull-changes-from-upstream}{chapter 31}.
 \end{enumerate}
+
+\hypertarget{result}{%
+\subsection*{Result}\label{result}}
+\addcontentsline{toc}{subsection}{Result}
+
+By following these instructions, you should now\ldots{}
+
+\begin{itemize}
+\tightlist
+\item
+  have a local copy of the repository\\
+\item
+  be working on your own branch\\
+\item
+  have an upstream connection to the main CTT repository
+\end{itemize}
 
 \hypertarget{intro}{%
 \chapter{API}\label{intro}}
@@ -176,9 +212,16 @@ This is a manual for the R tools hosted at \href{https://github.com/cellular-tra
 \hypertarget{install-postgres}{%
 \section{Install Postgres}\label{install-postgres}}
 
-If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.\\
-1. For simplicity, set your Postgres user name to be the same as your computer user name. Otherwise, you will need to pass it as an argument to the connection\\
-2. Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection
+If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  For simplicity, set your Postgres user name to be the same as your computer user name. Otherwise, you will need to pass it as an argument to the connection\\
+\item
+  Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection
+\end{enumerate}
 
 \hypertarget{your-token}{%
 \section{Your Token}\label{your-token}}

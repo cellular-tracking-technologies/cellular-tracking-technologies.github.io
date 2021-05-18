@@ -138,7 +138,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-set-up"><i class="fa fa-check"></i>Getting Set Up</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#result"><i class="fa fa-check"></i>Result</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#install-postgres"><i class="fa fa-check"></i><b>1.1</b> Install Postgres</a></li>
@@ -200,20 +203,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This is a manual for the R tools hosted at <a href="https://github.com/cellular-tracking-technologies/data_tools">our GitHub repository</a>. A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you <a href="https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/">started with installing R and RStudio</a>.</p>
 <div id="how-to-use-github" class="section level2 unnumbered">
 <h2>How to use GitHub</h2>
+<div id="getting-set-up" class="section level3 unnumbered">
+<h3>Getting Set Up</h3>
 <ol style="list-style-type: decimal">
 <li>Create an <a href="https://github.com">account</a>.</li>
 <li>Work through chapters 6-12 <a href="https://happygitwithr.com/install-git.html">here</a> if you need to install git, and connect it all with RStudio:</li>
-<li>Follow the instructions (at least through 5) <a href="https://r-bio.github.io/intro-git-rstudio/">here</a> under “How to do this using RStudio and GitHub?”</li>
+<li>Choose your own adventure from here: do you want the working branch you created synced with the main repository, or do you want your main branch synced? Once you’ve decided, move onto the next step.</li>
 </ol>
 <ul>
-<li>you don’t need to enter the backticks in the shell</li>
-<li>this example is a bit misleading because it doesn’t include the .git, copy the link to the clipboard like before</li>
-<li>RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL</li>
+<li>having your working branch synced makes sure you can easily pull the latest files into your work space, but to work around that you should make your own copies of files you alter to make sure files don’t conflict when you pull updates<br />
+</li>
+<li>having your main branch synced is a bit more of a conventional structure, and means that changes pulled won’t automatically propagate to your working branch. you could e.g. pull changes to the main branch, and use that as a reference to see what changes you want to pull into your working copy, and resolve conflicts before merging<br />
+</li>
 </ul>
 <ol start="4" style="list-style-type: decimal">
+<li>Follow the instructions (at least through 5) <a href="https://r-bio.github.io/intro-git-rstudio/">here</a> under “How to do this using RStudio and GitHub?”<br />
+</li>
+</ol>
+<ul>
+<li>you don’t need to enter the back ticks in the shell<br />
+</li>
+<li>this example is a bit misleading because it doesn’t include the .git, copy the link to the clipboard like before<br />
+</li>
+<li>RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL<br />
+</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
 <li>If you want to pull updates from here to your copy, see <a href="https://happygitwithr.com/upstream-changes.html#pull-changes-from-upstream">chapter 31</a>.</li>
 </ol>
+</div>
+<div id="result" class="section level3 unnumbered">
+<h3>Result</h3>
+<p>By following these instructions, you should now…</p>
+<ul>
+<li>have a local copy of the repository<br />
+</li>
+<li>be working on your own branch<br />
+</li>
+<li>have an upstream connection to the main CTT repository</li>
+</ul>
 
+</div>
 </div>
 </div>
             </section>

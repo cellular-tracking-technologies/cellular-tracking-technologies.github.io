@@ -2,6 +2,7 @@
 
 ## Install Postgres
 If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.  
+
 1. For simplicity, set your Postgres user name to be the same as your computer user name. Otherwise, you will need to pass it as an argument to the connection  
 2. Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection  
 
