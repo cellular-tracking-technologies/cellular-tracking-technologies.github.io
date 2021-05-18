@@ -9,6 +9,7 @@ biblio-style: apalike
 link-citations: yes
 github-repo: rstudio/bookdown-demo
 description: "This is a manual for the R data tools"
+favicon: "CTT-FB-logo-STACKED.jpg"
 ---
 ```{r, include=FALSE}
 options(tinytex.verbose = TRUE)
