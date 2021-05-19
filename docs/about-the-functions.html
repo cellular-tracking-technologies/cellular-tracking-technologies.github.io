@@ -200,15 +200,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.1.1</span> load_data</h3>
 <p><strong>Description</strong><br />
 Loads data</p>
-<p><strong>Usage</strong><br />
-load_data(directory_name=NULL, starttime=NULL, endtime=NULL, tags=NULL)</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="about-the-functions.html#cb1-1"></a><span class="kw">load_data</span>(<span class="dt">directory_name=</span><span class="ot">NULL</span>, <span class="dt">starttime=</span><span class="ot">NULL</span>, <span class="dt">endtime=</span><span class="ot">NULL</span>, <span class="dt">tags=</span><span class="ot">NULL</span>)  </span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>directory_name: the input folder can contain a miscellany of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e. csv.gz files are just fine as they are).<br />
 </li>
-<li>starttime: POSIXct<br />
+<li>starttime: start time in POSIXct<br />
 </li>
-<li>endtime: POSIXct<br />
+<li>endtime: end time in POSIXct<br />
 </li>
 <li>tags: a vector of tag IDs</li>
 </ul>
@@ -217,7 +217,7 @@ The function will return a nested list where each item corresponds to:<br />
 1. beep data<br />
 2. node health<br />
 3. GPS</p>
-<p>Within each list item, there is a list for a data frame and the hardware version. Also, a column “v” has been added to the raw files indicating the hardware version.</p>
+<p>Within each list item, there is a list for a data frame and the hardware version. Also, a column “v” has been added to each data frame indicating the hardware version.</p>
 </div>
 </div>
 <div id="node-health" class="section level2">
@@ -225,22 +225,21 @@ The function will return a nested list where each item corresponds to:<br />
 <div id="node_channel_plots" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> node_channel_plots</h3>
 <p><strong>Description</strong><br />
-This function is the “engine” behind the export function. You can run it standalone with the following parameters, but you don’t have to.</p>
-<p><strong>Usage</strong><br />
-node_channel_plots(health, freq, ids, lat=NULL, lon=NULL)</p>
+This function is the “engine” behind the export function. You can run it standalone with the following parameters, but you don’t have to if your sole goal is to output image files.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="about-the-functions.html#cb2-1"></a><span class="kw">node_channel_plots</span>(health, freq, ids, <span class="dt">lat=</span><span class="ot">NULL</span>, <span class="dt">lon=</span><span class="ot">NULL</span>)  </span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>health: the 2nd list item output by the load_data() function<br />
 </li>
 <li>freq: the time interval for which you want variables to be summarized<br />
 </li>
-<li>ids: the ID is of the format "<radio ID>_<Node ID>"<br />
+<li>ids: a vector of IDs; the ID is of the format "<radio ID>_<Node ID>"<br />
 </li>
-<li>lat: latitude<br />
-</li>
-<li>lon: longitude</li>
+<li>lat: latitude (optional to produce day/night shading)</li>
+<li>lon: longitude (optional to produce day/night shading)</li>
 </ul>
-<p><strong>Output</strong>
+<p><strong>Value</strong><br />
 The output is a nested list, where the top level is each combination of channel and node, and each item is a list of the following plots:</p>
 <ol style="list-style-type: decimal">
 <li>battery<br />
@@ -252,6 +251,7 @@ The output is a nested list, where the top level is each combination of channel 
 <li>scaled number of check-ins as line plot over scaled RSSI<br />
 </li>
 <li>box plot of node RSSI<br />
+THE FOLLOWING ONLY FOR V2<br />
 </li>
 <li>latitude<br />
 </li>
@@ -265,12 +265,12 @@ The output is a nested list, where the top level is each combination of channel 
 <div id="node_plots" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> node_plots</h3>
 <p><strong>Description</strong><br />
-NOTE: THIS ONLY WORKS FOR V2</p>
-<p><strong>Usage</strong><br />
-node_plots(health, nodes, freq, lat = NULL, lon = NULL)</p>
+A set of diagnostic plots per node</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="about-the-functions.html#cb3-1"></a><span class="kw">node_plots</span>(health, nodes, freq, <span class="dt">lat =</span> <span class="ot">NULL</span>, <span class="dt">lon =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
-<li>health: the 2nd dataframe output by the load_data() function<br />
+<li>health: the 2nd data frame output by the load_data() function<br />
 </li>
 <li>nodes: list of nodes<br />
 </li>
@@ -280,13 +280,15 @@ node_plots(health, nodes, freq, lat = NULL, lon = NULL)</p>
 </li>
 <li>lon: longitude</li>
 </ul>
-<p><strong>Output</strong> The output is a nested list for each node, with the following plots for each:</p>
+<p><strong>Value</strong><br />
+The output is a nested list for each node, with the following plots for each:</p>
 <ol style="list-style-type: decimal">
 <li>RSSI<br />
 </li>
 <li>number of check-ins<br />
 </li>
 <li>battery<br />
+THE FOLLOWING ONLY FOR V2<br />
 </li>
 <li>time mismatches<br />
 </li>
@@ -296,28 +298,33 @@ node_plots(health, nodes, freq, lat = NULL, lon = NULL)</p>
 <div id="gps_plots" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> gps_plots</h3>
 <p><strong>Description</strong><br />
-Plots to visualize some GPS data</p>
-<p><strong>Usage</strong><br />
-gps_plots(gps, freq)</p>
+Plots to visualize some GPS data. ONLY FOR V2 HARDWARE</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="about-the-functions.html#cb4-1"></a><span class="kw">gps_plots</span>(gps, freq)  </span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>gps: the 3rd data frame from the load_data() function<br />
 </li>
 <li>freq: the time interval of summary</li>
 </ul>
-<p><strong>Output</strong><br />
-1. altitude<br />
-2. number of fixes</p>
+<p><strong>Value</strong><br />
+A list of the following plots:</p>
+<ol style="list-style-type: decimal">
+<li>altitude<br />
+</li>
+<li>number of fixes</li>
+</ol>
 </div>
 <div id="export_node_channel_plots" class="section level3">
 <h3><span class="header-section-number">3.2.4</span> export_node_channel_plots</h3>
 <p><strong>Description</strong><br />
 Export plots of node x channel data</p>
-<p><strong>Usage</strong><br />
-export_node_channel_plots(plotlist=NULL,health,freq=“1 hour”,out_path=getwd(),whichplots = c(3,2,1))</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="about-the-functions.html#cb5-1"></a><span class="kw">export_node_channel_plots</span>(<span class="dt">plotlist=</span><span class="ot">NULL</span>,health,<span class="dt">freq=</span><span class="st">&quot;1 hour&quot;</span>,<span class="dt">out_path=</span><span class="kw">getwd</span>(),<span class="dt">whichplots =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
-<li>plotlist: allows you to pass the output of node_channel_plots() if you prefer</li>
+<li>plotlist: allows you to pass the output of node_channel_plots() if you prefer<br />
+</li>
 <li>health: the 2nd data frame output by the load_data() function<br />
 </li>
 <li>freq: the time interval for which you want variables to be summarized<br />
@@ -326,16 +333,19 @@ export_node_channel_plots(plotlist=NULL,health,freq=“1 hour”,out_path=getwd(
 </li>
 <li>whichplots: an index vector of of the available plots</li>
 </ul>
+<p><strong>Output</strong><br />
+This outputs a png for each input combination of node and channel.</p>
 </div>
 <div id="export_node_plots" class="section level3">
 <h3><span class="header-section-number">3.2.5</span> export_node_plots</h3>
 <p><strong>Description</strong><br />
-NOTE: THIS ONLY WORKS FOR V2<br />
-same as above; index for the plots can be chosen from the list under the node_plots() description<br />
-<strong>Usage</strong><br />
-export_node_plots(plotlist = NULL, health,freq,out_path=getwd(), x=2, y=3, z=1)</p>
+Same as above; index for the plots can be chosen from the list under the <code>node_plots()</code> description<br />
+<strong>Usage</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="about-the-functions.html#cb6-1"></a><span class="kw">export_node_plots</span>(<span class="dt">plotlist =</span> <span class="ot">NULL</span>, health,freq,<span class="dt">out_path=</span><span class="kw">getwd</span>(), <span class="dt">x=</span><span class="dv">2</span>, <span class="dt">y=</span><span class="dv">3</span>, <span class="dt">z=</span><span class="dv">1</span>)  </span></code></pre></div>
 <p><strong>Arguments</strong><br />
-To assign x, y and z, look at the description for node_channel_plots() and select those plot indices in the order you want them on the page.</p>
+To assign x, y and z, look at the description for <code>node_channel_plots()</code> and select those plot index in the order you want them on the page.</p>
+<p><strong>Output</strong><br />
+This outputs a png for each input node</p>
 
 </div>
 </div>

@@ -306,8 +306,13 @@ There is a sub-folder within this repo named ``functions'' which is full of, wel
 \textbf{Description}\\
 Loads data
 
-\textbf{Usage}\\
-load\_data(directory\_name=NULL, starttime=NULL, endtime=NULL, tags=NULL)
+\textbf{Usage}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load_data}\NormalTok{(}\DataTypeTok{directory_name=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{starttime=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{endtime=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{tags=}\OtherTok{NULL}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
 
 \textbf{Arguments}
 
@@ -316,9 +321,9 @@ load\_data(directory\_name=NULL, starttime=NULL, endtime=NULL, tags=NULL)
 \item
   directory\_name: the input folder can contain a miscellany of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e.~csv.gz files are just fine as they are).\\
 \item
-  starttime: POSIXct\\
+  starttime: start time in POSIXct\\
 \item
-  endtime: POSIXct\\
+  endtime: end time in POSIXct\\
 \item
   tags: a vector of tag IDs
 \end{itemize}
@@ -329,7 +334,7 @@ The function will return a nested list where each item corresponds to:\\
 2. node health\\
 3. GPS
 
-Within each list item, there is a list for a data frame and the hardware version. Also, a column ``v'' has been added to the raw files indicating the hardware version.
+Within each list item, there is a list for a data frame and the hardware version. Also, a column ``v'' has been added to each data frame indicating the hardware version.
 
 \hypertarget{node-health}{%
 \section{Node Health}\label{node-health}}
@@ -338,10 +343,15 @@ Within each list item, there is a list for a data frame and the hardware version
 \subsection{node\_channel\_plots}\label{node_channel_plots}}
 
 \textbf{Description}\\
-This function is the ``engine'' behind the export function. You can run it standalone with the following parameters, but you don't have to.
+This function is the ``engine'' behind the export function. You can run it standalone with the following parameters, but you don't have to if your sole goal is to output image files.
 
-\textbf{Usage}\\
-node\_channel\_plots(health, freq, ids, lat=NULL, lon=NULL)
+\textbf{Usage}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{node_channel_plots}\NormalTok{(health, freq, ids, }\DataTypeTok{lat=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{lon=}\OtherTok{NULL}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
 
 \textbf{Arguments}
 
@@ -352,14 +362,14 @@ node\_channel\_plots(health, freq, ids, lat=NULL, lon=NULL)
 \item
   freq: the time interval for which you want variables to be summarized\\
 \item
-  ids: the ID is of the format "\_"\\
+  ids: a vector of IDs; the ID is of the format "\_"\\
 \item
-  lat: latitude\\
+  lat: latitude (optional to produce day/night shading)
 \item
-  lon: longitude
+  lon: longitude (optional to produce day/night shading)
 \end{itemize}
 
-\textbf{Output}
+\textbf{Value}\\
 The output is a nested list, where the top level is each combination of channel and node, and each item is a list of the following plots:
 
 \begin{enumerate}
@@ -375,6 +385,7 @@ The output is a nested list, where the top level is each combination of channel 
   scaled number of check-ins as line plot over scaled RSSI\\
 \item
   box plot of node RSSI\\
+  THE FOLLOWING ONLY FOR V2\\
 \item
   latitude\\
 \item
@@ -389,17 +400,22 @@ The output is a nested list, where the top level is each combination of channel 
 \subsection{node\_plots}\label{node_plots}}
 
 \textbf{Description}\\
-NOTE: THIS ONLY WORKS FOR V2
+A set of diagnostic plots per node
 
-\textbf{Usage}\\
-node\_plots(health, nodes, freq, lat = NULL, lon = NULL)
+\textbf{Usage}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{node_plots}\NormalTok{(health, nodes, freq, }\DataTypeTok{lat =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{lon =} \OtherTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \textbf{Arguments}
 
 \begin{itemize}
 \tightlist
 \item
-  health: the 2nd dataframe output by the load\_data() function\\
+  health: the 2nd data frame output by the load\_data() function\\
 \item
   nodes: list of nodes\\
 \item
@@ -410,7 +426,8 @@ node\_plots(health, nodes, freq, lat = NULL, lon = NULL)
   lon: longitude
 \end{itemize}
 
-\textbf{Output} The output is a nested list for each node, with the following plots for each:
+\textbf{Value}\\
+The output is a nested list for each node, with the following plots for each:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -421,6 +438,7 @@ node\_plots(health, nodes, freq, lat = NULL, lon = NULL)
   number of check-ins\\
 \item
   battery\\
+  THE FOLLOWING ONLY FOR V2\\
 \item
   time mismatches\\
 \item
@@ -431,10 +449,15 @@ node\_plots(health, nodes, freq, lat = NULL, lon = NULL)
 \subsection{gps\_plots}\label{gps_plots}}
 
 \textbf{Description}\\
-Plots to visualize some GPS data
+Plots to visualize some GPS data. ONLY FOR V2 HARDWARE
 
-\textbf{Usage}\\
-gps\_plots(gps, freq)
+\textbf{Usage}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gps_plots}\NormalTok{(gps, freq)  }
+\end{Highlighting}
+\end{Shaded}
 
 \textbf{Arguments}
 
@@ -446,9 +469,17 @@ gps\_plots(gps, freq)
   freq: the time interval of summary
 \end{itemize}
 
-\textbf{Output}\\
-1. altitude\\
-2. number of fixes
+\textbf{Value}\\
+A list of the following plots:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  altitude\\
+\item
+  number of fixes
+\end{enumerate}
 
 \hypertarget{export_node_channel_plots}{%
 \subsection{export\_node\_channel\_plots}\label{export_node_channel_plots}}
@@ -456,15 +487,20 @@ gps\_plots(gps, freq)
 \textbf{Description}\\
 Export plots of node x channel data
 
-\textbf{Usage}\\
-export\_node\_channel\_plots(plotlist=NULL,health,freq=``1 hour'',out\_path=getwd(),whichplots = c(3,2,1))
+\textbf{Usage}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{export_node_channel_plots}\NormalTok{(}\DataTypeTok{plotlist=}\OtherTok{NULL}\NormalTok{,health,}\DataTypeTok{freq=}\StringTok{"1 hour"}\NormalTok{,}\DataTypeTok{out_path=}\KeywordTok{getwd}\NormalTok{(),}\DataTypeTok{whichplots =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
 
 \textbf{Arguments}
 
 \begin{itemize}
 \tightlist
 \item
-  plotlist: allows you to pass the output of node\_channel\_plots() if you prefer
+  plotlist: allows you to pass the output of node\_channel\_plots() if you prefer\\
 \item
   health: the 2nd data frame output by the load\_data() function\\
 \item
@@ -475,17 +511,27 @@ export\_node\_channel\_plots(plotlist=NULL,health,freq=``1 hour'',out\_path=getw
   whichplots: an index vector of of the available plots
 \end{itemize}
 
+\textbf{Output}\\
+This outputs a png for each input combination of node and channel.
+
 \hypertarget{export_node_plots}{%
 \subsection{export\_node\_plots}\label{export_node_plots}}
 
 \textbf{Description}\\
-NOTE: THIS ONLY WORKS FOR V2\\
-same as above; index for the plots can be chosen from the list under the node\_plots() description\\
-\textbf{Usage}\\
-export\_node\_plots(plotlist = NULL, health,freq,out\_path=getwd(), x=2, y=3, z=1)
+Same as above; index for the plots can be chosen from the list under the \texttt{node\_plots()} description\\
+\textbf{Usage}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{export_node_plots}\NormalTok{(}\DataTypeTok{plotlist =} \OtherTok{NULL}\NormalTok{, health,freq,}\DataTypeTok{out_path=}\KeywordTok{getwd}\NormalTok{(), }\DataTypeTok{x=}\DecValTok{2}\NormalTok{, }\DataTypeTok{y=}\DecValTok{3}\NormalTok{, }\DataTypeTok{z=}\DecValTok{1}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
 
 \textbf{Arguments}\\
-To assign x, y and z, look at the description for node\_channel\_plots() and select those plot indices in the order you want them on the page.
+To assign x, y and z, look at the description for \texttt{node\_channel\_plots()} and select those plot index in the order you want them on the page.
+
+\textbf{Output}\\
+This outputs a png for each input node
 
 \hypertarget{localization-methods}{%
 \chapter{Localization Methods}\label{localization-methods}}
@@ -493,19 +539,45 @@ To assign x, y and z, look at the description for node\_channel\_plots() and sel
 \hypertarget{primitive-weighted-average}{%
 \section{Primitive: Weighted Average}\label{primitive-weighted-average}}
 
-This is simply a weighted average based on number of beeps on a node and max. RSSI values. It takes the following mandatory arguments:
+\textbf{Description}\\
+This is simply a weighted average based on number of beeps on a node and max. RSSI values.
+
+\textbf{Usage}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{weighted_average}\NormalTok{(freq, beeps, node, }\DataTypeTok{node_health=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{MAX_NODES=}\DecValTok{0}\NormalTok{, }\DataTypeTok{tag_id=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{calibrate =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{keep_cols =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{latlng =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{minRSSI =} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Arguments}
 
 \begin{itemize}
 \tightlist
 \item
-  freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g.~``3 min'')\\
+  freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g.~\texttt{"3\ min"})\\
 \item
-  beep\_data: raw beep data frame (e.g.~all\_data{[}{[}1{]}{]}{[}{[}1{]}{]} from example.R)\\
+  beep\_data: raw beep data frame (e.g.~\texttt{all\_data{[}{[}1{]}{]}{[}{[}1{]}{]}} from example.R)\\
 \item
-  node: read in node file
+  node: read in node file\\
+\item
+  node\_health: node health data frame
+\item
+  MAX\_NODES: the max number of nodes that should contribute to a localization. default = 0 means all nodes
+\item
+  tag\_id: a vector of tags to calculate locations for
+\item
+  calibrate: the session ID if you want to calculate over the entire duration a tag was left at a point
+\item
+  keep\_cols: if there are valuable columns that shouldn't be dropped
+\item
+  latlng: BUGGY DO NOT USE YET
+\item
+  minRSSI: the minimum RSSI of data used for the location estimate
 \end{itemize}
 
-locations \textless- weighted\_average(freq = ``3 min'', beep\_data, node = nodes, node\_health, 0, tags)
+\textbf{Value}\\
+A SpatialPointsDataFrame of estimated locations
 
 \hypertarget{triangulation-functions}{%
 \section{Triangulation Functions}\label{triangulation-functions}}
@@ -513,17 +585,36 @@ locations \textless- weighted\_average(freq = ``3 min'', beep\_data, node = node
 \hypertarget{data-prep}{%
 \subsection{Data Prep}\label{data-prep}}
 
+\textbf{Description}\\
 This function prepares beep data to be input into the triangulation.
+
+\textbf{Usage}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{input <-}\StringTok{ }\KeywordTok{loc_prep}\NormalTok{(beep_data, nodes, freq)  }
+\KeywordTok{loc_prep}\NormalTok{(beep_data, nodes, freq) }
 \end{Highlighting}
 \end{Shaded}
+
+\textbf{Arguments}
+
+\begin{itemize}
+\tightlist
+\item
+  beep\_data: beep data frame\\
+\item
+  nodes: node file\\
+\item
+  freq: interval to calculate locations over
+\end{itemize}
+
+\textbf{Value}\\
+A data frame that can be used as input to the \texttt{triangulate()} function
 
 \hypertarget{calibration}{%
 \subsection{Calibration}\label{calibration}}
 
+\textbf{Description}\\
 This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.
 
 The calibration data frame needs the following column names:
@@ -546,40 +637,108 @@ The calibration data frame needs the following column names:
   TagLng: longitude of the point
 \end{itemize}
 
-The option \texttt{calibrate\ =\ TRUE} is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass \texttt{calibrate\ =\ FALSE,\ freq\ =\ \textless{}interval\textgreater{}} for the time interval of interest.
+\textbf{Usage}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{calibrated <-}\StringTok{ }\KeywordTok{calibrate}\NormalTok{(beep_data, calibration, nodes, }\DataTypeTok{calibrate =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{calibrate}\NormalTok{(beep_data, calibration, nodes, }\DataTypeTok{calibrate =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{freq =} \StringTok{"3 min"}\NormalTok{, }\DataTypeTok{max_nodes =} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-This function returns a list, the items of which are\ldots{}\\
-1. data frame to be input into the triangulation\\
-2. a (see below)\\
-3. S (see below)\\
-4. K (see below)
+\textbf{Arguments}\\
+The option \texttt{calibrate\ =\ TRUE} is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass \texttt{calibrate\ =\ FALSE,\ freq\ =\ \textless{}interval\textgreater{}} for the time interval of interest.
+
+\begin{itemize}
+\tightlist
+\item
+  beep\_data: beep data frame\\
+\item
+  calibration: data frame described above\\
+\item
+  nodes: node file\\
+\item
+  calibrate: whether or not the entire time interval a tag was at a point should be used for the estimation
+\item
+  freq: alternatively, specify an interval for location estimation
+\item
+  max\_nodes: how many nodes should contribute? default = 0 means all nodes
+\end{itemize}
+
+\textbf{Value}\\
+This function returns a list, the items of which are\ldots{}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  data frame to be input into the triangulation\\
+\item
+  a (see below)\\
+\item
+  S (see below)\\
+\item
+  K (see below)
+\end{enumerate}
 
 \hypertarget{custom-distance-function}{%
 \subsection{Custom Distance Function}\label{custom-distance-function}}
 
-You can pass a custom distance function, in the form of a string, that represents the relationship between RSSI and distance for your system. The string is the right side of the formula, where the left side is distance. The string needs to contain \texttt{x} which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:
+\textbf{Description}\\
+You can pass a custom distance function to the triangulation, in the form of a string, that represents the relationship between RSSI and distance for your system. The string that you pass is the right side of the formula, where the left side is distance. The string needs to contain \texttt{x} which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:
+
+\textbf{Usage}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{relation <-}\StringTok{ }\KeywordTok{relate}\NormalTok{(calibrated[[}\DecValTok{2}\NormalTok{]], calibrated[[}\DecValTok{3}\NormalTok{]], calibrated[[}\DecValTok{4}\NormalTok{]])}
+\KeywordTok{relate}\NormalTok{(a, S, K)}
 \end{Highlighting}
 \end{Shaded}
+
+\textbf{Arguments}\\
+These are fitted coefficients from an \texttt{SSasymp()} model relating distance to RSSI
+
+\begin{itemize}
+\tightlist
+\item
+  a = R0 e.g.~the 2nd item returned from the calibrate function\\
+\item
+  S = exp(lrc) e.g.~the 3rd item returned from the calibrate function\\
+\item
+  K = Aysm e.g.~the 4th item returned from the calibrate function
+\end{itemize}
+
+\textbf{Value}\\
+Inspect that string if you would like to instead create your own (e.g.~for tag-wise calibration)
 
 \hypertarget{triangulation}{%
 \subsection{Triangulation}\label{triangulation}}
 
-This performs the triangulation with an input dataframe and defined distance relationship.
+\textbf{Description}\\
+This performs the triangulation with an input data frame and defined distance relationship.
+
+\textbf{Usage}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{out <-}\StringTok{ }\KeywordTok{triangulate}\NormalTok{(calibrated[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{distance =}\NormalTok{ relation)}
+\KeywordTok{triangulate}\NormalTok{(all_data, }\DataTypeTok{rssi =} \DecValTok{-100}\NormalTok{, }\DataTypeTok{node =} \DecValTok{3}\NormalTok{, }\DataTypeTok{distance =}\NormalTok{ relation)}
 \end{Highlighting}
 \end{Shaded}
+
+\textbf{Arguments}
+
+\begin{itemize}
+\tightlist
+\item
+  all\_data: a formatted data frame, such as the output from \texttt{loc\_prep()} or the data frame returned by \texttt{calibrate()}\\
+\item
+  rssi: the minimum RSSI threshold to incorporate data into the location calculation\\
+\item
+  node: the maximum number of nodes to contribute to the calculation\\
+\item
+  distance: a string representing the right side of a formula relating RSSI to distance, where distance is the left side and RSSI is \texttt{x} in the string
+\end{itemize}
+
+\textbf{Value}\\
+A data frame with estimated locations and error
 
 \end{document}

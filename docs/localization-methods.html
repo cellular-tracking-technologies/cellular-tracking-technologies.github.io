@@ -195,26 +195,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 4</span> Localization Methods</h1>
 <div id="primitive-weighted-average" class="section level2">
 <h2><span class="header-section-number">4.1</span> Primitive: Weighted Average</h2>
-<p>This is simply a weighted average based on number of beeps on a node and max. RSSI values. It takes the following mandatory arguments:</p>
+<p><strong>Description</strong><br />
+This is simply a weighted average based on number of beeps on a node and max. RSSI values.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="localization-methods.html#cb7-1"></a><span class="kw">weighted_average</span>(freq, beeps, node, <span class="dt">node_health=</span><span class="ot">NULL</span>, <span class="dt">MAX_NODES=</span><span class="dv">0</span>, <span class="dt">tag_id=</span><span class="ot">NULL</span>, <span class="dt">calibrate =</span> <span class="ot">NULL</span>, <span class="dt">keep_cols =</span> <span class="ot">NULL</span>, <span class="dt">latlng =</span> <span class="ot">TRUE</span>, <span class="dt">minRSSI =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><strong>Arguments</strong></p>
 <ul>
-<li>freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g. “3 min”)<br />
+<li>freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g. <code>"3 min"</code>)<br />
 </li>
-<li>beep_data: raw beep data frame (e.g. all_data[[1]][[1]] from example.R)<br />
+<li>beep_data: raw beep data frame (e.g. <code>all_data[[1]][[1]]</code> from example.R)<br />
 </li>
-<li>node: read in node file</li>
+<li>node: read in node file<br />
+</li>
+<li>node_health: node health data frame</li>
+<li>MAX_NODES: the max number of nodes that should contribute to a localization. default = 0 means all nodes</li>
+<li>tag_id: a vector of tags to calculate locations for</li>
+<li>calibrate: the session ID if you want to calculate over the entire duration a tag was left at a point</li>
+<li>keep_cols: if there are valuable columns that shouldn’t be dropped</li>
+<li>latlng: BUGGY DO NOT USE YET</li>
+<li>minRSSI: the minimum RSSI of data used for the location estimate</li>
 </ul>
-<p>locations &lt;- weighted_average(freq = “3 min”, beep_data, node = nodes, node_health, 0, tags)</p>
+<p><strong>Value</strong><br />
+A SpatialPointsDataFrame of estimated locations</p>
 </div>
 <div id="triangulation-functions" class="section level2">
 <h2><span class="header-section-number">4.2</span> Triangulation Functions</h2>
 <div id="data-prep" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Data Prep</h3>
-<p>This function prepares beep data to be input into the triangulation.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="localization-methods.html#cb1-1"></a>input &lt;-<span class="st"> </span><span class="kw">loc_prep</span>(beep_data, nodes, freq)  </span></code></pre></div>
+<p><strong>Description</strong><br />
+This function prepares beep data to be input into the triangulation.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="localization-methods.html#cb8-1"></a><span class="kw">loc_prep</span>(beep_data, nodes, freq) </span></code></pre></div>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>beep_data: beep data frame<br />
+</li>
+<li>nodes: node file<br />
+</li>
+<li>freq: interval to calculate locations over</li>
+</ul>
+<p><strong>Value</strong><br />
+A data frame that can be used as input to the <code>triangulate()</code> function</p>
 </div>
 <div id="calibration" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Calibration</h3>
-<p>This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
+<p><strong>Description</strong><br />
+This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
 <p>The calibration data frame needs the following column names:</p>
 <ul>
 <li>pt: this can be any identifier for a given location used in the calibration<br />
@@ -231,23 +257,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 <li>TagLng: longitude of the point</li>
 </ul>
-<p>The option <code>calibrate = TRUE</code> is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass <code>calibrate = FALSE, freq = &lt;interval&gt;</code> for the time interval of interest.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="localization-methods.html#cb2-1"></a>calibrated &lt;-<span class="st"> </span><span class="kw">calibrate</span>(beep_data, calibration, nodes, <span class="dt">calibrate =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p>This function returns a list, the items of which are…<br />
-1. data frame to be input into the triangulation<br />
-2. a (see below)<br />
-3. S (see below)<br />
-4. K (see below)</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="localization-methods.html#cb9-1"></a><span class="kw">calibrate</span>(beep_data, calibration, nodes, <span class="dt">calibrate =</span> <span class="ot">TRUE</span>, <span class="dt">freq =</span> <span class="st">&quot;3 min&quot;</span>, <span class="dt">max_nodes =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><strong>Arguments</strong><br />
+The option <code>calibrate = TRUE</code> is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass <code>calibrate = FALSE, freq = &lt;interval&gt;</code> for the time interval of interest.</p>
+<ul>
+<li>beep_data: beep data frame<br />
+</li>
+<li>calibration: data frame described above<br />
+</li>
+<li>nodes: node file<br />
+</li>
+<li>calibrate: whether or not the entire time interval a tag was at a point should be used for the estimation</li>
+<li>freq: alternatively, specify an interval for location estimation</li>
+<li>max_nodes: how many nodes should contribute? default = 0 means all nodes</li>
+</ul>
+<p><strong>Value</strong><br />
+This function returns a list, the items of which are…</p>
+<ol style="list-style-type: decimal">
+<li>data frame to be input into the triangulation<br />
+</li>
+<li>a (see below)<br />
+</li>
+<li>S (see below)<br />
+</li>
+<li>K (see below)</li>
+</ol>
 </div>
 <div id="custom-distance-function" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Custom Distance Function</h3>
-<p>You can pass a custom distance function, in the form of a string, that represents the relationship between RSSI and distance for your system. The string is the right side of the formula, where the left side is distance. The string needs to contain <code>x</code> which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="localization-methods.html#cb3-1"></a>relation &lt;-<span class="st"> </span><span class="kw">relate</span>(calibrated[[<span class="dv">2</span>]], calibrated[[<span class="dv">3</span>]], calibrated[[<span class="dv">4</span>]])</span></code></pre></div>
+<p><strong>Description</strong><br />
+You can pass a custom distance function to the triangulation, in the form of a string, that represents the relationship between RSSI and distance for your system. The string that you pass is the right side of the formula, where the left side is distance. The string needs to contain <code>x</code> which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="localization-methods.html#cb10-1"></a><span class="kw">relate</span>(a, S, K)</span></code></pre></div>
+<p><strong>Arguments</strong><br />
+These are fitted coefficients from an <code>SSasymp()</code> model relating distance to RSSI</p>
+<ul>
+<li>a = R0 e.g. the 2nd item returned from the calibrate function<br />
+</li>
+<li>S = exp(lrc) e.g. the 3rd item returned from the calibrate function<br />
+</li>
+<li>K = Aysm e.g. the 4th item returned from the calibrate function</li>
+</ul>
+<p><strong>Value</strong><br />
+Inspect that string if you would like to instead create your own (e.g. for tag-wise calibration)</p>
 </div>
 <div id="triangulation" class="section level3">
 <h3><span class="header-section-number">4.2.4</span> Triangulation</h3>
-<p>This performs the triangulation with an input dataframe and defined distance relationship.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="localization-methods.html#cb4-1"></a>out &lt;-<span class="st"> </span><span class="kw">triangulate</span>(calibrated[[<span class="dv">1</span>]], <span class="dt">distance =</span> relation)</span></code></pre></div>
+<p><strong>Description</strong><br />
+This performs the triangulation with an input data frame and defined distance relationship.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="localization-methods.html#cb11-1"></a><span class="kw">triangulate</span>(all_data, <span class="dt">rssi =</span> <span class="dv">-100</span>, <span class="dt">node =</span> <span class="dv">3</span>, <span class="dt">distance =</span> relation)</span></code></pre></div>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>all_data: a formatted data frame, such as the output from <code>loc_prep()</code> or the data frame returned by <code>calibrate()</code><br />
+</li>
+<li>rssi: the minimum RSSI threshold to incorporate data into the location calculation<br />
+</li>
+<li>node: the maximum number of nodes to contribute to the calculation<br />
+</li>
+<li>distance: a string representing the right side of a formula relating RSSI to distance, where distance is the left side and RSSI is <code>x</code> in the string</li>
+</ul>
+<p><strong>Value</strong><br />
+A data frame with estimated locations and error</p>
 
 </div>
 </div>
