@@ -3,6 +3,7 @@
 ## Primitive: Weighted Average  
 
 This is simply a weighted average based on number of beeps on a node and max. RSSI values. It takes the following mandatory arguments:  
+
 * freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g. "3 min")  
 * beep_data: raw beep data frame (e.g. all_data[[1]][[1]] from example.R)  
 * node: read in node file  
@@ -23,6 +24,7 @@ input <- loc_prep(beep_data, nodes, freq)
 This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance. 
 
 The calibration data frame needs the following column names:  
+
 * pt: this can be any identifier for a given location used in the calibration  
 * session_id: this can be any identifier for the time period the tag was at this spot  
 * start: the beginning of the time interval when the tag was placed at the point, in POSIXct UTC  

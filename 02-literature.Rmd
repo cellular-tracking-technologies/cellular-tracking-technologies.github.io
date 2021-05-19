@@ -9,50 +9,72 @@ I suggest making your own copy of these scripts, renaming them, and modifying th
 There is a sub-folder within this repo named "functions" which is full of, well, scripts that contain functions! You'll notice they're often called (via source()) at the top of the example scripts. This loads in the custom functions that I have written to handle CTT data. Ultimately, these will be rolled into an R package.
 
 ## Data Manager
-### load_data(infile)
-**Input**  
-The input folder ("infile") can contain any melange of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e. csv.gz files are just fine as they are).  
+### load_data
+**Description**  
+Loads data  
 
-**Output**  
-The function will return a list of 3 dataframes from the files in the folder you give it:  
+**Usage**  
+load_data(directory_name=NULL, starttime=NULL, endtime=NULL, tags=NULL)  
+
+**Arguments**  
+
+* directory_name: the input folder can contain a miscellany of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e. csv.gz files are just fine as they are).  
+* starttime: POSIXct  
+* endtime: POSIXct  
+* tags: a vector of tag IDs  
+
+**Value**  
+The function will return a nested list where each item corresponds to:  
 1. beep data  
 2. node health  
 3. GPS  
 
+Within each list item, there is a list for a data frame and the hardware version. Also, a column "v" has been added to the raw files indicating the hardware version.  
+
 ## Node Health  
-### node_channel_plots(health, freq)  
+### node_channel_plots  
+**Description**  
 This function is the "engine" behind the export function. You can run it standalone with the following parameters, but you don't have to.  
 
-**Input**  
-1. health: the 2nd dataframe output by the load_data() function  
-2. freq: the time interval for which you want variables to be summarized  
+**Usage**  
+node_channel_plots(health, freq, ids, lat=NULL, lon=NULL)  
+
+**Arguments**  
+
+* health: the 2nd list item output by the load_data() function  
+* freq: the time interval for which you want variables to be summarized  
+* ids: the ID is of the format "<radio ID>_<Node ID>"  
+* lat: latitude  
+* lon: longitude  
 
 **Output**
-The output is a nested list for each combination of channel and node, with the following plots for each:  
+The output is a nested list, where the top level is each combination of channel and node, and each item is a list of the following plots:  
 
 1. battery  
 2. RSSI  
 3. number of check-ins  
 4. scaled number of check-ins as line plot over scaled RSSI  
 5. box plot of node RSSI  
+6. latitude  
+7. longitude  
+8. scaled RSSI  
+9. dispersion  
 
-### v2_plots(health, freq)  
-**Input**  
-1. health: the 2nd dataframe output by the load_data() function  
-2. freq: the time interval for which you want variables to be summarized  
-**Output** The output is a nested list for each combination of channel and node, with the following plots for each:   
-
-1. latitude  
-2. longitude  
-3. RSSI  
-4. dispersion  
-
-### node_plots(health, nodes, freq)  
+### node_plots
+**Description**  
 NOTE: THIS ONLY WORKS FOR V2  
-**Input**  
-1. health: the 2nd dataframe output by the load_data() function  
-2. nodes: list of nodes  
-3. freq: the time interval for which you want variables to be summarized  
+
+**Usage**  
+node_plots(health, nodes, freq, lat = NULL, lon = NULL)
+ 
+**Arguments**  
+
+* health: the 2nd dataframe output by the load_data() function  
+* nodes: list of nodes  
+* freq: the time interval for which you want variables to be summarized  
+* lat: latitude  
+* lon: longitude  
+
 **Output** The output is a nested list for each node, with the following plots for each:  
 
 1. RSSI  
@@ -61,25 +83,45 @@ NOTE: THIS ONLY WORKS FOR V2
 4. time mismatches  
 5. small time mismatches  
 
-### gps_plots(gps, freq)  
-**Input**  
-1. gps: the 3rd data frame from the load_data() function  
-2. freq: the time interval of summary  
-**Output**  
+### gps_plots  
+**Description**  
+Plots to visualize some GPS data  
+
+**Usage**  
+gps_plots(gps, freq)  
+
+**Arguments**  
+
+* gps: the 3rd data frame from the load_data() function  
+* freq: the time interval of summary  
+
+**Value**  
+A list of the following plots:  
+
 1. altitude  
 2. number of fixes  
 
-### export_node_channel_plots(health_data, freq, out_path, x, y, z)  
-**Input**  
-1. health_data: the 2nd dataframe output by the load_data() function  
-2. freq: the time interval for which you want variables to be summarized  
-3. out_path: where you want your plots to go  
-4. x: the plot for the 1st panel  
-5. y: the plot for the 2nd panel  
-6. z: the plot for the 3rd panel  
+### export_node_channel_plots
+**Description**  
+Export plots of node x channel data  
 
-To assign x, y and z, look at the description for node_channel_plots() and select those plot indices in the order you want them on the page.  
+**Usage**  
+export_node_channel_plots(plotlist=NULL,health,freq="1 hour",out_path=getwd(),whichplots = c(3,2,1))
 
-### export_node_plots(health_data, freq, out_path, x, y, z)  
+**Arguments**  
+
+* plotlist: allows you to pass the output of node_channel_plots() if you prefer
+* health: the 2nd data frame output by the load_data() function  
+* freq: the time interval for which you want variables to be summarized  
+* out_path: where you want your plots to go  
+* whichplots: an index vector of of the available plots
+
+### export_node_plots  
+**Description**  
 NOTE: THIS ONLY WORKS FOR V2  
-same as above; indices for the plots can be chosen from the list under the node_plots() description  
+same as above; index for the plots can be chosen from the list under the node_plots() description  
+**Usage**  
+export_node_plots(plotlist = NULL, health,freq,out_path=getwd(), x=2, y=3, z=1)  
+
+**Arguments**  
+To assign x, y and z, look at the description for node_channel_plots() and select those plot indices in the order you want them on the page.  

@@ -120,7 +120,7 @@
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2021-05-18}
+\date{2021-05-19}
 
 \begin{document}
 \maketitle
@@ -300,32 +300,67 @@ There is a sub-folder within this repo named ``functions'' which is full of, wel
 \hypertarget{data-manager}{%
 \section{Data Manager}\label{data-manager}}
 
-\hypertarget{load_datainfile}{%
-\subsection{load\_data(infile)}\label{load_datainfile}}
+\hypertarget{load_data}{%
+\subsection{load\_data}\label{load_data}}
 
-\textbf{Input}\\
-The input folder (``infile'') can contain any melange of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e.~csv.gz files are just fine as they are).
+\textbf{Description}\\
+Loads data
 
-\textbf{Output}\\
-The function will return a list of 3 dataframes from the files in the folder you give it:\\
+\textbf{Usage}\\
+load\_data(directory\_name=NULL, starttime=NULL, endtime=NULL, tags=NULL)
+
+\textbf{Arguments}
+
+\begin{itemize}
+\tightlist
+\item
+  directory\_name: the input folder can contain a miscellany of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e.~csv.gz files are just fine as they are).\\
+\item
+  starttime: POSIXct\\
+\item
+  endtime: POSIXct\\
+\item
+  tags: a vector of tag IDs
+\end{itemize}
+
+\textbf{Value}\\
+The function will return a nested list where each item corresponds to:\\
 1. beep data\\
 2. node health\\
 3. GPS
 
+Within each list item, there is a list for a data frame and the hardware version. Also, a column ``v'' has been added to the raw files indicating the hardware version.
+
 \hypertarget{node-health}{%
 \section{Node Health}\label{node-health}}
 
-\hypertarget{node_channel_plotshealth-freq}{%
-\subsection{node\_channel\_plots(health, freq)}\label{node_channel_plotshealth-freq}}
+\hypertarget{node_channel_plots}{%
+\subsection{node\_channel\_plots}\label{node_channel_plots}}
 
+\textbf{Description}\\
 This function is the ``engine'' behind the export function. You can run it standalone with the following parameters, but you don't have to.
 
-\textbf{Input}\\
-1. health: the 2nd dataframe output by the load\_data() function\\
-2. freq: the time interval for which you want variables to be summarized
+\textbf{Usage}\\
+node\_channel\_plots(health, freq, ids, lat=NULL, lon=NULL)
+
+\textbf{Arguments}
+
+\begin{itemize}
+\tightlist
+\item
+  health: the 2nd list item output by the load\_data() function\\
+\item
+  freq: the time interval for which you want variables to be summarized\\
+\item
+  ids: the ID is of the format "\_"\\
+\item
+  lat: latitude\\
+\item
+  lon: longitude
+\end{itemize}
 
 \textbf{Output}
-The output is a nested list for each combination of channel and node, with the following plots for each:
+The output is a nested list, where the top level is each combination of channel and node, and each item is a list of the following plots:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -339,38 +374,42 @@ The output is a nested list for each combination of channel and node, with the f
 \item
   scaled number of check-ins as line plot over scaled RSSI\\
 \item
-  box plot of node RSSI
-\end{enumerate}
-
-\hypertarget{v2_plotshealth-freq}{%
-\subsection{v2\_plots(health, freq)}\label{v2_plotshealth-freq}}
-
-\textbf{Input}\\
-1. health: the 2nd dataframe output by the load\_data() function\\
-2. freq: the time interval for which you want variables to be summarized\\
-\textbf{Output} The output is a nested list for each combination of channel and node, with the following plots for each:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
+  box plot of node RSSI\\
 \item
   latitude\\
 \item
   longitude\\
 \item
-  RSSI\\
+  scaled RSSI\\
 \item
   dispersion
 \end{enumerate}
 
-\hypertarget{node_plotshealth-nodes-freq}{%
-\subsection{node\_plots(health, nodes, freq)}\label{node_plotshealth-nodes-freq}}
+\hypertarget{node_plots}{%
+\subsection{node\_plots}\label{node_plots}}
 
-NOTE: THIS ONLY WORKS FOR V2\\
-\textbf{Input}\\
-1. health: the 2nd dataframe output by the load\_data() function\\
-2. nodes: list of nodes\\
-3. freq: the time interval for which you want variables to be summarized\\
+\textbf{Description}\\
+NOTE: THIS ONLY WORKS FOR V2
+
+\textbf{Usage}\\
+node\_plots(health, nodes, freq, lat = NULL, lon = NULL)
+
+\textbf{Arguments}
+
+\begin{itemize}
+\tightlist
+\item
+  health: the 2nd dataframe output by the load\_data() function\\
+\item
+  nodes: list of nodes\\
+\item
+  freq: the time interval for which you want variables to be summarized\\
+\item
+  lat: latitude\\
+\item
+  lon: longitude
+\end{itemize}
+
 \textbf{Output} The output is a nested list for each node, with the following plots for each:
 
 \begin{enumerate}
@@ -388,34 +427,65 @@ NOTE: THIS ONLY WORKS FOR V2\\
   small time mismatches
 \end{enumerate}
 
-\hypertarget{gps_plotsgps-freq}{%
-\subsection{gps\_plots(gps, freq)}\label{gps_plotsgps-freq}}
+\hypertarget{gps_plots}{%
+\subsection{gps\_plots}\label{gps_plots}}
 
-\textbf{Input}\\
-1. gps: the 3rd data frame from the load\_data() function\\
-2. freq: the time interval of summary\\
+\textbf{Description}\\
+Plots to visualize some GPS data
+
+\textbf{Usage}\\
+gps\_plots(gps, freq)
+
+\textbf{Arguments}
+
+\begin{itemize}
+\tightlist
+\item
+  gps: the 3rd data frame from the load\_data() function\\
+\item
+  freq: the time interval of summary
+\end{itemize}
+
 \textbf{Output}\\
 1. altitude\\
 2. number of fixes
 
-\hypertarget{export_node_channel_plotshealth_data-freq-out_path-x-y-z}{%
-\subsection{export\_node\_channel\_plots(health\_data, freq, out\_path, x, y, z)}\label{export_node_channel_plotshealth_data-freq-out_path-x-y-z}}
+\hypertarget{export_node_channel_plots}{%
+\subsection{export\_node\_channel\_plots}\label{export_node_channel_plots}}
 
-\textbf{Input}\\
-1. health\_data: the 2nd dataframe output by the load\_data() function\\
-2. freq: the time interval for which you want variables to be summarized\\
-3. out\_path: where you want your plots to go\\
-4. x: the plot for the 1st panel\\
-5. y: the plot for the 2nd panel\\
-6. z: the plot for the 3rd panel
+\textbf{Description}\\
+Export plots of node x channel data
 
-To assign x, y and z, look at the description for node\_channel\_plots() and select those plot indices in the order you want them on the page.
+\textbf{Usage}\\
+export\_node\_channel\_plots(plotlist=NULL,health,freq=``1 hour'',out\_path=getwd(),whichplots = c(3,2,1))
 
-\hypertarget{export_node_plotshealth_data-freq-out_path-x-y-z}{%
-\subsection{export\_node\_plots(health\_data, freq, out\_path, x, y, z)}\label{export_node_plotshealth_data-freq-out_path-x-y-z}}
+\textbf{Arguments}
 
+\begin{itemize}
+\tightlist
+\item
+  plotlist: allows you to pass the output of node\_channel\_plots() if you prefer
+\item
+  health: the 2nd data frame output by the load\_data() function\\
+\item
+  freq: the time interval for which you want variables to be summarized\\
+\item
+  out\_path: where you want your plots to go\\
+\item
+  whichplots: an index vector of of the available plots
+\end{itemize}
+
+\hypertarget{export_node_plots}{%
+\subsection{export\_node\_plots}\label{export_node_plots}}
+
+\textbf{Description}\\
 NOTE: THIS ONLY WORKS FOR V2\\
-same as above; indices for the plots can be chosen from the list under the node\_plots() description
+same as above; index for the plots can be chosen from the list under the node\_plots() description\\
+\textbf{Usage}\\
+export\_node\_plots(plotlist = NULL, health,freq,out\_path=getwd(), x=2, y=3, z=1)
+
+\textbf{Arguments}\\
+To assign x, y and z, look at the description for node\_channel\_plots() and select those plot indices in the order you want them on the page.
 
 \hypertarget{localization-methods}{%
 \chapter{Localization Methods}\label{localization-methods}}
@@ -423,10 +493,17 @@ same as above; indices for the plots can be chosen from the list under the node\
 \hypertarget{primitive-weighted-average}{%
 \section{Primitive: Weighted Average}\label{primitive-weighted-average}}
 
-This is simply a weighted average based on number of beeps on a node and max. RSSI values. It takes the following mandatory arguments:\\
-* freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g.~``3 min'')\\
-* beep\_data: raw beep data frame (e.g.~all\_data{[}{[}1{]}{]}{[}{[}1{]}{]} from example.R)\\
-* node: read in node file
+This is simply a weighted average based on number of beeps on a node and max. RSSI values. It takes the following mandatory arguments:
+
+\begin{itemize}
+\tightlist
+\item
+  freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g.~``3 min'')\\
+\item
+  beep\_data: raw beep data frame (e.g.~all\_data{[}{[}1{]}{]}{[}{[}1{]}{]} from example.R)\\
+\item
+  node: read in node file
+\end{itemize}
 
 locations \textless- weighted\_average(freq = ``3 min'', beep\_data, node = nodes, node\_health, 0, tags)
 
@@ -449,14 +526,25 @@ This function prepares beep data to be input into the triangulation.
 
 This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.
 
-The calibration data frame needs the following column names:\\
-* pt: this can be any identifier for a given location used in the calibration\\
-* session\_id: this can be any identifier for the time period the tag was at this spot\\
-* start: the beginning of the time interval when the tag was placed at the point, in POSIXct UTC\\
-* end: the end of the time interval when the tag was placed at the point, in POSIXct UTC\\
-* TagId: the tag ID left at the point\\
-* TagLat: latitude of the point\\
-* TagLng: longitude of the point
+The calibration data frame needs the following column names:
+
+\begin{itemize}
+\tightlist
+\item
+  pt: this can be any identifier for a given location used in the calibration\\
+\item
+  session\_id: this can be any identifier for the time period the tag was at this spot\\
+\item
+  start: the beginning of the time interval when the tag was placed at the point, in POSIXct UTC\\
+\item
+  end: the end of the time interval when the tag was placed at the point, in POSIXct UTC\\
+\item
+  TagId: the tag ID left at the point\\
+\item
+  TagLat: latitude of the point\\
+\item
+  TagLng: longitude of the point
+\end{itemize}
 
 The option \texttt{calibrate\ =\ TRUE} is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass \texttt{calibrate\ =\ FALSE,\ freq\ =\ \textless{}interval\textgreater{}} for the time interval of interest.
 

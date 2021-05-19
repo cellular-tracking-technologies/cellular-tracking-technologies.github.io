@@ -24,7 +24,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2021-05-18" />
+<meta name="date" content="2021-05-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -152,15 +152,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html"><i class="fa fa-check"></i><b>2</b> Start Here: Example Scripts</a></li>
 <li class="chapter" data-level="3" data-path="about-the-functions.html"><a href="about-the-functions.html"><i class="fa fa-check"></i><b>3</b> About the Functions</a><ul>
 <li class="chapter" data-level="3.1" data-path="about-the-functions.html"><a href="about-the-functions.html#data-manager"><i class="fa fa-check"></i><b>3.1</b> Data Manager</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="about-the-functions.html"><a href="about-the-functions.html#load_datainfile"><i class="fa fa-check"></i><b>3.1.1</b> load_data(infile)</a></li>
+<li class="chapter" data-level="3.1.1" data-path="about-the-functions.html"><a href="about-the-functions.html#load_data"><i class="fa fa-check"></i><b>3.1.1</b> load_data</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="about-the-functions.html"><a href="about-the-functions.html#node-health"><i class="fa fa-check"></i><b>3.2</b> Node Health</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="about-the-functions.html"><a href="about-the-functions.html#node_channel_plotshealth-freq"><i class="fa fa-check"></i><b>3.2.1</b> node_channel_plots(health, freq)</a></li>
-<li class="chapter" data-level="3.2.2" data-path="about-the-functions.html"><a href="about-the-functions.html#v2_plotshealth-freq"><i class="fa fa-check"></i><b>3.2.2</b> v2_plots(health, freq)</a></li>
-<li class="chapter" data-level="3.2.3" data-path="about-the-functions.html"><a href="about-the-functions.html#node_plotshealth-nodes-freq"><i class="fa fa-check"></i><b>3.2.3</b> node_plots(health, nodes, freq)</a></li>
-<li class="chapter" data-level="3.2.4" data-path="about-the-functions.html"><a href="about-the-functions.html#gps_plotsgps-freq"><i class="fa fa-check"></i><b>3.2.4</b> gps_plots(gps, freq)</a></li>
-<li class="chapter" data-level="3.2.5" data-path="about-the-functions.html"><a href="about-the-functions.html#export_node_channel_plotshealth_data-freq-out_path-x-y-z"><i class="fa fa-check"></i><b>3.2.5</b> export_node_channel_plots(health_data, freq, out_path, x, y, z)</a></li>
-<li class="chapter" data-level="3.2.6" data-path="about-the-functions.html"><a href="about-the-functions.html#export_node_plotshealth_data-freq-out_path-x-y-z"><i class="fa fa-check"></i><b>3.2.6</b> export_node_plots(health_data, freq, out_path, x, y, z)</a></li>
+<li class="chapter" data-level="3.2.1" data-path="about-the-functions.html"><a href="about-the-functions.html#node_channel_plots"><i class="fa fa-check"></i><b>3.2.1</b> node_channel_plots</a></li>
+<li class="chapter" data-level="3.2.2" data-path="about-the-functions.html"><a href="about-the-functions.html#node_plots"><i class="fa fa-check"></i><b>3.2.2</b> node_plots</a></li>
+<li class="chapter" data-level="3.2.3" data-path="about-the-functions.html"><a href="about-the-functions.html#gps_plots"><i class="fa fa-check"></i><b>3.2.3</b> gps_plots</a></li>
+<li class="chapter" data-level="3.2.4" data-path="about-the-functions.html"><a href="about-the-functions.html#export_node_channel_plots"><i class="fa fa-check"></i><b>3.2.4</b> export_node_channel_plots</a></li>
+<li class="chapter" data-level="3.2.5" data-path="about-the-functions.html"><a href="about-the-functions.html#export_node_plots"><i class="fa fa-check"></i><b>3.2.5</b> export_node_plots</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="localization-methods.html"><a href="localization-methods.html"><i class="fa fa-check"></i><b>4</b> Localization Methods</a><ul>
@@ -196,10 +195,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 4</span> Localization Methods</h1>
 <div id="primitive-weighted-average" class="section level2">
 <h2><span class="header-section-number">4.1</span> Primitive: Weighted Average</h2>
-<p>This is simply a weighted average based on number of beeps on a node and max. RSSI values. It takes the following mandatory arguments:<br />
-* freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g. “3 min”)<br />
-* beep_data: raw beep data frame (e.g. all_data[[1]][[1]] from example.R)<br />
-* node: read in node file</p>
+<p>This is simply a weighted average based on number of beeps on a node and max. RSSI values. It takes the following mandatory arguments:</p>
+<ul>
+<li>freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g. “3 min”)<br />
+</li>
+<li>beep_data: raw beep data frame (e.g. all_data[[1]][[1]] from example.R)<br />
+</li>
+<li>node: read in node file</li>
+</ul>
 <p>locations &lt;- weighted_average(freq = “3 min”, beep_data, node = nodes, node_health, 0, tags)</p>
 </div>
 <div id="triangulation-functions" class="section level2">
@@ -212,14 +215,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="calibration" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Calibration</h3>
 <p>This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
-<p>The calibration data frame needs the following column names:<br />
-* pt: this can be any identifier for a given location used in the calibration<br />
-* session_id: this can be any identifier for the time period the tag was at this spot<br />
-* start: the beginning of the time interval when the tag was placed at the point, in POSIXct UTC<br />
-* end: the end of the time interval when the tag was placed at the point, in POSIXct UTC<br />
-* TagId: the tag ID left at the point<br />
-* TagLat: latitude of the point<br />
-* TagLng: longitude of the point</p>
+<p>The calibration data frame needs the following column names:</p>
+<ul>
+<li>pt: this can be any identifier for a given location used in the calibration<br />
+</li>
+<li>session_id: this can be any identifier for the time period the tag was at this spot<br />
+</li>
+<li>start: the beginning of the time interval when the tag was placed at the point, in POSIXct UTC<br />
+</li>
+<li>end: the end of the time interval when the tag was placed at the point, in POSIXct UTC<br />
+</li>
+<li>TagId: the tag ID left at the point<br />
+</li>
+<li>TagLat: latitude of the point<br />
+</li>
+<li>TagLng: longitude of the point</li>
+</ul>
 <p>The option <code>calibrate = TRUE</code> is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass <code>calibrate = FALSE, freq = &lt;interval&gt;</code> for the time interval of interest.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="localization-methods.html#cb2-1"></a>calibrated &lt;-<span class="st"> </span><span class="kw">calibrate</span>(beep_data, calibration, nodes, <span class="dt">calibrate =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>This function returns a list, the items of which are…<br />
