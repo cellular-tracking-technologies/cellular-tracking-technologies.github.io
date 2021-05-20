@@ -120,7 +120,7 @@
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2021-05-19}
+\date{2021-05-20}
 
 \begin{document}
 \maketitle
@@ -615,7 +615,7 @@ A data frame that can be used as input to the \texttt{triangulate()} function
 \subsection{Calibration}\label{calibration}}
 
 \textbf{Description}\\
-This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.
+You can go this route if you e.g.~left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.
 
 The calibration data frame needs the following column names:
 
@@ -714,7 +714,7 @@ Inspect that string if you would like to instead create your own (e.g.~for tag-w
 \subsection{Triangulation}\label{triangulation}}
 
 \textbf{Description}\\
-This performs the triangulation with an input data frame and defined distance relationship.
+This performs the triangulation with an input data frame and defined distance relationship. You could e.g.~fit a relationship between distance and RSSI based on your calibration work.
 
 \textbf{Usage}
 
