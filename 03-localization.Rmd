@@ -52,7 +52,7 @@ You can go this route if you e.g. left tags at a known location in your grid for
 The calibration data frame needs the following column names:  
 
 * pt: this can be any identifier for a given location used in the calibration  
-* session_id: this can be any identifier for the time period the tag was at this spot  
+* session_id: a character row identifier
 * start: the beginning of the time interval when the tag was placed at the point, in POSIXct UTC  
 * end: the end of the time interval when the tag was placed at the point, in POSIXct UTC  
 * TagId: the tag ID left at the point  
