@@ -263,6 +263,7 @@ In order to best use the triangulation approach, calibration needs to be perform
 <li>simulations of movement and different orientations</li>
 </ul>
 <p><strong>Node Calibration</strong> Tags at varying orientations a fixed distance from each node.</p>
+<p>To extend the application by <span class="citation"><a href="#ref-bircher2020extraterritorial" role="doc-biblioref">Bircher et al.</a> (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>, the latter could be used to adjust RSSI values per node.</p>
 <p><strong>Usage</strong><br />
 NOTE: This function returns a single relationship for the entire input! The example code to date also demonstrates the output of 1 distance ~ RSSI relationship. In order to calibrate per tag, it will be necessary to modify your code to loop over (e.g. apply) each tag ID, sub-setting your input data accordingly.</p>
 <p>You can also use this function if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
