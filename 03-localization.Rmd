@@ -31,10 +31,11 @@ A SpatialPointsDataFrame of estimated locations
 **Description**  
 In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the [supplementary material](https://academic.oup.com/beheco/article/31/4/873/5840921?login=true#supplementary-data) of @bircher2020extraterritorial. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).
 
-**Tag Calibration**
-* transects to cover differently vegetated areas of the study site
-* varying tag height at each distance along the transect
-* simulations of movement and different orientations
+**Tag Calibration**  
+
+* transects to cover differently vegetated areas of the study site  
+* varying tag height at each distance along the transect  
+* simulations of movement and different orientations  
 
 **Node Calibration** Tags at varying orientations a fixed distance from each node.
 
