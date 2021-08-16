@@ -27,26 +27,11 @@ A SpatialPointsDataFrame of estimated locations
 
 ## Triangulation Functions  
 
-### Data Prep  
-**Description**  
-This function prepares beep data to be input into the triangulation.    
-
-**Usage**  
-```{r eval=FALSE}
-loc_prep(beep_data, nodes, freq) 
-```
-
-**Arguments**  
-
-* beep_data: beep data frame  
-* nodes: node file  
-* freq: interval to calculate locations over  
-
-**Value**  
-A data frame that can be used as input to the `triangulate()` function  
-
 ### Calibration  
 **Description**  
+In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance. An example of how to calibrate your system can be found in the supplementary material of @bircher2020extraterritorial .
+
+**Usage**  
 When to use: you can go this route if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.  
 
 The calibration data frame needs the following column names:  
@@ -57,9 +42,7 @@ The calibration data frame needs the following column names:
 * end: the end of the time interval when the tag was placed at the point, in POSIXct UTC  
 * TagId: the tag ID left at the point  
 * TagLat: latitude of the point  
-* TagLng: longitude of the point  
-
-**Usage**  
+* TagLng: longitude of the point 
 ```{r eval=FALSE}
 calibrate(beep_data, calibration, nodes, calibrate = TRUE, freq = "3 min", max_nodes = 0)
 ```
@@ -100,6 +83,24 @@ These are fitted coefficients from an `SSasymp()` model relating distance to RSS
 
 **Value**  
 Inspect that string if you would like to instead create your own (e.g. for tag-wise calibration)  
+
+### Data Prep  
+**Description**  
+This function prepares beep data to be input into the triangulation.    
+
+**Usage**  
+```{r eval=FALSE}
+loc_prep(beep_data, nodes, freq) 
+```
+
+**Arguments**  
+
+* beep_data: beep data frame  
+* nodes: node file  
+* freq: interval to calculate locations over  
+
+**Value**  
+A data frame that can be used as input to the `triangulate()` function  
 
 ### Triangulation  
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2021-05-28" />
+<meta name="date" content="2021-08-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,8 @@
   
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
 <link rel="prev" href="about-the-functions.html"/>
-
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,24 +51,23 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +87,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -120,6 +120,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -137,24 +159,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">CTT Data Tools</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-set-up"><i class="fa fa-check"></i>Getting Set Up</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#result"><i class="fa fa-check"></i>Result</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a><ul>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#install-postgres"><i class="fa fa-check"></i><b>1.1</b> Install Postgres</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.2</b> Your Token</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.3</b> R script: api_run.R</a></li>
 <li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.4</b> Terminal</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html"><i class="fa fa-check"></i><b>2</b> Start Here: Example Scripts</a></li>
-<li class="chapter" data-level="3" data-path="about-the-functions.html"><a href="about-the-functions.html"><i class="fa fa-check"></i><b>3</b> About the Functions</a><ul>
-<li class="chapter" data-level="3.1" data-path="about-the-functions.html"><a href="about-the-functions.html#data-manager"><i class="fa fa-check"></i><b>3.1</b> Data Manager</a><ul>
+<li class="chapter" data-level="3" data-path="about-the-functions.html"><a href="about-the-functions.html"><i class="fa fa-check"></i><b>3</b> About the Functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="about-the-functions.html"><a href="about-the-functions.html#data-manager"><i class="fa fa-check"></i><b>3.1</b> Data Manager</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="about-the-functions.html"><a href="about-the-functions.html#load_data"><i class="fa fa-check"></i><b>3.1.1</b> load_data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="about-the-functions.html"><a href="about-the-functions.html#node-health"><i class="fa fa-check"></i><b>3.2</b> Node Health</a><ul>
+<li class="chapter" data-level="3.2" data-path="about-the-functions.html"><a href="about-the-functions.html#node-health"><i class="fa fa-check"></i><b>3.2</b> Node Health</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="about-the-functions.html"><a href="about-the-functions.html#node_channel_plots"><i class="fa fa-check"></i><b>3.2.1</b> node_channel_plots</a></li>
 <li class="chapter" data-level="3.2.2" data-path="about-the-functions.html"><a href="about-the-functions.html#node_plots"><i class="fa fa-check"></i><b>3.2.2</b> node_plots</a></li>
 <li class="chapter" data-level="3.2.3" data-path="about-the-functions.html"><a href="about-the-functions.html#gps_plots"><i class="fa fa-check"></i><b>3.2.3</b> gps_plots</a></li>
@@ -162,15 +190,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.5" data-path="about-the-functions.html"><a href="about-the-functions.html#export_node_plots"><i class="fa fa-check"></i><b>3.2.5</b> export_node_plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="localization-methods.html"><a href="localization-methods.html"><i class="fa fa-check"></i><b>4</b> Localization Methods</a><ul>
+<li class="chapter" data-level="4" data-path="localization-methods.html"><a href="localization-methods.html"><i class="fa fa-check"></i><b>4</b> Localization Methods</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="localization-methods.html"><a href="localization-methods.html#primitive-weighted-average"><i class="fa fa-check"></i><b>4.1</b> Primitive: Weighted Average</a></li>
-<li class="chapter" data-level="4.2" data-path="localization-methods.html"><a href="localization-methods.html#triangulation-functions"><i class="fa fa-check"></i><b>4.2</b> Triangulation Functions</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="localization-methods.html"><a href="localization-methods.html#data-prep"><i class="fa fa-check"></i><b>4.2.1</b> Data Prep</a></li>
-<li class="chapter" data-level="4.2.2" data-path="localization-methods.html"><a href="localization-methods.html#calibration"><i class="fa fa-check"></i><b>4.2.2</b> Calibration</a></li>
-<li class="chapter" data-level="4.2.3" data-path="localization-methods.html"><a href="localization-methods.html#custom-distance-function"><i class="fa fa-check"></i><b>4.2.3</b> Custom Distance Function</a></li>
+<li class="chapter" data-level="4.2" data-path="localization-methods.html"><a href="localization-methods.html#triangulation-functions"><i class="fa fa-check"></i><b>4.2</b> Triangulation Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="localization-methods.html"><a href="localization-methods.html#calibration"><i class="fa fa-check"></i><b>4.2.1</b> Calibration</a></li>
+<li class="chapter" data-level="4.2.2" data-path="localization-methods.html"><a href="localization-methods.html#custom-distance-function"><i class="fa fa-check"></i><b>4.2.2</b> Custom Distance Function</a></li>
+<li class="chapter" data-level="4.2.3" data-path="localization-methods.html"><a href="localization-methods.html#data-prep"><i class="fa fa-check"></i><b>4.2.3</b> Data Prep</a></li>
 <li class="chapter" data-level="4.2.4" data-path="localization-methods.html"><a href="localization-methods.html#triangulation"><i class="fa fa-check"></i><b>4.2.4</b> Triangulation</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -191,14 +222,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="localization-methods" class="section level1">
+<div id="localization-methods" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Localization Methods</h1>
-<div id="primitive-weighted-average" class="section level2">
+<div id="primitive-weighted-average" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Primitive: Weighted Average</h2>
 <p><strong>Description</strong><br />
 This is simply a weighted average based on number of beeps on a node and max. RSSI values.</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="localization-methods.html#cb7-1"></a><span class="kw">weighted_average</span>(freq, beeps, node, <span class="dt">node_health=</span><span class="ot">NULL</span>, <span class="dt">MAX_NODES=</span><span class="dv">0</span>, <span class="dt">tag_id=</span><span class="ot">NULL</span>, <span class="dt">calibrate =</span> <span class="ot">NULL</span>, <span class="dt">keep_cols =</span> <span class="ot">NULL</span>, <span class="dt">latlng =</span> <span class="ot">TRUE</span>, <span class="dt">minRSSI =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="localization-methods.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted_average</span>(freq, beeps, node, <span class="at">node_health=</span><span class="cn">NULL</span>, <span class="at">MAX_NODES=</span><span class="dv">0</span>, <span class="at">tag_id=</span><span class="cn">NULL</span>, <span class="at">calibrate =</span> <span class="cn">NULL</span>, <span class="at">keep_cols =</span> <span class="cn">NULL</span>, <span class="at">latlng =</span> <span class="cn">TRUE</span>, <span class="at">minRSSI =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g. <code>"3 min"</code>)<br />
@@ -218,28 +249,13 @@ This is simply a weighted average based on number of beeps on a node and max. RS
 <p><strong>Value</strong><br />
 A SpatialPointsDataFrame of estimated locations</p>
 </div>
-<div id="triangulation-functions" class="section level2">
+<div id="triangulation-functions" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Triangulation Functions</h2>
-<div id="data-prep" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Data Prep</h3>
+<div id="calibration" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Calibration</h3>
 <p><strong>Description</strong><br />
-This function prepares beep data to be input into the triangulation.</p>
-<p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="localization-methods.html#cb8-1"></a><span class="kw">loc_prep</span>(beep_data, nodes, freq) </span></code></pre></div>
-<p><strong>Arguments</strong></p>
-<ul>
-<li>beep_data: beep data frame<br />
-</li>
-<li>nodes: node file<br />
-</li>
-<li>freq: interval to calculate locations over</li>
-</ul>
-<p><strong>Value</strong><br />
-A data frame that can be used as input to the <code>triangulate()</code> function</p>
-</div>
-<div id="calibration" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Calibration</h3>
-<p><strong>Description</strong><br />
+In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance. An example of how to calibrate your system can be found in the supplementary material of <span class="citation"><a href="#ref-bircher2020extraterritorial" role="doc-biblioref">Bircher et al.</a> (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span> .</p>
+<p><strong>Usage</strong><br />
 When to use: you can go this route if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
 <p>The calibration data frame needs the following column names:</p>
 <ul>
@@ -256,8 +272,7 @@ When to use: you can go this route if you e.g. left tags at a known location in
 </li>
 <li>TagLng: longitude of the point</li>
 </ul>
-<p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="localization-methods.html#cb9-1"></a><span class="kw">calibrate</span>(beep_data, calibration, nodes, <span class="dt">calibrate =</span> <span class="ot">TRUE</span>, <span class="dt">freq =</span> <span class="st">&quot;3 min&quot;</span>, <span class="dt">max_nodes =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="localization-methods.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calibrate</span>(beep_data, calibration, nodes, <span class="at">calibrate =</span> <span class="cn">TRUE</span>, <span class="at">freq =</span> <span class="st">&quot;3 min&quot;</span>, <span class="at">max_nodes =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><strong>Arguments</strong><br />
 The option <code>calibrate = TRUE</code> is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass <code>calibrate = FALSE, freq = &lt;interval&gt;</code> for the time interval of interest.</p>
 <ul>
@@ -283,12 +298,12 @@ This function returns a list, the items of which are…</p>
 <li>K (see below)</li>
 </ol>
 </div>
-<div id="custom-distance-function" class="section level3">
-<h3><span class="header-section-number">4.2.3</span> Custom Distance Function</h3>
+<div id="custom-distance-function" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Custom Distance Function</h3>
 <p><strong>Description</strong><br />
 You can pass a custom distance function to the triangulation, in the form of a string, that represents the relationship between RSSI and distance for your system. The string that you pass is the right side of the formula, where the left side is distance. The string needs to contain <code>x</code> which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="localization-methods.html#cb10-1"></a><span class="kw">relate</span>(a, S, K)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="localization-methods.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">relate</span>(a, S, K)</span></code></pre></div>
 <p><strong>Arguments</strong><br />
 These are fitted coefficients from an <code>SSasymp()</code> model relating distance to RSSI</p>
 <ul>
@@ -301,12 +316,29 @@ These are fitted coefficients from an <code>SSasymp()</code> model relating dist
 <p><strong>Value</strong><br />
 Inspect that string if you would like to instead create your own (e.g. for tag-wise calibration)</p>
 </div>
-<div id="triangulation" class="section level3">
+<div id="data-prep" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Data Prep</h3>
+<p><strong>Description</strong><br />
+This function prepares beep data to be input into the triangulation.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="localization-methods.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loc_prep</span>(beep_data, nodes, freq) </span></code></pre></div>
+<p><strong>Arguments</strong></p>
+<ul>
+<li>beep_data: beep data frame<br />
+</li>
+<li>nodes: node file<br />
+</li>
+<li>freq: interval to calculate locations over</li>
+</ul>
+<p><strong>Value</strong><br />
+A data frame that can be used as input to the <code>triangulate()</code> function</p>
+</div>
+<div id="triangulation" class="section level3" number="4.2.4">
 <h3><span class="header-section-number">4.2.4</span> Triangulation</h3>
 <p><strong>Description</strong><br />
 This performs the triangulation with an input data frame and defined distance relationship. You could e.g. fit a relationship between distance and RSSI based on your calibration work.</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="localization-methods.html#cb11-1"></a><span class="kw">triangulate</span>(all_data, <span class="dt">rssi =</span> <span class="dv">-100</span>, <span class="dt">node =</span> <span class="dv">3</span>, <span class="dt">distance =</span> relation)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="localization-methods.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">triangulate</span>(all_data, <span class="at">rssi =</span> <span class="sc">-</span><span class="dv">100</span>, <span class="at">node =</span> <span class="dv">3</span>, <span class="at">distance =</span> relation)</span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>all_data: a formatted data frame, such as the output from <code>loc_prep()</code> or the data frame returned by <code>calibrate()</code><br />
@@ -323,13 +355,19 @@ A data frame with estimated locations and error</p>
 </div>
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bircher2020extraterritorial" class="csl-entry">
+Bircher, Nina, Kees van Oers, Camilla A Hinde, and Marc Naguib. 2020. <span>“Extraterritorial Forays by Great Tits Are Associated with Dawn Song in Unexpected Ways.”</span> <em>Behavioral Ecology</em> 31 (4): 873–83.
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="about-the-functions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="about-the-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

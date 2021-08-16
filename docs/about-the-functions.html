@@ -24,7 +24,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2021-05-28" />
+<meta name="date" content="2021-08-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
 <link rel="prev" href="start-here-example-scripts.html"/>
 <link rel="next" href="localization-methods.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,24 +51,23 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +87,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -120,6 +120,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -137,24 +159,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">CTT Data Tools</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-set-up"><i class="fa fa-check"></i>Getting Set Up</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#result"><i class="fa fa-check"></i>Result</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a><ul>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#install-postgres"><i class="fa fa-check"></i><b>1.1</b> Install Postgres</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.2</b> Your Token</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.3</b> R script: api_run.R</a></li>
 <li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.4</b> Terminal</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html"><i class="fa fa-check"></i><b>2</b> Start Here: Example Scripts</a></li>
-<li class="chapter" data-level="3" data-path="about-the-functions.html"><a href="about-the-functions.html"><i class="fa fa-check"></i><b>3</b> About the Functions</a><ul>
-<li class="chapter" data-level="3.1" data-path="about-the-functions.html"><a href="about-the-functions.html#data-manager"><i class="fa fa-check"></i><b>3.1</b> Data Manager</a><ul>
+<li class="chapter" data-level="3" data-path="about-the-functions.html"><a href="about-the-functions.html"><i class="fa fa-check"></i><b>3</b> About the Functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="about-the-functions.html"><a href="about-the-functions.html#data-manager"><i class="fa fa-check"></i><b>3.1</b> Data Manager</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="about-the-functions.html"><a href="about-the-functions.html#load_data"><i class="fa fa-check"></i><b>3.1.1</b> load_data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="about-the-functions.html"><a href="about-the-functions.html#node-health"><i class="fa fa-check"></i><b>3.2</b> Node Health</a><ul>
+<li class="chapter" data-level="3.2" data-path="about-the-functions.html"><a href="about-the-functions.html#node-health"><i class="fa fa-check"></i><b>3.2</b> Node Health</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="about-the-functions.html"><a href="about-the-functions.html#node_channel_plots"><i class="fa fa-check"></i><b>3.2.1</b> node_channel_plots</a></li>
 <li class="chapter" data-level="3.2.2" data-path="about-the-functions.html"><a href="about-the-functions.html#node_plots"><i class="fa fa-check"></i><b>3.2.2</b> node_plots</a></li>
 <li class="chapter" data-level="3.2.3" data-path="about-the-functions.html"><a href="about-the-functions.html#gps_plots"><i class="fa fa-check"></i><b>3.2.3</b> gps_plots</a></li>
@@ -162,15 +190,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.5" data-path="about-the-functions.html"><a href="about-the-functions.html#export_node_plots"><i class="fa fa-check"></i><b>3.2.5</b> export_node_plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="localization-methods.html"><a href="localization-methods.html"><i class="fa fa-check"></i><b>4</b> Localization Methods</a><ul>
+<li class="chapter" data-level="4" data-path="localization-methods.html"><a href="localization-methods.html"><i class="fa fa-check"></i><b>4</b> Localization Methods</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="localization-methods.html"><a href="localization-methods.html#primitive-weighted-average"><i class="fa fa-check"></i><b>4.1</b> Primitive: Weighted Average</a></li>
-<li class="chapter" data-level="4.2" data-path="localization-methods.html"><a href="localization-methods.html#triangulation-functions"><i class="fa fa-check"></i><b>4.2</b> Triangulation Functions</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="localization-methods.html"><a href="localization-methods.html#data-prep"><i class="fa fa-check"></i><b>4.2.1</b> Data Prep</a></li>
-<li class="chapter" data-level="4.2.2" data-path="localization-methods.html"><a href="localization-methods.html#calibration"><i class="fa fa-check"></i><b>4.2.2</b> Calibration</a></li>
-<li class="chapter" data-level="4.2.3" data-path="localization-methods.html"><a href="localization-methods.html#custom-distance-function"><i class="fa fa-check"></i><b>4.2.3</b> Custom Distance Function</a></li>
+<li class="chapter" data-level="4.2" data-path="localization-methods.html"><a href="localization-methods.html#triangulation-functions"><i class="fa fa-check"></i><b>4.2</b> Triangulation Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="localization-methods.html"><a href="localization-methods.html#calibration"><i class="fa fa-check"></i><b>4.2.1</b> Calibration</a></li>
+<li class="chapter" data-level="4.2.2" data-path="localization-methods.html"><a href="localization-methods.html#custom-distance-function"><i class="fa fa-check"></i><b>4.2.2</b> Custom Distance Function</a></li>
+<li class="chapter" data-level="4.2.3" data-path="localization-methods.html"><a href="localization-methods.html#data-prep"><i class="fa fa-check"></i><b>4.2.3</b> Data Prep</a></li>
 <li class="chapter" data-level="4.2.4" data-path="localization-methods.html"><a href="localization-methods.html#triangulation"><i class="fa fa-check"></i><b>4.2.4</b> Triangulation</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -191,17 +222,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="about-the-functions" class="section level1">
+<div id="about-the-functions" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> About the Functions</h1>
 <p>There is a sub-folder within this repo named “functions” which is full of, well, scripts that contain functions! You’ll notice they’re often called (via source()) at the top of the example scripts. This loads in the custom functions that I have written to handle CTT data. Ultimately, these will be rolled into an R package.</p>
-<div id="data-manager" class="section level2">
+<div id="data-manager" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Data Manager</h2>
-<div id="load_data" class="section level3">
+<div id="load_data" class="section level3" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> load_data</h3>
 <p><strong>Description</strong><br />
 Loads data</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="about-the-functions.html#cb1-1"></a><span class="kw">load_data</span>(<span class="dt">directory_name=</span><span class="ot">NULL</span>, <span class="dt">starttime=</span><span class="ot">NULL</span>, <span class="dt">endtime=</span><span class="ot">NULL</span>, <span class="dt">tags=</span><span class="ot">NULL</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="about-the-functions.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_data</span>(<span class="at">directory_name=</span><span class="cn">NULL</span>, <span class="at">starttime=</span><span class="cn">NULL</span>, <span class="at">endtime=</span><span class="cn">NULL</span>, <span class="at">tags=</span><span class="cn">NULL</span>)  </span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>directory_name: the input folder can contain a miscellany of raw downloaded files from the sensor station (beep data, node health, GPS) all in the same folder or subfolders. Zipped folders need to be unzipped, but compressed files do not (i.e. csv.gz files are just fine as they are).<br />
@@ -220,14 +251,14 @@ The function will return a nested list where each item corresponds to:<br />
 <p>Within each list item, there is a list for a data frame and the hardware version. Also, a column “v” has been added to each data frame indicating the hardware version.</p>
 </div>
 </div>
-<div id="node-health" class="section level2">
+<div id="node-health" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Node Health</h2>
-<div id="node_channel_plots" class="section level3">
+<div id="node_channel_plots" class="section level3" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> node_channel_plots</h3>
 <p><strong>Description</strong><br />
 This function is the “engine” behind the export function. You can run it standalone with the following parameters, but you don’t have to if your sole goal is to output image files.</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="about-the-functions.html#cb2-1"></a><span class="kw">node_channel_plots</span>(health, freq, ids, <span class="dt">lat=</span><span class="ot">NULL</span>, <span class="dt">lon=</span><span class="ot">NULL</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="about-the-functions.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">node_channel_plots</span>(health, freq, ids, <span class="at">lat=</span><span class="cn">NULL</span>, <span class="at">lon=</span><span class="cn">NULL</span>)  </span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>health: the 2nd list item output by the load_data() function<br />
@@ -262,12 +293,12 @@ THE FOLLOWING ONLY FOR V2<br />
 <li>dispersion</li>
 </ol>
 </div>
-<div id="node_plots" class="section level3">
+<div id="node_plots" class="section level3" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> node_plots</h3>
 <p><strong>Description</strong><br />
 A set of diagnostic plots per node</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="about-the-functions.html#cb3-1"></a><span class="kw">node_plots</span>(health, nodes, freq, <span class="dt">lat =</span> <span class="ot">NULL</span>, <span class="dt">lon =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="about-the-functions.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">node_plots</span>(health, nodes, freq, <span class="at">lat =</span> <span class="cn">NULL</span>, <span class="at">lon =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>health: the 2nd data frame output by the load_data() function<br />
@@ -295,12 +326,12 @@ THE FOLLOWING ONLY FOR V2<br />
 <li>small time mismatches</li>
 </ol>
 </div>
-<div id="gps_plots" class="section level3">
+<div id="gps_plots" class="section level3" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> gps_plots</h3>
 <p><strong>Description</strong><br />
 Plots to visualize some GPS data. ONLY FOR V2 HARDWARE</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="about-the-functions.html#cb4-1"></a><span class="kw">gps_plots</span>(gps, freq)  </span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="about-the-functions.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gps_plots</span>(gps, freq)  </span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>gps: the 3rd data frame from the load_data() function<br />
@@ -315,12 +346,12 @@ A list of the following plots:</p>
 <li>number of fixes</li>
 </ol>
 </div>
-<div id="export_node_channel_plots" class="section level3">
+<div id="export_node_channel_plots" class="section level3" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> export_node_channel_plots</h3>
 <p><strong>Description</strong><br />
 Export plots of node x channel data</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="about-the-functions.html#cb5-1"></a><span class="kw">export_node_channel_plots</span>(<span class="dt">plotlist=</span><span class="ot">NULL</span>,health,<span class="dt">freq=</span><span class="st">&quot;1 hour&quot;</span>,<span class="dt">out_path=</span><span class="kw">getwd</span>(),<span class="dt">whichplots =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="about-the-functions.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export_node_channel_plots</span>(<span class="at">plotlist=</span><span class="cn">NULL</span>,health,<span class="at">freq=</span><span class="st">&quot;1 hour&quot;</span>,<span class="at">out_path=</span><span class="fu">getwd</span>(),<span class="at">whichplots =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>plotlist: allows you to pass the output of node_channel_plots() if you prefer<br />
@@ -336,12 +367,12 @@ Export plots of node x channel data</p>
 <p><strong>Output</strong><br />
 This outputs a png for each input combination of node and channel.</p>
 </div>
-<div id="export_node_plots" class="section level3">
+<div id="export_node_plots" class="section level3" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> export_node_plots</h3>
 <p><strong>Description</strong><br />
 Same as above; index for the plots can be chosen from the list under the <code>node_plots()</code> description<br />
 <strong>Usage</strong></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="about-the-functions.html#cb6-1"></a><span class="kw">export_node_plots</span>(<span class="dt">plotlist =</span> <span class="ot">NULL</span>, health,freq,<span class="dt">out_path=</span><span class="kw">getwd</span>(), <span class="dt">x=</span><span class="dv">2</span>, <span class="dt">y=</span><span class="dv">3</span>, <span class="dt">z=</span><span class="dv">1</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="about-the-functions.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export_node_plots</span>(<span class="at">plotlist =</span> <span class="cn">NULL</span>, health,freq,<span class="at">out_path=</span><span class="fu">getwd</span>(), <span class="at">x=</span><span class="dv">2</span>, <span class="at">y=</span><span class="dv">3</span>, <span class="at">z=</span><span class="dv">1</span>)  </span></code></pre></div>
 <p><strong>Arguments</strong><br />
 To assign x, y and z, look at the description for <code>node_channel_plots()</code> and select those plot index in the order you want them on the page.</p>
 <p><strong>Output</strong><br />

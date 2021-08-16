@@ -4,8 +4,8 @@
 %
 \documentclass[
 ]{book}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -81,7 +81,8 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -90,7 +91,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -115,12 +116,15 @@
   \thm@postskip=\thm@preskip
 }
 \makeatother
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2021-05-28}
+\date{2021-08-16}
 
 \begin{document}
 \maketitle
@@ -133,7 +137,7 @@
 \chapter*{Instructions}\label{instructions}}
 \addcontentsline{toc}{chapter}{Instructions}
 
-\includegraphics{bookdown-demo_files/figure-html/unnamed.png}
+\includegraphics[width=4.17in]{bookdown-demo_files/figure-html/unnamed}
 
 This is a manual for the R tools hosted at \href{https://github.com/cellular-tracking-technologies/data_tools}{our GitHub repository}. A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you \href{https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/}{started with installing R and RStudio}.
 
@@ -310,7 +314,7 @@ Loads data
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{load_data}\NormalTok{(}\DataTypeTok{directory_name=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{starttime=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{endtime=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{tags=}\OtherTok{NULL}\NormalTok{)  }
+\FunctionTok{load\_data}\NormalTok{(}\AttributeTok{directory\_name=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{starttime=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{endtime=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{tags=}\ConstantTok{NULL}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -349,7 +353,7 @@ This function is the ``engine'' behind the export function. You can run it stand
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{node_channel_plots}\NormalTok{(health, freq, ids, }\DataTypeTok{lat=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{lon=}\OtherTok{NULL}\NormalTok{)  }
+\FunctionTok{node\_channel\_plots}\NormalTok{(health, freq, ids, }\AttributeTok{lat=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{lon=}\ConstantTok{NULL}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -406,7 +410,7 @@ A set of diagnostic plots per node
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{node_plots}\NormalTok{(health, nodes, freq, }\DataTypeTok{lat =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{lon =} \OtherTok{NULL}\NormalTok{)}
+\FunctionTok{node\_plots}\NormalTok{(health, nodes, freq, }\AttributeTok{lat =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{lon =} \ConstantTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -455,7 +459,7 @@ Plots to visualize some GPS data. ONLY FOR V2 HARDWARE
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{gps_plots}\NormalTok{(gps, freq)  }
+\FunctionTok{gps\_plots}\NormalTok{(gps, freq)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -491,7 +495,7 @@ Export plots of node x channel data
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{export_node_channel_plots}\NormalTok{(}\DataTypeTok{plotlist=}\OtherTok{NULL}\NormalTok{,health,}\DataTypeTok{freq=}\StringTok{"1 hour"}\NormalTok{,}\DataTypeTok{out_path=}\KeywordTok{getwd}\NormalTok{(),}\DataTypeTok{whichplots =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\FunctionTok{export\_node\_channel\_plots}\NormalTok{(}\AttributeTok{plotlist=}\ConstantTok{NULL}\NormalTok{,health,}\AttributeTok{freq=}\StringTok{"1 hour"}\NormalTok{,}\AttributeTok{out\_path=}\FunctionTok{getwd}\NormalTok{(),}\AttributeTok{whichplots =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -523,7 +527,7 @@ Same as above; index for the plots can be chosen from the list under the \texttt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{export_node_plots}\NormalTok{(}\DataTypeTok{plotlist =} \OtherTok{NULL}\NormalTok{, health,freq,}\DataTypeTok{out_path=}\KeywordTok{getwd}\NormalTok{(), }\DataTypeTok{x=}\DecValTok{2}\NormalTok{, }\DataTypeTok{y=}\DecValTok{3}\NormalTok{, }\DataTypeTok{z=}\DecValTok{1}\NormalTok{)  }
+\FunctionTok{export\_node\_plots}\NormalTok{(}\AttributeTok{plotlist =} \ConstantTok{NULL}\NormalTok{, health,freq,}\AttributeTok{out\_path=}\FunctionTok{getwd}\NormalTok{(), }\AttributeTok{x=}\DecValTok{2}\NormalTok{, }\AttributeTok{y=}\DecValTok{3}\NormalTok{, }\AttributeTok{z=}\DecValTok{1}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -546,7 +550,7 @@ This is simply a weighted average based on number of beeps on a node and max. RS
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{weighted_average}\NormalTok{(freq, beeps, node, }\DataTypeTok{node_health=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{MAX_NODES=}\DecValTok{0}\NormalTok{, }\DataTypeTok{tag_id=}\OtherTok{NULL}\NormalTok{, }\DataTypeTok{calibrate =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{keep_cols =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{latlng =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{minRSSI =} \DecValTok{0}\NormalTok{)}
+\FunctionTok{weighted\_average}\NormalTok{(freq, beeps, node, }\AttributeTok{node\_health=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{MAX\_NODES=}\DecValTok{0}\NormalTok{, }\AttributeTok{tag\_id=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{calibrate =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{keep\_cols =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{latlng =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{minRSSI =} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -582,39 +586,13 @@ A SpatialPointsDataFrame of estimated locations
 \hypertarget{triangulation-functions}{%
 \section{Triangulation Functions}\label{triangulation-functions}}
 
-\hypertarget{data-prep}{%
-\subsection{Data Prep}\label{data-prep}}
-
-\textbf{Description}\\
-This function prepares beep data to be input into the triangulation.
-
-\textbf{Usage}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{loc_prep}\NormalTok{(beep_data, nodes, freq) }
-\end{Highlighting}
-\end{Shaded}
-
-\textbf{Arguments}
-
-\begin{itemize}
-\tightlist
-\item
-  beep\_data: beep data frame\\
-\item
-  nodes: node file\\
-\item
-  freq: interval to calculate locations over
-\end{itemize}
-
-\textbf{Value}\\
-A data frame that can be used as input to the \texttt{triangulate()} function
-
 \hypertarget{calibration}{%
 \subsection{Calibration}\label{calibration}}
 
 \textbf{Description}\\
+In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance. An example of how to calibrate your system can be found in the supplementary material of \citet{bircher2020extraterritorial} .
+
+\textbf{Usage}\\
 When to use: you can go this route if you e.g.~left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.
 
 The calibration data frame needs the following column names:
@@ -637,11 +615,9 @@ The calibration data frame needs the following column names:
   TagLng: longitude of the point
 \end{itemize}
 
-\textbf{Usage}
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{calibrate}\NormalTok{(beep_data, calibration, nodes, }\DataTypeTok{calibrate =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{freq =} \StringTok{"3 min"}\NormalTok{, }\DataTypeTok{max_nodes =} \DecValTok{0}\NormalTok{)}
+\FunctionTok{calibrate}\NormalTok{(beep\_data, calibration, nodes, }\AttributeTok{calibrate =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{freq =} \StringTok{"3 min"}\NormalTok{, }\AttributeTok{max\_nodes =} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -690,7 +666,7 @@ You can pass a custom distance function to the triangulation, in the form of a s
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{relate}\NormalTok{(a, S, K)}
+\FunctionTok{relate}\NormalTok{(a, S, K)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -710,6 +686,35 @@ These are fitted coefficients from an \texttt{SSasymp()} model relating distance
 \textbf{Value}\\
 Inspect that string if you would like to instead create your own (e.g.~for tag-wise calibration)
 
+\hypertarget{data-prep}{%
+\subsection{Data Prep}\label{data-prep}}
+
+\textbf{Description}\\
+This function prepares beep data to be input into the triangulation.
+
+\textbf{Usage}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{loc\_prep}\NormalTok{(beep\_data, nodes, freq) }
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Arguments}
+
+\begin{itemize}
+\tightlist
+\item
+  beep\_data: beep data frame\\
+\item
+  nodes: node file\\
+\item
+  freq: interval to calculate locations over
+\end{itemize}
+
+\textbf{Value}\\
+A data frame that can be used as input to the \texttt{triangulate()} function
+
 \hypertarget{triangulation}{%
 \subsection{Triangulation}\label{triangulation}}
 
@@ -720,7 +725,7 @@ This performs the triangulation with an input data frame and defined distance re
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{triangulate}\NormalTok{(all_data, }\DataTypeTok{rssi =} \DecValTok{-100}\NormalTok{, }\DataTypeTok{node =} \DecValTok{3}\NormalTok{, }\DataTypeTok{distance =}\NormalTok{ relation)}
+\FunctionTok{triangulate}\NormalTok{(all\_data, }\AttributeTok{rssi =} \SpecialCharTok{{-}}\DecValTok{100}\NormalTok{, }\AttributeTok{node =} \DecValTok{3}\NormalTok{, }\AttributeTok{distance =}\NormalTok{ relation)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -740,5 +745,7 @@ This performs the triangulation with an input data frame and defined distance re
 
 \textbf{Value}\\
 A data frame with estimated locations and error
+
+  \bibliography{doc.bib}
 
 \end{document}
