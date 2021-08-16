@@ -254,9 +254,15 @@ A SpatialPointsDataFrame of estimated locations</p>
 <div id="calibration" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Calibration</h3>
 <p><strong>Description</strong><br />
-In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance. An example of how to calibrate your system can be found in the supplementary material of <span class="citation"><a href="#ref-bircher2020extraterritorial" role="doc-biblioref">Bircher et al.</a> (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span> .</p>
+In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the <a href="https://academic.oup.com/beheco/article/31/4/873/5840921?login=true#supplementary-data">supplementary material</a> of <span class="citation"><a href="#ref-bircher2020extraterritorial" role="doc-biblioref">Bircher et al.</a> (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).</p>
+<p><strong>Tag Calibration</strong>
+* transects to cover differently vegetated areas of the study site
+* varying tag height at each distance along the transect
+* simulations of movement and different orientations</p>
+<p><strong>Node Calibration</strong> Tags at varying orientations a fixed distance from each node.</p>
 <p><strong>Usage</strong><br />
-When to use: you can go this route if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
+NOTE: This function returns a single relationship for the entire input! The example code to date also demonstrates the output of 1 distance ~ RSSI relationship. In order to calibrate per tag, it will be necessary to modify your code to loop over (e.g. apply) each tag ID, sub-setting your input data accordingly.</p>
+<p>You can also use this function if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
 <p>The calibration data frame needs the following column names:</p>
 <ul>
 <li>pt: this can be any identifier for a given location used in the calibration<br />

@@ -29,10 +29,19 @@ A SpatialPointsDataFrame of estimated locations
 
 ### Calibration  
 **Description**  
-In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance. An example of how to calibrate your system can be found in the supplementary material of @bircher2020extraterritorial .
+In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the [supplementary material](https://academic.oup.com/beheco/article/31/4/873/5840921?login=true#supplementary-data) of @bircher2020extraterritorial. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).
+
+**Tag Calibration**
+* transects to cover differently vegetated areas of the study site
+* varying tag height at each distance along the transect
+* simulations of movement and different orientations
+
+**Node Calibration** Tags at varying orientations a fixed distance from each node.
 
 **Usage**  
-When to use: you can go this route if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.  
+NOTE: This function returns a single relationship for the entire input! The example code to date also demonstrates the output of 1 distance ~ RSSI relationship. In order to calibrate per tag, it will be necessary to modify your code to loop over (e.g. apply) each tag ID, sub-setting your input data accordingly.
+
+You can also use this function if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.  
 
 The calibration data frame needs the following column names:  
 
