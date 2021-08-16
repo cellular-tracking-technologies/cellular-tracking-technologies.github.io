@@ -39,7 +39,7 @@ In order to best use the triangulation approach, calibration needs to be perform
 
 **Node Calibration** Tags at varying orientations a fixed distance from each node.
 
-To extend the application by @bircher2020extraterritorial, the latter could be used to adjust RSSI values per node.
+There are a few routes to go from here. To extend the application by @bircher2020extraterritorial, the latter could be used to adjust RSSI values per node. Alternatively, one could derive a simple RSSI ~ distance relationship for each tag using the data above to [measure N](https://iotandelectronics.wordpress.com/2016/10/07/how-to-calculate-distance-from-the-rssi-value-of-the-ble-beacon/).
 
 **Usage**  
 NOTE: This function returns a single relationship for the entire input! The example code to date also demonstrates the output of 1 distance ~ RSSI relationship. In order to calibrate per tag, it will be necessary to modify your code to loop over (e.g. apply) each tag ID, sub-setting your input data accordingly.

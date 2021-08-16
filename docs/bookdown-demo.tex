@@ -592,12 +592,21 @@ A SpatialPointsDataFrame of estimated locations
 \textbf{Description}\\
 In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the \href{https://academic.oup.com/beheco/article/31/4/873/5840921?login=true\#supplementary-data}{supplementary material} of \citet{bircher2020extraterritorial}. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).
 
-\textbf{Tag Calibration}\\
-* transects to cover differently vegetated areas of the study site\\
-* varying tag height at each distance along the transect\\
-* simulations of movement and different orientations
+\textbf{Tag Calibration}
+
+\begin{itemize}
+\tightlist
+\item
+  transects to cover differently vegetated areas of the study site\\
+\item
+  varying tag height at each distance along the transect\\
+\item
+  simulations of movement and different orientations
+\end{itemize}
 
 \textbf{Node Calibration} Tags at varying orientations a fixed distance from each node.
+
+There are a few routes to go from here. To extend the application by \citet{bircher2020extraterritorial}, the latter could be used to adjust RSSI values per node. Alternatively, one could derive a simple RSSI \textasciitilde{} distance relationship for each tag using the data above to \href{https://iotandelectronics.wordpress.com/2016/10/07/how-to-calculate-distance-from-the-rssi-value-of-the-ble-beacon/}{measure N}.
 
 \textbf{Usage}\\
 NOTE: This function returns a single relationship for the entire input! The example code to date also demonstrates the output of 1 distance \textasciitilde{} RSSI relationship. In order to calibrate per tag, it will be necessary to modify your code to loop over (e.g.~apply) each tag ID, sub-setting your input data accordingly.
