@@ -13,10 +13,15 @@ node_plots
 gps_plots
 export_node_channel_plots
 export_node_plots
+calibration
+description
+tag-calibration
+node-calibration
+how-to-use-the-output
 localization-methods
 primitive-weighted-average
 triangulation-functions
-calibration
+calibration-1
 custom-distance-function
 data-prep
 triangulation

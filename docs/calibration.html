@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Localization Methods | Cellular Tracking Technologies: Data Tools</title>
+  <title>Chapter 4 Calibration | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Localization Methods | Cellular Tracking Technologies: Data Tools" />
+  <meta property="og:title" content="Chapter 4 Calibration | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Localization Methods | Cellular Tracking Technologies: Data Tools" />
+  <meta name="twitter:title" content="Chapter 4 Calibration | Cellular Tracking Technologies: Data Tools" />
   
   <meta name="twitter:description" content="This is a manual for the R data tools" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
-<link rel="prev" href="calibration.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="about-the-functions.html"/>
+<link rel="next" href="localization-methods.html"/>
 <script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -229,136 +229,36 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="localization-methods" class="section level1" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Localization Methods</h1>
-<div id="primitive-weighted-average" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Primitive: Weighted Average</h2>
-<p><strong>Description</strong><br />
-This is simply a weighted average based on number of beeps on a node and max. RSSI values.</p>
-<p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="localization-methods.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted_average</span>(freq, beeps, node, <span class="at">node_health=</span><span class="cn">NULL</span>, <span class="at">MAX_NODES=</span><span class="dv">0</span>, <span class="at">tag_id=</span><span class="cn">NULL</span>, <span class="at">calibrate =</span> <span class="cn">NULL</span>, <span class="at">keep_cols =</span> <span class="cn">NULL</span>, <span class="at">latlng =</span> <span class="cn">TRUE</span>, <span class="at">minRSSI =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><strong>Arguments</strong></p>
-<ul>
-<li>freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g. <code>"3 min"</code>)<br />
-</li>
-<li>beep_data: raw beep data frame (e.g. <code>all_data[[1]][[1]]</code> from example.R)<br />
-</li>
-<li>node: read in node file<br />
-</li>
-<li>node_health: node health data frame</li>
-<li>MAX_NODES: the max number of nodes that should contribute to a localization. default = 0 means all nodes</li>
-<li>tag_id: a vector of tags to calculate locations for</li>
-<li>calibrate: the session ID if you want to calculate over the entire duration a tag was left at a point</li>
-<li>keep_cols: if there are valuable columns that shouldn’t be dropped</li>
-<li>latlng: BUGGY DO NOT USE YET</li>
-<li>minRSSI: the minimum RSSI of data used for the location estimate</li>
-</ul>
-<p><strong>Value</strong><br />
-A SpatialPointsDataFrame of estimated locations</p>
+<div id="calibration" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Calibration</h1>
+<div id="description" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Description</h2>
+<p>In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the <a href="https://academic.oup.com/beheco/article/31/4/873/5840921?login=true#supplementary-data">supplementary material</a> of <span class="citation"><a href="#ref-bircher2020extraterritorial" role="doc-biblioref">Bircher et al.</a> (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).</p>
 </div>
-<div id="triangulation-functions" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Triangulation Functions</h2>
-<div id="calibration-1" class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Calibration</h3>
-<p><strong>Usage</strong><br />
-NOTE: This function returns a single relationship for the entire input! The example code to date also demonstrates the output of 1 distance ~ RSSI relationship. In order to calibrate per tag, it will be necessary to modify your code to loop over (e.g. apply) each tag ID, sub-setting your input data accordingly.</p>
-<p>You can also use this function if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
-<p>The calibration data frame needs the following column names:</p>
+<div id="tag-calibration" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Tag Calibration</h2>
 <ul>
-<li>pt: this can be any identifier for a given location used in the calibration<br />
+<li>transects to cover differently vegetated areas of the study site<br />
 </li>
-<li>session_id: a character row identifier</li>
-<li>start: the beginning of the time interval when the tag was placed at the point, in POSIXct UTC<br />
+<li>varying tag height at each distance along the transect<br />
 </li>
-<li>end: the end of the time interval when the tag was placed at the point, in POSIXct UTC<br />
-</li>
-<li>TagId: the tag ID left at the point<br />
-</li>
-<li>TagLat: latitude of the point<br />
-</li>
-<li>TagLng: longitude of the point</li>
+<li>simulations of movement and different orientations</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="localization-methods.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calibrate</span>(beep_data, calibration, nodes, <span class="at">calibrate =</span> <span class="cn">TRUE</span>, <span class="at">freq =</span> <span class="st">&quot;3 min&quot;</span>, <span class="at">max_nodes =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><strong>Arguments</strong><br />
-The option <code>calibrate = TRUE</code> is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass <code>calibrate = FALSE, freq = &lt;interval&gt;</code> for the time interval of interest.</p>
-<ul>
-<li>beep_data: beep data frame<br />
-</li>
-<li>calibration: data frame described above<br />
-</li>
-<li>nodes: node file<br />
-</li>
-<li>calibrate: whether or not the entire time interval a tag was at a point should be used for the estimation</li>
-<li>freq: alternatively, specify an interval for location estimation</li>
-<li>max_nodes: how many nodes should contribute? default = 0 means all nodes</li>
-</ul>
-<p><strong>Value</strong><br />
-This function returns a list, the items of which are…</p>
-<ol style="list-style-type: decimal">
-<li>data frame to be input into the triangulation<br />
-</li>
-<li>a (see below)<br />
-</li>
-<li>S (see below)<br />
-</li>
-<li>K (see below)</li>
-</ol>
 </div>
-<div id="custom-distance-function" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Custom Distance Function</h3>
-<p><strong>Description</strong><br />
-You can pass a custom distance function to the triangulation, in the form of a string, that represents the relationship between RSSI and distance for your system. The string that you pass is the right side of the formula, where the left side is distance. The string needs to contain <code>x</code> which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:</p>
-<p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="localization-methods.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">relate</span>(a, S, K)</span></code></pre></div>
-<p><strong>Arguments</strong><br />
-These are fitted coefficients from an <code>SSasymp()</code> model relating distance to RSSI</p>
-<ul>
-<li>a = R0 e.g. the 2nd item returned from the calibrate function<br />
-</li>
-<li>S = exp(lrc) e.g. the 3rd item returned from the calibrate function<br />
-</li>
-<li>K = Aysm e.g. the 4th item returned from the calibrate function</li>
-</ul>
-<p><strong>Value</strong><br />
-Inspect that string if you would like to instead create your own (e.g. for tag-wise calibration)</p>
+<div id="node-calibration" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Node Calibration</h2>
+<p>Tags at varying orientations a fixed distance from each node.</p>
 </div>
-<div id="data-prep" class="section level3" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> Data Prep</h3>
-<p><strong>Description</strong><br />
-This function prepares beep data to be input into the triangulation.</p>
-<p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="localization-methods.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loc_prep</span>(beep_data, nodes, freq) </span></code></pre></div>
-<p><strong>Arguments</strong></p>
-<ul>
-<li>beep_data: beep data frame<br />
-</li>
-<li>nodes: node file<br />
-</li>
-<li>freq: interval to calculate locations over</li>
-</ul>
-<p><strong>Value</strong><br />
-A data frame that can be used as input to the <code>triangulate()</code> function</p>
-</div>
-<div id="triangulation" class="section level3" number="5.2.4">
-<h3><span class="header-section-number">5.2.4</span> Triangulation</h3>
-<p><strong>Description</strong><br />
-This performs the triangulation with an input data frame and defined distance relationship. You could e.g. fit a relationship between distance and RSSI based on your calibration work.</p>
-<p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="localization-methods.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">triangulate</span>(all_data, <span class="at">rssi =</span> <span class="sc">-</span><span class="dv">100</span>, <span class="at">node =</span> <span class="dv">3</span>, <span class="at">distance =</span> relation)</span></code></pre></div>
-<p><strong>Arguments</strong></p>
-<ul>
-<li>all_data: a formatted data frame, such as the output from <code>loc_prep()</code> or the data frame returned by <code>calibrate()</code><br />
-</li>
-<li>rssi: the minimum RSSI threshold to incorporate data into the location calculation<br />
-</li>
-<li>node: the maximum number of nodes to contribute to the calculation<br />
-</li>
-<li>distance: a string representing the right side of a formula relating RSSI to distance, where distance is the left side and RSSI is <code>x</code> in the string</li>
-</ul>
-<p><strong>Value</strong><br />
-A data frame with estimated locations and error</p>
+<div id="how-to-use-the-output" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> How to Use the Output</h2>
+<p>There are a few routes to go from here. To extend the application by <span class="citation"><a href="#ref-bircher2020extraterritorial" role="doc-biblioref">Bircher et al.</a> (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>, the latter could be used to adjust RSSI values per node. Alternatively, one could derive a simple RSSI ~ distance relationship for each tag using the data above to <a href="https://iotandelectronics.wordpress.com/2016/10/07/how-to-calculate-distance-from-the-rssi-value-of-the-ble-beacon/">measure N</a> and input custom relationships (see 5.2.2).</p>
 
 </div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bircher2020extraterritorial" class="csl-entry">
+Bircher, Nina, Kees van Oers, Camilla A Hinde, and Marc Naguib. 2020. <span>“Extraterritorial Forays by Great Tits Are Associated with Dawn Song in Unexpected Ways.”</span> <em>Behavioral Ecology</em> 31 (4): 873–83.
 </div>
 </div>
             </section>
@@ -366,8 +266,8 @@ A data frame with estimated locations and error</p>
           </div>
         </div>
       </div>
-<a href="calibration.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="about-the-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="localization-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -399,7 +299,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-localization.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-localization.Rmd",
 "text": "Edit"
 },
 "history": {
