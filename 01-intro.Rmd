@@ -1,10 +1,16 @@
 # API {#intro}
 
-## Install Postgres
-If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.  
+## Local Database Option
+This makes sense for a single project, so specify which of your CTT projects will be loaded into the database with the "myproject" option set to the project name on your account. (To look up your project name by station, go to "My Stations" on your account and click on the station of interest to see which project it's affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.  
+**Disclaimer** I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.  
 
-1. For simplicity, set your Postgres user name to be the same as your computer user name. Otherwise, you will need to pass it as an argument to the connection  
-2. Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection  
+1. [Download and install] (https://www.postgresql.org/download/) for your OS  
+2. If pgAdmin wasn't installed with your PostgreSQL installation, it's a nice GUI for interacting with and visualizing your database
+3. For simplicity, create a Postgres user with the same name as your computer user name. Otherwise, you will need to pass it as an argument to the connection  
+4. Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection  
+
+* you may need to update your pg_hba.conf file to use the "trust" method for your connections
+* if so, you'll also need to reload the configuration/restart Postgres for the new settings to take
 
 ## Your Token
 Please request an API token through [this form](https://celltracktech.com/support-radio-api/). The token will appear on your account page when the request is fulfilled.  

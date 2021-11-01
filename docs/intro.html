@@ -24,7 +24,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2021-08-16" />
+<meta name="date" content="2021-11-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,7 +169,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#install-postgres"><i class="fa fa-check"></i><b>1.1</b> Install Postgres</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#local-database-option"><i class="fa fa-check"></i><b>1.1</b> Local Database Option</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.2</b> Your Token</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.3</b> R script: api_run.R</a></li>
 <li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.4</b> Terminal</a></li>
@@ -231,14 +231,22 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="intro" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> API</h1>
-<div id="install-postgres" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Install Postgres</h2>
-<p>If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.</p>
+<div id="local-database-option" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Local Database Option</h2>
+<p>This makes sense for a single project, so specify which of your CTT projects will be loaded into the database with the “myproject” option set to the project name on your account. (To look up your project name by station, go to “My Stations” on your account and click on the station of interest to see which project it’s affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.<br />
+<strong>Disclaimer</strong> I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.</p>
 <ol style="list-style-type: decimal">
-<li>For simplicity, set your Postgres user name to be the same as your computer user name. Otherwise, you will need to pass it as an argument to the connection<br />
+<li>[Download and install] (<a href="https://www.postgresql.org/download/" class="uri">https://www.postgresql.org/download/</a>) for your OS<br />
+</li>
+<li>If pgAdmin wasn’t installed with your PostgreSQL installation, it’s a nice GUI for interacting with and visualizing your database</li>
+<li>For simplicity, create a Postgres user with the same name as your computer user name. Otherwise, you will need to pass it as an argument to the connection<br />
 </li>
 <li>Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection</li>
 </ol>
+<ul>
+<li>you may need to update your pg_hba.conf file to use the “trust” method for your connections</li>
+<li>if so, you’ll also need to reload the configuration/restart Postgres for the new settings to take</li>
+</ul>
 </div>
 <div id="your-token" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Your Token</h2>
