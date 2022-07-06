@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 About the Functions | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 About the Functions | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a manual for the R data tools" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2021-11-01" />
+<meta name="date" content="2022-07-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
 <link rel="prev" href="start-here-example-scripts.html"/>
 <link rel="next" href="calibration.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,9 +49,9 @@
 
 
 
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -229,13 +228,13 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="about-the-functions" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> About the Functions</h1>
+<div id="about-the-functions" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> About the Functions<a href="about-the-functions.html#about-the-functions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>There is a sub-folder within this repo named “functions” which is full of, well, scripts that contain functions! You’ll notice they’re often called (via source()) at the top of the example scripts. This loads in the custom functions that I have written to handle CTT data. Ultimately, these will be rolled into an R package.</p>
-<div id="data-manager" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Data Manager</h2>
-<div id="load_data" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> load_data</h3>
+<div id="data-manager" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Data Manager<a href="about-the-functions.html#data-manager" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="load_data" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> load_data<a href="about-the-functions.html#load_data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 Loads data</p>
 <p><strong>Usage</strong></p>
@@ -258,10 +257,10 @@ The function will return a nested list where each item corresponds to:<br />
 <p>Within each list item, there is a list for a data frame and the hardware version. Also, a column “v” has been added to each data frame indicating the hardware version.</p>
 </div>
 </div>
-<div id="node-health" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Node Health</h2>
-<div id="node_channel_plots" class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> node_channel_plots</h3>
+<div id="node-health" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Node Health<a href="about-the-functions.html#node-health" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="node_channel_plots" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> node_channel_plots<a href="about-the-functions.html#node_channel_plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 This function is the “engine” behind the export function. You can run it standalone with the following parameters, but you don’t have to if your sole goal is to output image files.</p>
 <p><strong>Usage</strong></p>
@@ -272,7 +271,7 @@ This function is the “engine” behind the export function. You can run it sta
 </li>
 <li>freq: the time interval for which you want variables to be summarized<br />
 </li>
-<li>ids: a vector of IDs; the ID is of the format "<radio ID>_<Node ID>"<br />
+<li>ids: a vector of IDs; the ID is of the format “<radio ID>_<Node ID>”<br />
 </li>
 <li>lat: latitude (optional to produce day/night shading)</li>
 <li>lon: longitude (optional to produce day/night shading)</li>
@@ -300,8 +299,8 @@ THE FOLLOWING ONLY FOR V2<br />
 <li>dispersion</li>
 </ol>
 </div>
-<div id="node_plots" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> node_plots</h3>
+<div id="node_plots" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> node_plots<a href="about-the-functions.html#node_plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 A set of diagnostic plots per node</p>
 <p><strong>Usage</strong></p>
@@ -333,8 +332,8 @@ THE FOLLOWING ONLY FOR V2<br />
 <li>small time mismatches</li>
 </ol>
 </div>
-<div id="gps_plots" class="section level3" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> gps_plots</h3>
+<div id="gps_plots" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> gps_plots<a href="about-the-functions.html#gps_plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 Plots to visualize some GPS data. ONLY FOR V2 HARDWARE</p>
 <p><strong>Usage</strong></p>
@@ -353,8 +352,8 @@ A list of the following plots:</p>
 <li>number of fixes</li>
 </ol>
 </div>
-<div id="export_node_channel_plots" class="section level3" number="3.2.4">
-<h3><span class="header-section-number">3.2.4</span> export_node_channel_plots</h3>
+<div id="export_node_channel_plots" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> export_node_channel_plots<a href="about-the-functions.html#export_node_channel_plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 Export plots of node x channel data</p>
 <p><strong>Usage</strong></p>
@@ -374,8 +373,8 @@ Export plots of node x channel data</p>
 <p><strong>Output</strong><br />
 This outputs a png for each input combination of node and channel.</p>
 </div>
-<div id="export_node_plots" class="section level3" number="3.2.5">
-<h3><span class="header-section-number">3.2.5</span> export_node_plots</h3>
+<div id="export_node_plots" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> export_node_plots<a href="about-the-functions.html#export_node_plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 Same as above; index for the plots can be chosen from the list under the <code>node_plots()</code> description<br />
 <strong>Usage</strong></p>
@@ -398,7 +397,6 @@ This outputs a png for each input node</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -438,6 +436,10 @@ gitbook.start({
 "text": null
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

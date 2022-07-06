@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Localization Methods | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Localization Methods | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a manual for the R data tools" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2021-11-01" />
+<meta name="date" content="2022-07-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
 <link rel="prev" href="calibration.html"/>
 <link rel="next" href="references.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,9 +49,9 @@
 
 
 
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -229,10 +228,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="localization-methods" class="section level1" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Localization Methods</h1>
-<div id="primitive-weighted-average" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Primitive: Weighted Average</h2>
+<div id="localization-methods" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Localization Methods<a href="localization-methods.html#localization-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="primitive-weighted-average" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Primitive: Weighted Average<a href="localization-methods.html#primitive-weighted-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Description</strong><br />
 This is simply a weighted average based on number of beeps on a node and max. RSSI values.</p>
 <p><strong>Usage</strong></p>
@@ -256,10 +255,10 @@ This is simply a weighted average based on number of beeps on a node and max. RS
 <p><strong>Value</strong><br />
 A SpatialPointsDataFrame of estimated locations</p>
 </div>
-<div id="triangulation-functions" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Triangulation Functions</h2>
-<div id="calibration-1" class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Calibration</h3>
+<div id="triangulation-functions" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Triangulation Functions<a href="localization-methods.html#triangulation-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="calibration-1" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Calibration<a href="localization-methods.html#calibration-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Usage</strong><br />
 NOTE: This function returns a single relationship for the entire input! The example code to date also demonstrates the output of 1 distance ~ RSSI relationship. In order to calibrate per tag, it will be necessary to modify your code to loop over (e.g. apply) each tag ID, sub-setting your input data accordingly.</p>
 <p>You can also use this function if you e.g. left tags at a known location in your grid for a period of time. This function preps the beep data frame for input into the triangulation function, and also implements a calibration by fitting an asymptotic function for RSSI and distance.</p>
@@ -304,8 +303,8 @@ This function returns a list, the items of which are…</p>
 <li>K (see below)</li>
 </ol>
 </div>
-<div id="custom-distance-function" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Custom Distance Function</h3>
+<div id="custom-distance-function" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Custom Distance Function<a href="localization-methods.html#custom-distance-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 You can pass a custom distance function to the triangulation, in the form of a string, that represents the relationship between RSSI and distance for your system. The string that you pass is the right side of the formula, where the left side is distance. The string needs to contain <code>x</code> which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:</p>
 <p><strong>Usage</strong></p>
@@ -322,8 +321,8 @@ These are fitted coefficients from an <code>SSasymp()</code> model relating dist
 <p><strong>Value</strong><br />
 Inspect that string if you would like to instead create your own (e.g. for tag-wise calibration)</p>
 </div>
-<div id="data-prep" class="section level3" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> Data Prep</h3>
+<div id="data-prep" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Data Prep<a href="localization-methods.html#data-prep" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 This function prepares beep data to be input into the triangulation.</p>
 <p><strong>Usage</strong></p>
@@ -339,8 +338,8 @@ This function prepares beep data to be input into the triangulation.</p>
 <p><strong>Value</strong><br />
 A data frame that can be used as input to the <code>triangulate()</code> function</p>
 </div>
-<div id="triangulation" class="section level3" number="5.2.4">
-<h3><span class="header-section-number">5.2.4</span> Triangulation</h3>
+<div id="triangulation" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Triangulation<a href="localization-methods.html#triangulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Description</strong><br />
 This performs the triangulation with an input data frame and defined distance relationship. You could e.g. fit a relationship between distance and RSSI based on your calibration work.</p>
 <p><strong>Usage</strong></p>
@@ -371,7 +370,6 @@ A data frame with estimated locations and error</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -411,6 +409,10 @@ gitbook.start({
 "text": null
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

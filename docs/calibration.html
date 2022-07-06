@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Calibration | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Calibration | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a manual for the R data tools" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2021-11-01" />
+<meta name="date" content="2022-07-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
 <link rel="prev" href="about-the-functions.html"/>
 <link rel="next" href="localization-methods.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,9 +49,9 @@
 
 
 
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -229,14 +228,14 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="calibration" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Calibration</h1>
-<div id="description" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Description</h2>
-<p>In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the <a href="https://academic.oup.com/beheco/article/31/4/873/5840921?login=true#supplementary-data">supplementary material</a> of <span class="citation"><a href="#ref-bircher2020extraterritorial" role="doc-biblioref">Bircher et al.</a> (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).</p>
+<div id="calibration" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Calibration<a href="calibration.html#calibration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="description" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Description<a href="calibration.html#description" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the <a href="https://academic.oup.com/beheco/article/31/4/873/5840921?login=true#supplementary-data">supplementary material</a> of <span class="citation">Bircher et al. (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).</p>
 </div>
-<div id="tag-calibration" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Tag Calibration</h2>
+<div id="tag-calibration" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Tag Calibration<a href="calibration.html#tag-calibration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>transects to cover differently vegetated areas of the study site<br />
 </li>
@@ -245,17 +244,17 @@ div.csl-indent {
 <li>simulations of movement and different orientations</li>
 </ul>
 </div>
-<div id="node-calibration" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Node Calibration</h2>
+<div id="node-calibration" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Node Calibration<a href="calibration.html#node-calibration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tags at varying orientations a fixed distance from each node.</p>
 </div>
-<div id="how-to-use-the-output" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> How to Use the Output</h2>
-<p>There are a few routes to go from here. To extend the application by <span class="citation"><a href="#ref-bircher2020extraterritorial" role="doc-biblioref">Bircher et al.</a> (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>, the latter could be used to adjust RSSI values per node. Alternatively, one could derive a simple RSSI ~ distance relationship for each tag using the data above to <a href="https://iotandelectronics.wordpress.com/2016/10/07/how-to-calculate-distance-from-the-rssi-value-of-the-ble-beacon/">measure N</a> and input custom relationships (see 5.2.2).</p>
+<div id="how-to-use-the-output" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> How to Use the Output<a href="calibration.html#how-to-use-the-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are a few routes to go from here. To extend the application by <span class="citation">Bircher et al. (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>, the latter could be used to adjust RSSI values per node. Alternatively, one could derive a simple RSSI ~ distance relationship for each tag using the data above to <a href="https://iotandelectronics.wordpress.com/2016/10/07/how-to-calculate-distance-from-the-rssi-value-of-the-ble-beacon/">measure N</a> and input custom relationships (see 5.2.2).</p>
 
 </div>
 </div>
-<h3>References</h3>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-bircher2020extraterritorial" class="csl-entry">
 Bircher, Nina, Kees van Oers, Camilla A Hinde, and Marc Naguib. 2020. <span>“Extraterritorial Forays by Great Tits Are Associated with Dawn Song in Unexpected Ways.”</span> <em>Behavioral Ecology</em> 31 (4): 873–83.
@@ -271,7 +270,6 @@ Bircher, Nina, Kees van Oers, Camilla A Hinde, and Marc Naguib. 2020. <span>“E
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -311,6 +309,10 @@ gitbook.start({
 "text": null
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

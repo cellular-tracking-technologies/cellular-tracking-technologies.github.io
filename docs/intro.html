@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 API | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 API | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a manual for the R data tools" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2021-11-01" />
+<meta name="date" content="2022-07-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
 <link rel="prev" href="index.html"/>
 <link rel="next" href="start-here-example-scripts.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,9 +49,9 @@
 
 
 
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -229,10 +228,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> API</h1>
-<div id="local-database-option" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Local Database Option</h2>
+<div id="intro" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> API<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="local-database-option" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Local Database Option<a href="intro.html#local-database-option" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This makes sense for a single project, so specify which of your CTT projects will be loaded into the database with the “myproject” option set to the project name on your account. (To look up your project name by station, go to “My Stations” on your account and click on the station of interest to see which project it’s affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.<br />
 <strong>Disclaimer</strong> I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.</p>
 <ol style="list-style-type: decimal">
@@ -247,13 +246,37 @@ div.csl-indent {
 <li>you may need to update your pg_hba.conf file to use the “trust” method for your connections</li>
 <li>if so, you’ll also need to reload the configuration/restart Postgres for the new settings to take</li>
 </ul>
+<p>Creating a Postgres database through the API includes the following data checks &amp; structures:</p>
+<ul>
+<li>attempt to correct files missing headers</li>
+<li>removal of bad time records (bounded by station deployment dates)</li>
+<li>beep data
+<ul>
+<li>file the beep came from attached to the record</li>
+<li>unique id for each beep record</li>
+<li>filtering: removal of records without…
+<ul>
+<li>radio id</li>
+<li>time stamp</li>
+</ul></li>
+</ul></li>
+<li>node health
+<ul>
+<li>re-coding battery &gt; 9 to NA</li>
+<li>filtering: removal of records without…
+<ul>
+<li>unique combination of radio id, node id, time and station id kept (i.e. removal of duplicates)</li>
+<li>time stamp</li>
+</ul></li>
+</ul></li>
+</ul>
 </div>
-<div id="your-token" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Your Token</h2>
+<div id="your-token" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Your Token<a href="intro.html#your-token" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Please request an API token through <a href="https://celltracktech.com/support-radio-api/">this form</a>. The token will appear on your account page when the request is fulfilled.</p>
 </div>
-<div id="r-script-api_run.r" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> R script: api_run.R</h2>
+<div id="r-script-api_run.r" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> R script: api_run.R<a href="intro.html#r-script-api_run.r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li>As with the other R tools, I would suggest creating your own copy of “api_run.R” within your local repository, and modify that file.</li>
 <li>Assign the API token you found above to the “my_token” variable (line 6)<br />
@@ -275,8 +298,8 @@ div.csl-indent {
 <li>If you do want to create a database locally, set “db_name” to the name of the Postgres database you created (line 7)</li>
 </ol>
 </div>
-<div id="terminal" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Terminal</h2>
+<div id="terminal" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Terminal<a href="intro.html#terminal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Run “Rscript &lt;path to your copy of api_run.R&gt;” on the command line to run the script outside of RStudio (recommended)</p>
 
 </div>
@@ -291,7 +314,6 @@ div.csl-indent {
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -331,6 +353,10 @@ gitbook.start({
 "text": null
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

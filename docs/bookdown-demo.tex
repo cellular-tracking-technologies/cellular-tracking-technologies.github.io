@@ -6,8 +6,8 @@
 ]{book}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -116,7 +116,7 @@
   \thm@postskip=\thm@preskip
 }
 \makeatother
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 \usepackage[]{natbib}
@@ -124,7 +124,7 @@
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2021-11-01}
+\date{2022-07-06}
 
 \begin{document}
 \maketitle
@@ -137,7 +137,7 @@
 \chapter*{Instructions}\label{instructions}}
 \addcontentsline{toc}{chapter}{Instructions}
 
-\includegraphics[width=4.17in]{bookdown-demo_files/figure-html/unnamed}
+\includegraphics{bookdown-demo_files/figure-html/unnamed.png}
 
 This is a manual for the R tools hosted at \href{https://github.com/cellular-tracking-technologies/data_tools}{our GitHub repository}. A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you \href{https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/}{started with installing R and RStudio}.
 
@@ -238,6 +238,54 @@ This makes sense for a single project, so specify which of your CTT projects wil
   you may need to update your pg\_hba.conf file to use the ``trust'' method for your connections
 \item
   if so, you'll also need to reload the configuration/restart Postgres for the new settings to take
+\end{itemize}
+
+Creating a Postgres database through the API includes the following data checks \& structures:
+
+\begin{itemize}
+\tightlist
+\item
+  attempt to correct files missing headers
+\item
+  removal of bad time records (bounded by station deployment dates)
+\item
+  beep data
+
+  \begin{itemize}
+  \tightlist
+  \item
+    file the beep came from attached to the record
+  \item
+    unique id for each beep record
+  \item
+    filtering: removal of records without\ldots{}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      radio id
+    \item
+      time stamp
+    \end{itemize}
+  \end{itemize}
+\item
+  node health
+
+  \begin{itemize}
+  \tightlist
+  \item
+    re-coding battery \textgreater{} 9 to NA
+  \item
+    filtering: removal of records without\ldots{}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      unique combination of radio id, node id, time and station id kept (i.e.~removal of duplicates)
+    \item
+      time stamp
+    \end{itemize}
+  \end{itemize}
 \end{itemize}
 
 \hypertarget{your-token}{%
@@ -379,7 +427,7 @@ This function is the ``engine'' behind the export function. You can run it stand
 \item
   freq: the time interval for which you want variables to be summarized\\
 \item
-  ids: a vector of IDs; the ID is of the format "\_"\\
+  ids: a vector of IDs; the ID is of the format ``\_''\\
 \item
   lat: latitude (optional to produce day/night shading)
 \item
