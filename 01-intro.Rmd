@@ -12,6 +12,22 @@ This makes sense for a single project, so specify which of your CTT projects wil
 * you may need to update your pg_hba.conf file to use the "trust" method for your connections
 * if so, you'll also need to reload the configuration/restart Postgres for the new settings to take
 
+Creating a Postgres database through the API includes the following data checks & structures:  
+
+* attempt to correct files missing headers
+* removal of bad time records (bounded by station deployment dates)
+* beep data
+  + file the beep came from attached to the record
+  + unique id for each beep record
+  + filtering: removal of records without...
+    - radio id
+    - time stamp
+* node health
+  + re-coding battery > 9 to NA
+  + filtering: removal of records without...
+    - unique combination of radio id, node id, time and station id kept (i.e. removal of duplicates)
+    - time stamp
+
 ## Your Token
 Please request an API token through [this form](https://celltracktech.com/support-radio-api/). The token will appear on your account page when the request is fulfilled.  
 
