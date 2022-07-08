@@ -26,7 +26,12 @@ Creating a Postgres database through the API includes the following data checks 
   + re-coding battery > 9 to NA
   + filtering: removal of records without...
     - unique combination of radio id, node id, time and station id kept (i.e. removal of duplicates)
-    - time stamp
+    - time stamp  
+    
+In development:  
+
+* salvaging corrupt rows where possible  
+* tag ID validation  
 
 ## Your Token
 Please request an API token through [this form](https://celltracktech.com/support-radio-api/). The token will appear on your account page when the request is fulfilled.  
