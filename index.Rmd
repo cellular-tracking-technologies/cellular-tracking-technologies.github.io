@@ -33,7 +33,8 @@ This is a manual for the R tools hosted at [our GitHub repository](https://githu
 3. Choose your own adventure from here: do you want the working branch you created synced with the main repository, or do you want your main branch synced? Once you've decided, move onto the next step.
   + having your working branch synced makes sure you can easily pull the latest files into your work space, but to work around that you should make your own copies of files you alter to make sure files don't conflict when you pull updates   
   + having your main branch synced is a bit more of a conventional structure, and means that changes pulled won't automatically propagate to your working branch. you could e.g. pull changes to the main branch, and use that as a reference to see what changes you want to pull into your working copy, and resolve conflicts before merging  
-4. Follow the instructions (at least through 5) [here](https://r-bio.github.io/intro-git-rstudio/) under "How to do this using RStudio and GitHub?"  
+4. Follow the instructions (at least through 5) [here](https://r-bio.github.io/intro-git-rstudio/) under "How to do this using RStudio and GitHub?"
+  + [the repository to fork](https://github.com/cellular-tracking-technologies/data_tools)
   + you don't need to enter the back ticks in the shell  
   + this example is a bit misleading because it doesn't include the .git, copy the link to the clipboard like before  
   + RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL  

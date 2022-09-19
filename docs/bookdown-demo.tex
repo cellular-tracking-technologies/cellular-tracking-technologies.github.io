@@ -33,14 +33,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Cellular Tracking Technologies: Data Tools},
-  pdfauthor={Jessica Gorzo},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -121,10 +113,18 @@
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Cellular Tracking Technologies: Data Tools},
+  pdfauthor={Jessica Gorzo},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2022-07-08}
+\date{2022-09-19}
 
 \begin{document}
 \maketitle
@@ -173,11 +173,13 @@ This is a manual for the R tools hosted at \href{https://github.com/cellular-tra
 \setcounter{enumi}{3}
 \tightlist
 \item
-  Follow the instructions (at least through 5) \href{https://r-bio.github.io/intro-git-rstudio/}{here} under ``How to do this using RStudio and GitHub?''\\
+  Follow the instructions (at least through 5) \href{https://r-bio.github.io/intro-git-rstudio/}{here} under ``How to do this using RStudio and GitHub?''
 \end{enumerate}
 
 \begin{itemize}
 \tightlist
+\item
+  \href{https://github.com/cellular-tracking-technologies/data_tools}{the repository to fork}
 \item
   you don't need to enter the back ticks in the shell\\
 \item
