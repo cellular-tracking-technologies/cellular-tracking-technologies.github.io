@@ -34,7 +34,7 @@ In development:
 * tag ID validation  
 
 ## Your Token
-Please request an API token through [this form](https://celltracktech.com/support-radio-api/). The token will appear on your account page when the request is fulfilled.  
+Please request an API token through [this form](https://celltracktech.com/pages/csd-radio-api-key-request). The token will appear on your account page when the request is fulfilled.  
 
 ## R script: api_run.R
 1. As with the other R tools, I would suggest creating your own copy of "api_run.R" within your local repository, and modify that file. 
