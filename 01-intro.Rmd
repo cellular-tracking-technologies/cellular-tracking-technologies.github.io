@@ -37,15 +37,39 @@ In development:
 Please request an API token through [this form](https://celltracktech.com/pages/csd-radio-api-key-request). The token will appear on your account page when the request is fulfilled.  
 
 ## R script: api_run.R
-1. As with the other R tools, I would suggest creating your own copy of "api_run.R" within your local repository, and modify that file. 
-2. Assign the API token you found above to the "my_token" variable (line 6)  
-3. Set your "outpath" variable to wherever your files will live. If you have already been manually downloading files, use that as your "outpath."
+1. Assign the API token you found above to the "my_token" variable
+2. Set your "outpath" variable to wherever your files will live. If you have already been manually downloading files, use that as your "outpath."
   * The script will search that directory, and will only download files you haven't already downloaded.
   * It will create a nested folder structure within that directory in the following order: project name, station(s), file types, files
-4. If you do not want to create a database...
-  + comment out lines 8, 13-14
-  + remove the "conn" argument from the get_my_data() function (line 11)
-5. If you do want to create a database locally, set "db_name" to the name of the Postgres database you created (line 7)
+3. If you do not want to create a database...
+  + do not set the "conn" variable
+  + remove the "conn" argument from the get_my_data() function
+  + do not run update_db()
+  + comment out the dbDisconnect() line
+4. If you do want to create a database locally, set "db_name" to the name of the Postgres database you created
+
+An example script using the API tools to download files:  
+```
+library(celltracktech)
+library(DBI)
+start <- Sys.time()
+
+####SETTINGS#####
+my_token <- "your token here"
+db_name <- "mydb"
+myproject <- "CTT Project Name" #this is your project name on your CTT account
+conn <- dbConnect(RPostgres::Postgres(), dbname=db_name)
+################
+outpath <- "~/Documents/data/radio_projects/myproject" #where your downloaded files are to go
+get_my_data(my_token, "~/Documents/data/radio_projects/myproject", conn, myproject=myproject)
+update_db(conn, outpath, myproject)
+dbDisconnect(conn)
+
+#findfiles(outpath, "directory path where you want your caught files to go")
+
+time_elapse <- Sys.time() - start
+print(time_elapse)
+```
 
 ## Terminal
 Run "Rscript <path to your copy of api_run.R>" on the command line to run the script outside of RStudio (recommended)

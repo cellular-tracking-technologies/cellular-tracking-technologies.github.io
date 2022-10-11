@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2022-09-19" />
+<meta name="date" content="2022-10-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
 <link rel="prev" href="index.html"/>
-<link rel="next" href="start-here-example-scripts.html"/>
+<link rel="next" href="tools-to-work-with-data.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -158,14 +158,7 @@ div.csl-indent {
 <li><a href="./">CTT Data Tools</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a>
-<ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a>
-<ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-set-up"><i class="fa fa-check"></i>Getting Set Up</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#result"><i class="fa fa-check"></i>Result</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#local-database-option"><i class="fa fa-check"></i><b>1.1</b> Local Database Option</a></li>
@@ -173,7 +166,14 @@ div.csl-indent {
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.3</b> R script: api_run.R</a></li>
 <li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.4</b> Terminal</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="start-here-example-scripts.html"><a href="start-here-example-scripts.html"><i class="fa fa-check"></i><b>2</b> Start Here: Example Scripts</a></li>
+<li class="chapter" data-level="2" data-path="tools-to-work-with-data.html"><a href="tools-to-work-with-data.html"><i class="fa fa-check"></i><b>2</b> Tools to Work with Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="tools-to-work-with-data.html"><a href="tools-to-work-with-data.html#how-to-use-github"><i class="fa fa-check"></i>How to use GitHub</a>
+<ul>
+<li class="chapter" data-level="" data-path="tools-to-work-with-data.html"><a href="tools-to-work-with-data.html#getting-set-up"><i class="fa fa-check"></i>Getting Set Up</a></li>
+<li class="chapter" data-level="" data-path="tools-to-work-with-data.html"><a href="tools-to-work-with-data.html#result"><i class="fa fa-check"></i>Result</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="about-the-functions.html"><a href="about-the-functions.html"><i class="fa fa-check"></i><b>3</b> About the Functions</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="about-the-functions.html"><a href="about-the-functions.html#data-manager"><i class="fa fa-check"></i><b>3.1</b> Data Manager</a>
@@ -284,25 +284,45 @@ div.csl-indent {
 <div id="r-script-api_run.r" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> R script: api_run.R<a href="intro.html#r-script-api_run.r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li>As with the other R tools, I would suggest creating your own copy of “api_run.R” within your local repository, and modify that file.</li>
-<li>Assign the API token you found above to the “my_token” variable (line 6)<br />
-</li>
+<li>Assign the API token you found above to the “my_token” variable</li>
 <li>Set your “outpath” variable to wherever your files will live. If you have already been manually downloading files, use that as your “outpath.”</li>
 </ol>
 <ul>
 <li>The script will search that directory, and will only download files you haven’t already downloaded.</li>
 <li>It will create a nested folder structure within that directory in the following order: project name, station(s), file types, files</li>
 </ul>
-<ol start="4" style="list-style-type: decimal">
+<ol start="3" style="list-style-type: decimal">
 <li>If you do not want to create a database…</li>
 </ol>
 <ul>
-<li>comment out lines 8, 13-14</li>
-<li>remove the “conn” argument from the get_my_data() function (line 11)</li>
+<li>do not set the “conn” variable</li>
+<li>remove the “conn” argument from the get_my_data() function</li>
+<li>do not run update_db()</li>
+<li>comment out the dbDisconnect() line</li>
 </ul>
-<ol start="5" style="list-style-type: decimal">
-<li>If you do want to create a database locally, set “db_name” to the name of the Postgres database you created (line 7)</li>
+<ol start="4" style="list-style-type: decimal">
+<li>If you do want to create a database locally, set “db_name” to the name of the Postgres database you created</li>
 </ol>
+<p>An example script using the API tools to download files:</p>
+<pre><code>library(celltracktech)
+library(DBI)
+start &lt;- Sys.time()
+
+####SETTINGS#####
+my_token &lt;- &quot;your token here&quot;
+db_name &lt;- &quot;mydb&quot;
+myproject &lt;- &quot;CTT Project Name&quot; #this is your project name on your CTT account
+conn &lt;- dbConnect(RPostgres::Postgres(), dbname=db_name)
+################
+outpath &lt;- &quot;~/Documents/data/radio_projects/myproject&quot; #where your downloaded files are to go
+get_my_data(my_token, &quot;~/Documents/data/radio_projects/myproject&quot;, conn, myproject=myproject)
+update_db(conn, outpath, myproject)
+dbDisconnect(conn)
+
+#findfiles(outpath, &quot;directory path where you want your caught files to go&quot;)
+
+time_elapse &lt;- Sys.time() - start
+print(time_elapse)</code></pre>
 </div>
 <div id="terminal" class="section level2 hasAnchor" number="1.4">
 <h2><span class="header-section-number">1.4</span> Terminal<a href="intro.html#terminal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -316,7 +336,7 @@ div.csl-indent {
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="start-here-example-scripts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tools-to-work-with-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

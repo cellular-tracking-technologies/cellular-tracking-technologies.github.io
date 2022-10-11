@@ -124,7 +124,7 @@
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2022-09-19}
+\date{2022-10-07}
 
 \begin{document}
 \maketitle
@@ -137,80 +137,16 @@
 \chapter*{Instructions}\label{instructions}}
 \addcontentsline{toc}{chapter}{Instructions}
 
-\includegraphics{bookdown-demo_files/figure-html/unnamed.png}
+\includegraphics[width=4.17in]{bookdown-demo_files/figure-html/unnamed}
 
-This is a manual for the R tools hosted at \href{https://github.com/cellular-tracking-technologies/data_tools}{our GitHub repository}. A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you \href{https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/}{started with installing R and RStudio}.
+A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you \href{https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/}{started with installing R and RStudio}.
 
-\hypertarget{how-to-use-github}{%
-\section*{How to use GitHub}\label{how-to-use-github}}
-\addcontentsline{toc}{section}{How to use GitHub}
+To install the R package, please run:
 
-\hypertarget{getting-set-up}{%
-\subsection*{Getting Set Up}\label{getting-set-up}}
-\addcontentsline{toc}{subsection}{Getting Set Up}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Create an \href{https://github.com}{account}.
-\item
-  Work through chapters 6-12 \href{https://happygitwithr.com/install-git.html}{here} if you need to install git, and connect it all with RStudio:
-\item
-  Choose your own adventure from here: do you want the working branch you created synced with the main repository, or do you want your main branch synced? Once you've decided, move onto the next step.
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  having your working branch synced makes sure you can easily pull the latest files into your work space, but to work around that you should make your own copies of files you alter to make sure files don't conflict when you pull updates\\
-\item
-  having your main branch synced is a bit more of a conventional structure, and means that changes pulled won't automatically propagate to your working branch. you could e.g.~pull changes to the main branch, and use that as a reference to see what changes you want to pull into your working copy, and resolve conflicts before merging\\
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Follow the instructions (at least through 5) \href{https://r-bio.github.io/intro-git-rstudio/}{here} under ``How to do this using RStudio and GitHub?''
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://github.com/cellular-tracking-technologies/data_tools}{the repository to fork}
-\item
-  you don't need to enter the back ticks in the shell\\
-\item
-  this example is a bit misleading because it doesn't include the .git, copy the link to the clipboard like before\\
-\item
-  RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL\\
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
-\tightlist
-\item
-  If you want to pull updates from here to your copy, see \href{https://happygitwithr.com/upstream-changes.html\#pull-changes-from-upstream}{chapter 31}.
-\end{enumerate}
-
-\hypertarget{result}{%
-\subsection*{Result}\label{result}}
-\addcontentsline{toc}{subsection}{Result}
-
-By following these instructions, you should now\ldots{}
-
-\begin{itemize}
-\tightlist
-\item
-  have a local copy of the repository\\
-\item
-  be working on your own branch\\
-\item
-  have an upstream connection to the main CTT repository
-\end{itemize}
+\begin{verbatim}
+library(devtools)
+install_github('cellular-tracking-technologies/celltracktech')
+\end{verbatim}
 
 \hypertarget{intro}{%
 \chapter{API}\label{intro}}
@@ -312,9 +248,7 @@ Please request an API token through \href{https://celltracktech.com/pages/csd-ra
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  As with the other R tools, I would suggest creating your own copy of ``api\_run.R'' within your local repository, and modify that file.
-\item
-  Assign the API token you found above to the ``my\_token'' variable (line 6)\\
+  Assign the API token you found above to the ``my\_token'' variable
 \item
   Set your ``outpath'' variable to wherever your files will live. If you have already been manually downloading files, use that as your ``outpath.''
 \end{enumerate}
@@ -329,7 +263,7 @@ Please request an API token through \href{https://celltracktech.com/pages/csd-ra
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
+\setcounter{enumi}{2}
 \tightlist
 \item
   If you do not want to create a database\ldots{}
@@ -338,9 +272,102 @@ Please request an API token through \href{https://celltracktech.com/pages/csd-ra
 \begin{itemize}
 \tightlist
 \item
-  comment out lines 8, 13-14
+  do not set the ``conn'' variable
 \item
-  remove the ``conn'' argument from the get\_my\_data() function (line 11)
+  remove the ``conn'' argument from the get\_my\_data() function
+\item
+  do not run update\_db()
+\item
+  comment out the dbDisconnect() line
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  If you do want to create a database locally, set ``db\_name'' to the name of the Postgres database you created
+\end{enumerate}
+
+An example script using the API tools to download files:
+
+\begin{verbatim}
+library(celltracktech)
+library(DBI)
+start <- Sys.time()
+
+####SETTINGS#####
+my_token <- "your token here"
+db_name <- "mydb"
+myproject <- "CTT Project Name" #this is your project name on your CTT account
+conn <- dbConnect(RPostgres::Postgres(), dbname=db_name)
+################
+outpath <- "~/Documents/data/radio_projects/myproject" #where your downloaded files are to go
+get_my_data(my_token, "~/Documents/data/radio_projects/myproject", conn, myproject=myproject)
+update_db(conn, outpath, myproject)
+dbDisconnect(conn)
+
+#findfiles(outpath, "directory path where you want your caught files to go")
+
+time_elapse <- Sys.time() - start
+print(time_elapse)
+\end{verbatim}
+
+\hypertarget{terminal}{%
+\section{Terminal}\label{terminal}}
+
+Run ``Rscript \textless path to your copy of api\_run.R\textgreater{}'' on the command line to run the script outside of RStudio (recommended)
+
+\hypertarget{tools-to-work-with-data}{%
+\chapter{Tools to Work with Data}\label{tools-to-work-with-data}}
+
+This is a manual for the R tools hosted at \href{https://github.com/cellular-tracking-technologies/data_tools}{our GitHub repository}.
+
+\hypertarget{how-to-use-github}{%
+\section*{How to use GitHub}\label{how-to-use-github}}
+\addcontentsline{toc}{section}{How to use GitHub}
+
+\hypertarget{getting-set-up}{%
+\subsection*{Getting Set Up}\label{getting-set-up}}
+\addcontentsline{toc}{subsection}{Getting Set Up}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create an \href{https://github.com}{account}.
+\item
+  Work through chapters 6-12 \href{https://happygitwithr.com/install-git.html}{here} if you need to install git, and connect it all with RStudio:
+\item
+  Choose your own adventure from here: do you want the working branch you created synced with the main repository, or do you want your main branch synced? Once you've decided, move onto the next step.
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  having your working branch synced makes sure you can easily pull the latest files into your work space, but to work around that you should make your own copies of files you alter to make sure files don't conflict when you pull updates\\
+\item
+  having your main branch synced is a bit more of a conventional structure, and means that changes pulled won't automatically propagate to your working branch. you could e.g.~pull changes to the main branch, and use that as a reference to see what changes you want to pull into your working copy, and resolve conflicts before merging\\
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Follow the instructions (at least through 5) \href{https://r-bio.github.io/intro-git-rstudio/}{here} under ``How to do this using RStudio and GitHub?''
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://github.com/cellular-tracking-technologies/data_tools}{the repository to fork}
+\item
+  you don't need to enter the back ticks in the shell\\
+\item
+  this example is a bit misleading because it doesn't include the .git, copy the link to the clipboard like before\\
+\item
+  RESTART RSTUDIO BEFORE MOVING ONTO STEP 6 IN THIS TUTORIAL\\
 \end{itemize}
 
 \begin{enumerate}
@@ -348,19 +375,22 @@ Please request an API token through \href{https://celltracktech.com/pages/csd-ra
 \setcounter{enumi}{4}
 \tightlist
 \item
-  If you do want to create a database locally, set ``db\_name'' to the name of the Postgres database you created (line 7)
+  If you want to pull updates from here to your copy, see \href{https://happygitwithr.com/upstream-changes.html\#pull-changes-from-upstream}{chapter 31}.
 \end{enumerate}
 
-\hypertarget{terminal}{%
-\section{Terminal}\label{terminal}}
+\hypertarget{result}{%
+\subsection*{Result}\label{result}}
+\addcontentsline{toc}{subsection}{Result}
 
-Run ``Rscript \textless path to your copy of api\_run.R\textgreater{}'' on the command line to run the script outside of RStudio (recommended)
-
-\hypertarget{start-here-example-scripts}{%
-\chapter{Start Here: Example Scripts}\label{start-here-example-scripts}}
+By following these instructions, you should now\ldots{}
 
 \begin{itemize}
-\tightlist
+\item
+  have a local copy of the repository\\
+\item
+  be working on your own branch\\
+\item
+  have an upstream connection to the main CTT repository
 \item
   ``example.R'' shows you example implementations of the data management and node health functions (also read comments, functions that produce files are commented out)
 \item
