@@ -30,3 +30,7 @@ By following these instructions, you should now...
 * "locate_example.R" is a template script for running the location functions  
 
 I suggest making your own copy of these scripts, renaming them, and modifying them with your file path inputs.
+
+## Pulling Data into R from your Local Database
+
+This is the preferred option; please see postgres_example.R in your repository

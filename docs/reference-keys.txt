@@ -4,6 +4,7 @@ your-token
 r-script-api_run.r
 terminal
 tools-to-work-with-data
+pulling-data-into-r-from-your-local-database
 about-the-functions
 data-manager
 load_data
