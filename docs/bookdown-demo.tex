@@ -124,7 +124,7 @@
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2022-10-11}
+\date{2022-12-05}
 
 \begin{document}
 \maketitle
@@ -317,6 +317,11 @@ print(time_elapse)
 \section{Terminal}\label{terminal}}
 
 Run ``Rscript \textless path to your copy of api\_run.R\textgreater{}'' on the command line to run the script outside of RStudio (recommended)
+
+\hypertarget{data-cleaning}{%
+\section{Data Cleaning}\label{data-cleaning}}
+
+To remove duplicate records from your database (more than one record that has the same time stamp of a tag ID ``beeping'' on a node) the \texttt{db\_cleanup()} function may be used. Additionally, if there are erroneous records of the same time stamp, tag ID and node ID with varying RSSI values, all records for that ``beep'' (combination of timestamp, tag ID and node ID) will be removed.
 
 \hypertarget{tools-to-work-with-data}{%
 \chapter{Tools to Work with Data}\label{tools-to-work-with-data}}
