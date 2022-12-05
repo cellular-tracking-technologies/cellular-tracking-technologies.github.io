@@ -323,6 +323,11 @@ Run ``Rscript \textless path to your copy of api\_run.R\textgreater{}'' on the c
 
 To remove duplicate records from your database (more than one record that has the same time stamp of a tag ID ``beeping'' on a node) the \texttt{db\_cleanup()} function may be used. Additionally, if there are erroneous records of the same time stamp, tag ID and node ID with varying RSSI values, all records for that ``beep'' (combination of timestamp, tag ID and node ID) will be removed.
 
+\hypertarget{incorporating-node-data-into-your-database}{%
+\section{Incorporating Node Data Into Your Database}\label{incorporating-node-data-into-your-database}}
+
+To include data pulled from your node SD card(s) create a folder called ``nodes'' and populate it with folders named for each node. Place the data pulled from each node in its respective folder. If you have already pulled sensor station data via the API, place the ``nodes'' folder in the folder that is auto-created by \texttt{get\_my\_data()} named for your project. In this case, the ``outpath'' and ``myproject'' arguments remain the same as for the functions above. In absence of a project name, ``outpath'' will be the folder containing the ``nodes'' folder. Run \texttt{import\_node\_data(conn,\ outpath,\ myproject="your\ project\ name")} to read in your node data and add it to the database such that it will not duplicate sensor station data.
+
 \hypertarget{tools-to-work-with-data}{%
 \chapter{Tools to Work with Data}\label{tools-to-work-with-data}}
 
