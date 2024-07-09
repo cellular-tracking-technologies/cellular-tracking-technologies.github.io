@@ -1,8 +1,10 @@
 intro
-local-database-option
 your-token
 r-script-api_run.r
 terminal
+local-database-option
+turning-on-autovacuum-for-postgresql
+using-the-api-to-populate-your-empty-database
 data-cleaning
 incorporating-node-data-into-your-database
 tools-to-work-with-data

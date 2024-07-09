@@ -5,16 +5,19 @@
 \documentclass[
 ]{book}
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -44,13 +47,13 @@
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
 \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
 \newcommand{\BuiltInTok}[1]{#1}
 \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
@@ -58,7 +61,7 @@
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
 \newcommand{\ExtensionTok}[1]{#1}
 \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\ImportTok}[1]{#1}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
@@ -67,7 +70,7 @@
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
 \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
@@ -113,9 +116,9 @@
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={Cellular Tracking Technologies: Data Tools},
   pdfauthor={Jessica Gorzo},
@@ -124,7 +127,7 @@
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2022-12-05}
+\date{2024-07-09}
 
 \begin{document}
 \maketitle
@@ -133,8 +136,7 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\hypertarget{instructions}{%
-\chapter*{Instructions}\label{instructions}}
+\chapter*{Instructions}\label{instructions}
 \addcontentsline{toc}{chapter}{Instructions}
 
 \includegraphics[width=4.17in]{bookdown-demo_files/figure-html/unnamed}
@@ -148,101 +150,13 @@ library(devtools)
 install_github('cellular-tracking-technologies/celltracktech')
 \end{verbatim}
 
-\hypertarget{intro}{%
-\chapter{API}\label{intro}}
+\chapter{API}\label{intro}
 
-\hypertarget{local-database-option}{%
-\section{Local Database Option}\label{local-database-option}}
-
-This makes sense for a single project, so specify which of your CTT projects will be loaded into the database with the ``myproject'' option set to the project name on your account. (To look up your project name by station, go to ``My Stations'' on your account and click on the station of interest to see which project it's affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.\\
-\textbf{Disclaimer} I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  {[}Download and install{]} (\url{https://www.postgresql.org/download/}) for your OS\\
-\item
-  If pgAdmin wasn't installed with your PostgreSQL installation, it's a nice GUI for interacting with and visualizing your database
-\item
-  For simplicity, create a Postgres user with the same name as your computer user name. Otherwise, you will need to pass it as an argument to the connection\\
-\item
-  Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  you may need to update your pg\_hba.conf file to use the ``trust'' method for your connections
-\item
-  if so, you'll also need to reload the configuration/restart Postgres for the new settings to take
-\end{itemize}
-
-Creating a Postgres database through the API includes the following data checks \& structures:
-
-\begin{itemize}
-\tightlist
-\item
-  attempt to correct files missing headers
-\item
-  removal of bad time records (bounded by station deployment dates)
-\item
-  beep data
-
-  \begin{itemize}
-  \tightlist
-  \item
-    file the beep came from attached to the record
-  \item
-    unique id for each beep record
-  \item
-    filtering: removal of records without\ldots{}
-
-    \begin{itemize}
-    \tightlist
-    \item
-      radio id
-    \item
-      time stamp
-    \end{itemize}
-  \end{itemize}
-\item
-  node health
-
-  \begin{itemize}
-  \tightlist
-  \item
-    re-coding battery \textgreater{} 9 to NA
-  \item
-    filtering: removal of records without\ldots{}
-
-    \begin{itemize}
-    \tightlist
-    \item
-      unique combination of radio id, node id, time and station id kept (i.e.~removal of duplicates)
-    \item
-      time stamp
-    \end{itemize}
-  \end{itemize}
-\end{itemize}
-
-In development:
-
-\begin{itemize}
-\tightlist
-\item
-  salvaging corrupt rows where possible\\
-\item
-  tag ID validation
-\end{itemize}
-
-\hypertarget{your-token}{%
-\section{Your Token}\label{your-token}}
+\section{Your Token}\label{your-token}
 
 Please request an API token through \href{https://celltracktech.com/pages/csd-radio-api-key-request}{this form}. The token will appear on your account page when the request is fulfilled.
 
-\hypertarget{r-script-api_run.r}{%
-\section{R script: api\_run.R}\label{r-script-api_run.r}}
+\section{R script: api\_run.R}\label{r-script-api_run.r}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -286,7 +200,7 @@ Please request an API token through \href{https://celltracktech.com/pages/csd-ra
 \setcounter{enumi}{3}
 \tightlist
 \item
-  If you do want to create a database locally, set ``db\_name'' to the name of the Postgres database you created
+  If you do want to create a database locally, set ``db\_name'' to the name of the Postgres database you create (see section ``Local Database Option'')
 \end{enumerate}
 
 An example script using the API tools to download files:
@@ -313,32 +227,126 @@ time_elapse <- Sys.time() - start
 print(time_elapse)
 \end{verbatim}
 
-\hypertarget{terminal}{%
-\section{Terminal}\label{terminal}}
+\section{Terminal}\label{terminal}
 
 Run ``Rscript \textless path to your copy of api\_run.R\textgreater{}'' on the command line to run the script outside of RStudio (recommended)
 
-\hypertarget{data-cleaning}{%
-\section{Data Cleaning}\label{data-cleaning}}
+\section{Local Database Option}\label{local-database-option}
+
+Specify which of your CTT projects will be loaded into the database with the ``myproject'' option set to the project name on your account. (To look up your project name by station, go to ``My Stations'' on your account and click on the station of interest to see which project it's affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.\\
+\textbf{Disclaimer} I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  {[}Download and install{]} (\url{https://www.postgresql.org/download/}) for your OS\\
+\item
+  If pgAdmin wasn't installed with your PostgreSQL installation, it's a nice GUI for interacting with and visualizing your database
+\item
+  For simplicity, create a Postgres user with the same name as your computer user name. Otherwise, you will need to pass it as an argument to the connection\\
+\item
+  Create a database in Postgres owned by that user name you created in the previous step. You may have to set a password, and you may have to pass that password as an argument to the connection
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  you may need to update your pg\_hba.conf file to use the ``trust'' method for your connections\\
+\item
+  if so, you'll also need to reload the configuration/restart Postgres for the new settings to take
+\end{itemize}
+
+\subsection{Turning on autovacuum for PostgreSQL}\label{turning-on-autovacuum-for-postgresql}
+
+In your terminal, find the location of your Postgres config file named \texttt{postgresql.conf}\\
+Here is an example of a Linux terminal command that would display the file location:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sudo} \AttributeTok{{-}u}\NormalTok{ postgres psql }\AttributeTok{{-}c} \StringTok{\textquotesingle{}SHOW config\_file\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+Once you find your config file, edit it if needed to un-comment the line \texttt{autovacuum\ =\ on} if it begins with a \#\\
+You may also want to edit the remaining configuration options to set how your database handles \texttt{autovacuum}
+
+\subsection{Using the API to populate your empty database}\label{using-the-api-to-populate-your-empty-database}
+
+Populating a Postgres database through the API includes the following data checks \& structures:
+
+\begin{itemize}
+\tightlist
+\item
+  attempt to correct files missing headers
+\item
+  removal of bad time records (bounded by station deployment dates)
+\item
+  beep data
+
+  \begin{itemize}
+  \tightlist
+  \item
+    file the beep came from attached to the record
+  \item
+    unique id for each beep record
+  \item
+    filtering: removal of records without\ldots{}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      radio id
+    \item
+      time stamp
+    \end{itemize}
+  \end{itemize}
+\item
+  node health
+
+  \begin{itemize}
+  \tightlist
+  \item
+    re-coding battery \textgreater{} 9 to NA
+  \item
+    filtering: removal of records without\ldots{}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      unique combination of radio id, node id, time and station id kept (i.e.~removal of duplicates)
+    \item
+      time stamp\\
+    \end{itemize}
+  \end{itemize}
+\item
+  salvaging corrupt rows where possible
+\end{itemize}
+
+In development:
+
+\begin{itemize}
+\tightlist
+\item
+  tag ID validation
+\end{itemize}
+
+\section{Data Cleaning}\label{data-cleaning}
 
 To remove duplicate records from your database (more than one record that has the same time stamp of a tag ID ``beeping'' on a node) the \texttt{db\_cleanup()} function may be used. Additionally, if there are erroneous records of the same time stamp, tag ID and node ID with varying RSSI values, all records for that ``beep'' (combination of timestamp, tag ID and node ID) will be removed.
 
-\hypertarget{incorporating-node-data-into-your-database}{%
-\section{Incorporating Node Data Into Your Database}\label{incorporating-node-data-into-your-database}}
+\section{Incorporating Node Data Into Your Database}\label{incorporating-node-data-into-your-database}
 
-To include data pulled from your node SD card(s) create a folder called ``nodes'' and populate it with folders named for each node. Place the data pulled from each node in its respective folder. If you have already pulled sensor station data via the API, place the ``nodes'' folder in the folder that is auto-created by \texttt{get\_my\_data()} named for your project. In this case, the ``outpath'' and ``myproject'' arguments remain the same as for the functions above. In absence of a project name, ``outpath'' will be the folder containing the ``nodes'' folder. Run \texttt{import\_node\_data(conn,\ outpath,\ myproject="your\ project\ name")} to read in your node data and add it to the database such that it will not duplicate sensor station data.
+To include data pulled from your node SD card(s) create a folder called ``nodes'' and populate it with folders named for each node. Place the data pulled from each node in its respective folder. If you have already pulled sensor station data via the API, place the ``nodes'' folder in the folder that is auto-created by \texttt{get\_my\_data()} named for your project. In this case, the ``outpath'' and ``myproject'' arguments remain the same as for the functions above. In absence of a project name, ``outpath'' will be the folder containing the ``nodes'' folder. Run \texttt{import\_node\_data(conn,\ outpath,\ myproject="your\ project\ name")} to read in your node data and add it to the database.
 
-\hypertarget{tools-to-work-with-data}{%
-\chapter{Tools to Work with Data}\label{tools-to-work-with-data}}
+\chapter{Tools to Work with Data}\label{tools-to-work-with-data}
 
 This is a manual for the R tools hosted at \href{https://github.com/cellular-tracking-technologies/data_tools}{our GitHub repository}.
 
-\hypertarget{how-to-use-github}{%
-\section*{How to use GitHub}\label{how-to-use-github}}
+\section*{How to use GitHub}\label{how-to-use-github}
 \addcontentsline{toc}{section}{How to use GitHub}
 
-\hypertarget{getting-set-up}{%
-\subsection*{Getting Set Up}\label{getting-set-up}}
+\subsection*{Getting Set Up}\label{getting-set-up}
 \addcontentsline{toc}{subsection}{Getting Set Up}
 
 \begin{enumerate}
@@ -388,8 +396,7 @@ This is a manual for the R tools hosted at \href{https://github.com/cellular-tra
   If you want to pull updates from here to your copy, see \href{https://happygitwithr.com/upstream-changes.html\#pull-changes-from-upstream}{chapter 31}.
 \end{enumerate}
 
-\hypertarget{result}{%
-\subsection*{Result}\label{result}}
+\subsection*{Result}\label{result}
 \addcontentsline{toc}{subsection}{Result}
 
 By following these instructions, you should now\ldots{}
@@ -409,21 +416,17 @@ By following these instructions, you should now\ldots{}
 
 I suggest making your own copy of these scripts, renaming them, and modifying them with your file path inputs.
 
-\hypertarget{pulling-data-into-r-from-your-local-database}{%
-\section{Pulling Data into R from your Local Database}\label{pulling-data-into-r-from-your-local-database}}
+\section{Pulling Data into R from your Local Database}\label{pulling-data-into-r-from-your-local-database}
 
 This is the preferred option; please see postgres\_example.R in your repository
 
-\hypertarget{about-the-functions}{%
-\chapter{About the Functions}\label{about-the-functions}}
+\chapter{About the Functions}\label{about-the-functions}
 
 There is a sub-folder within this repo named ``functions'' which is full of, well, scripts that contain functions! You'll notice they're often called (via source()) at the top of the example scripts. This loads in the custom functions that I have written to handle CTT data. Ultimately, these will be rolled into an R package.
 
-\hypertarget{data-manager}{%
-\section{Data Manager}\label{data-manager}}
+\section{Data Manager}\label{data-manager}
 
-\hypertarget{load_data}{%
-\subsection{load\_data}\label{load_data}}
+\subsection{load\_data}\label{load_data}
 
 \textbf{Description}\\
 Loads data
@@ -458,11 +461,9 @@ The function will return a nested list where each item corresponds to:\\
 
 Within each list item, there is a list for a data frame and the hardware version. Also, a column ``v'' has been added to each data frame indicating the hardware version.
 
-\hypertarget{node-health}{%
-\section{Node Health}\label{node-health}}
+\section{Node Health}\label{node-health}
 
-\hypertarget{node_channel_plots}{%
-\subsection{node\_channel\_plots}\label{node_channel_plots}}
+\subsection{node\_channel\_plots}\label{node_channel_plots}
 
 \textbf{Description}\\
 This function is the ``engine'' behind the export function. You can run it standalone with the following parameters, but you don't have to if your sole goal is to output image files.
@@ -518,8 +519,7 @@ The output is a nested list, where the top level is each combination of channel 
   dispersion
 \end{enumerate}
 
-\hypertarget{node_plots}{%
-\subsection{node\_plots}\label{node_plots}}
+\subsection{node\_plots}\label{node_plots}
 
 \textbf{Description}\\
 A set of diagnostic plots per node
@@ -567,8 +567,7 @@ The output is a nested list for each node, with the following plots for each:
   small time mismatches
 \end{enumerate}
 
-\hypertarget{gps_plots}{%
-\subsection{gps\_plots}\label{gps_plots}}
+\subsection{gps\_plots}\label{gps_plots}
 
 \textbf{Description}\\
 Plots to visualize some GPS data. ONLY FOR V2 HARDWARE
@@ -603,8 +602,7 @@ A list of the following plots:
   number of fixes
 \end{enumerate}
 
-\hypertarget{export_node_channel_plots}{%
-\subsection{export\_node\_channel\_plots}\label{export_node_channel_plots}}
+\subsection{export\_node\_channel\_plots}\label{export_node_channel_plots}
 
 \textbf{Description}\\
 Export plots of node x channel data
@@ -636,8 +634,7 @@ Export plots of node x channel data
 \textbf{Output}\\
 This outputs a png for each input combination of node and channel.
 
-\hypertarget{export_node_plots}{%
-\subsection{export\_node\_plots}\label{export_node_plots}}
+\subsection{export\_node\_plots}\label{export_node_plots}
 
 \textbf{Description}\\
 Same as above; index for the plots can be chosen from the list under the \texttt{node\_plots()} description\\
@@ -655,16 +652,13 @@ To assign x, y and z, look at the description for \texttt{node\_channel\_plots()
 \textbf{Output}\\
 This outputs a png for each input node
 
-\hypertarget{calibration}{%
-\chapter{Calibration}\label{calibration}}
+\chapter{Calibration}\label{calibration}
 
-\hypertarget{description}{%
-\section{Description}\label{description}}
+\section{Description}\label{description}
 
 In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the \href{https://academic.oup.com/beheco/article/31/4/873/5840921?login=true\#supplementary-data}{supplementary material} of \citet{bircher2020extraterritorial}. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).
 
-\hypertarget{tag-calibration}{%
-\section{Tag Calibration}\label{tag-calibration}}
+\section{Tag Calibration}\label{tag-calibration}
 
 \begin{itemize}
 \tightlist
@@ -676,21 +670,17 @@ In order to best use the triangulation approach, calibration needs to be perform
   simulations of movement and different orientations
 \end{itemize}
 
-\hypertarget{node-calibration}{%
-\section{Node Calibration}\label{node-calibration}}
+\section{Node Calibration}\label{node-calibration}
 
 Tags at varying orientations a fixed distance from each node.
 
-\hypertarget{how-to-use-the-output}{%
-\section{How to Use the Output}\label{how-to-use-the-output}}
+\section{How to Use the Output}\label{how-to-use-the-output}
 
 There are a few routes to go from here. To extend the application by \citet{bircher2020extraterritorial}, the latter could be used to adjust RSSI values per node. Alternatively, one could derive a simple RSSI \textasciitilde{} distance relationship for each tag using the data above to \href{https://iotandelectronics.wordpress.com/2016/10/07/how-to-calculate-distance-from-the-rssi-value-of-the-ble-beacon/}{measure N} and input custom relationships (see 5.2.2).
 
-\hypertarget{localization-methods}{%
-\chapter{Localization Methods}\label{localization-methods}}
+\chapter{Localization Methods}\label{localization-methods}
 
-\hypertarget{primitive-weighted-average}{%
-\section{Primitive: Weighted Average}\label{primitive-weighted-average}}
+\section{Primitive: Weighted Average}\label{primitive-weighted-average}
 
 \textbf{Description}\\
 This is simply a weighted average based on number of beeps on a node and max. RSSI values.
@@ -732,11 +722,9 @@ This is simply a weighted average based on number of beeps on a node and max. RS
 \textbf{Value}\\
 A SpatialPointsDataFrame of estimated locations
 
-\hypertarget{triangulation-functions}{%
-\section{Triangulation Functions}\label{triangulation-functions}}
+\section{Triangulation Functions}\label{triangulation-functions}
 
-\hypertarget{calibration-1}{%
-\subsection{Calibration}\label{calibration-1}}
+\subsection{Calibration}\label{calibration-1}
 
 \textbf{Usage}\\
 NOTE: This function returns a single relationship for the entire input! The example code to date also demonstrates the output of 1 distance \textasciitilde{} RSSI relationship. In order to calibrate per tag, it will be necessary to modify your code to loop over (e.g.~apply) each tag ID, sub-setting your input data accordingly.
@@ -804,8 +792,7 @@ This function returns a list, the items of which are\ldots{}
   K (see below)
 \end{enumerate}
 
-\hypertarget{custom-distance-function}{%
-\subsection{Custom Distance Function}\label{custom-distance-function}}
+\subsection{Custom Distance Function}\label{custom-distance-function}
 
 \textbf{Description}\\
 You can pass a custom distance function to the triangulation, in the form of a string, that represents the relationship between RSSI and distance for your system. The string that you pass is the right side of the formula, where the left side is distance. The string needs to contain \texttt{x} which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:
@@ -834,8 +821,7 @@ These are fitted coefficients from an \texttt{SSasymp()} model relating distance
 \textbf{Value}\\
 Inspect that string if you would like to instead create your own (e.g.~for tag-wise calibration)
 
-\hypertarget{data-prep}{%
-\subsection{Data Prep}\label{data-prep}}
+\subsection{Data Prep}\label{data-prep}
 
 \textbf{Description}\\
 This function prepares beep data to be input into the triangulation.
@@ -863,8 +849,7 @@ This function prepares beep data to be input into the triangulation.
 \textbf{Value}\\
 A data frame that can be used as input to the \texttt{triangulate()} function
 
-\hypertarget{triangulation}{%
-\subsection{Triangulation}\label{triangulation}}
+\subsection{Triangulation}\label{triangulation}
 
 \textbf{Description}\\
 This performs the triangulation with an input data frame and defined distance relationship. You could e.g.~fit a relationship between distance and RSSI based on your calibration work.

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Calibration | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Calibration | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2022-12-05" />
+<meta name="date" content="2024-07-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -120,10 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -161,10 +166,14 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#local-database-option"><i class="fa fa-check"></i><b>1.1</b> Local Database Option</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.2</b> Your Token</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.3</b> R script: api_run.R</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.4</b> Terminal</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.1</b> Your Token</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.2</b> R script: api_run.R</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.3</b> Terminal</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#local-database-option"><i class="fa fa-check"></i><b>1.4</b> Local Database Option</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#turning-on-autovacuum-for-postgresql"><i class="fa fa-check"></i><b>1.4.1</b> Turning on autovacuum for PostgreSQL</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#using-the-api-to-populate-your-empty-database"><i class="fa fa-check"></i><b>1.4.2</b> Using the API to populate your empty database</a></li>
+</ul></li>
 <li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#data-cleaning"><i class="fa fa-check"></i><b>1.5</b> Data Cleaning</a></li>
 <li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#incorporating-node-data-into-your-database"><i class="fa fa-check"></i><b>1.6</b> Incorporating Node Data Into Your Database</a></li>
 </ul></li>
@@ -235,7 +244,7 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 4</span> Calibration<a href="calibration.html#calibration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="description" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Description<a href="calibration.html#description" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the <a href="https://academic.oup.com/beheco/article/31/4/873/5840921?login=true#supplementary-data">supplementary material</a> of <span class="citation">Bircher et al. (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).</p>
+<p>In order to best use the triangulation approach, calibration needs to be performed on your equipment. The goal of the calibration is to come up with a tag-specific relationship between RSSI and distance that is appropriate for your study site. An example of how to calibrate your system can be found in the <a href="https://academic.oup.com/beheco/article/31/4/873/5840921?login=true#supplementary-data">supplementary material</a> of <span class="citation">Bircher et al. (<a href="#ref-bircher2020extraterritorial">2020</a>)</span>. Notice this calibration experiment demonstrates calibration of tags and receivers (in our case, nodes).</p>
 </div>
 <div id="tag-calibration" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Tag Calibration<a href="calibration.html#tag-calibration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -253,12 +262,12 @@ div.csl-indent {
 </div>
 <div id="how-to-use-the-output" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> How to Use the Output<a href="calibration.html#how-to-use-the-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are a few routes to go from here. To extend the application by <span class="citation">Bircher et al. (<a href="#ref-bircher2020extraterritorial" role="doc-biblioref">2020</a>)</span>, the latter could be used to adjust RSSI values per node. Alternatively, one could derive a simple RSSI ~ distance relationship for each tag using the data above to <a href="https://iotandelectronics.wordpress.com/2016/10/07/how-to-calculate-distance-from-the-rssi-value-of-the-ble-beacon/">measure N</a> and input custom relationships (see 5.2.2).</p>
+<p>There are a few routes to go from here. To extend the application by <span class="citation">Bircher et al. (<a href="#ref-bircher2020extraterritorial">2020</a>)</span>, the latter could be used to adjust RSSI values per node. Alternatively, one could derive a simple RSSI ~ distance relationship for each tag using the data above to <a href="https://iotandelectronics.wordpress.com/2016/10/07/how-to-calculate-distance-from-the-rssi-value-of-the-ble-beacon/">measure N</a> and input custom relationships (see 5.2.2).</p>
 
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-bircher2020extraterritorial" class="csl-entry">
 Bircher, Nina, Kees van Oers, Camilla A Hinde, and Marc Naguib. 2020. <span>“Extraterritorial Forays by Great Tits Are Associated with Dawn Song in Unexpected Ways.”</span> <em>Behavioral Ecology</em> 31 (4): 873–83.
 </div>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 API | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 API | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2022-12-05" />
+<meta name="date" content="2024-07-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -120,10 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -161,10 +166,14 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#local-database-option"><i class="fa fa-check"></i><b>1.1</b> Local Database Option</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.2</b> Your Token</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.3</b> R script: api_run.R</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.4</b> Terminal</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.1</b> Your Token</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.2</b> R script: api_run.R</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.3</b> Terminal</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#local-database-option"><i class="fa fa-check"></i><b>1.4</b> Local Database Option</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#turning-on-autovacuum-for-postgresql"><i class="fa fa-check"></i><b>1.4.1</b> Turning on autovacuum for PostgreSQL</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#using-the-api-to-populate-your-empty-database"><i class="fa fa-check"></i><b>1.4.2</b> Using the API to populate your empty database</a></li>
+</ul></li>
 <li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#data-cleaning"><i class="fa fa-check"></i><b>1.5</b> Data Cleaning</a></li>
 <li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#incorporating-node-data-into-your-database"><i class="fa fa-check"></i><b>1.6</b> Incorporating Node Data Into Your Database</a></li>
 </ul></li>
@@ -233,59 +242,12 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="intro" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> API<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="local-database-option" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Local Database Option<a href="intro.html#local-database-option" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This makes sense for a single project, so specify which of your CTT projects will be loaded into the database with the “myproject” option set to the project name on your account. (To look up your project name by station, go to “My Stations” on your account and click on the station of interest to see which project it’s affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.<br />
-<strong>Disclaimer</strong> I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.</p>
-<ol style="list-style-type: decimal">
-<li>[Download and install] (<a href="https://www.postgresql.org/download/" class="uri">https://www.postgresql.org/download/</a>) for your OS<br />
-</li>
-<li>If pgAdmin wasn’t installed with your PostgreSQL installation, it’s a nice GUI for interacting with and visualizing your database</li>
-<li>For simplicity, create a Postgres user with the same name as your computer user name. Otherwise, you will need to pass it as an argument to the connection<br />
-</li>
-<li>Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection</li>
-</ol>
-<ul>
-<li>you may need to update your pg_hba.conf file to use the “trust” method for your connections</li>
-<li>if so, you’ll also need to reload the configuration/restart Postgres for the new settings to take</li>
-</ul>
-<p>Creating a Postgres database through the API includes the following data checks &amp; structures:</p>
-<ul>
-<li>attempt to correct files missing headers</li>
-<li>removal of bad time records (bounded by station deployment dates)</li>
-<li>beep data
-<ul>
-<li>file the beep came from attached to the record</li>
-<li>unique id for each beep record</li>
-<li>filtering: removal of records without…
-<ul>
-<li>radio id</li>
-<li>time stamp</li>
-</ul></li>
-</ul></li>
-<li>node health
-<ul>
-<li>re-coding battery &gt; 9 to NA</li>
-<li>filtering: removal of records without…
-<ul>
-<li>unique combination of radio id, node id, time and station id kept (i.e. removal of duplicates)</li>
-<li>time stamp</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>In development:</p>
-<ul>
-<li>salvaging corrupt rows where possible<br />
-</li>
-<li>tag ID validation</li>
-</ul>
-</div>
-<div id="your-token" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Your Token<a href="intro.html#your-token" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="your-token" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Your Token<a href="intro.html#your-token" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Please request an API token through <a href="https://celltracktech.com/pages/csd-radio-api-key-request">this form</a>. The token will appear on your account page when the request is fulfilled.</p>
 </div>
-<div id="r-script-api_run.r" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> R script: api_run.R<a href="intro.html#r-script-api_run.r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="r-script-api_run.r" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> R script: api_run.R<a href="intro.html#r-script-api_run.r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li>Assign the API token you found above to the “my_token” variable</li>
 <li>Set your “outpath” variable to wherever your files will live. If you have already been manually downloading files, use that as your “outpath.”</li>
@@ -304,7 +266,7 @@ div.csl-indent {
 <li>comment out the dbDisconnect() line</li>
 </ul>
 <ol start="4" style="list-style-type: decimal">
-<li>If you do want to create a database locally, set “db_name” to the name of the Postgres database you created</li>
+<li>If you do want to create a database locally, set “db_name” to the name of the Postgres database you create (see section “Local Database Option”)</li>
 </ol>
 <p>An example script using the API tools to download files:</p>
 <pre><code>library(celltracktech)
@@ -327,9 +289,68 @@ dbDisconnect(conn)
 time_elapse &lt;- Sys.time() - start
 print(time_elapse)</code></pre>
 </div>
-<div id="terminal" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Terminal<a href="intro.html#terminal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="terminal" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Terminal<a href="intro.html#terminal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Run “Rscript &lt;path to your copy of api_run.R&gt;” on the command line to run the script outside of RStudio (recommended)</p>
+</div>
+<div id="local-database-option" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Local Database Option<a href="intro.html#local-database-option" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Specify which of your CTT projects will be loaded into the database with the “myproject” option set to the project name on your account. (To look up your project name by station, go to “My Stations” on your account and click on the station of interest to see which project it’s affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.<br />
+<strong>Disclaimer</strong> I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.</p>
+<ol style="list-style-type: decimal">
+<li>[Download and install] (<a href="https://www.postgresql.org/download/" class="uri">https://www.postgresql.org/download/</a>) for your OS<br />
+</li>
+<li>If pgAdmin wasn’t installed with your PostgreSQL installation, it’s a nice GUI for interacting with and visualizing your database</li>
+<li>For simplicity, create a Postgres user with the same name as your computer user name. Otherwise, you will need to pass it as an argument to the connection<br />
+</li>
+<li>Create a database in Postgres owned by that user name you created in the previous step. You may have to set a password, and you may have to pass that password as an argument to the connection</li>
+</ol>
+<ul>
+<li>you may need to update your pg_hba.conf file to use the “trust” method for your connections<br />
+</li>
+<li>if so, you’ll also need to reload the configuration/restart Postgres for the new settings to take</li>
+</ul>
+<div id="turning-on-autovacuum-for-postgresql" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Turning on autovacuum for PostgreSQL<a href="intro.html#turning-on-autovacuum-for-postgresql" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In your terminal, find the location of your Postgres config file named <code>postgresql.conf</code><br />
+Here is an example of a Linux terminal command that would display the file location:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="intro.html#cb3-1" tabindex="-1"></a><span class="fu">sudo</span> <span class="at">-u</span> postgres psql <span class="at">-c</span> <span class="st">&#39;SHOW config_file&#39;</span></span></code></pre></div>
+<p>Once you find your config file, edit it if needed to un-comment the line <code>autovacuum = on</code> if it begins with a #<br />
+You may also want to edit the remaining configuration options to set how your database handles <code>autovacuum</code></p>
+</div>
+<div id="using-the-api-to-populate-your-empty-database" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Using the API to populate your empty database<a href="intro.html#using-the-api-to-populate-your-empty-database" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Populating a Postgres database through the API includes the following data checks &amp; structures:</p>
+<ul>
+<li>attempt to correct files missing headers</li>
+<li>removal of bad time records (bounded by station deployment dates)</li>
+<li>beep data
+<ul>
+<li>file the beep came from attached to the record</li>
+<li>unique id for each beep record</li>
+<li>filtering: removal of records without…
+<ul>
+<li>radio id</li>
+<li>time stamp</li>
+</ul></li>
+</ul></li>
+<li>node health
+<ul>
+<li>re-coding battery &gt; 9 to NA</li>
+<li>filtering: removal of records without…
+<ul>
+<li>unique combination of radio id, node id, time and station id kept (i.e. removal of duplicates)</li>
+<li>time stamp<br />
+</li>
+</ul></li>
+</ul></li>
+<li>salvaging corrupt rows where possible</li>
+</ul>
+<p>In development:</p>
+<ul>
+<li>tag ID validation</li>
+</ul>
+</div>
 </div>
 <div id="data-cleaning" class="section level2 hasAnchor" number="1.5">
 <h2><span class="header-section-number">1.5</span> Data Cleaning<a href="intro.html#data-cleaning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -337,7 +358,7 @@ print(time_elapse)</code></pre>
 </div>
 <div id="incorporating-node-data-into-your-database" class="section level2 hasAnchor" number="1.6">
 <h2><span class="header-section-number">1.6</span> Incorporating Node Data Into Your Database<a href="intro.html#incorporating-node-data-into-your-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>To include data pulled from your node SD card(s) create a folder called “nodes” and populate it with folders named for each node. Place the data pulled from each node in its respective folder. If you have already pulled sensor station data via the API, place the “nodes” folder in the folder that is auto-created by <code>get_my_data()</code> named for your project. In this case, the “outpath” and “myproject” arguments remain the same as for the functions above. In absence of a project name, “outpath” will be the folder containing the “nodes” folder. Run <code>import_node_data(conn, outpath, myproject="your project name")</code> to read in your node data and add it to the database such that it will not duplicate sensor station data.</p>
+<p>To include data pulled from your node SD card(s) create a folder called “nodes” and populate it with folders named for each node. Place the data pulled from each node in its respective folder. If you have already pulled sensor station data via the API, place the “nodes” folder in the folder that is auto-created by <code>get_my_data()</code> named for your project. In this case, the “outpath” and “myproject” arguments remain the same as for the functions above. In absence of a project name, “outpath” will be the folder containing the “nodes” folder. Run <code>import_node_data(conn, outpath, myproject="your project name")</code> to read in your node data and add it to the database.</p>
 
 </div>
 </div>

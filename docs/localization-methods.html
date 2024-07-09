@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Localization Methods | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Localization Methods | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2022-12-05" />
+<meta name="date" content="2024-07-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -120,10 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -161,10 +166,14 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Instructions</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> API</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#local-database-option"><i class="fa fa-check"></i><b>1.1</b> Local Database Option</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.2</b> Your Token</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.3</b> R script: api_run.R</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.4</b> Terminal</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#your-token"><i class="fa fa-check"></i><b>1.1</b> Your Token</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#r-script-api_run.r"><i class="fa fa-check"></i><b>1.2</b> R script: api_run.R</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#terminal"><i class="fa fa-check"></i><b>1.3</b> Terminal</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#local-database-option"><i class="fa fa-check"></i><b>1.4</b> Local Database Option</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#turning-on-autovacuum-for-postgresql"><i class="fa fa-check"></i><b>1.4.1</b> Turning on autovacuum for PostgreSQL</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#using-the-api-to-populate-your-empty-database"><i class="fa fa-check"></i><b>1.4.2</b> Using the API to populate your empty database</a></li>
+</ul></li>
 <li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#data-cleaning"><i class="fa fa-check"></i><b>1.5</b> Data Cleaning</a></li>
 <li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#incorporating-node-data-into-your-database"><i class="fa fa-check"></i><b>1.6</b> Incorporating Node Data Into Your Database</a></li>
 </ul></li>
@@ -238,7 +247,7 @@ div.csl-indent {
 <p><strong>Description</strong><br />
 This is simply a weighted average based on number of beeps on a node and max. RSSI values.</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="localization-methods.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted_average</span>(freq, beeps, node, <span class="at">node_health=</span><span class="cn">NULL</span>, <span class="at">MAX_NODES=</span><span class="dv">0</span>, <span class="at">tag_id=</span><span class="cn">NULL</span>, <span class="at">calibrate =</span> <span class="cn">NULL</span>, <span class="at">keep_cols =</span> <span class="cn">NULL</span>, <span class="at">latlng =</span> <span class="cn">TRUE</span>, <span class="at">minRSSI =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="localization-methods.html#cb10-1" tabindex="-1"></a><span class="fu">weighted_average</span>(freq, beeps, node, <span class="at">node_health=</span><span class="cn">NULL</span>, <span class="at">MAX_NODES=</span><span class="dv">0</span>, <span class="at">tag_id=</span><span class="cn">NULL</span>, <span class="at">calibrate =</span> <span class="cn">NULL</span>, <span class="at">keep_cols =</span> <span class="cn">NULL</span>, <span class="at">latlng =</span> <span class="cn">TRUE</span>, <span class="at">minRSSI =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>freq: this is the interval a localization should be summarized over, and is in the form of an interval (e.g. <code>"3 min"</code>)<br />
@@ -280,7 +289,7 @@ NOTE: This function returns a single relationship for the entire input! The exam
 </li>
 <li>TagLng: longitude of the point</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="localization-methods.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calibrate</span>(beep_data, calibration, nodes, <span class="at">calibrate =</span> <span class="cn">TRUE</span>, <span class="at">freq =</span> <span class="st">&quot;3 min&quot;</span>, <span class="at">max_nodes =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="localization-methods.html#cb11-1" tabindex="-1"></a><span class="fu">calibrate</span>(beep_data, calibration, nodes, <span class="at">calibrate =</span> <span class="cn">TRUE</span>, <span class="at">freq =</span> <span class="st">&quot;3 min&quot;</span>, <span class="at">max_nodes =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><strong>Arguments</strong><br />
 The option <code>calibrate = TRUE</code> is the default, and means that summary stats will be calculated over the entire time interval for each calibration location. Otherwise, pass <code>calibrate = FALSE, freq = &lt;interval&gt;</code> for the time interval of interest.</p>
 <ul>
@@ -311,7 +320,7 @@ This function returns a list, the items of which are…</p>
 <p><strong>Description</strong><br />
 You can pass a custom distance function to the triangulation, in the form of a string, that represents the relationship between RSSI and distance for your system. The string that you pass is the right side of the formula, where the left side is distance. The string needs to contain <code>x</code> which refers to RSSI. An example of an asymptotic relationship can be generated by the following function and the output of the calibrate function:</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="localization-methods.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">relate</span>(a, S, K)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="localization-methods.html#cb12-1" tabindex="-1"></a><span class="fu">relate</span>(a, S, K)</span></code></pre></div>
 <p><strong>Arguments</strong><br />
 These are fitted coefficients from an <code>SSasymp()</code> model relating distance to RSSI</p>
 <ul>
@@ -329,7 +338,7 @@ Inspect that string if you would like to instead create your own (e.g. for tag-
 <p><strong>Description</strong><br />
 This function prepares beep data to be input into the triangulation.</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="localization-methods.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loc_prep</span>(beep_data, nodes, freq) </span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="localization-methods.html#cb13-1" tabindex="-1"></a><span class="fu">loc_prep</span>(beep_data, nodes, freq) </span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>beep_data: beep data frame<br />
@@ -346,7 +355,7 @@ A data frame that can be used as input to the <code>triangulate()</code> functio
 <p><strong>Description</strong><br />
 This performs the triangulation with an input data frame and defined distance relationship. You could e.g. fit a relationship between distance and RSSI based on your calibration work.</p>
 <p><strong>Usage</strong></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="localization-methods.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">triangulate</span>(all_data, <span class="at">rssi =</span> <span class="sc">-</span><span class="dv">100</span>, <span class="at">node =</span> <span class="dv">3</span>, <span class="at">distance =</span> relation)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="localization-methods.html#cb14-1" tabindex="-1"></a><span class="fu">triangulate</span>(all_data, <span class="at">rssi =</span> <span class="sc">-</span><span class="dv">100</span>, <span class="at">node =</span> <span class="dv">3</span>, <span class="at">distance =</span> relation)</span></code></pre></div>
 <p><strong>Arguments</strong></p>
 <ul>
 <li>all_data: a formatted data frame, such as the output from <code>loc_prep()</code> or the data frame returned by <code>calibrate()</code><br />

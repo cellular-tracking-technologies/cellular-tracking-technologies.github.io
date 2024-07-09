@@ -1,38 +1,13 @@
+```{r setup, include=FALSE}
+knitr::opts_hooks$set(eval = function(options) {
+  if (options$engine == "bash") {
+    options$eval <- FALSE
+  }
+  options
+})
+```
+
 # API {#intro}
-
-## Local Database Option
-This makes sense for a single project, so specify which of your CTT projects will be loaded into the database with the "myproject" option set to the project name on your account. (To look up your project name by station, go to "My Stations" on your account and click on the station of interest to see which project it's affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.  
-**Disclaimer** I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.  
-
-1. [Download and install] (https://www.postgresql.org/download/) for your OS  
-2. If pgAdmin wasn't installed with your PostgreSQL installation, it's a nice GUI for interacting with and visualizing your database
-3. For simplicity, create a Postgres user with the same name as your computer user name. Otherwise, you will need to pass it as an argument to the connection  
-4. Create a database in Postgres owned by that user name. You may have to set a password, and you may have to pass that password as an argument to the connection  
-
-* you may need to update your pg_hba.conf file to use the "trust" method for your connections
-* if so, you'll also need to reload the configuration/restart Postgres for the new settings to take
-
-Creating a Postgres database through the API includes the following data checks & structures:  
-
-* attempt to correct files missing headers
-* removal of bad time records (bounded by station deployment dates)
-* beep data
-  + file the beep came from attached to the record
-  + unique id for each beep record
-  + filtering: removal of records without...
-    - radio id
-    - time stamp
-* node health
-  + re-coding battery > 9 to NA
-  + filtering: removal of records without...
-    - unique combination of radio id, node id, time and station id kept (i.e. removal of duplicates)
-    - time stamp  
-    
-In development:  
-
-* salvaging corrupt rows where possible  
-* tag ID validation  
-
 ## Your Token
 Please request an API token through [this form](https://celltracktech.com/pages/csd-radio-api-key-request). The token will appear on your account page when the request is fulfilled.  
 
@@ -46,7 +21,7 @@ Please request an API token through [this form](https://celltracktech.com/pages/
   + remove the "conn" argument from the get_my_data() function
   + do not run update_db()
   + comment out the dbDisconnect() line
-4. If you do want to create a database locally, set "db_name" to the name of the Postgres database you created
+4. If you do want to create a database locally, set "db_name" to the name of the Postgres database you create (see section "Local Database Option")
 
 An example script using the API tools to download files:  
 ```
@@ -74,8 +49,51 @@ print(time_elapse)
 ## Terminal
 Run "Rscript <path to your copy of api_run.R>" on the command line to run the script outside of RStudio (recommended)
 
+## Local Database Option
+Specify which of your CTT projects will be loaded into the database with the "myproject" option set to the project name on your account. (To look up your project name by station, go to "My Stations" on your account and click on the station of interest to see which project it's affiliated with.) If you choose to create a database out of your data (fair warning: in the future, the analysis tools will be based on this structure) you will need to install PostgreSQL on your machine.  
+**Disclaimer** I am providing some basic instructions for getting setup with Postgres on Windows and creating a user and database here, but please use at your own discretion and do not contact me with Postgres install questions. If any of these steps fail, seek another tutorial for installing Postgres and cross-reference with the steps here.  
+
+1. [Download and install] (https://www.postgresql.org/download/) for your OS  
+2. If pgAdmin wasn't installed with your PostgreSQL installation, it's a nice GUI for interacting with and visualizing your database
+3. For simplicity, create a Postgres user with the same name as your computer user name. Otherwise, you will need to pass it as an argument to the connection  
+4. Create a database in Postgres owned by that user name you created in the previous step. You may have to set a password, and you may have to pass that password as an argument to the connection  
+
+* you may need to update your pg_hba.conf file to use the "trust" method for your connections  
+* if so, you'll also need to reload the configuration/restart Postgres for the new settings to take  
+
+### Turning on autovacuum for PostgreSQL  
+In your terminal, find the location of your Postgres config file named `postgresql.conf`  
+Here is an example of a Linux terminal command that would display the file location:  
+```{bash}
+sudo -u postgres psql -c 'SHOW config_file'
+```
+Once you find your config file, edit it if needed to un-comment the line `autovacuum = on` if it begins with a #  
+You may also want to edit the remaining configuration options to set how your database handles `autovacuum`  
+
+### Using the API to populate your empty database 
+Populating a Postgres database through the API includes the following data checks & structures:  
+
+* attempt to correct files missing headers
+* removal of bad time records (bounded by station deployment dates)
+* beep data
+  + file the beep came from attached to the record
+  + unique id for each beep record
+  + filtering: removal of records without...
+    - radio id
+    - time stamp
+* node health
+  + re-coding battery > 9 to NA
+  + filtering: removal of records without...
+    - unique combination of radio id, node id, time and station id kept (i.e. removal of duplicates)
+    - time stamp  
+* salvaging corrupt rows where possible 
+    
+In development:  
+
+* tag ID validation  
+
 ## Data Cleaning  
 To remove duplicate records from your database (more than one record that has the same time stamp of a tag ID "beeping" on a node) the `db_cleanup()` function may be used. Additionally, if there are erroneous records of the same time stamp, tag ID and node ID with varying RSSI values, all records for that "beep" (combination of timestamp, tag ID and node ID) will be removed.
 
 ## Incorporating Node Data Into Your Database  
-To include data pulled from your node SD card(s) create a folder called "nodes" and populate it with folders named for each node. Place the data pulled from each node in its respective folder. If you have already pulled sensor station data via the API, place the "nodes" folder in the folder that is auto-created by `get_my_data()` named for your project. In this case, the "outpath" and "myproject" arguments remain the same as for the functions above. In absence of a project name, "outpath" will be the folder containing the "nodes" folder. Run `import_node_data(conn, outpath, myproject="your project name")` to read in your node data and add it to the database such that it will not duplicate sensor station data.
+To include data pulled from your node SD card(s) create a folder called "nodes" and populate it with folders named for each node. Place the data pulled from each node in its respective folder. If you have already pulled sensor station data via the API, place the "nodes" folder in the folder that is auto-created by `get_my_data()` named for your project. In this case, the "outpath" and "myproject" arguments remain the same as for the functions above. In absence of a project name, "outpath" will be the folder containing the "nodes" folder. Run `import_node_data(conn, outpath, myproject="your project name")` to read in your node data and add it to the database.
