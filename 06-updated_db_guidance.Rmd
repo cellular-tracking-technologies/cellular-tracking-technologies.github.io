@@ -1,0 +1,10 @@
+# Guidance for Existing PostgreSQL Databases (8/6/2024)  
+
+There have been significant changes pushed to the R code base that manages a user's PostgreSQL database, that has come with customer feedback and increased use cases available for testing. As of the date listed in this header, databases created prior to this date should consider the following steps to maintain (or in the case of very large databases, rebuild) their databases. The best course of action for a given database depends on its size, which is also considered in proportion to the user's computing resources. From here, the terminology proceeds as follows:
+
+* small database: if you have more than 3x the size of the database available as free memory on your computer, consider your database "small"  
+* large database: less than 3x the size of your database is what you have available as free memory  
+
+## Small Database Maintenance
+
+## Large Database Maintenance
