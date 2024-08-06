@@ -127,7 +127,7 @@
 
 \title{Cellular Tracking Technologies: Data Tools}
 \author{Jessica Gorzo}
-\date{2024-07-09}
+\date{2024-08-06}
 
 \begin{document}
 \maketitle
@@ -878,6 +878,22 @@ This performs the triangulation with an input data frame and defined distance re
 
 \textbf{Value}\\
 A data frame with estimated locations and error
+
+\chapter{Guidance for Existing PostgreSQL Databases (8/6/2024)}\label{guidance-for-existing-postgresql-databases-862024}
+
+There have been significant changes pushed to the R code base that manages a user's PostgreSQL database, that has come with customer feedback and increased use cases available for testing. As of the date listed in this header, databases created prior to this date should consider the following steps to maintain (or in the case of very large databases, rebuild) their databases. The best course of action for a given database depends on its size, which is also considered in proportion to the user's computing resources. From here, the terminology proceeds as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  small database: if you have more than 3x the size of the database available as free memory on your computer, consider your database ``small''\\
+\item
+  large database: less than 3x the size of your database is what you have available as free memory
+\end{itemize}
+
+\section{Small Database Maintenance}\label{small-database-maintenance}
+
+\section{Large Database Maintenance}\label{large-database-maintenance}
 
   \bibliography{doc.bib}
 
