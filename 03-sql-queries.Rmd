@@ -1,0 +1,74 @@
+---
+title: "Chapter 3 - SQL Queries"
+author: "meelyn"
+date: "2025-02-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# 3 SQL Queries
+
+To obtain the data in your database, you will need to use SQL queries to get data from different tables.
+
+This chapter is a quick summary on how to use SQL in R. If you would like more info on how to run different queries, use this tutorial: [https://solutions.posit.co/connections/db/getting-started/database-queries/](https://solutions.posit.co/connections/db/getting-started/database-queries/) 
+
+## 3.1 List Tables
+
+List the tables in your database. If everything was run correctly, each data file type (raw, blu, node-health, etc.) should be in its own data table.
+
+Remember to reconnect to the database!
+
+```{r}
+library(celltracktech)
+
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = "./data/meadows/meadows2.duckdb", 
+                      read_only = FALSE)
+
+# list tables in database
+DBI::dbListTables(con)
+
+# disconnect from database
+DBI::dbDisconnect(con)
+
+```
+## 3.2 Load each data table into RStudio
+
+```{r}
+# connect to database
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = "./data/meadows/meadows.duckdb", 
+                      read_only = FALSE)
+
+# list last 10 records in raw
+raw = DBI::dbGetQuery(con, "SELECT * FROM raw "); raw
+tail(raw)
+
+# list last 10 records in blu
+blu = DBI::dbGetQuery(con, "SELECT * FROM blu "); blu
+tail(blu)
+head(blu)
+
+# list the number of unique nodes in your project
+node_table = DBI::dbGetQuery(con, 'SELECT * FROM nodes')
+head(node_table)
+
+# list the data files that were used to create your database
+df_table = DBI::dbGetQuery(con, 'SELECT * FROM data_file')
+
+DBI::dbDisconnect(con)
+
+```
+Find unique tags
+```{r}
+unique_tags = raw %>%
+  group_by(tag_id) %>%
+  summarize(num_detect = n()) %>%
+  select(tag_id, num_detect) %>%
+  arrange(desc(num_detect))
+```
+Note: you do not need to load each table into RStudio. You should only load the tables you need to for your analysis.

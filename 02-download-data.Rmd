@@ -1,0 +1,151 @@
+---
+title: "Chapter 2 - Download Data"
+author: "meelyn"
+date: "2025-02-25"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# 2 Download Data
+
+To download your CTT data, you first will need to create an SQL relational database. Why create a relational database instead of loading the csv files directly? Using a database uses much less memory when combining or cleaning data frames compared to loading data directly into RStudio. 
+
+If you are new to relational databases, you should use [DuckDB](https://duckdb.org/why_duckdb), a simple database management systems (DMBS) that is easy to install and use in RStudio.
+
+```{r}
+# activate renv environment
+renv::activate()
+```
+
+**!NOTE** The DuckDB install will take ~ 30 min. Please allocate time accordingly.
+```{r eval=FALSE}
+# install duckdb using renv
+library(renv)
+
+renv::install(c('httr', 'DBI', 'RPostgres', 'tidyverse', 'rjson', 'dplyr', 'tidyr', 'tibble', 'readr', 'dotenv'))
+# renv::install('duckdb', repos = c('https://duckdb.r-universe.dev', 'https://cloud.r-project.org'))
+renv::install('duckdb/duckdb-r')
+renv::install('cellular-tracking-technologies/celltracktech')
+```
+
+## 2.1 Create a DuckDB database
+
+Below is a sample script to create a DuckDB database
+
+```{r eval=FALSE}
+library(celltracktech)
+
+# load env file into environment
+load_dot_env(file='.env')
+
+# Settings ----------------------------------------------------------------
+my_token <- Sys.getenv('API_KEY') # load env variable into my_token
+myproject <- "Meadows V2" # this is your project name on your CTT account, here we are using the CTT project 'Meadows V2'
+
+# Create your data directory if it does not exist
+outpath <- "./data/meadows/" # where your downloaded files are to go
+
+create_outpath(outpath)
+
+# Connect to Database using DuckDB -----------------------------------------------------
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = "./data/meadows/meadows2.db", 
+                      read_only = FALSE)
+```
+
+
+## 2.2 Download data from the CTT API
+
+You are now connected to your DuckDB database, but so far nothing is in the database. The script below will download your data from the CTT servers and insert the files into your local database.
+
+NOTE! Your Sensor Station must be set to upload data to our servers. If your station does not upload data, skip this block and go to section 2.2.1.
+```{r eval=FALSE}
+get_my_data(my_token,
+            outpath, 
+            con, 
+            myproject=myproject,
+            begin=as.Date("2023-08-01"),
+            end=as.Date("2023-12-31"),
+            filetypes=c("raw", "node_health")
+)
+```
+
+You may get this error message:
+
+```{bash}
+Error in post(endpoint = endpoint, payload = payload) : 
+  Gateway Timeout (HTTP 504).
+```
+It is fine, just run the `get_my_data()` function again and it should work properly.
+
+### 2.2.1 Create Database from Files on your Computer
+If you already have your Sensor Station files on your computer (i.e. your sensor station is not connected to the internet), you can use the code block below to create a database and add those files to it.
+```{r}
+celltracktech::create_duck(con)
+```
+
+## 2.3 Updating the database
+
+Upload the compressed data (i.e. the '.csv.gz' files) into your DuckDB database:
+```{r eval=FALSE}
+update_db(con, outpath, myproject)
+```
+
+## 2.4 Disconnecting from the database
+
+The benefit of using a relational database is that it does not need to be loaded into your computer memory the entire time you are analyzing your data. You can connect to it, filter/clean the data you want, and then disconnect once you are done, freeing up computer memory for more intensive data analysis tasks.
+
+To disconnect from the database, run the following command:
+```{r eval=FALSE}
+DBI::dbDisconnect(con)
+```
+
+## 2.5 Uploading Node Data from the SD Card
+
+**Note! This step is optional! If you are not uploading data from the Node SD cards, you can skip to chapter 3!**
+
+### 2.5.1 Create Nodes directory
+
+To upload Node data from the SD cards, you will need to create a 'nodes' folder in the CTT Project Name folder. For example, we will create a folder in the 'Meadows V2' folder in the './data/meadows/' directory:
+
+```{r eval=FALSE}
+create_outpath('./data/meadows/Meadows V2/nodes/')
+```
+
+### 2.5.2 Create individual directories for each Node
+
+Then, create a folder for each Node. In the example below, we are creating a folder for Node 3B8845:
+```{r eval=FALSE}
+create_outpath('./data/meadows/Meadows V2/nodes/3B8845/')
+```
+
+### 2.5.3 Upload Node data to your DuckDB database
+
+Remember, we need to re-connect to the DuckDB database to upload the Node data:
+```{r eval=FALSE}
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = "./data/meadows/meadows.duckdb", 
+                      read_only = FALSE)
+
+# Import node data into your database
+import_node_data(d = con,
+                 outpath = outpath,
+                 myproject = myproject)
+
+# update the database
+update_db(d = con,
+          outpath = outpath,
+          myproject = myproject,
+          fix = FALSE)
+
+# disconnect from the database
+DBI::dbDisconnect(con)
+```
+
+You have finished uploading data to your database!

@@ -1,0 +1,31 @@
+--- 
+title: "Cellular Tracking Technologies: Data Tools"
+author: "Jessica Gorzo"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: "doc.bib"
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is a manual for the R data tools"
+favicon: "CTT-FB-logo-STACKED.jpg"
+---
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+library(knitr)
+```
+# Instructions {-}
+
+```{r, echo=FALSE}
+knitr::include_graphics("bookdown-demo_files/figure-html/unnamed.png")
+```
+
+A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you [started with installing R and RStudio](https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/).
+
+To install the R package, please run:  
+```
+library(devtools)
+install_github('cellular-tracking-technologies/celltracktech')
+```

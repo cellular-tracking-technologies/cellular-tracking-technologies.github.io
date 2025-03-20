@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Cellular Tracking Technologies: Data Tools</title>
+  <title>Chapter 1 AOS2024 - ‘celltracktech’ Workshop | Cellular Tracking Technologies: Data Tools</title>
   <meta name="description" content="This is a manual for the R data tools" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Cellular Tracking Technologies: Data Tools" />
+  <meta property="og:title" content="Chapter 1 AOS2024 - ‘celltracktech’ Workshop | Cellular Tracking Technologies: Data Tools" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a manual for the R data tools" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Cellular Tracking Technologies: Data Tools" />
+  <meta name="twitter:title" content="Chapter 1 AOS2024 - ‘celltracktech’ Workshop | Cellular Tracking Technologies: Data Tools" />
   
   <meta name="twitter:description" content="This is a manual for the R data tools" />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
-
+<link rel="prev" href="index.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -166,18 +166,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="aos2024---celltracktech-workshop" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> AOS2024 - ‘celltracktech’ Workshop<a href="aos2024---celltracktech-workshop.html#aos2024---celltracktech-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This RMarkdown document goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the ‘celltracktech’ R package. This package was developed by Dr. Jessica Gorzo and Sean Burcher.</p>
+<p>This document will serve as a tutorial on how Cellular Tracking Technologies (CTT) registered users can download their data from our server, and visualize the data using the built-in package functions.</p>
+<p>This tutorial provides step-by-step instructions on how to obtain your data. This style is used for absolute beginners in R, SQL, and data science.</p>
+<div id="installing-another-package-with-dependencies" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Installing another package with dependencies…<a href="aos2024---celltracktech-workshop.html#installing-another-package-with-dependencies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="aos2024---celltracktech-workshop.html#cb1-1" tabindex="-1"></a><span class="fu">sudo</span> apt installlibpq-dev libssl-dev</span>
+<span id="cb1-2"><a href="aos2024---celltracktech-workshop.html#cb1-2" tabindex="-1"></a><span class="fu">sudo</span> apt install libpq-dev libssl-dev</span></code></pre></div>
+</div>
+<div id="installing-r-spatial-on-ubuntu" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Installing R Spatial on Ubuntu<a href="aos2024---celltracktech-workshop.html#installing-r-spatial-on-ubuntu" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="aos2024---celltracktech-workshop.html#cb2-1" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ubuntugis-unstable</span>
+<span id="cb2-2"><a href="aos2024---celltracktech-workshop.html#cb2-2" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb2-3"><a href="aos2024---celltracktech-workshop.html#cb2-3" tabindex="-1"></a><span class="fu">sudo</span> apt install libgdal-dev libgeos-dev libproj-dev libtbb-dev</span></code></pre></div>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -209,7 +221,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/rstudio/bookdown-demo/edit/master/%s",
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/00-intro.Rmd",
     "text": "Edit"
   },
   "history": {
