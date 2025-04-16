@@ -1,30 +1,24 @@
----
-title: "Chapter 5 - Calibrating Node Grid"
-author: "meelyn"
-date: "2025-02-27"
-output: html_document
----
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = TRUE)
 ```
 
-# 5 Node Calibration
+# Node Calibration
 
 In the previous chapter we saw that various ways that the node gps can differ, which can lead to inaccurate received signal strength indicators (RSSI) from the tag.
 
 To account for any small changes in the gps values, we need to calibrate the node grid. 
 
-## 5.1 Set parameters
+## Set parameters
 
-### 5.1.1 Load libraries
+### Load libraries
 
 ```{r}
 library(celltracktech)
 library(dotenv)
 ```
-### 5.1.2 Load sidekick data file
+### Load sidekick data file
 ```{r}
 # Specify the path to the sidekick data file you recorded for calibration
 # it is best if you create a 'sidekick' folder to store your calibration file(s).
@@ -35,7 +29,7 @@ create_outpath('./data/meadows/sidekick/')
 sidekick_file_path <- "./data/meadows/sidekick/calibration_2023_8_3_all.csv"
 ```
 
-#### 5.1.2.1 IF YOU DO NOT HAVE A SIDEKICK DATA FILE:
+#### IF YOU DO NOT HAVE A SIDEKICK DATA FILE:
 
 Create your own sidekick file by walking with a tag through node grid, stopping at specific spots you choose, and note the gps coordinates and time. Then create a csv similar to the sidekick calibration file.
 
@@ -47,13 +41,13 @@ Example:
 |radio434mhz|072A6633|2023-08-03 19:42:45.307456Z||38.935561|-74.948195|23.548||
 |radio434mhz|19332A07|2023-08-03 19:42:48.366123Z||38.935569|-74.948195|15.840||
 
-### 5.1.3 Load environmental variables into RStudio
+### Load environmental variables into RStudio
 ```{r}
 # load env file into environment
 load_dot_env(file='.env')
 ```
 
-### 5.1.4 Load functions
+### Load functions
 ```{r}
 # DEFS
 source("R/defs/plot_themes.R")
@@ -69,7 +63,7 @@ source("R/functions/sidekick/load_sidekick_data.R")
 source("R/functions/calibration/calibration_functions.R")
 ```
 
-### 5.1.5 Load settings
+### Load settings
 ```{r}
 # Settings - ----------------------------------------------------------------
 options(digits = 10)
@@ -102,7 +96,7 @@ my_nodes <- c("B25AC19E", "44F8E426", "FAB6E12", "1EE02113", "565AA5B9", "EE7994
 my_tile_url <- "https://mt2.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
 ```
 
-## 5.2 Load Node Health Data from Files
+## Load Node Health Data from Files
 ```{r}
 # connect to the database
 con <- DBI::dbConnect(duckdb::duckdb(), 
@@ -125,7 +119,7 @@ node_health_df <- node_health_df %>%
            .keep_all = TRUE)
 ```
 
-## 5.3 Get Node Locations
+## Get Node Locations
 ```{r}
 # Calculate the average node locations
 node_locs <- calculate_node_locations(node_health_df)
@@ -146,7 +140,7 @@ node_map <- map_node_locations(node_locs,
 node_map
 ```
 
-## 5.4 Load Station Detection from Files
+## Load Station Detection from Files
 ```{r}
 # connect to database
 con <- DBI::dbConnect(duckdb::duckdb(), 
@@ -171,7 +165,7 @@ detection_df <- subset.data.frame(detection_df,
                                   tag_id == my_tag_id)
 ```
 
-## 5.5 Load Sidekick Calibration Data from File
+## Load Sidekick Calibration Data from File
 ```{r}
 # Get Sidekick data from CSV
 sidekick_all_df <- load_sidekick_data(sidekick_file_path)
@@ -188,7 +182,7 @@ calibration_map <- map_calibration_track(node_locs,
 calibration_map
 ```
 
-## 5.6 Calculate the RSSI vs. Distance Relationship
+## Calculate the RSSI vs. Distance Relationship
 
 This function will match sidekick detections to detections recorded by nodes and sent to the station. Then using the sidekick location, the node locations calculated above, and the rssi measured in the node, a list of rssi and distance pairs is generated and returned.
 

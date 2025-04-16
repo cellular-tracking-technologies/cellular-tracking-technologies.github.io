@@ -1,15 +1,9 @@
----
-title: "Chapter 4 - Node Check"
-author: "meelyn"
-date: "2025-02-26"
-output: html_document
----
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# 4 Node Check
+# Node Check
 
 With your data you can do the following analyses:
 
@@ -21,7 +15,7 @@ With your data you can do the following analyses:
 
 Before you can do any of that, it is a good idea to check if your nodes are working properly, and filter out any that are malfunctioning.
 
-## 4.1 Node Health
+## Node Health
 
 Things to look at:
 
@@ -35,9 +29,9 @@ For example, debris on solar panels can lead to the node not to charge, which me
 
 Another example is that foliage cover leads to no charging, low battery voltage, stops the GPS, and leads to an out of sync clock.
 
-### 4.1.1 Node Health - Check Health Records
+### Node Health - Check Health Records
 
-#### 4.1.1.1 Load Data from Database
+#### Load Data from Database
 
 The `celltracktech` package has built-in functions to check and plot the battery and solar levels:
 
@@ -85,7 +79,7 @@ DBI::dbDisconnect(con)
 node_health_df <- node_health_df %>% distinct(node_id, time, recorded_at, .keep_all = TRUE)
 ```
 
-#### 4.1.1.2 Checking Nodes are operating
+#### Checking Nodes are operating
 
 ```{r}
 # Look at the number of health records received from each node
@@ -103,7 +97,7 @@ ggplot(node_record_counts,aes(x=factor(node_id,node_record_counts$node_id),y=n))
 ```
 We can see after running the above script that Nodes 3B3B8F, 339CAE, and 32909D have relatively low number of records, so we may want to exclude them from further analyses.
 
-### 4.1.2 Battery and Solar Levels
+### Battery and Solar Levels
 
 Check if the battery and solar voltages are adequate. If they are too low, they can affect the GPS synchronization.
 
@@ -126,7 +120,7 @@ batt_solar_plot
 ```
 Node 326710 is working properly and has consistent solar voltages during the day (~ 5 V) and a consistent battery voltage over time (i.e. 3.5-3.6 V), while node 32909D has inconsistent solar voltages, hinting at either dirty solar panels or covered solar panels, and a much lower battery voltage (~ 2.8 V).
 
-### 4.1.3 Check GPS
+### Check GPS
 
 If the clock is out of sync, the GPS coordinates may not be calculated correctly. Use the below script to check the coordinate deviations.
 
@@ -150,7 +144,7 @@ plot_node_locations(nodes_meadows, node_locations)
 
 ```
 
-### 4.1.4 Check Time Offset
+### Check Time Offset
 
 Plot time offset for each node.
 

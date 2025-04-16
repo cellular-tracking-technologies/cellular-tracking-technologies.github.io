@@ -1,22 +1,38 @@
----
-title: "Chapter 3 - SQL Queries"
-author: "meelyn"
-date: "2025-02-26"
-output: html_document
----
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# 3 SQL Queries
+# Accessing Database
 
-To obtain the data in your database, you will need to use SQL queries to get data from different tables.
+## Duckplyr
+
+If you are new to database queries but familiar with dplyr and tidyverse, I recommend using `duckplyr`. You can find more information about `duckplyr` [here](https://duckdb.org/2024/04/02/duckplyr.html) but the main takeaway is that you can query your database using dplyr phrases and pipes, while also saving memory on loading data.
+
+```{r}
+library(celltracktech)
+library(duckplyr)
+
+# load base tables
+raw = tbl(conn, 'raw') |> as_duckdb_tibble()
+blu = tbl(conn, 'blu') |> as_duckdb_tibble()
+gps = tbl(conn, "gps") |> as_duckdb_tibble()
+node_health = tbl(conn, 'node_health') |> as_duckdb_tibble()
+
+# load node tables
+node_raw = tbl(conn, 'node_raw') |> as_duckdb_tibble()
+node_blu = tbl(conn, 'node_blu') |> as_duckdb_tibble()
+node_gps = tbl(conn, 'node_gps') |> as_duckdb_tibble()
+node_health_from_node = tbl(conn, 'node_health_from_node') |> as_duckdb_tibble()
+```
+## SQL Queries
+
+If you are more comfortable with the SQL syntax, you can use SQL queries to get data from different tables.
 
 This chapter is a quick summary on how to use SQL in R. If you would like more info on how to run different queries, use this tutorial: [https://solutions.posit.co/connections/db/getting-started/database-queries/](https://solutions.posit.co/connections/db/getting-started/database-queries/) 
 
-## 3.1 List Tables
+## List Tables
 
 List the tables in your database. If everything was run correctly, each data file type (raw, blu, node-health, etc.) should be in its own data table.
 
@@ -26,7 +42,7 @@ Remember to reconnect to the database!
 library(celltracktech)
 
 con <- DBI::dbConnect(duckdb::duckdb(), 
-                      dbdir = "./data/meadows/meadows2.duckdb", 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
                       read_only = FALSE)
 
 # list tables in database
@@ -36,12 +52,12 @@ DBI::dbListTables(con)
 DBI::dbDisconnect(con)
 
 ```
-## 3.2 Load each data table into RStudio
+## Load each data table into RStudio
 
 ```{r}
 # connect to database
 con <- DBI::dbConnect(duckdb::duckdb(), 
-                      dbdir = "./data/meadows/meadows.duckdb", 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
                       read_only = FALSE)
 
 # list last 10 records in raw

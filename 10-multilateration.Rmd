@@ -1,25 +1,19 @@
----
-title: "Chapter 10 - Multilateration"
-author: "meelyn"
-date: "2025-03-03"
-output: html_document
----
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# 10 Multilateration
+# Multilateration
 This process is just like habitat use and grid search analysis, but instead of using the RSSI, it uses time difference of arrival instead to calculate the location of an animal.
 
 Best to use when your node grid is evenly spaced.
 
 [Multilateration paper](https://pubmed.ncbi.nlm.nih.gov/35169450/)
 
-## 10.1 Load settings
+## Load settings
 
-### 10.1.1 Reset R's brain, remove all previous objects
+### Reset R's brain, remove all previous objects
 ```{r}
 rm(list=ls())
 tagid = c("072A6633","2D4B782D") #"0C5F5CED"
@@ -27,13 +21,13 @@ timezone="UTC"
 options(digits=9)
 ```
 
-### 10.1.2 Load functions
+### Load functions
 ```{r}
 library(data.table)
 source("R/Functions_Paxton-CTTUpdate.R")
 ```
 
-### 10.1.3 Re-create sample data for calibration
+### Re-create sample data for calibration
 ```{r}
 #create time window by reducing location precision or can input data with TestId column (user-defined window)
 # where does calibration file come from?
@@ -66,7 +60,7 @@ DBI::dbDisconnect(con)
 nodes <- node_file(nodehealth)
 ```
 
-## 10.2 Isolate raw Received Signal Strength (RSS) data from Node network associated with Test Data
+## Isolate raw Received Signal Strength (RSS) data from Node network associated with Test Data
 ```{r}
 combined_data <- data.setup(mytest, 
                             testdata, 
@@ -82,7 +76,7 @@ combined_data <- data.setup(mytest,
                             filetype="raw")
 ```
 
-## 10.3 Exponential Decay Function - Relationship between Distance and Tag RSS Values
+## Exponential Decay Function - Relationship between Distance and Tag RSS Values
 ```{r}
 # Plot of the relationship between RSS and distance
 ggplot(data = combined_data, 
@@ -93,7 +87,7 @@ ggplot(data = combined_data,
 ```
 As distance increases, we see average RSS decreasing exponentially.
 
-### 10.3.1 Preliminary Exponential Decay Model - Determine staring values for the final model
+### Preliminary Exponential Decay Model - Determine staring values for the final model
 
 * SSasvmp - self start for exponential model to find the data starting values
 * Asvm - horizontal asymptote (when large values) - y values decay to this value
@@ -114,7 +108,7 @@ summary(exp.mod)
 exp(coef(exp.mod)[["lrc"]])
 ```
 
-### 10.3.2 Final Exponential Decay Model
+### Final Exponential Decay Model
 
 User provides self-starting values based on visualization of the data and values in the Preiliminary Model Output
 

@@ -1,23 +1,42 @@
-```{r setup, include=FALSE}
+--- 
+title: "'celltracktech' Data Analysis package"
+author: "Jessica Gorzo"
+editor: "Meelyn Pandit"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: "doc.bib"
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is a manual for the R package 'celltracktech'"
+favicon: "CTT-FB-logo-STACKED.jpg"
+---
+
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
 # AOS2024 - 'celltracktech' Workshop
 
-This RMarkdown document goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the 'celltracktech' R package. This package was developed by Dr. Jessica Gorzo and Sean Burcher.
+This RBook goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the 'celltracktech' R package. This package was developed by Dr. Jessica Gorzo and Dr. Sean Burcher.
 
-This document will serve as a tutorial on how Cellular Tracking Technologies (CTT) registered users can download their data from our server, and visualize the data using the built-in package functions.
+This document will serve as a tutorial on how Cellular Tracking Technologies (CTT) registered users can download their data from our server, analyze the data using multilateration, and visualize the data using the built-in package functions.
 
 This tutorial provides step-by-step instructions on how to obtain your data. This style is used for absolute beginners in R, SQL, and data science.
 
-## Installing another package with dependencies...
+## Additional Libraries Needed (Linux users)
+
+**Note** If you are using Linux (specifically Ubuntu), you may need to install the following libraries in the teriminal.
+
+### Install PostgreSQL libraries
 ```{bash}
-sudo apt installlibpq-dev libssl-dev
 sudo apt install libpq-dev libssl-dev
 ```
 
-## Installing R Spatial on Ubuntu
+### Installing R Spatial on Ubuntu
 ```{bash}
 sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 sudo apt update

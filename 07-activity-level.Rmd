@@ -1,11 +1,5 @@
----
-title: "Chapter 7 - Activity Budget"
-author: "meelyn"
-date: "2025-02-28"
-output: html_document
----
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```

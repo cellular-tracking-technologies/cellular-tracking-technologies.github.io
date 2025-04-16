@@ -1,16 +1,10 @@
----
-title: "Chapter 6 - Presence/Absence"
-author: "meelyn"
-date: "2025-02-27"
-output: html_document
----
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# 6 Presence/Absence Analysis
+# Presence/Absence Analysis
 
 This type of analysis can be used to answer questions on stopover duration or for threat monitoring at airports, windmills, etc.
 
@@ -34,7 +28,7 @@ Then move that tag deployment file into the 'outpath' folder. For example, we wi
 
 We are now ready to start calculating presence/absence.
 
-## 6.1 Set parameters
+## Set parameters
 ```{r}
 options(digits = 10)
 
@@ -58,7 +52,7 @@ start_time <- as.POSIXct("2023-08-01 00:00:00", tz = "GMT")
 stop_time <- as.POSIXct("2023-12-31 00:00:00", tz = "GMT")
 ```
 
-## 6.2 Load data from database
+## Load data from database
 ```{r}
 # Load from DB
 con <- DBI::dbConnect(duckdb::duckdb(), 
@@ -79,16 +73,16 @@ detection_blu <- tbl(con, "raw") |>
 DBI::dbDisconnect(con)
 ```
 
-## 6.3 Load Tag Deployment Info
+## Load Tag Deployment Info
 
-### 6.3.1 Load Tag Deployment File
+### Load Tag Deployment File
 
 Again, you will need to create this file yourself. You might want to include other info about the individuals in this file for later analysis (species, weight, sex, etc.).
 ```{r}
 deployment_df <- read.csv(deployment_info_file)
 ```
 
-### 6.3.2 Get List of Detected Tags
+### Get List of Detected Tags
 ```{r}
 # count the number of detections for each tag. the minimum number of detections to be included in this dataframe is 250000. You can set the `min_det_count` to whatever is appropriate for your study.
 tag_det_count <- get_tag_detection_count(detection_df, min_det_count = 250000)
@@ -103,7 +97,7 @@ ggplot(tag_det_count,
   tag_hist_plot_theme
 ```
 
-## 6.4 Generate Detection Summary
+## Generate Detection Summary
 
 While it is good to know how many detections an individual tag has, it is better to know how many detections there were across time. The code chunk below will subset your `detection_df` based on the tags in your tag deployment file, and create a plot of detections across time.
 ```{r}
@@ -136,7 +130,7 @@ ggplot(data = detection_df,
 
 ```
 
-## 6.5 Show Detection History for a Specific Tag
+## Show Detection History for a Specific Tag
 
 ```{r}
 # selected tag is a power tag on a swamp sparrow
