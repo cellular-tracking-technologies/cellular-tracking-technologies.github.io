@@ -33,18 +33,6 @@ Another example is that foliage cover leads to no charging, low battery voltage,
 
 #### Load Data from Database
 
-The `celltracktech` package has built-in functions to check and plot the battery and solar levels:
-
-```{r}
-# Load functions
-# DEFS
-source("R/defs/plot_themes.R")
-# UTILS
-source("R/functions/utils/get_time_value.R")
-# NDOE
-source("R/functions/node/node_functions.R")
-```
-
 ```{r}
 library(celltracktech)
 library(dotenv)
@@ -56,7 +44,7 @@ load_dot_env(file='.env')
 # These were created in Chapter 2. If you do not have these in your project directory, go back and repeat Ch. 2.
 my_token <- Sys.getenv('API_KEY') # load env variable into my_token
 myproject <- "Meadows V2" # this is your project name on your CTT account, here we are using the CTT project 'Meadows V2'
-outpath <- "./data/meadows/" # where your downloaded files are to go
+outpath <- "./data/" # where your downloaded files are to go
 
 # Specify the time range of node data you want to import for this analysis
 start_time <- as.POSIXct("2023-10-01 00:00:00",tz="GMT")
@@ -64,7 +52,7 @@ stop_time <- as.POSIXct("2023-11-01 00:00:00",tz="GMT")
 
 # Connect to Database using DuckDB -----------------------------------------------------
 con <- DBI::dbConnect(duckdb::duckdb(), 
-                      dbdir = "./data/meadows/meadows.duckdb", 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
                       read_only = FALSE)
 
 # load node_health table into RStudio and only load the data between the set start and stop times
@@ -76,7 +64,11 @@ node_health_df <- tbl(con, "node_health") |>
 DBI::dbDisconnect(con)
 
 # filter the node_health_df for unique node ids
-node_health_df <- node_health_df %>% distinct(node_id, time, recorded_at, .keep_all = TRUE)
+node_health_df <- node_health_df %>% 
+  distinct(node_id, 
+            time, 
+            recorded_at, 
+            .keep_all = TRUE)
 ```
 
 #### Checking Nodes are operating
@@ -89,10 +81,14 @@ node_record_counts <- node_health_df %>% count(node_id)
 node_record_counts <- node_record_counts[order(node_record_counts$n, decreasing = TRUE),]
 
 # plot the number of node health records based on node id
-ggplot(node_record_counts,aes(x=factor(node_id,node_record_counts$node_id),y=n)) +
+ggplot(node_record_counts,
+       aes(x = factor(node_id,
+                      node_record_counts$node_id),
+           y = n)) +
   geom_bar(stat = "identity") +
   coord_flip() +
-  labs(x="Health Record Count",y="Node Id") +
+  labs(x = "Health Record Count",
+       y = "Node Id") +
   tag_hist_plot_theme
 ```
 We can see after running the above script that Nodes 3B3B8F, 339CAE, and 32909D have relatively low number of records, so we may want to exclude them from further analyses.
@@ -104,18 +100,22 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 ```{r}
 # Plot the Battery voltage vs. time for all nodes
 ggplot(node_health_df) +
-  geom_point(aes(x=time,y=battery,colour = node_id)) +
+  geom_point(aes(x = time,
+                 y = battery,
+                 colour = node_id)) +
   classic_plot_theme
 
 # Plot the Battery & Solar voltage vs. time for a specific node
 # Node 326710 is a normal working Node
 selected_node_id <- "326710"
-batt_solar_plot <- plot_battery_solar(node_health_df = node_health_df, selected_node_id = selected_node_id)
+batt_solar_plot <- plot_battery_solar(node_health_df = node_health_df, 
+                                      selected_node_id = selected_node_id)
 batt_solar_plot 
 
 # based on the Battery voltage vs. time plot, Node 32909D has a low battery voltage
 selected_node_id <- '32909D'
-batt_solar_plot <- plot_battery_solar(node_health_df = node_health_df, selected_node_id = selected_node_id)
+batt_solar_plot <- plot_battery_solar(node_health_df = node_health_df, 
+                                      selected_node_id = selected_node_id)
 batt_solar_plot 
 ```
 Node 326710 is working properly and has consistent solar voltages during the day (~ 5 V) and a consistent battery voltage over time (i.e. 3.5-3.6 V), while node 32909D has inconsistent solar voltages, hinting at either dirty solar panels or covered solar panels, and a much lower battery voltage (~ 2.8 V).

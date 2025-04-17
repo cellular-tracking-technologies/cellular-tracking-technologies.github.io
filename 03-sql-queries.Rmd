@@ -14,18 +14,22 @@ If you are new to database queries but familiar with dplyr and tidyverse, I reco
 library(celltracktech)
 library(duckplyr)
 
-# load base tables
-raw = tbl(conn, 'raw') |> as_duckdb_tibble()
-blu = tbl(conn, 'blu') |> as_duckdb_tibble()
-gps = tbl(conn, "gps") |> as_duckdb_tibble()
-node_health = tbl(conn, 'node_health') |> as_duckdb_tibble()
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
+                      read_only = FALSE)
 
-# load node tables
-node_raw = tbl(conn, 'node_raw') |> as_duckdb_tibble()
-node_blu = tbl(conn, 'node_blu') |> as_duckdb_tibble()
-node_gps = tbl(conn, 'node_gps') |> as_duckdb_tibble()
-node_health_from_node = tbl(conn, 'node_health_from_node') |> as_duckdb_tibble()
+# load raw data table and find unique tags
+unique_tags = tbl(con, 'raw') |> 
+  group_by(tag_id) |>
+  summarize(num_detect = n()) |>
+  select(tag_id, num_detect) |>
+  arrange(desc(num_detect)) |>
+  as_duckdb_tibble()
+
+DBI::dbDisconnect(con)
+
 ```
+
 ## SQL Queries
 
 If you are more comfortable with the SQL syntax, you can use SQL queries to get data from different tables.
@@ -64,27 +68,14 @@ con <- DBI::dbConnect(duckdb::duckdb(),
 raw = DBI::dbGetQuery(con, "SELECT * FROM raw "); raw
 tail(raw)
 
-# list last 10 records in blu
-blu = DBI::dbGetQuery(con, "SELECT * FROM blu "); blu
-tail(blu)
-head(blu)
-
-# list the number of unique nodes in your project
-node_table = DBI::dbGetQuery(con, 'SELECT * FROM nodes')
-head(node_table)
-
-# list the data files that were used to create your database
-df_table = DBI::dbGetQuery(con, 'SELECT * FROM data_file')
-
+# find unique tags in the raw table
+unique_tag = dbGetQuery(conn,
+                          'SELECT tag_id, COUNT(*) AS num_detect
+                          FROM raw
+                          GROUP BY tag_id
+                          ORDER BY num_detect DESC')
 DBI::dbDisconnect(con)
 
 ```
-Find unique tags
-```{r}
-unique_tags = raw %>%
-  group_by(tag_id) %>%
-  summarize(num_detect = n()) %>%
-  select(tag_id, num_detect) %>%
-  arrange(desc(num_detect))
-```
+
 Note: you do not need to load each table into RStudio. You should only load the tables you need to for your analysis.
