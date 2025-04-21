@@ -5,7 +5,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 # Habitat Use
 
-If you are interested in where animals spend time, use this chapter to provide you with the code scripts to calculate tag detections into habitat use.
+Calculate where an animal spends its time.
 
 ## Load libraries and settings
 
@@ -16,28 +16,19 @@ renv::activate()
 
 ### Load libraries and settings
 ```{r}
-library(dplyr)
-library(duckdb)
-library(ggplot2)
+# library(dplyr)
+# library(duckdb)
+# library(ggplot2)
 library(celltracktech)
 ```
 
 ### Load Functions
 ```{r}
-# DEFS
-source("R/defs/plot_themes.R")
-# TAG
-source("R/functions/tag/load_node_detection_data.R")
-# NDOE
-source("R/functions/node/node_functions.R")
-# GRID SEARCH
-source("R/functions/grid_search/grid_search_functions.R")
-
 # Specify the path to your database file
-database_file <- "data/meadows/meadows.duckdb"
+database_file <- "./data/Meadows V2/meadows.duckdb"
 
 # Specify the path to the deployment info file
-deployment_info_file <- "data/meadows/meadows_deployments_2023.csv"
+deployment_info_file <- "./data/Meadows V2/meadows_deployments_2023.csv"
 ```
 
 
@@ -116,7 +107,7 @@ node_loc_plot <- plot_node_locations(node_health_df,
 node_loc_plot
 
 # Write the node locations to a file
-# export_node_locations("output/node_locations.csv",node_locs)
+# export_node_locations("results/node_locations.csv",node_locs)
 # Draw a map with the node locations
 node_map <- map_node_locations(node_locs, tile_url = my_tile_url)
 node_map

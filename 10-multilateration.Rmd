@@ -1,4 +1,3 @@
-
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
@@ -7,7 +6,7 @@ knitr::opts_chunk$set(eval = FALSE)
 # Multilateration
 This process is just like habitat use and grid search analysis, but instead of using the RSSI, it uses time difference of arrival instead to calculate the location of an animal.
 
-Best to use when your node grid is evenly spaced.
+You should use this method when your node grid is evenly spaced.
 
 [Multilateration paper](https://pubmed.ncbi.nlm.nih.gov/35169450/)
 
@@ -18,28 +17,31 @@ Best to use when your node grid is evenly spaced.
 rm(list=ls())
 tagid = c("072A6633","2D4B782D") #"0C5F5CED"
 timezone="UTC"
-options(digits=9)
+options(digits=9) # sets number after decimal
 ```
 
-### Load functions
+### Load libraries
 ```{r}
+library(celltracktech)
 library(data.table)
 source("R/Functions_Paxton-CTTUpdate.R")
 ```
 
-### Re-create sample data for calibration
+### Re-create sample data from node calibration (Chapter 5)
 ```{r}
 #create time window by reducing location precision or can input data with TestId column (user-defined window)
-# where does calibration file come from?
-mytest <- read.csv("./calibration_2023_8_3_all.csv")
+
+# load node calibration file from Chapter 5
+# mytest <- read.csv("./calibration_2023_8_3_all.csv")
+mytest <- read.csv("./data/Meadows V2/sidekick/calibration_2023_8_3_all.csv")
 mytest$Time <- as.POSIXct(mytest$time_utc, tz="UTC")
 
 # connect to database
 con <- DBI::dbConnect(duckdb::duckdb(), 
-                      dbdir = "./data/meadows/meadows.duckdb", 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
                       read_only = TRUE)
 
-# filter for specific dates and for the specified tags in tagid
+# filter for specific dates and for the specified tags in tag id
 testdata <- tbl(con, "raw") |> 
   filter(time >= as.Date("2023-07-31") && time <= as.Date("2023-10-31")) |>
   filter(tag_id %in% tagid) |>
@@ -65,15 +67,15 @@ nodes <- node_file(nodehealth)
 combined_data <- data.setup(mytest, 
                             testdata, 
                             nodes, 
-                            tag_col="tag_id", 
-                            tagid="072A6633", 
-                            time_col="Time",
-                            timezone="UTC",
-                            x="lon",
-                            y="lat", 
-                            loc_precision=6, 
-                            fileloc="./data/meadows/meadows.duckdb", 
-                            filetype="raw")
+                            tag_col = "tag_id", 
+                            tagid = "072A6633", 
+                            time_col = "Time",
+                            timezone = "UTC",
+                            x = "lon",
+                            y = "lat", 
+                            loc_precision = 6, 
+                            fileloc = "./data/Meadows V2/meadows.duckdb", 
+                            filetype = "raw")
 ```
 
 ## Exponential Decay Function - Relationship between Distance and Tag RSS Values
@@ -82,7 +84,7 @@ combined_data <- data.setup(mytest,
 ggplot(data = combined_data, 
        aes(x = distance, 
            y = avgRSS, 
-           color = node_id)) +
+           color = node_id)) + 
   geom_point(size = 2)
 ```
 As distance increases, we see average RSS decreasing exponentially.
@@ -130,8 +132,10 @@ nls.mod <- nls(avgRSS ~ a * exp(-S * distance) + K,
                             S = S, 
                             K= K), 
                data = combined_data)
+
   # Model Summary
 summary(nls.mod)
+
   # Model Coefficients 
 coef(nls.mod)
 
@@ -151,16 +155,18 @@ combined_data$fit <- fitted(nls.mod)
 combined_data$pred <- predict(nls.mod)
 
 ## Plot with predicted line
-ggplot(combined_data, aes(x = distance, y = avgRSS, color=node_id)) + 
+ggplot(combined_data, aes(x = distance,
+                          y = avgRSS, 
+                          color=node_id)) + 
   geom_point() +
   geom_line(aes(y = pred), color="black", lwd = 1.25) +
   scale_y_continuous(name = "RSS (dB)") +
   scale_x_continuous(name = "Distance (m)") +
   theme_classic()
 
-K <- unname(coef(nls.mod)[3])
 a <- unname(coef(nls.mod)[1])
 S <- unname(coef(nls.mod)[2])
+K <- unname(coef(nls.mod)[3])
 
 combined_data <- estimate.distance(combined_data, K, a, S)
 
@@ -207,7 +213,13 @@ test_data <- testdata %>%
 
 # Function to prepare beep data for trilateration 
 # by estimating distance of a signal based on RSS values
-beep.grouped <- prep.data(test_data,nodes,SLIDE.TIME,GROUP.TIME,K, a, S) 
+beep.grouped <- prep.data(test_data,
+                          nodes,
+                          SLIDE.TIME,
+                          GROUP.TIME,
+                          K, 
+                          a, 
+                          S) 
 
 RSS.filter <- -95
 location.estimates <- trilateration(beep.grouped, nodes, RSS.FILTER)

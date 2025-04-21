@@ -113,9 +113,9 @@ node_loc_plot <- plot_node_locations(node_health_df,
 node_loc_plot
 
 # Write the node locations to a file
-create_outpath('data/Meadows V2/output/')
+create_outpath('results')
 
-export_node_locations("data/Meadows V2/output/node_locations.csv", 
+export_node_locations("results/node_locations.csv", 
                       node_locs)
 
 # Draw a map with the node locations

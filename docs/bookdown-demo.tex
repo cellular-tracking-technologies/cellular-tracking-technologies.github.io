@@ -881,9 +881,9 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \NormalTok{node\_loc\_plot}
 
 \CommentTok{\# Write the node locations to a file}
-\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}data/Meadows V2/output/\textquotesingle{}}\NormalTok{)}
+\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}results\textquotesingle{}}\NormalTok{)}
 
-\FunctionTok{export\_node\_locations}\NormalTok{(}\StringTok{"data/Meadows V2/output/node\_locations.csv"}\NormalTok{, }
+\FunctionTok{export\_node\_locations}\NormalTok{(}\StringTok{"results/node\_locations.csv"}\NormalTok{, }
 \NormalTok{                      node\_locs)}
 
 \CommentTok{\# Draw a map with the node locations}
@@ -1158,7 +1158,7 @@ While it is good to know how many detections an individual tag has, it is better
 \end{Highlighting}
 \end{Shaded}
 
-\chapter{7 Activity Budget}\label{activity-budget}
+\chapter{Activity Budget}\label{activity-budget}
 
 When is the animal active and/or inactive? Use the following script to answer research questions like:
 
@@ -1174,7 +1174,7 @@ When is the animal active and/or inactive? Use the following script to answer re
   Mortality detection
 \end{itemize}
 
-\section{7.1 Load settings}\label{load-settings-1}
+\section{Load settings}\label{load-settings-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1200,7 +1200,7 @@ When is the animal active and/or inactive? Use the following script to answer re
 \end{Highlighting}
 \end{Shaded}
 
-\section{7.2 Load Tag Node Detection Data}\label{load-tag-node-detection-data}
+\section{Load Tag Node Detection Data}\label{load-tag-node-detection-data}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1219,7 +1219,7 @@ When is the animal active and/or inactive? Use the following script to answer re
 \end{Highlighting}
 \end{Shaded}
 
-\section{7.3 Tag Activity}\label{tag-activity}
+\section{Tag Activity}\label{tag-activity}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1248,7 +1248,7 @@ When is the animal active and/or inactive? Use the following script to answer re
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{7.3.1 Scatter Plot of RSSI vs time by Node}\label{scatter-plot-of-rssi-vs-time-by-node}
+\subsection{Scatter Plot of RSSI vs time by Node}\label{scatter-plot-of-rssi-vs-time-by-node}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1267,7 +1267,7 @@ When is the animal active and/or inactive? Use the following script to answer re
 
 Here we see that this bird was spending most of the time in the vicinity of nodes 3282EC, 339CAE, and 37824B, but then spends a considerable amount of time near node 32941A.
 
-\subsection{7.3.2 Scatter Plot of activity vs time by Node}\label{scatter-plot-of-activity-vs-time-by-node}
+\subsection{Scatter Plot of activity vs time by Node}\label{scatter-plot-of-activity-vs-time-by-node}
 
 Next we will quantify the activity level. Activity is an arbitrary variable; it can be movement, roosting, a specific behavior, etc. You will need to define what activity is based on your study.
 
@@ -1288,7 +1288,7 @@ Next we will quantify the activity level. Activity is an arbitrary variable; it 
 
 Here we see the activity level (y-axis) for every 5 min from September 1 to September 2. Each color represents a unique Node ID. From a brief glance, this tag had low to mid activity levels near nodes 3282EC and 37824B, but it is still difficult to discern what is going on in this plot.
 
-\subsection{7.3.3 2D Histogram of Activity over Time}\label{d-histogram-of-activity-over-time}
+\subsection{2D Histogram of Activity over Time}\label{d-histogram-of-activity-over-time}
 
 We can summarize the above plot even further by creating a heatmap. The code chunk below creates a heatmap bin plot, which displays the activity for an individual over a period of time, with the color of each bin representing the count of activity (on a log scale), while the bins tell us the activity level.
 
@@ -1314,7 +1314,7 @@ We can summarize the above plot even further by creating a heatmap. The code chu
 
 From this plot, we can see that there are multiple instances of low activity (demonstrated by the yellow bins at activity/hour 1), and fewer instances of high activity (demonstrated by the blue bins at activity/hour 4 and above).
 
-\subsection{7.3.4 2D histogram of activity vs time WITH avg activity}\label{d-histogram-of-activity-vs-time-with-avg-activity}
+\subsection{2D histogram of activity vs time WITH avg activity}\label{d-histogram-of-activity-vs-time-with-avg-activity}
 
 This code chunk makes the same plot as above, but also displays the average activity level as a red line.
 
@@ -1346,7 +1346,7 @@ This code chunk makes the same plot as above, but also displays the average acti
 
 Here we see the average activity level for this tag is roughly 1 per hour from September 1 to September 2.
 
-\subsection{7.3.5 Avg activity / hour Vs time.}\label{avg-activity-hour-vs-time.}
+\subsection{Avg activity / hour Vs time.}\label{avg-activity-hour-vs-time.}
 
 Let's zoom in and isolate the average activity per hour:
 
@@ -1374,13 +1374,13 @@ Let's zoom in and isolate the average activity per hour:
 
 We see that average activity is highest between 6am-12pm but decreases suddenly after that, which is what we would expect for bird activity level in September.
 
-\chapter{8 Habitat Use}\label{habitat-use}
+\chapter{Habitat Use}\label{habitat-use}
 
-If you are interested in where animals spend time, use this chapter to provide you with the code scripts to calculate tag detections into habitat use.
+Calculate where an animal spends its time.
 
-\section{8.1 Load libraries and settings}\label{load-libraries-and-settings}
+\section{Load libraries and settings}\label{load-libraries-and-settings}
 
-\subsection{8.1.1 Activate renv}\label{activate-renv}
+\subsection{Activate renv}\label{activate-renv}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1388,39 +1388,30 @@ If you are interested in where animals spend time, use this chapter to provide y
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{8.1.2 Load libraries and settings}\label{load-libraries-and-settings-1}
+\subsection{Load libraries and settings}\label{load-libraries-and-settings-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(dplyr)}
-\FunctionTok{library}\NormalTok{(duckdb)}
-\FunctionTok{library}\NormalTok{(ggplot2)}
+\CommentTok{\# library(dplyr)}
+\CommentTok{\# library(duckdb)}
+\CommentTok{\# library(ggplot2)}
 \FunctionTok{library}\NormalTok{(celltracktech)}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{8.1.3 Load Functions}\label{load-functions}
+\subsection{Load Functions}\label{load-functions}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# DEFS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/defs/plot\_themes.R"}\NormalTok{)}
-\CommentTok{\# TAG}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/tag/load\_node\_detection\_data.R"}\NormalTok{)}
-\CommentTok{\# NDOE}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/node/node\_functions.R"}\NormalTok{)}
-\CommentTok{\# GRID SEARCH}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/grid\_search/grid\_search\_functions.R"}\NormalTok{)}
-
 \CommentTok{\# Specify the path to your database file}
-\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"data/meadows/meadows.duckdb"}
+\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/Meadows V2/meadows.duckdb"}
 
 \CommentTok{\# Specify the path to the deployment info file}
-\NormalTok{deployment\_info\_file }\OtherTok{\textless{}{-}} \StringTok{"data/meadows/meadows\_deployments\_2023.csv"}
+\NormalTok{deployment\_info\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/Meadows V2/meadows\_deployments\_2023.csv"}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{8.1.4 Load RSSI Coefficients}\label{load-rssi-coefficients}
+\subsection{Load RSSI Coefficients}\label{load-rssi-coefficients}
 
 Remember Chapter 5 in which we calibrated the node grid? We will want to use those RSSI coefficients to accurately calculate the tag tracks from the detection data.
 
@@ -1437,7 +1428,7 @@ We will set the coefficients in the code block below, as well as our start and s
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{8.1.5 Load Settings}\label{load-settings-2}
+\subsection{Load Settings}\label{load-settings-2}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1462,7 +1453,7 @@ We will set the coefficients in the code block below, as well as our start and s
 \end{Highlighting}
 \end{Shaded}
 
-\section{8.2 Load Node Health Data from Files}\label{load-node-health-data-from-files-1}
+\section{Load Node Health Data from Files}\label{load-node-health-data-from-files-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1488,7 +1479,7 @@ We will set the coefficients in the code block below, as well as our start and s
 \end{Highlighting}
 \end{Shaded}
 
-\section{8.3 Get Node Locations}\label{get-node-locations-1}
+\section{Get Node Locations}\label{get-node-locations-1}
 
 Due to variations in GPS coordinates, it is a good idea to plot the Node locations and overlay the plot over a satellite image of your study site.
 
@@ -1504,14 +1495,14 @@ Due to variations in GPS coordinates, it is a good idea to plot the Node locatio
 \NormalTok{node\_loc\_plot}
 
 \CommentTok{\# Write the node locations to a file}
-\CommentTok{\# export\_node\_locations("output/node\_locations.csv",node\_locs)}
+\CommentTok{\# export\_node\_locations("results/node\_locations.csv",node\_locs)}
 \CommentTok{\# Draw a map with the node locations}
 \NormalTok{node\_map }\OtherTok{\textless{}{-}} \FunctionTok{map\_node\_locations}\NormalTok{(node\_locs, }\AttributeTok{tile\_url =}\NormalTok{ my\_tile\_url)}
 \NormalTok{node\_map}
 \end{Highlighting}
 \end{Shaded}
 
-\section{8.4 Load Station Detection Data}\label{load-station-detection-data}
+\section{Load Station Detection Data}\label{load-station-detection-data}
 
 These are your tag detections in the `raw' or `blu' data tables in your database.
 
@@ -1535,7 +1526,7 @@ These are your tag detections in the `raw' or `blu' data tables in your database
 \end{Highlighting}
 \end{Shaded}
 
-\section{8.5 Build a Grid}\label{build-a-grid}
+\section{Build a Grid}\label{build-a-grid}
 
 To actually quantify the amount of habitat an animal uses, we will create a 500x800 m grid and overlay it over the map. Each grid bin will be 5x5m.
 
@@ -1564,7 +1555,7 @@ To actually quantify the amount of habitat an animal uses, we will create a 500x
 \end{Highlighting}
 \end{Shaded}
 
-\section{8.6 Calculate Locations}\label{calculate-locations}
+\section{Calculate Locations}\label{calculate-locations}
 
 This will display the tag tracks and the tag location on the node grid map.
 
@@ -1594,7 +1585,7 @@ This will display the tag tracks and the tag location on the node grid map.
 \NormalTok{track\_map}
 
 \CommentTok{\# calculate and display the location density on the node grid map}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/grid\_search/grid\_search\_functions.R"}\NormalTok{)}
+\CommentTok{\# source("R/functions/grid\_search/grid\_search\_functions.R")}
 \NormalTok{loc\_density }\OtherTok{\textless{}{-}} \FunctionTok{calc\_location\_density}\NormalTok{(}\AttributeTok{grid\_df =}\NormalTok{ grid\_df, }
                                      \AttributeTok{locations\_df =}\NormalTok{ locations\_df)}
 
@@ -1621,15 +1612,15 @@ Below is an example of a Power Tag with a 1/8 wave antenna, and will need a lowe
 \end{Highlighting}
 \end{Shaded}
 
-\chapter{9 Grid Search Analysis}\label{grid-search-analysis}
+\chapter{Grid Search Analysis}\label{grid-search-analysis}
 
 If you are interested in the extent of an animal's movement, use the following grid search analysis.
 
 Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a grid, and calculates the received signal strength at each node. Then this process is repeated for each time step in a series of detections recorded by the node network.
 
-\section{9.1 Loading Settings}\label{loading-settings}
+\section{Loading Settings}\label{loading-settings}
 
-\subsection{9.1.1 Activate renv}\label{activate-renv-1}
+\subsection{Activate renv}\label{activate-renv-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1637,7 +1628,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{9.1.2 Load libraries}\label{load-libraries}
+\subsection{Load libraries}\label{load-libraries}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1647,31 +1638,12 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{9.1.3 Load functions}\label{load-functions-1}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# DEFS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/defs/plot\_themes.R"}\NormalTok{)}
-\CommentTok{\# UTILS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/utils/get\_time\_value.R"}\NormalTok{)}
-\CommentTok{\# NDOE}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/node/node\_functions.R"}\NormalTok{)}
-\CommentTok{\# TAG}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/tag/load\_node\_detection\_data.R"}\NormalTok{)}
-\CommentTok{\# SIDEKICK}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/sidekick/load\_sidekick\_data.R"}\NormalTok{)}
-\CommentTok{\# GRID SEARCH}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/grid\_search/grid\_search\_functions.R"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\subsection{9.1.4 Load settings}\label{load-settings-3}
+\subsection{Load settings}\label{load-settings-3}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Specify the path to your database file}
-\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/meadows/meadows.duckdb"}
+\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/Meadows V2/meadows.duckdb"}
 
 \CommentTok{\# (OPTIONAL) Specify Node time offsets if necessary}
 \NormalTok{node\_time\_offset\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/node\_time\_offset\_8\_2\_2023.csv"}
@@ -1707,7 +1679,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\section{9.2 Load Node Health data from Database}\label{load-node-health-data-from-database}
+\section{Load Node Health data from Database}\label{load-node-health-data-from-database}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1720,7 +1692,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\section{9.3 Get Node Locations}\label{get-node-locations-2}
+\section{Get Node Locations}\label{get-node-locations-2}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1732,14 +1704,14 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
                                      \AttributeTok{theme =}\NormalTok{ classic\_plot\_theme)}
 \NormalTok{node\_loc\_plot}
 \CommentTok{\# Write the node locations to a file}
-\FunctionTok{export\_node\_locations}\NormalTok{(}\StringTok{"examples/meadows/output/node\_locations.csv"}\NormalTok{, node\_locs)}
+\FunctionTok{export\_node\_locations}\NormalTok{(}\StringTok{"./results/node\_locations.csv"}\NormalTok{, node\_locs)}
 \CommentTok{\# Draw a map with the node locations}
 \NormalTok{node\_map }\OtherTok{\textless{}{-}} \FunctionTok{map\_node\_locations}\NormalTok{(node\_locs, }\AttributeTok{tile\_url =}\NormalTok{ my\_tile\_url)}
 \NormalTok{node\_map}
 \end{Highlighting}
 \end{Shaded}
 
-\section{9.4 Load Station Detection Data}\label{load-station-detection-data-1}
+\section{Load Station Detection Data}\label{load-station-detection-data-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1754,7 +1726,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\section{9.5 Build a Node Grid}\label{build-a-node-grid}
+\section{Build a Node Grid}\label{build-a-node-grid}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1778,7 +1750,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\section{9.6 (Optional) Calculate Test Solution}\label{optional-calculate-test-solution}
+\section{(Optional) Calculate Test Solution}\label{optional-calculate-test-solution}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1824,7 +1796,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\section{9.7 Calculate Track}\label{calculate-track}
+\section{Calculate Track}\label{calculate-track}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1848,13 +1820,13 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\section{9.8 (Optional) Compare with Known Track}\label{optional-compare-with-known-track}
+\section{(Optional) Compare with Known Track}\label{optional-compare-with-known-track}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# If you\textquotesingle{}ve recorded a test track with the sidekick and want to see how well you}
 \CommentTok{\# are able to recreate it you can use the commands below.}
-\NormalTok{sidekick\_file\_path }\OtherTok{\textless{}{-}} \StringTok{"data/meadows/sidekick/calibration\_2023\_8\_3\_t2.csv"}
+\NormalTok{sidekick\_file\_path }\OtherTok{\textless{}{-}} \StringTok{"./data/Meadows V2/sidekick/calibration\_2023\_8\_3\_t2.csv"}
 \CommentTok{\# Get Sidekick data from CSV (note I modified the headers for cleaner names in here)}
 \NormalTok{sidekick\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(sidekick\_file\_path)}
 \CommentTok{\# Correct sidekick time formatting}
@@ -1876,7 +1848,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\section{9.9 Plot Uncertainty Analysis}\label{plot-uncertainty-analysis}
+\section{Plot Uncertainty Analysis}\label{plot-uncertainty-analysis}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1901,7 +1873,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 
 This process is just like habitat use and grid search analysis, but instead of using the RSSI, it uses time difference of arrival instead to calculate the location of an animal.
 
-Best to use when your node grid is evenly spaced.
+You should use this method when your node grid is evenly spaced.
 
 \href{https://pubmed.ncbi.nlm.nih.gov/35169450/}{Multilateration paper}
 
@@ -1914,34 +1886,37 @@ Best to use when your node grid is evenly spaced.
 \FunctionTok{rm}\NormalTok{(}\AttributeTok{list=}\FunctionTok{ls}\NormalTok{())}
 \NormalTok{tagid }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"072A6633"}\NormalTok{,}\StringTok{"2D4B782D"}\NormalTok{) }\CommentTok{\#"0C5F5CED"}
 \NormalTok{timezone}\OtherTok{=}\StringTok{"UTC"}
-\FunctionTok{options}\NormalTok{(}\AttributeTok{digits=}\DecValTok{9}\NormalTok{)}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{digits=}\DecValTok{9}\NormalTok{) }\CommentTok{\# sets number after decimal}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Load functions}\label{load-functions-2}
+\subsection{Load libraries}\label{load-libraries-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(celltracktech)}
 \FunctionTok{library}\NormalTok{(data.table)}
 \FunctionTok{source}\NormalTok{(}\StringTok{"R/Functions\_Paxton{-}CTTUpdate.R"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Re-create sample data for calibration}\label{re-create-sample-data-for-calibration}
+\subsection{Re-create sample data from node calibration (Chapter 5)}\label{re-create-sample-data-from-node-calibration-chapter-5}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\#create time window by reducing location precision or can input data with TestId column (user{-}defined window)}
-\CommentTok{\# where does calibration file come from?}
-\NormalTok{mytest }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"./calibration\_2023\_8\_3\_all.csv"}\NormalTok{)}
+
+\CommentTok{\# load node calibration file from Chapter 5}
+\CommentTok{\# mytest \textless{}{-} read.csv("./calibration\_2023\_8\_3\_all.csv")}
+\NormalTok{mytest }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"./data/Meadows V2/sidekick/calibration\_2023\_8\_3\_all.csv"}\NormalTok{)}
 \NormalTok{mytest}\SpecialCharTok{$}\NormalTok{Time }\OtherTok{\textless{}{-}} \FunctionTok{as.POSIXct}\NormalTok{(mytest}\SpecialCharTok{$}\NormalTok{time\_utc, }\AttributeTok{tz=}\StringTok{"UTC"}\NormalTok{)}
 
 \CommentTok{\# connect to database}
 \NormalTok{con }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{(), }
-                      \AttributeTok{dbdir =} \StringTok{"./data/meadows/meadows.duckdb"}\NormalTok{, }
+                      \AttributeTok{dbdir =} \StringTok{"./data/Meadows V2/meadows.duckdb"}\NormalTok{, }
                       \AttributeTok{read\_only =} \ConstantTok{TRUE}\NormalTok{)}
 
-\CommentTok{\# filter for specific dates and for the specified tags in tagid}
+\CommentTok{\# filter for specific dates and for the specified tags in tag id}
 \NormalTok{testdata }\OtherTok{\textless{}{-}} \FunctionTok{tbl}\NormalTok{(con, }\StringTok{"raw"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{filter}\NormalTok{(time }\SpecialCharTok{\textgreater{}=} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2023{-}07{-}31"}\NormalTok{) }\SpecialCharTok{\&\&}\NormalTok{ time }\SpecialCharTok{\textless{}=} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2023{-}10{-}31"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{filter}\NormalTok{(tag\_id }\SpecialCharTok{\%in\%}\NormalTok{ tagid) }\SpecialCharTok{|\textgreater{}}
@@ -1970,15 +1945,15 @@ Best to use when your node grid is evenly spaced.
 \NormalTok{combined\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.setup}\NormalTok{(mytest, }
 \NormalTok{                            testdata, }
 \NormalTok{                            nodes, }
-                            \AttributeTok{tag\_col=}\StringTok{"tag\_id"}\NormalTok{, }
-                            \AttributeTok{tagid=}\StringTok{"072A6633"}\NormalTok{, }
-                            \AttributeTok{time\_col=}\StringTok{"Time"}\NormalTok{,}
-                            \AttributeTok{timezone=}\StringTok{"UTC"}\NormalTok{,}
-                            \AttributeTok{x=}\StringTok{"lon"}\NormalTok{,}
-                            \AttributeTok{y=}\StringTok{"lat"}\NormalTok{, }
-                            \AttributeTok{loc\_precision=}\DecValTok{6}\NormalTok{, }
-                            \AttributeTok{fileloc=}\StringTok{"./data/meadows/meadows.duckdb"}\NormalTok{, }
-                            \AttributeTok{filetype=}\StringTok{"raw"}\NormalTok{)}
+                            \AttributeTok{tag\_col =} \StringTok{"tag\_id"}\NormalTok{, }
+                            \AttributeTok{tagid =} \StringTok{"072A6633"}\NormalTok{, }
+                            \AttributeTok{time\_col =} \StringTok{"Time"}\NormalTok{,}
+                            \AttributeTok{timezone =} \StringTok{"UTC"}\NormalTok{,}
+                            \AttributeTok{x =} \StringTok{"lon"}\NormalTok{,}
+                            \AttributeTok{y =} \StringTok{"lat"}\NormalTok{, }
+                            \AttributeTok{loc\_precision =} \DecValTok{6}\NormalTok{, }
+                            \AttributeTok{fileloc =} \StringTok{"./data/Meadows V2/meadows.duckdb"}\NormalTok{, }
+                            \AttributeTok{filetype =} \StringTok{"raw"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1990,7 +1965,7 @@ Best to use when your node grid is evenly spaced.
 \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ combined\_data, }
        \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ distance, }
            \AttributeTok{y =}\NormalTok{ avgRSS, }
-           \AttributeTok{color =}\NormalTok{ node\_id)) }\SpecialCharTok{+}
+           \AttributeTok{color =}\NormalTok{ node\_id)) }\SpecialCharTok{+} 
   \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2056,8 +2031,10 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
                             \AttributeTok{S =}\NormalTok{ S, }
                             \AttributeTok{K=}\NormalTok{ K), }
                \AttributeTok{data =}\NormalTok{ combined\_data)}
+
   \CommentTok{\# Model Summary}
 \FunctionTok{summary}\NormalTok{(nls.mod)}
+
   \CommentTok{\# Model Coefficients }
 \FunctionTok{coef}\NormalTok{(nls.mod)}
 
@@ -2077,16 +2054,18 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 \NormalTok{combined\_data}\SpecialCharTok{$}\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(nls.mod)}
 
 \DocumentationTok{\#\# Plot with predicted line}
-\FunctionTok{ggplot}\NormalTok{(combined\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ distance, }\AttributeTok{y =}\NormalTok{ avgRSS, }\AttributeTok{color=}\NormalTok{node\_id)) }\SpecialCharTok{+} 
+\FunctionTok{ggplot}\NormalTok{(combined\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ distance,}
+                          \AttributeTok{y =}\NormalTok{ avgRSS, }
+                          \AttributeTok{color=}\NormalTok{node\_id)) }\SpecialCharTok{+} 
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ pred), }\AttributeTok{color=}\StringTok{"black"}\NormalTok{, }\AttributeTok{lwd =} \FloatTok{1.25}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"RSS (dB)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Distance (m)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_classic}\NormalTok{()}
 
-\NormalTok{K }\OtherTok{\textless{}{-}} \FunctionTok{unname}\NormalTok{(}\FunctionTok{coef}\NormalTok{(nls.mod)[}\DecValTok{3}\NormalTok{])}
 \NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{unname}\NormalTok{(}\FunctionTok{coef}\NormalTok{(nls.mod)[}\DecValTok{1}\NormalTok{])}
 \NormalTok{S }\OtherTok{\textless{}{-}} \FunctionTok{unname}\NormalTok{(}\FunctionTok{coef}\NormalTok{(nls.mod)[}\DecValTok{2}\NormalTok{])}
+\NormalTok{K }\OtherTok{\textless{}{-}} \FunctionTok{unname}\NormalTok{(}\FunctionTok{coef}\NormalTok{(nls.mod)[}\DecValTok{3}\NormalTok{])}
 
 \NormalTok{combined\_data }\OtherTok{\textless{}{-}} \FunctionTok{estimate.distance}\NormalTok{(combined\_data, K, a, S)}
 
@@ -2133,7 +2112,13 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \CommentTok{\# Function to prepare beep data for trilateration }
 \CommentTok{\# by estimating distance of a signal based on RSS values}
-\NormalTok{beep.grouped }\OtherTok{\textless{}{-}} \FunctionTok{prep.data}\NormalTok{(test\_data,nodes,SLIDE.TIME,GROUP.TIME,K, a, S) }
+\NormalTok{beep.grouped }\OtherTok{\textless{}{-}} \FunctionTok{prep.data}\NormalTok{(test\_data,}
+\NormalTok{                          nodes,}
+\NormalTok{                          SLIDE.TIME,}
+\NormalTok{                          GROUP.TIME,}
+\NormalTok{                          K, }
+\NormalTok{                          a, }
+\NormalTok{                          S) }
 
 \NormalTok{RSS.filter }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{95}
 \NormalTok{location.estimates }\OtherTok{\textless{}{-}} \FunctionTok{trilateration}\NormalTok{(beep.grouped, nodes, RSS.FILTER)}

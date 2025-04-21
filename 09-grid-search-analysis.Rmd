@@ -4,47 +4,30 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# 9 Grid Search Analysis
+# Grid Search Analysis
 
 If you are interested in the extent of an animal's movement, use the following grid search analysis.
 
 Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a grid, and calculates the received signal strength at each node. Then this process is repeated for each time step in a series of detections recorded by the node network.
 
-## 9.1 Loading Settings
+## Loading Settings
 
-### 9.1.1 Activate renv
+### Activate renv
 ```{r}
 renv::activate()
 ```
 
-### 9.1.2 Load libraries
+### Load libraries
 ```{r}
 library(dplyr)
 library(duckdb)
 library(ggplot2)
 ```
 
-### 9.1.3 Load functions
-
-```{r}
-# DEFS
-source("R/defs/plot_themes.R")
-# UTILS
-source("R/functions/utils/get_time_value.R")
-# NDOE
-source("R/functions/node/node_functions.R")
-# TAG
-source("R/functions/tag/load_node_detection_data.R")
-# SIDEKICK
-source("R/functions/sidekick/load_sidekick_data.R")
-# GRID SEARCH
-source("R/functions/grid_search/grid_search_functions.R")
-```
-
-### 9.1.4 Load settings
+### Load settings
 ```{r}
 # Specify the path to your database file
-database_file <- "./data/meadows/meadows.duckdb"
+database_file <- "./data/Meadows V2/meadows.duckdb"
 
 # (OPTIONAL) Specify Node time offsets if necessary
 node_time_offset_file <- "./data/node_time_offset_8_2_2023.csv"
@@ -79,7 +62,7 @@ det_stop_time <- as.POSIXct("2023-08-04 00:00:00", tz = "GMT")
 my_tile_url <- "https://mt2.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
 ```
 
-## 9.2 Load Node Health data from Database
+## Load Node Health data from Database
 ```{r}
 # Load from DB
 con <- DBI::dbConnect(duckdb::duckdb(), dbdir = database_file, read_only = TRUE)
@@ -89,7 +72,7 @@ node_health_df <- tbl(con, "node_health") |>
 DBI::dbDisconnect(con)
 ```
 
-## 9.3 Get Node Locations
+## Get Node Locations
 ```{r}
 # Calculate the average node locations
 node_locs <- calculate_node_locations(node_health_df)
@@ -99,13 +82,13 @@ node_loc_plot <- plot_node_locations(node_health_df,
                                      theme = classic_plot_theme)
 node_loc_plot
 # Write the node locations to a file
-export_node_locations("examples/meadows/output/node_locations.csv", node_locs)
+export_node_locations("./results/node_locations.csv", node_locs)
 # Draw a map with the node locations
 node_map <- map_node_locations(node_locs, tile_url = my_tile_url)
 node_map
 ```
 
-## 9.4 Load Station Detection Data
+## Load Station Detection Data
 ```{r}
 # Load from DB
 con <- DBI::dbConnect(duckdb::duckdb(), dbdir = database_file, read_only = TRUE)
@@ -117,7 +100,7 @@ DBI::dbDisconnect(con)
 detection_df <- detection_df %>% mutate(time_value = as.integer(time))
 ```
 
-## 9.5 Build a Node Grid
+## Build a Node Grid
 ```{r}
 grid_center_lat <- 38.93664800
 grid_center_lon <- -74.9462
@@ -139,7 +122,7 @@ grid_map
 
 ```
 
-## 9.6 (Optional) Calculate Test Solution
+## (Optional) Calculate Test Solution
 
 ```{r}
 test_time <- as.POSIXct("2023-08-03 19:57:50", tz = "GMT")
@@ -183,7 +166,7 @@ test_map <- draw_single_solution(test_rec_df,
 test_map
 ```
 
-## 9.7 Calculate Track
+## Calculate Track
 
 ```{r}
 track_df <- calculate_track(
@@ -205,12 +188,12 @@ track_map <- map_track(node_locs, track_df, my_tile_url)
 track_map
 ```
 
-## 9.8 (Optional) Compare with Known Track
+## (Optional) Compare with Known Track
 
 ```{r}
 # If you've recorded a test track with the sidekick and want to see how well you
 # are able to recreate it you can use the commands below.
-sidekick_file_path <- "data/meadows/sidekick/calibration_2023_8_3_t2.csv"
+sidekick_file_path <- "./data/Meadows V2/sidekick/calibration_2023_8_3_t2.csv"
 # Get Sidekick data from CSV (note I modified the headers for cleaner names in here)
 sidekick_df <- read.csv(sidekick_file_path)
 # Correct sidekick time formatting
@@ -231,7 +214,7 @@ compare_map <- map_track_error(node_locs, track_error_df, sidekick_df, my_tile_u
 compare_map
 ```
 
-## 9.9 Plot Uncertainty Analysis
+## Plot Uncertainty Analysis
 ```{r}
 # need legend for different color dots
 ggplot() +

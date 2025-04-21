@@ -77,7 +77,6 @@ grid-search-analysis
 loading-settings
 activate-renv-1
 load-libraries
-load-functions-1
 load-settings-3
 load-node-health-data-from-database
 get-node-locations-2
@@ -90,8 +89,8 @@ plot-uncertainty-analysis
 multilateration
 load-settings-4
 reset-rs-brain-remove-all-previous-objects
-load-functions-2
-re-create-sample-data-for-calibration
+load-libraries-1
+re-create-sample-data-from-node-calibration-chapter-5
 isolate-raw-received-signal-strength-rss-data-from-node-network-associated-with-test-data
 exponential-decay-function---relationship-between-distance-and-tag-rss-values
 preliminary-exponential-decay-model---determine-staring-values-for-the-final-model
