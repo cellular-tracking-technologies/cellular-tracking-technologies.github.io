@@ -127,7 +127,7 @@
 
 \title{`celltracktech' Data Analysis package}
 \author{Jessica Gorzo}
-\date{2025-03-25}
+\date{2025-04-21}
 
 \begin{document}
 \maketitle
@@ -256,7 +256,7 @@ In your project directory create the following folders to organize your files:
   results - store plots and tables
 \end{itemize}
 
-\chapter{2 Download Data}\label{download-data}
+\chapter{Download Data}\label{download-data}
 
 To download your CTT data, you first will need to create an SQL relational database. Why create a relational database instead of loading the csv files directly? Using a database uses much less memory when combining or cleaning data frames compared to loading data directly into RStudio.
 
@@ -283,7 +283,7 @@ If you are new to relational databases, you should use \href{https://duckdb.org/
 \end{Highlighting}
 \end{Shaded}
 
-\section{2.1 Create a DuckDB database}\label{create-a-duckdb-database}
+\section{Create a DuckDB database}\label{create-a-duckdb-database}
 
 Below is a sample script to create a DuckDB database
 
@@ -299,18 +299,18 @@ Below is a sample script to create a DuckDB database
 \NormalTok{myproject }\OtherTok{\textless{}{-}} \StringTok{"Meadows V2"} \CommentTok{\# this is your project name on your CTT account, here we are using the CTT project \textquotesingle{}Meadows V2\textquotesingle{}}
 
 \CommentTok{\# Create your data directory if it does not exist}
-\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data/meadows/"} \CommentTok{\# where your downloaded files are to go}
+\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data/"} \CommentTok{\# where your downloaded files are to go}
 
 \FunctionTok{create\_outpath}\NormalTok{(outpath)}
 
 \CommentTok{\# Connect to Database using DuckDB {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
 \NormalTok{con }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{(), }
-                      \AttributeTok{dbdir =} \StringTok{"./data/meadows/meadows2.db"}\NormalTok{, }
+                      \AttributeTok{dbdir =} \StringTok{"./data/Meadows V2/meadows.db"}\NormalTok{, }
                       \AttributeTok{read\_only =} \ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\section{2.2 Download data from the CTT API}\label{download-data-from-the-ctt-api}
+\section{Download data from the CTT API}\label{download-data-from-the-ctt-api}
 
 You are now connected to your DuckDB database, but so far nothing is in the database. The script below will download your data from the CTT servers and insert the files into your local database.
 
@@ -340,17 +340,20 @@ You may get this error message:
 
 It is fine, just run the \texttt{get\_my\_data()} function again and it should work properly.
 
-\subsection{2.2.1 Create Database from Files on your Computer}\label{create-database-from-files-on-your-computer}
+\subsection{Create Database from Files on your Computer}\label{create-database-from-files-on-your-computer}
 
 If you already have your Sensor Station files on your computer (i.e.~your sensor station is not connected to the internet), you can use the code block below to create a database and add those files to it.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{celltracktech}\SpecialCharTok{::}\FunctionTok{create\_duck}\NormalTok{(con)}
+\NormalTok{celltracktech}\SpecialCharTok{::}\FunctionTok{create\_database}\NormalTok{(}\AttributeTok{my\_token =}\NormalTok{ my\_token,}
+                               \AttributeTok{outpath =}\NormalTok{ outpath,}
+                               \AttributeTok{myproject =}\NormalTok{ myproject,}
+                               \AttributeTok{db\_name =}\NormalTok{ con)}
 \end{Highlighting}
 \end{Shaded}
 
-\section{2.3 Updating the database}\label{updating-the-database}
+\section{Updating the database}\label{updating-the-database}
 
 Upload the compressed data (i.e.~the `.csv.gz' files) into your DuckDB database:
 
@@ -360,7 +363,7 @@ Upload the compressed data (i.e.~the `.csv.gz' files) into your DuckDB database:
 \end{Highlighting}
 \end{Shaded}
 
-\section{2.4 Disconnecting from the database}\label{disconnecting-from-the-database}
+\section{Disconnecting from the database}\label{disconnecting-from-the-database}
 
 The benefit of using a relational database is that it does not need to be loaded into your computer memory the entire time you are analyzing your data. You can connect to it, filter/clean the data you want, and then disconnect once you are done, freeing up computer memory for more intensive data analysis tasks.
 
@@ -372,65 +375,105 @@ To disconnect from the database, run the following command:
 \end{Highlighting}
 \end{Shaded}
 
-\section{2.5 Uploading Node Data from the SD Card}\label{uploading-node-data-from-the-sd-card}
+\section{Uploading Node Data from the SD Card}\label{uploading-node-data-from-the-sd-card}
 
 \textbf{Note! This step is optional! If you are not uploading data from the Node SD cards, you can skip to chapter 3!}
 
-\subsection{2.5.1 Create Nodes directory}\label{create-nodes-directory}
+\subsection{Create Nodes directory}\label{create-nodes-directory}
 
 To upload Node data from the SD cards, you will need to create a `nodes' folder in the CTT Project Name folder. For example, we will create a folder in the `Meadows V2' folder in the `./data/meadows/' directory:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}./data/meadows/Meadows V2/nodes/\textquotesingle{}}\NormalTok{)}
+\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}./data/Meadows V2/nodes/\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{2.5.2 Create individual directories for each Node}\label{create-individual-directories-for-each-node}
+\subsection{Create individual directories for each Node}\label{create-individual-directories-for-each-node}
 
 Then, create a folder for each Node. In the example below, we are creating a folder for Node 3B8845:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}./data/meadows/Meadows V2/nodes/3B8845/\textquotesingle{}}\NormalTok{)}
+\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}./data/Meadows V2/nodes/3B8845/\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{2.5.3 Upload Node data to your DuckDB database}\label{upload-node-data-to-your-duckdb-database}
+\subsection{Upload Node data to your DuckDB database}\label{upload-node-data-to-your-duckdb-database}
 
 Remember, we need to re-connect to the DuckDB database to upload the Node data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{con }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{(), }
-                      \AttributeTok{dbdir =} \StringTok{"./data/meadows/meadows.duckdb"}\NormalTok{, }
+                      \AttributeTok{dbdir =} \StringTok{"./data/Meadows V2/meadows.duckdb"}\NormalTok{, }
                       \AttributeTok{read\_only =} \ConstantTok{FALSE}\NormalTok{)}
 
 \CommentTok{\# Import node data into your database}
 \FunctionTok{import\_node\_data}\NormalTok{(}\AttributeTok{d =}\NormalTok{ con,}
                  \AttributeTok{outpath =}\NormalTok{ outpath,}
-                 \AttributeTok{myproject =}\NormalTok{ myproject)}
-
-\CommentTok{\# update the database}
-\FunctionTok{update\_db}\NormalTok{(}\AttributeTok{d =}\NormalTok{ con,}
-          \AttributeTok{outpath =}\NormalTok{ outpath,}
-          \AttributeTok{myproject =}\NormalTok{ myproject,}
-          \AttributeTok{fix =} \ConstantTok{FALSE}\NormalTok{)}
+                 \AttributeTok{myproject =}\NormalTok{ myproject,}
+                 \AttributeTok{station\_id =} \StringTok{\textquotesingle{}6CA25D375881\textquotesingle{}}\NormalTok{)}
 
 \CommentTok{\# disconnect from the database}
 \NormalTok{DBI}\SpecialCharTok{::}\FunctionTok{dbDisconnect}\NormalTok{(con)}
 \end{Highlighting}
 \end{Shaded}
 
+The \texttt{import\_node\_data} will import the node csv files into the ``node\_'' data tables and insert the csv files into the regular ``raw'', ``blu'', and ``node\_health'' tables.
+
 You have finished uploading data to your database!
 
-\chapter{3 SQL Queries}\label{sql-queries}
+\section{Create Postgres Database}\label{create-postgres-database}
 
-To obtain the data in your database, you will need to use SQL queries to get data from different tables.
+If you or your lab are familiar with PostgreSQL, you can connect to your database with this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# create Postgres database}
+\NormalTok{con }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(}
+\NormalTok{  RPostgres}\SpecialCharTok{::}\FunctionTok{Postgres}\NormalTok{(),}
+  \AttributeTok{dbname=}\StringTok{"meadows"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Creating and editing a Postgres database is vastly different from a DuckDB database. You can find more information on Postgres and R \href{https://faculty.washington.edu/phurvitz/r_sql/createdb.html}{here}.
+
+\chapter{Accessing Database}\label{accessing-database}
+
+\section{Duckplyr}\label{duckplyr}
+
+If you are new to database queries but familiar with dplyr and tidyverse, I recommend using \texttt{duckplyr}. You can find more information about \texttt{duckplyr} \href{https://duckdb.org/2024/04/02/duckplyr.html}{here} but the main takeaway is that you can query your database using dplyr phrases and pipes, while also saving memory on loading data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(celltracktech)}
+\FunctionTok{library}\NormalTok{(duckplyr)}
+
+\NormalTok{con }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{(), }
+                      \AttributeTok{dbdir =} \StringTok{"./data/Meadows V2/meadows.duckdb"}\NormalTok{, }
+                      \AttributeTok{read\_only =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# load raw data table and find unique tags}
+\NormalTok{unique\_tags }\OtherTok{=} \FunctionTok{tbl}\NormalTok{(con, }\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(tag\_id) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{num\_detect =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(tag\_id, num\_detect) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(num\_detect)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{as\_duckdb\_tibble}\NormalTok{()}
+
+\NormalTok{DBI}\SpecialCharTok{::}\FunctionTok{dbDisconnect}\NormalTok{(con)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{SQL Queries}\label{sql-queries}
+
+If you are more comfortable with the SQL syntax, you can use SQL queries to get data from different tables.
 
 This chapter is a quick summary on how to use SQL in R. If you would like more info on how to run different queries, use this tutorial: \url{https://solutions.posit.co/connections/db/getting-started/database-queries/}
 
-\section{3.1 List Tables}\label{list-tables}
+\section{List Tables}\label{list-tables}
 
 List the tables in your database. If everything was run correctly, each data file type (raw, blu, node-health, etc.) should be in its own data table.
 
@@ -441,7 +484,7 @@ Remember to reconnect to the database!
 \FunctionTok{library}\NormalTok{(celltracktech)}
 
 \NormalTok{con }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{(), }
-                      \AttributeTok{dbdir =} \StringTok{"./data/meadows/meadows2.duckdb"}\NormalTok{, }
+                      \AttributeTok{dbdir =} \StringTok{"./data/Meadows V2/meadows.duckdb"}\NormalTok{, }
                       \AttributeTok{read\_only =} \ConstantTok{FALSE}\NormalTok{)}
 
 \CommentTok{\# list tables in database}
@@ -452,50 +495,32 @@ Remember to reconnect to the database!
 \end{Highlighting}
 \end{Shaded}
 
-\section{3.2 Load each data table into RStudio}\label{load-each-data-table-into-rstudio}
+\section{Load each data table into RStudio}\label{load-each-data-table-into-rstudio}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# connect to database}
 \NormalTok{con }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{(), }
-                      \AttributeTok{dbdir =} \StringTok{"./data/meadows/meadows.duckdb"}\NormalTok{, }
+                      \AttributeTok{dbdir =} \StringTok{"./data/Meadows V2/meadows.duckdb"}\NormalTok{, }
                       \AttributeTok{read\_only =} \ConstantTok{FALSE}\NormalTok{)}
 
 \CommentTok{\# list last 10 records in raw}
 \NormalTok{raw }\OtherTok{=}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbGetQuery}\NormalTok{(con, }\StringTok{"SELECT * FROM raw "}\NormalTok{); raw}
 \FunctionTok{tail}\NormalTok{(raw)}
 
-\CommentTok{\# list last 10 records in blu}
-\NormalTok{blu }\OtherTok{=}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbGetQuery}\NormalTok{(con, }\StringTok{"SELECT * FROM blu "}\NormalTok{); blu}
-\FunctionTok{tail}\NormalTok{(blu)}
-\FunctionTok{head}\NormalTok{(blu)}
-
-\CommentTok{\# list the number of unique nodes in your project}
-\NormalTok{node\_table }\OtherTok{=}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbGetQuery}\NormalTok{(con, }\StringTok{\textquotesingle{}SELECT * FROM nodes\textquotesingle{}}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(node\_table)}
-
-\CommentTok{\# list the data files that were used to create your database}
-\NormalTok{df\_table }\OtherTok{=}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbGetQuery}\NormalTok{(con, }\StringTok{\textquotesingle{}SELECT * FROM data\_file\textquotesingle{}}\NormalTok{)}
-
+\CommentTok{\# find unique tags in the raw table}
+\NormalTok{unique\_tag }\OtherTok{=} \FunctionTok{dbGetQuery}\NormalTok{(conn,}
+                          \StringTok{\textquotesingle{}SELECT tag\_id, COUNT(*) AS num\_detect}
+\StringTok{                          FROM raw}
+\StringTok{                          GROUP BY tag\_id}
+\StringTok{                          ORDER BY num\_detect DESC\textquotesingle{}}\NormalTok{)}
 \NormalTok{DBI}\SpecialCharTok{::}\FunctionTok{dbDisconnect}\NormalTok{(con)}
-\end{Highlighting}
-\end{Shaded}
-
-Find unique tags
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{unique\_tags }\OtherTok{=}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(tag\_id) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{num\_detect =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(tag\_id, num\_detect) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(num\_detect))}
 \end{Highlighting}
 \end{Shaded}
 
 Note: you do not need to load each table into RStudio. You should only load the tables you need to for your analysis.
 
-\chapter{4 Node Check}\label{node-check}
+\chapter{Node Check}\label{node-check}
 
 With your data you can do the following analyses:
 
@@ -515,7 +540,7 @@ With your data you can do the following analyses:
 
 Before you can do any of that, it is a good idea to check if your nodes are working properly, and filter out any that are malfunctioning.
 
-\section{4.1 Node Health}\label{node-health}
+\section{Node Health}\label{node-health}
 
 Things to look at:
 
@@ -537,23 +562,9 @@ For example, debris on solar panels can lead to the node not to charge, which me
 
 Another example is that foliage cover leads to no charging, low battery voltage, stops the GPS, and leads to an out of sync clock.
 
-\subsection{4.1.1 Node Health - Check Health Records}\label{node-health---check-health-records}
+\subsection{Node Health - Check Health Records}\label{node-health---check-health-records}
 
-\subsubsection{4.1.1.1 Load Data from Database}\label{load-data-from-database}
-
-The \texttt{celltracktech} package has built-in functions to check and plot the battery and solar levels:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Load functions}
-\CommentTok{\# DEFS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/defs/plot\_themes.R"}\NormalTok{)}
-\CommentTok{\# UTILS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/utils/get\_time\_value.R"}\NormalTok{)}
-\CommentTok{\# NDOE}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/node/node\_functions.R"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\subsubsection{Load Data from Database}\label{load-data-from-database}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -567,7 +578,7 @@ The \texttt{celltracktech} package has built-in functions to check and plot the 
 \CommentTok{\# These were created in Chapter 2. If you do not have these in your project directory, go back and repeat Ch. 2.}
 \NormalTok{my\_token }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{\textquotesingle{}API\_KEY\textquotesingle{}}\NormalTok{) }\CommentTok{\# load env variable into my\_token}
 \NormalTok{myproject }\OtherTok{\textless{}{-}} \StringTok{"Meadows V2"} \CommentTok{\# this is your project name on your CTT account, here we are using the CTT project \textquotesingle{}Meadows V2\textquotesingle{}}
-\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data/meadows/"} \CommentTok{\# where your downloaded files are to go}
+\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data/"} \CommentTok{\# where your downloaded files are to go}
 
 \CommentTok{\# Specify the time range of node data you want to import for this analysis}
 \NormalTok{start\_time }\OtherTok{\textless{}{-}} \FunctionTok{as.POSIXct}\NormalTok{(}\StringTok{"2023{-}10{-}01 00:00:00"}\NormalTok{,}\AttributeTok{tz=}\StringTok{"GMT"}\NormalTok{)}
@@ -575,7 +586,7 @@ The \texttt{celltracktech} package has built-in functions to check and plot the 
 
 \CommentTok{\# Connect to Database using DuckDB {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
 \NormalTok{con }\OtherTok{\textless{}{-}}\NormalTok{ DBI}\SpecialCharTok{::}\FunctionTok{dbConnect}\NormalTok{(duckdb}\SpecialCharTok{::}\FunctionTok{duckdb}\NormalTok{(), }
-                      \AttributeTok{dbdir =} \StringTok{"./data/meadows/meadows.duckdb"}\NormalTok{, }
+                      \AttributeTok{dbdir =} \StringTok{"./data/Meadows V2/meadows.duckdb"}\NormalTok{, }
                       \AttributeTok{read\_only =} \ConstantTok{FALSE}\NormalTok{)}
 
 \CommentTok{\# load node\_health table into RStudio and only load the data between the set start and stop times}
@@ -587,11 +598,15 @@ The \texttt{celltracktech} package has built-in functions to check and plot the 
 \NormalTok{DBI}\SpecialCharTok{::}\FunctionTok{dbDisconnect}\NormalTok{(con)}
 
 \CommentTok{\# filter the node\_health\_df for unique node ids}
-\NormalTok{node\_health\_df }\OtherTok{\textless{}{-}}\NormalTok{ node\_health\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{distinct}\NormalTok{(node\_id, time, recorded\_at, }\AttributeTok{.keep\_all =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{node\_health\_df }\OtherTok{\textless{}{-}}\NormalTok{ node\_health\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{(node\_id, }
+\NormalTok{            time, }
+\NormalTok{            recorded\_at, }
+            \AttributeTok{.keep\_all =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{4.1.1.2 Checking Nodes are operating}\label{checking-nodes-are-operating}
+\subsubsection{Checking Nodes are operating}\label{checking-nodes-are-operating}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -602,17 +617,21 @@ The \texttt{celltracktech} package has built-in functions to check and plot the 
 \NormalTok{node\_record\_counts }\OtherTok{\textless{}{-}}\NormalTok{ node\_record\_counts[}\FunctionTok{order}\NormalTok{(node\_record\_counts}\SpecialCharTok{$}\NormalTok{n, }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{),]}
 
 \CommentTok{\# plot the number of node health records based on node id}
-\FunctionTok{ggplot}\NormalTok{(node\_record\_counts,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(node\_id,node\_record\_counts}\SpecialCharTok{$}\NormalTok{node\_id),}\AttributeTok{y=}\NormalTok{n)) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(node\_record\_counts,}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(node\_id,}
+\NormalTok{                      node\_record\_counts}\SpecialCharTok{$}\NormalTok{node\_id),}
+           \AttributeTok{y =}\NormalTok{ n)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Health Record Count"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Node Id"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Health Record Count"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Node Id"}\NormalTok{) }\SpecialCharTok{+}
 \NormalTok{  tag\_hist\_plot\_theme}
 \end{Highlighting}
 \end{Shaded}
 
 We can see after running the above script that Nodes 3B3B8F, 339CAE, and 32909D have relatively low number of records, so we may want to exclude them from further analyses.
 
-\subsection{4.1.2 Battery and Solar Levels}\label{battery-and-solar-levels}
+\subsection{Battery and Solar Levels}\label{battery-and-solar-levels}
 
 Check if the battery and solar voltages are adequate. If they are too low, they can affect the GPS synchronization.
 
@@ -620,25 +639,29 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 \begin{Highlighting}[]
 \CommentTok{\# Plot the Battery voltage vs. time for all nodes}
 \FunctionTok{ggplot}\NormalTok{(node\_health\_df) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{time,}\AttributeTok{y=}\NormalTok{battery,}\AttributeTok{colour =}\NormalTok{ node\_id)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time,}
+                 \AttributeTok{y =}\NormalTok{ battery,}
+                 \AttributeTok{colour =}\NormalTok{ node\_id)) }\SpecialCharTok{+}
 \NormalTok{  classic\_plot\_theme}
 
 \CommentTok{\# Plot the Battery \& Solar voltage vs. time for a specific node}
 \CommentTok{\# Node 326710 is a normal working Node}
 \NormalTok{selected\_node\_id }\OtherTok{\textless{}{-}} \StringTok{"326710"}
-\NormalTok{batt\_solar\_plot }\OtherTok{\textless{}{-}} \FunctionTok{plot\_battery\_solar}\NormalTok{(}\AttributeTok{node\_health\_df =}\NormalTok{ node\_health\_df, }\AttributeTok{selected\_node\_id =}\NormalTok{ selected\_node\_id)}
+\NormalTok{batt\_solar\_plot }\OtherTok{\textless{}{-}} \FunctionTok{plot\_battery\_solar}\NormalTok{(}\AttributeTok{node\_health\_df =}\NormalTok{ node\_health\_df, }
+                                      \AttributeTok{selected\_node\_id =}\NormalTok{ selected\_node\_id)}
 \NormalTok{batt\_solar\_plot }
 
 \CommentTok{\# based on the Battery voltage vs. time plot, Node 32909D has a low battery voltage}
 \NormalTok{selected\_node\_id }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}32909D\textquotesingle{}}
-\NormalTok{batt\_solar\_plot }\OtherTok{\textless{}{-}} \FunctionTok{plot\_battery\_solar}\NormalTok{(}\AttributeTok{node\_health\_df =}\NormalTok{ node\_health\_df, }\AttributeTok{selected\_node\_id =}\NormalTok{ selected\_node\_id)}
+\NormalTok{batt\_solar\_plot }\OtherTok{\textless{}{-}} \FunctionTok{plot\_battery\_solar}\NormalTok{(}\AttributeTok{node\_health\_df =}\NormalTok{ node\_health\_df, }
+                                      \AttributeTok{selected\_node\_id =}\NormalTok{ selected\_node\_id)}
 \NormalTok{batt\_solar\_plot }
 \end{Highlighting}
 \end{Shaded}
 
 Node 326710 is working properly and has consistent solar voltages during the day (\textasciitilde{} 5 V) and a consistent battery voltage over time (i.e.~3.5-3.6 V), while node 32909D has inconsistent solar voltages, hinting at either dirty solar panels or covered solar panels, and a much lower battery voltage (\textasciitilde{} 2.8 V).
 
-\subsection{4.1.3 Check GPS}\label{check-gps}
+\subsection{Check GPS}\label{check-gps}
 
 If the clock is out of sync, the GPS coordinates may not be calculated correctly. Use the below script to check the coordinate deviations.
 
@@ -663,7 +686,7 @@ If the clock is out of sync, the GPS coordinates may not be calculated correctly
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{4.1.4 Check Time Offset}\label{check-time-offset}
+\subsection{Check Time Offset}\label{check-time-offset}
 
 Plot time offset for each node.
 
@@ -677,7 +700,7 @@ Plot time offset for each node.
 
 \CommentTok{\# save node time offsets to csv}
 \NormalTok{readr}\SpecialCharTok{::}\FunctionTok{write\_csv}\NormalTok{(node\_summary,}
-                 \AttributeTok{file =} \StringTok{\textquotesingle{}./data/meadows/node\_time\_offset\_20230802.csv\textquotesingle{}}\NormalTok{)}
+                 \AttributeTok{file =} \StringTok{\textquotesingle{}./data/Meadows V2/node\_time\_offset\_20230802.csv\textquotesingle{}}\NormalTok{)}
 
 \CommentTok{\# plot the time offset}
 \FunctionTok{ggplot}\NormalTok{(node\_summary,}
@@ -702,38 +725,34 @@ Plot time offset for each node.
 \end{Highlighting}
 \end{Shaded}
 
-\chapter{5 Node Calibration}\label{node-calibration}
+\chapter{Node Calibration}\label{node-calibration}
 
 In the previous chapter we saw that various ways that the node gps can differ, which can lead to inaccurate received signal strength indicators (RSSI) from the tag.
 
 To account for any small changes in the gps values, we need to calibrate the node grid.
-
-\section{5.1 Set parameters}\label{set-parameters}
-
-\subsection{5.1.1 Load libraries}\label{load-libraries}
+\#\# Load libraries
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(celltracktech)}
-\FunctionTok{library}\NormalTok{(dotenv)}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{5.1.2 Load sidekick data file}\label{load-sidekick-data-file}
+\section{Load sidekick data file}\label{load-sidekick-data-file}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Specify the path to the sidekick data file you recorded for calibration}
 \CommentTok{\# it is best if you create a \textquotesingle{}sidekick\textquotesingle{} folder to store your calibration file(s).}
 
-\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}./data/meadows/sidekick/\textquotesingle{}}\NormalTok{)}
+\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}./data/Meadows V2/sidekick/\textquotesingle{}}\NormalTok{)}
 \CommentTok{\# place all of your sidekick calibration files in the newly created folder after running the above line of code}
 
-\NormalTok{sidekick\_file\_path }\OtherTok{\textless{}{-}} \StringTok{"./data/meadows/sidekick/calibration\_2023\_8\_3\_all.csv"}
+\NormalTok{sidekick\_file\_path }\OtherTok{\textless{}{-}} \StringTok{"./data/Meadows V2/sidekick/calibration\_2023\_8\_3\_all.csv"}
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{5.1.2.1 IF YOU DO NOT HAVE A SIDEKICK DATA FILE:}\label{if-you-do-not-have-a-sidekick-data-file}
+\subsection{IF YOU DO NOT HAVE A SIDEKICK DATA FILE:}\label{if-you-do-not-have-a-sidekick-data-file}
 
 Create your own sidekick file by walking with a tag through node grid, stopping at specific spots you choose, and note the gps coordinates and time. Then create a csv similar to the sidekick calibration file.
 
@@ -775,7 +794,9 @@ radio434mhz & 072A6633 & 2023-08-03 19:42:45.307456Z & & 38.935561 & -74.948195 
 radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 & 15.840 & \\
 \end{longtable}
 
-\subsection{5.1.3 Load environmental variables into RStudio}\label{load-environmental-variables-into-rstudio}
+\section{Setup}\label{setup}
+
+\subsection{Load environmental variables into RStudio}\label{load-environmental-variables-into-rstudio}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -784,26 +805,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{5.1.4 Load functions}\label{load-functions}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# DEFS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/defs/plot\_themes.R"}\NormalTok{)}
-\CommentTok{\# UTILS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/utils/get\_time\_value.R"}\NormalTok{)}
-\CommentTok{\# NODE}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/node/node\_functions.R"}\NormalTok{)}
-\CommentTok{\# TAG}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/tag/tag\_functions.R"}\NormalTok{)}
-\CommentTok{\# SIDEKICK}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/sidekick/load\_sidekick\_data.R"}\NormalTok{)}
-\CommentTok{\# CALIBRATION}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/calibration/calibration\_functions.R"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\subsection{5.1.5 Load settings}\label{load-settings}
+\subsection{Load settings}\label{load-settings}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -813,10 +815,10 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \CommentTok{\# These were created in Chapter 2. If you do not have these in your project directory, go back and repeat Ch. 2.}
 \NormalTok{my\_token }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{\textquotesingle{}API\_KEY\textquotesingle{}}\NormalTok{) }\CommentTok{\# load env variable into my\_token}
 \NormalTok{myproject }\OtherTok{\textless{}{-}} \StringTok{"Meadows V2"} \CommentTok{\# this is your project name on your CTT account, here we are using the CTT project \textquotesingle{}Meadows V2\textquotesingle{}}
-\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data/meadows/"} \CommentTok{\# where your downloaded files are to go}
+\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data/"} \CommentTok{\# where your downloaded files are to go}
 
 \CommentTok{\# Specify the path to your database file}
-\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/meadows/meadows.duckdb"}
+\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/Meadows V2/meadows.duckdb"}
 
 \CommentTok{\# Specify the tag ID that you used in your calibration}
 \NormalTok{my\_tag\_id }\OtherTok{\textless{}{-}} \StringTok{"072A6633"}
@@ -839,7 +841,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \end{Highlighting}
 \end{Shaded}
 
-\section{5.2 Load Node Health Data from Files}\label{load-node-health-data-from-files}
+\subsection{Load Node Health Data from Files}\label{load-node-health-data-from-files}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -865,7 +867,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \end{Highlighting}
 \end{Shaded}
 
-\section{5.3 Get Node Locations}\label{get-node-locations}
+\subsection{Get Node Locations}\label{get-node-locations}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -879,7 +881,9 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \NormalTok{node\_loc\_plot}
 
 \CommentTok{\# Write the node locations to a file}
-\FunctionTok{export\_node\_locations}\NormalTok{(}\StringTok{"examples/meadows/output/node\_locations.csv"}\NormalTok{, }
+\FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}data/Meadows V2/output/\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{export\_node\_locations}\NormalTok{(}\StringTok{"data/Meadows V2/output/node\_locations.csv"}\NormalTok{, }
 \NormalTok{                      node\_locs)}
 
 \CommentTok{\# Draw a map with the node locations}
@@ -889,7 +893,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \end{Highlighting}
 \end{Shaded}
 
-\section{5.4 Load Station Detection from Files}\label{load-station-detection-from-files}
+\subsection{Load Station Detection from Files}\label{load-station-detection-from-files}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -917,7 +921,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \end{Highlighting}
 \end{Shaded}
 
-\section{5.5 Load Sidekick Calibration Data from File}\label{load-sidekick-calibration-data-from-file}
+\subsection{Load Sidekick Calibration Data from File}\label{load-sidekick-calibration-data-from-file}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -937,7 +941,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \end{Highlighting}
 \end{Shaded}
 
-\section{5.6 Calculate the RSSI vs.~Distance Relationship}\label{calculate-the-rssi-vs.-distance-relationship}
+\section{Calculate the RSSI vs.~Distance Relationship}\label{calculate-the-rssi-vs.-distance-relationship}
 
 This function will match sidekick detections to detections recorded by nodes and sent to the station. Then using the sidekick location, the node locations calculated above, and the rssi measured in the node, a list of rssi and distance pairs is generated and returned.
 
@@ -949,8 +953,14 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 
 \CommentTok{\# Plot the resulting RSSI and distance data}
 \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ rssi\_v\_dist, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ distance, }\AttributeTok{y =}\NormalTok{ rssi, }\AttributeTok{colour =}\NormalTok{ node\_id)) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"RSSI vs. Distance"}\NormalTok{,}\AttributeTok{x=}\StringTok{"Distance (m)"}\NormalTok{,}\AttributeTok{y=}\StringTok{"RSSI (dBm)"}\NormalTok{,}\AttributeTok{colour=}\StringTok{"Node ID"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ rssi\_v\_dist, }
+             \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ distance, }
+                 \AttributeTok{y =}\NormalTok{ rssi, }
+                 \AttributeTok{colour =}\NormalTok{ node\_id)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"RSSI vs. Distance"}\NormalTok{,}
+       \AttributeTok{x=}\StringTok{"Distance (m)"}\NormalTok{,}
+       \AttributeTok{y=}\StringTok{"RSSI (dBm)"}\NormalTok{,}
+       \AttributeTok{colour=}\StringTok{"Node ID"}\NormalTok{) }\SpecialCharTok{+}
 \NormalTok{  classic\_plot\_theme}
 
 \CommentTok{\# Fit the RSSI vs distance data with exponential relationship}
@@ -978,7 +988,7 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 
 Your node grid is now calibrated!
 
-\chapter{6 Presence/Absence Analysis}\label{presenceabsence-analysis}
+\chapter{Presence/Absence Analysis}\label{presenceabsence-analysis}
 
 This type of analysis can be used to answer questions on stopover duration or for threat monitoring at airports, windmills, etc.
 
@@ -1008,26 +1018,17 @@ Then move that tag deployment file into the `outpath' folder. For example, we wi
 
 We are now ready to start calculating presence/absence.
 
-\section{6.1 Set parameters}\label{set-parameters-1}
+\section{Set parameters}\label{set-parameters}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{options}\NormalTok{(}\AttributeTok{digits =} \DecValTok{10}\NormalTok{)}
 
-\CommentTok{\# DEFS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/defs/plot\_themes.R"}\NormalTok{)}
-\CommentTok{\# UTILS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/utils/get\_time\_value.R"}\NormalTok{)}
-\CommentTok{\# NDOE}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/node/node\_functions.R"}\NormalTok{)}
-\CommentTok{\# TAG}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/tag/tag\_functions.R"}\NormalTok{)}
-
 \CommentTok{\# Specify the path to your database file}
-\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/meadows/meadows.duckdb"}
+\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/Meadows V2/meadows.duckdb"}
 
 \CommentTok{\# Specify the path to the deployment info file}
-\NormalTok{deployment\_info\_file }\OtherTok{\textless{}{-}} \StringTok{"data/meadows/meadows\_deployments\_2023.csv"}
+\NormalTok{deployment\_info\_file }\OtherTok{\textless{}{-}} \StringTok{"data/Meadows V2/meadows\_deployments\_2023.csv"}
 
 \CommentTok{\# Specify the time range of node data you want to import for this analysis}
 \NormalTok{start\_time }\OtherTok{\textless{}{-}} \FunctionTok{as.POSIXct}\NormalTok{(}\StringTok{"2023{-}08{-}01 00:00:00"}\NormalTok{, }\AttributeTok{tz =} \StringTok{"GMT"}\NormalTok{)}
@@ -1035,7 +1036,7 @@ We are now ready to start calculating presence/absence.
 \end{Highlighting}
 \end{Shaded}
 
-\section{6.2 Load data from database}\label{load-data-from-database-1}
+\section{Load data from database}\label{load-data-from-database-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1059,9 +1060,9 @@ We are now ready to start calculating presence/absence.
 \end{Highlighting}
 \end{Shaded}
 
-\section{6.3 Load Tag Deployment Info}\label{load-tag-deployment-info}
+\section{Load Tag Deployment Info}\label{load-tag-deployment-info}
 
-\subsection{6.3.1 Load Tag Deployment File}\label{load-tag-deployment-file}
+\subsection{Load Tag Deployment File}\label{load-tag-deployment-file}
 
 Again, you will need to create this file yourself. You might want to include other info about the individuals in this file for later analysis (species, weight, sex, etc.).
 
@@ -1071,7 +1072,7 @@ Again, you will need to create this file yourself. You might want to include oth
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{6.3.2 Get List of Detected Tags}\label{get-list-of-detected-tags}
+\subsection{Get List of Detected Tags}\label{get-list-of-detected-tags}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1084,12 +1085,13 @@ Again, you will need to create this file yourself. You might want to include oth
            \AttributeTok{y =}\NormalTok{ n)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Tag ID"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Detection Count"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Tag ID"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Detection Count"}\NormalTok{) }\SpecialCharTok{+}
 \NormalTok{  tag\_hist\_plot\_theme}
 \end{Highlighting}
 \end{Shaded}
 
-\section{6.4 Generate Detection Summary}\label{generate-detection-summary}
+\section{Generate Detection Summary}\label{generate-detection-summary}
 
 While it is good to know how many detections an individual tag has, it is better to know how many detections there were across time. The code chunk below will subset your \texttt{detection\_df} based on the tags in your tag deployment file, and create a plot of detections across time.
 
@@ -1101,7 +1103,8 @@ While it is good to know how many detections an individual tag has, it is better
 
 \CommentTok{\# OPTIONAL: You can select individual species here}
 \CommentTok{\# subsetting the deployment dataframe to only include NOWA or northern waterthrush}
-\NormalTok{deployment\_df }\OtherTok{\textless{}{-}} \FunctionTok{subset.data.frame}\NormalTok{(deployment\_df,Species }\SpecialCharTok{==} \StringTok{"NOWA"}\NormalTok{)}
+\NormalTok{deployment\_df }\OtherTok{\textless{}{-}} \FunctionTok{subset.data.frame}\NormalTok{(deployment\_df,}
+\NormalTok{                                   Species }\SpecialCharTok{==} \StringTok{"NOWA"}\NormalTok{)}
 \CommentTok{\# detection\_df \textless{}{-} subset.data.frame(detection\_df,TagId \%in\% deployment\_df$TagId)}
 
 \NormalTok{det\_summary\_df }\OtherTok{\textless{}{-}} \FunctionTok{detection\_summary}\NormalTok{(}
@@ -1119,12 +1122,13 @@ While it is good to know how many detections an individual tag has, it is better
 \NormalTok{                      det\_summary\_df}\SpecialCharTok{$}\NormalTok{tag\_id))) }\SpecialCharTok{+}
   \FunctionTok{geom\_bin2d}\NormalTok{(}\AttributeTok{binwidth =} \FunctionTok{c}\NormalTok{(}\DecValTok{3600}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+} \CommentTok{\# Hour time bins}
   \FunctionTok{scale\_fill\_continuous}\NormalTok{(}\AttributeTok{type =} \StringTok{"viridis"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Time (UTC)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Tag Id"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Time (UTC)"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Tag Id"}\NormalTok{) }\SpecialCharTok{+}
 \NormalTok{  tag\_hist\_plot\_theme}
 \end{Highlighting}
 \end{Shaded}
 
-\section{6.5 Show Detection History for a Specific Tag}\label{show-detection-history-for-a-specific-tag}
+\section{Show Detection History for a Specific Tag}\label{show-detection-history-for-a-specific-tag}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1176,20 +1180,20 @@ When is the animal active and/or inactive? Use the following script to answer re
 \begin{Highlighting}[]
 \CommentTok{\# activate renv}
 \NormalTok{renv}\SpecialCharTok{::}\FunctionTok{activate}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# load celltracktech library}
 \FunctionTok{library}\NormalTok{(celltracktech)}
-\FunctionTok{library}\NormalTok{(dplyr)}
-\FunctionTok{library}\NormalTok{(ggplot2)}
+\CommentTok{\# library(dplyr)}
+\CommentTok{\# library(ggplot2)}
 
 \FunctionTok{options}\NormalTok{(}\AttributeTok{digits =} \DecValTok{10}\NormalTok{)}
 
-\CommentTok{\# DEFS}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/defs/plot\_themes.R"}\NormalTok{)}
-\CommentTok{\# TAG}
-\FunctionTok{source}\NormalTok{(}\StringTok{"R/functions/tag/tag\_functions.R"}\NormalTok{)}
-
 \CommentTok{\# Specify the path to your database file}
-\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"data/meadows/meadows.duckdb"}
+\NormalTok{database\_file }\OtherTok{\textless{}{-}} \StringTok{"./data/Meadows V2/meadows.duckdb"}
 
 \NormalTok{start\_time }\OtherTok{\textless{}{-}} \FunctionTok{as.POSIXct}\NormalTok{(}\StringTok{"2023{-}09{-}01 00:00:00"}\NormalTok{,}\AttributeTok{tz =} \StringTok{"GMT"}\NormalTok{)}
 \NormalTok{stop\_time }\OtherTok{\textless{}{-}} \FunctionTok{as.POSIXct}\NormalTok{(}\StringTok{"2023{-}09{-}02 00:00:00"}\NormalTok{,}\AttributeTok{tz =} \StringTok{"GMT"}\NormalTok{)}
@@ -1296,7 +1300,8 @@ We can summarize the above plot even further by creating a heatmap. The code chu
        \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time, }
            \AttributeTok{y =}\NormalTok{ abs\_act)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bin2d}\NormalTok{(}\AttributeTok{binwidth =} \FunctionTok{c}\NormalTok{(}\DecValTok{3600}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{xlim}\NormalTok{(plot\_start\_time, plot\_stop\_time) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(plot\_start\_time, }
+\NormalTok{       plot\_stop\_time) }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_viridis\_c}\NormalTok{(}\AttributeTok{name =} \StringTok{"Counts"}\NormalTok{, }
                        \AttributeTok{trans =} \StringTok{"log"}\NormalTok{, }
                        \AttributeTok{breaks =}\NormalTok{ my\_breaks, }
@@ -1327,7 +1332,8 @@ This code chunk makes the same plot as above, but also displays the average acti
              \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time, }
                  \AttributeTok{y =}\NormalTok{ avg\_activity), }
              \AttributeTok{colour =} \StringTok{"Red"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlim}\NormalTok{(plot\_start\_time, plot\_stop\_time) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(plot\_start\_time, }
+\NormalTok{       plot\_stop\_time) }\SpecialCharTok{+}
   \FunctionTok{xlab}\NormalTok{(}\StringTok{"Time (UTC)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"Activity / Hour (Arb. Units)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_viridis\_c}\NormalTok{(}\AttributeTok{name =} \StringTok{"Counts"}\NormalTok{, }
@@ -1393,7 +1399,7 @@ If you are interested in where animals spend time, use this chapter to provide y
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{8.1.3 Load Functions}\label{load-functions-1}
+\subsection{8.1.3 Load Functions}\label{load-functions}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1631,7 +1637,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{9.1.2 Load libraries}\label{load-libraries-1}
+\subsection{9.1.2 Load libraries}\label{load-libraries}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1641,7 +1647,7 @@ Like in Chapter 8 - Habitat Use, the grid search analysis divides an area into a
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{9.1.3 Load functions}\label{load-functions-2}
+\subsection{9.1.3 Load functions}\label{load-functions-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1912,7 +1918,7 @@ Best to use when your node grid is evenly spaced.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Load functions}\label{load-functions-3}
+\subsection{Load functions}\label{load-functions-2}
 
 \begin{Shaded}
 \begin{Highlighting}[]

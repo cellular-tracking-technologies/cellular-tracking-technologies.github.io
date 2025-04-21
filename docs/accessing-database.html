@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Project Setup | ‘celltracktech’ Data Analysis package</title>
+  <title>Chapter 4 Accessing Database | ‘celltracktech’ Data Analysis package</title>
   <meta name="description" content="This is a manual for the R package ‘celltracktech’" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Project Setup | ‘celltracktech’ Data Analysis package" />
+  <meta property="og:title" content="Chapter 4 Accessing Database | ‘celltracktech’ Data Analysis package" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a manual for the R package ‘celltracktech’" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Project Setup | ‘celltracktech’ Data Analysis package" />
+  <meta name="twitter:title" content="Chapter 4 Accessing Database | ‘celltracktech’ Data Analysis package" />
   
   <meta name="twitter:description" content="This is a manual for the R package ‘celltracktech’" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
-<link rel="prev" href="index.html"/>
-<link rel="next" href="download-data.html"/>
+<link rel="prev" href="download-data.html"/>
+<link rel="next" href="node-check.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -306,63 +306,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="project-setup" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Project Setup<a href="project-setup.html#project-setup" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Here we will go over how to create a local project directory (or folder as it is commonly known) on your own personal computer.</p>
-<div id="create-a-r-studio-project" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Create a R Studio Project<a href="project-setup.html#create-a-r-studio-project" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li><p>Download the latest versions of R and RStudio. As of writing this tutorial, the latest version of R is 4.4.2, and RStudio is ‘2024-12.0.467’.</p></li>
-<li><p>In RStudio, create a new project (.proj) in a new directory. By using an R project, you can create a new directory to store all of your code scripts and data files, as well as keep track of your workflow. You can find more information <a href="https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects">here</a>.</p>
-<ol style="list-style-type: lower-alpha">
-<li>Click the ‘Create git repository’ and ‘use renv’ check boxes.</li>
-</ol></li>
-</ol>
-<div id="git" class="section level3 hasAnchor" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Git<a href="project-setup.html#git" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><a href="https://git-scm.com/">Git</a> is a version control system, which allows you keep track of changes to your project, and collaborate with colleagues if you use Github.</p>
+<div id="accessing-database" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Accessing Database<a href="accessing-database.html#accessing-database" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="duckplyr" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Duckplyr<a href="accessing-database.html#duckplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you are new to database queries but familiar with dplyr and tidyverse, I recommend using <code>duckplyr</code>. You can find more information about <code>duckplyr</code> <a href="https://duckdb.org/2024/04/02/duckplyr.html">here</a> but the main takeaway is that you can query your database using dplyr phrases and pipes, while also saving memory on loading data.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="accessing-database.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
+<span id="cb18-2"><a href="accessing-database.html#cb18-2" tabindex="-1"></a><span class="fu">library</span>(duckplyr)</span>
+<span id="cb18-3"><a href="accessing-database.html#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="accessing-database.html#cb18-4" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb18-5"><a href="accessing-database.html#cb18-5" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
+<span id="cb18-6"><a href="accessing-database.html#cb18-6" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb18-7"><a href="accessing-database.html#cb18-7" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="accessing-database.html#cb18-8" tabindex="-1"></a><span class="co"># load raw data table and find unique tags</span></span>
+<span id="cb18-9"><a href="accessing-database.html#cb18-9" tabindex="-1"></a>unique_tags <span class="ot">=</span> <span class="fu">tbl</span>(con, <span class="st">&#39;raw&#39;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb18-10"><a href="accessing-database.html#cb18-10" tabindex="-1"></a>  <span class="fu">group_by</span>(tag_id) <span class="sc">|&gt;</span></span>
+<span id="cb18-11"><a href="accessing-database.html#cb18-11" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">num_detect =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb18-12"><a href="accessing-database.html#cb18-12" tabindex="-1"></a>  <span class="fu">select</span>(tag_id, num_detect) <span class="sc">|&gt;</span></span>
+<span id="cb18-13"><a href="accessing-database.html#cb18-13" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(num_detect)) <span class="sc">|&gt;</span></span>
+<span id="cb18-14"><a href="accessing-database.html#cb18-14" tabindex="-1"></a>  <span class="fu">as_duckdb_tibble</span>()</span>
+<span id="cb18-15"><a href="accessing-database.html#cb18-15" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="accessing-database.html#cb18-16" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 </div>
-<div id="renv" class="section level3 hasAnchor" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> <code>renv</code><a href="project-setup.html#renv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><a href="https://rstudio.github.io/renv/articles/renv.html">Renv</a> stands for ‘R Virtual Environment’, which creates reproducible environments for your R projects. Many new data scientists would download all their individual packages into one location, usually the R library. While this global (i.e. accessible anywhere on your computer) library is convenient, certain packages or package versions can conflict with each other, causing errors and preventing you from analyzing your data. With renv, you can download all the packages for your project in your project directory, which will lead to fewer problems due to conflicting packages/versions.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="project-setup.html#cb3-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;renv&#39;</span>)</span>
-<span id="cb3-2"><a href="project-setup.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(renv)</span>
-<span id="cb3-3"><a href="project-setup.html#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="project-setup.html#cb3-4" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>()</span></code></pre></div>
+<div id="sql-queries" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> SQL Queries<a href="accessing-database.html#sql-queries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you are more comfortable with the SQL syntax, you can use SQL queries to get data from different tables.</p>
+<p>This chapter is a quick summary on how to use SQL in R. If you would like more info on how to run different queries, use this tutorial: <a href="https://solutions.posit.co/connections/db/getting-started/database-queries/">https://solutions.posit.co/connections/db/getting-started/database-queries/</a></p>
 </div>
+<div id="list-tables" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> List Tables<a href="accessing-database.html#list-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>List the tables in your database. If everything was run correctly, each data file type (raw, blu, node-health, etc.) should be in its own data table.</p>
+<p>Remember to reconnect to the database!</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="accessing-database.html#cb19-1" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
+<span id="cb19-2"><a href="accessing-database.html#cb19-2" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="accessing-database.html#cb19-3" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb19-4"><a href="accessing-database.html#cb19-4" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
+<span id="cb19-5"><a href="accessing-database.html#cb19-5" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-6"><a href="accessing-database.html#cb19-6" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="accessing-database.html#cb19-7" tabindex="-1"></a><span class="co"># list tables in database</span></span>
+<span id="cb19-8"><a href="accessing-database.html#cb19-8" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbListTables</span>(con)</span>
+<span id="cb19-9"><a href="accessing-database.html#cb19-9" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="accessing-database.html#cb19-10" tabindex="-1"></a><span class="co"># disconnect from database</span></span>
+<span id="cb19-11"><a href="accessing-database.html#cb19-11" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 </div>
-<div id="create-a-.env-file" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Create a ‘.env’ file<a href="project-setup.html#create-a-.env-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>For NodeJs and Python projects, many data scientists use environment variables to store sensitive data such as passwords, API credentials, and other info that should not be publicly shared. These environment variables can then be accessed by the R project without displaying the sensitive information on your R script.</p>
-<p>To store the environment variables, use a ‘.env’ file and the R package ‘dotenv’.</p>
-<p>In a terminal window, run the following command to create a .env file in your project directory and store your CTT API key:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="project-setup.html#cb4-1" tabindex="-1"></a><span class="fu">touch</span> .env</span>
-<span id="cb4-2"><a href="project-setup.html#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="project-setup.html#cb4-3" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;API_KEY=your_api_key&quot;</span> <span class="op">&gt;&gt;</span> .env</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="project-setup.html#cb5-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;dotenv&#39;</span>)</span>
-<span id="cb5-2"><a href="project-setup.html#cb5-2" tabindex="-1"></a><span class="fu">library</span>(dotenv)</span>
-<span id="cb5-3"><a href="project-setup.html#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="project-setup.html#cb5-4" tabindex="-1"></a><span class="co"># load the env file</span></span>
-<span id="cb5-5"><a href="project-setup.html#cb5-5" tabindex="-1"></a><span class="fu">load_dot_env</span>(<span class="at">file=</span><span class="st">&#39;.env&#39;</span>)</span>
-<span id="cb5-6"><a href="project-setup.html#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="project-setup.html#cb5-7" tabindex="-1"></a><span class="co"># get your api key from the env file</span></span>
-<span id="cb5-8"><a href="project-setup.html#cb5-8" tabindex="-1"></a>my_token <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">&#39;API_KEY&#39;</span>)</span></code></pre></div>
-<div id="add-.env-file-to-.gitignore" class="section level3 hasAnchor" number="2.2.1">
-<h3><span class="header-section-number">2.2.1</span> Add .env file to .gitignore<a href="project-setup.html#add-.env-file-to-.gitignore" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Finally, you will need to add the .env file to the .gitignore file, so that when you commit changes to your R project the .env file is not included. That way your environmental variables will stay on your computer until you share them with collaborators.</p>
-<p>Open the .gitignore file in RStudio and add ‘.env’ (without the quotes) to the file and save it.</p>
-<p><img src="images/git-ignore-env.png" alt="screenshot of .gitignore file with .env listed as file to ignore when uploading to git/github." />
-You are now ready to start downloading data!</p>
-</div>
-</div>
-<div id="organize-your-project-directory" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Organize your Project Directory<a href="project-setup.html#organize-your-project-directory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In your project directory create the following folders to organize your files:</p>
-<ul>
-<li>src - where you store your .R scripts</li>
-<li>data - store downloaded data from CTT and modified dataframes</li>
-<li>results - store plots and tables</li>
-</ul>
+<div id="load-each-data-table-into-rstudio" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Load each data table into RStudio<a href="accessing-database.html#load-each-data-table-into-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="accessing-database.html#cb20-1" tabindex="-1"></a><span class="co"># connect to database</span></span>
+<span id="cb20-2"><a href="accessing-database.html#cb20-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb20-3"><a href="accessing-database.html#cb20-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
+<span id="cb20-4"><a href="accessing-database.html#cb20-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-5"><a href="accessing-database.html#cb20-5" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="accessing-database.html#cb20-6" tabindex="-1"></a><span class="co"># list last 10 records in raw</span></span>
+<span id="cb20-7"><a href="accessing-database.html#cb20-7" tabindex="-1"></a>raw <span class="ot">=</span> DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM raw &quot;</span>); raw</span>
+<span id="cb20-8"><a href="accessing-database.html#cb20-8" tabindex="-1"></a><span class="fu">tail</span>(raw)</span>
+<span id="cb20-9"><a href="accessing-database.html#cb20-9" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="accessing-database.html#cb20-10" tabindex="-1"></a><span class="co"># find unique tags in the raw table</span></span>
+<span id="cb20-11"><a href="accessing-database.html#cb20-11" tabindex="-1"></a>unique_tag <span class="ot">=</span> <span class="fu">dbGetQuery</span>(conn,</span>
+<span id="cb20-12"><a href="accessing-database.html#cb20-12" tabindex="-1"></a>                          <span class="st">&#39;SELECT tag_id, COUNT(*) AS num_detect</span></span>
+<span id="cb20-13"><a href="accessing-database.html#cb20-13" tabindex="-1"></a><span class="st">                          FROM raw</span></span>
+<span id="cb20-14"><a href="accessing-database.html#cb20-14" tabindex="-1"></a><span class="st">                          GROUP BY tag_id</span></span>
+<span id="cb20-15"><a href="accessing-database.html#cb20-15" tabindex="-1"></a><span class="st">                          ORDER BY num_detect DESC&#39;</span>)</span>
+<span id="cb20-16"><a href="accessing-database.html#cb20-16" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<p>Note: you do not need to load each table into RStudio. You should only load the tables you need to for your analysis.</p>
 
 </div>
 </div>
@@ -371,8 +376,8 @@ You are now ready to start downloading data!</p>
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="download-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="download-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="node-check.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -403,7 +408,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/rstudio/bookdown-demo/edit/master/01-project-setup.Rmd",
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/03-sql-queries.Rmd",
     "text": "Edit"
   },
   "history": {

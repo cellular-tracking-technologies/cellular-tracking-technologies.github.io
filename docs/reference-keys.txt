@@ -19,6 +19,9 @@ uploading-node-data-from-the-sd-card
 create-nodes-directory
 create-individual-directories-for-each-node
 upload-node-data-to-your-duckdb-database
+create-postgres-database
+accessing-database
+duckplyr
 sql-queries
 list-tables
 load-each-data-table-into-rstudio
@@ -31,12 +34,10 @@ battery-and-solar-levels
 check-gps
 check-time-offset
 node-calibration
-set-parameters
-load-libraries
 load-sidekick-data-file
 if-you-do-not-have-a-sidekick-data-file
+setup
 load-environmental-variables-into-rstudio
-load-functions
 load-settings
 load-node-health-data-from-files
 get-node-locations
@@ -44,7 +45,7 @@ load-station-detection-from-files
 load-sidekick-calibration-data-from-file
 calculate-the-rssi-vs.-distance-relationship
 presenceabsence-analysis
-set-parameters-1
+set-parameters
 load-data-from-database-1
 load-tag-deployment-info
 load-tag-deployment-file
@@ -64,7 +65,7 @@ habitat-use
 load-libraries-and-settings
 activate-renv
 load-libraries-and-settings-1
-load-functions-1
+load-functions
 load-rssi-coefficients
 load-settings-2
 load-node-health-data-from-files-1
@@ -75,8 +76,8 @@ calculate-locations
 grid-search-analysis
 loading-settings
 activate-renv-1
-load-libraries-1
-load-functions-2
+load-libraries
+load-functions-1
 load-settings-3
 load-node-health-data-from-database
 get-node-locations-2
@@ -89,7 +90,7 @@ plot-uncertainty-analysis
 multilateration
 load-settings-4
 reset-rs-brain-remove-all-previous-objects
-load-functions-3
+load-functions-2
 re-create-sample-data-for-calibration
 isolate-raw-received-signal-strength-rss-data-from-node-network-associated-with-test-data
 exponential-decay-function---relationship-between-distance-and-tag-rss-values

@@ -1,10 +1,9 @@
-
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# 7 Activity Budget
+# Activity Budget
 
 When is the animal active and/or inactive? Use the following script to answer research questions like:
 
@@ -13,30 +12,28 @@ When is the animal active and/or inactive? Use the following script to answer re
 * Foraging times
 * Mortality detection
 
-## 7.1 Load settings
+## Load settings
 ```{r}
 # activate renv
 renv::activate()
+```
+
+```{r}
 # load celltracktech library
 library(celltracktech)
-library(dplyr)
-library(ggplot2)
+# library(dplyr)
+# library(ggplot2)
 
 options(digits = 10)
 
-# DEFS
-source("R/defs/plot_themes.R")
-# TAG
-source("R/functions/tag/tag_functions.R")
-
 # Specify the path to your database file
-database_file <- "data/meadows/meadows.duckdb"
+database_file <- "./data/Meadows V2/meadows.duckdb"
 
 start_time <- as.POSIXct("2023-09-01 00:00:00",tz = "GMT")
 stop_time <- as.POSIXct("2023-09-02 00:00:00",tz = "GMT")
 ```
 
-## 7.2 Load Tag Node Detection Data
+## Load Tag Node Detection Data
 ```{r}
 # Connect to database
 con <- DBI::dbConnect(duckdb::duckdb(), 
@@ -52,7 +49,7 @@ detection_df <- tbl(con, "raw") |>
 DBI::dbDisconnect(con)
 ```
 
-## 7.3 Tag Activity
+## Tag Activity
 ```{r}
 # selected_tag_id <- "2D4B782D", # SWSP (swamp sparrow) - Power Tag
 
@@ -78,7 +75,7 @@ plot_start_time <- as.POSIXct("2023-09-01 06:00:00", tz = "GMT")
 plot_stop_time <- as.POSIXct("2023-09-02 06:00:00", tz = "GMT")
 ```
 
-### 7.3.1 Scatter Plot of RSSI vs time by Node
+### Scatter Plot of RSSI vs time by Node
 ```{r}
 ggplot(tag_dets) +
   geom_point(aes(x = time, 
@@ -93,7 +90,7 @@ ggplot(tag_dets) +
 ```
 Here we see that this bird was spending most of the time in the vicinity of nodes 3282EC, 339CAE, and 37824B, but then spends a considerable amount of time near node 32941A.
 
-### 7.3.2 Scatter Plot of activity vs time by Node
+### Scatter Plot of activity vs time by Node
 
 Next we will quantify the activity level. Activity is an arbitrary variable; it can be movement, roosting, a specific behavior, etc. You will need to define what activity is based on your study.
 ```{r}
@@ -110,7 +107,7 @@ ggplot(tag_activity) +
 ```
 Here we see the activity level (y-axis) for every 5 min from September 1 to September 2. Each color represents a unique Node ID. From a brief glance, this tag had low to mid activity levels near nodes 3282EC and 37824B, but it is still difficult to discern what is going on in this plot.
 
-### 7.3.3 2D Histogram of Activity over Time
+### 2D Histogram of Activity over Time
 
 We can summarize the above plot even further by creating a heatmap. The code chunk below creates a heatmap bin plot, which displays the activity for an individual over a period of time, with the color of each bin representing the count of activity (on a log scale), while the bins tell us the activity level.
 ```{r}
@@ -121,7 +118,8 @@ ggplot(tag_activity,
        aes(x = time, 
            y = abs_act)) +
   geom_bin2d(binwidth = c(3600, 1)) +
-  xlim(plot_start_time, plot_stop_time) +
+  xlim(plot_start_time, 
+       plot_stop_time) +
   scale_fill_viridis_c(name = "Counts", 
                        trans = "log", 
                        breaks = my_breaks, 
@@ -132,7 +130,7 @@ ggplot(tag_activity,
 ```
 From this plot, we can see that there are multiple instances of low activity (demonstrated by the yellow bins at activity/hour 1), and fewer instances of high activity (demonstrated by the blue bins at activity/hour 4 and above).
 
-### 7.3.4 2D histogram of activity vs time WITH avg activity
+### 2D histogram of activity vs time WITH avg activity
 
 This code chunk makes the same plot as above, but also displays the average activity level as a red line.
 ```{r}
@@ -148,7 +146,8 @@ ggplot(tag_activity,
              aes(x = time, 
                  y = avg_activity), 
              colour = "Red") +
-  xlim(plot_start_time, plot_stop_time) +
+  xlim(plot_start_time, 
+       plot_stop_time) +
   xlab("Time (UTC)") +
   ylab("Activity / Hour (Arb. Units)") +
   scale_fill_viridis_c(name = "Counts", 
@@ -159,7 +158,7 @@ ggplot(tag_activity,
 ```
 Here we see the average activity level for this tag is roughly 1 per hour from September 1 to September 2.
 
-### 7.3.5 Avg activity / hour Vs time.
+### Avg activity / hour Vs time.
 
 Let's zoom in and isolate the average activity per hour:
 

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 2 Download Data | ‘celltracktech’ Data Analysis package</title>
+  <title>Chapter 3 Download Data | ‘celltracktech’ Data Analysis package</title>
   <meta name="description" content="This is a manual for the R package ‘celltracktech’" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 2 Download Data | ‘celltracktech’ Data Analysis package" />
+  <meta property="og:title" content="Chapter 3 Download Data | ‘celltracktech’ Data Analysis package" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a manual for the R package ‘celltracktech’" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 2 Download Data | ‘celltracktech’ Data Analysis package" />
+  <meta name="twitter:title" content="Chapter 3 Download Data | ‘celltracktech’ Data Analysis package" />
   
   <meta name="twitter:description" content="This is a manual for the R package ‘celltracktech’" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2025-03-25" />
+<meta name="date" content="2025-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
 <link rel="prev" href="project-setup.html"/>
-<link rel="next" href="sql-queries.html"/>
+<link rel="next" href="accessing-database.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -161,64 +161,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>2.3</b> Organize your Project Directory</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>3</b> 2 Download Data</a>
+<li class="chapter" data-level="3" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>3</b> Download Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="download-data.html"><a href="download-data.html#create-a-duckdb-database"><i class="fa fa-check"></i><b>3.1</b> 2.1 Create a DuckDB database</a></li>
-<li class="chapter" data-level="3.2" data-path="download-data.html"><a href="download-data.html#download-data-from-the-ctt-api"><i class="fa fa-check"></i><b>3.2</b> 2.2 Download data from the CTT API</a>
+<li class="chapter" data-level="3.1" data-path="download-data.html"><a href="download-data.html#create-a-duckdb-database"><i class="fa fa-check"></i><b>3.1</b> Create a DuckDB database</a></li>
+<li class="chapter" data-level="3.2" data-path="download-data.html"><a href="download-data.html#download-data-from-the-ctt-api"><i class="fa fa-check"></i><b>3.2</b> Download data from the CTT API</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="download-data.html"><a href="download-data.html#create-database-from-files-on-your-computer"><i class="fa fa-check"></i><b>3.2.1</b> 2.2.1 Create Database from Files on your Computer</a></li>
+<li class="chapter" data-level="3.2.1" data-path="download-data.html"><a href="download-data.html#create-database-from-files-on-your-computer"><i class="fa fa-check"></i><b>3.2.1</b> Create Database from Files on your Computer</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="download-data.html"><a href="download-data.html#updating-the-database"><i class="fa fa-check"></i><b>3.3</b> 2.3 Updating the database</a></li>
-<li class="chapter" data-level="3.4" data-path="download-data.html"><a href="download-data.html#disconnecting-from-the-database"><i class="fa fa-check"></i><b>3.4</b> 2.4 Disconnecting from the database</a></li>
-<li class="chapter" data-level="3.5" data-path="download-data.html"><a href="download-data.html#uploading-node-data-from-the-sd-card"><i class="fa fa-check"></i><b>3.5</b> 2.5 Uploading Node Data from the SD Card</a>
+<li class="chapter" data-level="3.3" data-path="download-data.html"><a href="download-data.html#updating-the-database"><i class="fa fa-check"></i><b>3.3</b> Updating the database</a></li>
+<li class="chapter" data-level="3.4" data-path="download-data.html"><a href="download-data.html#disconnecting-from-the-database"><i class="fa fa-check"></i><b>3.4</b> Disconnecting from the database</a></li>
+<li class="chapter" data-level="3.5" data-path="download-data.html"><a href="download-data.html#uploading-node-data-from-the-sd-card"><i class="fa fa-check"></i><b>3.5</b> Uploading Node Data from the SD Card</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="download-data.html"><a href="download-data.html#create-nodes-directory"><i class="fa fa-check"></i><b>3.5.1</b> 2.5.1 Create Nodes directory</a></li>
-<li class="chapter" data-level="3.5.2" data-path="download-data.html"><a href="download-data.html#create-individual-directories-for-each-node"><i class="fa fa-check"></i><b>3.5.2</b> 2.5.2 Create individual directories for each Node</a></li>
-<li class="chapter" data-level="3.5.3" data-path="download-data.html"><a href="download-data.html#upload-node-data-to-your-duckdb-database"><i class="fa fa-check"></i><b>3.5.3</b> 2.5.3 Upload Node data to your DuckDB database</a></li>
+<li class="chapter" data-level="3.5.1" data-path="download-data.html"><a href="download-data.html#create-nodes-directory"><i class="fa fa-check"></i><b>3.5.1</b> Create Nodes directory</a></li>
+<li class="chapter" data-level="3.5.2" data-path="download-data.html"><a href="download-data.html#create-individual-directories-for-each-node"><i class="fa fa-check"></i><b>3.5.2</b> Create individual directories for each Node</a></li>
+<li class="chapter" data-level="3.5.3" data-path="download-data.html"><a href="download-data.html#upload-node-data-to-your-duckdb-database"><i class="fa fa-check"></i><b>3.5.3</b> Upload Node data to your DuckDB database</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="download-data.html"><a href="download-data.html#create-postgres-database"><i class="fa fa-check"></i><b>3.6</b> Create Postgres Database</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="accessing-database.html"><a href="accessing-database.html"><i class="fa fa-check"></i><b>4</b> Accessing Database</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="accessing-database.html"><a href="accessing-database.html#duckplyr"><i class="fa fa-check"></i><b>4.1</b> Duckplyr</a></li>
+<li class="chapter" data-level="4.2" data-path="accessing-database.html"><a href="accessing-database.html#sql-queries"><i class="fa fa-check"></i><b>4.2</b> SQL Queries</a></li>
+<li class="chapter" data-level="4.3" data-path="accessing-database.html"><a href="accessing-database.html#list-tables"><i class="fa fa-check"></i><b>4.3</b> List Tables</a></li>
+<li class="chapter" data-level="4.4" data-path="accessing-database.html"><a href="accessing-database.html#load-each-data-table-into-rstudio"><i class="fa fa-check"></i><b>4.4</b> Load each data table into RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="node-check.html"><a href="node-check.html"><i class="fa fa-check"></i><b>5</b> Node Check</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="node-check.html"><a href="node-check.html#node-health"><i class="fa fa-check"></i><b>5.1</b> Node Health</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="node-check.html"><a href="node-check.html#node-health---check-health-records"><i class="fa fa-check"></i><b>5.1.1</b> Node Health - Check Health Records</a></li>
+<li class="chapter" data-level="5.1.2" data-path="node-check.html"><a href="node-check.html#battery-and-solar-levels"><i class="fa fa-check"></i><b>5.1.2</b> Battery and Solar Levels</a></li>
+<li class="chapter" data-level="5.1.3" data-path="node-check.html"><a href="node-check.html#check-gps"><i class="fa fa-check"></i><b>5.1.3</b> Check GPS</a></li>
+<li class="chapter" data-level="5.1.4" data-path="node-check.html"><a href="node-check.html#check-time-offset"><i class="fa fa-check"></i><b>5.1.4</b> Check Time Offset</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="sql-queries.html"><a href="sql-queries.html"><i class="fa fa-check"></i><b>4</b> 3 SQL Queries</a>
+<li class="chapter" data-level="6" data-path="node-calibration.html"><a href="node-calibration.html"><i class="fa fa-check"></i><b>6</b> Node Calibration</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="sql-queries.html"><a href="sql-queries.html#list-tables"><i class="fa fa-check"></i><b>4.1</b> 3.1 List Tables</a></li>
-<li class="chapter" data-level="4.2" data-path="sql-queries.html"><a href="sql-queries.html#load-each-data-table-into-rstudio"><i class="fa fa-check"></i><b>4.2</b> 3.2 Load each data table into RStudio</a></li>
+<li class="chapter" data-level="6.1" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-data-file"><i class="fa fa-check"></i><b>6.1</b> Load sidekick data file</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="node-calibration.html"><a href="node-calibration.html#if-you-do-not-have-a-sidekick-data-file"><i class="fa fa-check"></i><b>6.1.1</b> IF YOU DO NOT HAVE A SIDEKICK DATA FILE:</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="node-check.html"><a href="node-check.html"><i class="fa fa-check"></i><b>5</b> 4 Node Check</a>
+<li class="chapter" data-level="6.2" data-path="node-calibration.html"><a href="node-calibration.html#setup"><i class="fa fa-check"></i><b>6.2</b> Setup</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="node-check.html"><a href="node-check.html#node-health"><i class="fa fa-check"></i><b>5.1</b> 4.1 Node Health</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="node-check.html"><a href="node-check.html#node-health---check-health-records"><i class="fa fa-check"></i><b>5.1.1</b> 4.1.1 Node Health - Check Health Records</a></li>
-<li class="chapter" data-level="5.1.2" data-path="node-check.html"><a href="node-check.html#battery-and-solar-levels"><i class="fa fa-check"></i><b>5.1.2</b> 4.1.2 Battery and Solar Levels</a></li>
-<li class="chapter" data-level="5.1.3" data-path="node-check.html"><a href="node-check.html#check-gps"><i class="fa fa-check"></i><b>5.1.3</b> 4.1.3 Check GPS</a></li>
-<li class="chapter" data-level="5.1.4" data-path="node-check.html"><a href="node-check.html#check-time-offset"><i class="fa fa-check"></i><b>5.1.4</b> 4.1.4 Check Time Offset</a></li>
+<li class="chapter" data-level="6.2.1" data-path="node-calibration.html"><a href="node-calibration.html#load-environmental-variables-into-rstudio"><i class="fa fa-check"></i><b>6.2.1</b> Load environmental variables into RStudio</a></li>
+<li class="chapter" data-level="6.2.2" data-path="node-calibration.html"><a href="node-calibration.html#load-settings"><i class="fa fa-check"></i><b>6.2.2</b> Load settings</a></li>
+<li class="chapter" data-level="6.2.3" data-path="node-calibration.html"><a href="node-calibration.html#load-node-health-data-from-files"><i class="fa fa-check"></i><b>6.2.3</b> Load Node Health Data from Files</a></li>
+<li class="chapter" data-level="6.2.4" data-path="node-calibration.html"><a href="node-calibration.html#get-node-locations"><i class="fa fa-check"></i><b>6.2.4</b> Get Node Locations</a></li>
+<li class="chapter" data-level="6.2.5" data-path="node-calibration.html"><a href="node-calibration.html#load-station-detection-from-files"><i class="fa fa-check"></i><b>6.2.5</b> Load Station Detection from Files</a></li>
+<li class="chapter" data-level="6.2.6" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-calibration-data-from-file"><i class="fa fa-check"></i><b>6.2.6</b> Load Sidekick Calibration Data from File</a></li>
 </ul></li>
+<li class="chapter" data-level="6.3" data-path="node-calibration.html"><a href="node-calibration.html#calculate-the-rssi-vs.-distance-relationship"><i class="fa fa-check"></i><b>6.3</b> Calculate the RSSI vs. Distance Relationship</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="node-calibration.html"><a href="node-calibration.html"><i class="fa fa-check"></i><b>6</b> 5 Node Calibration</a>
+<li class="chapter" data-level="7" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html"><i class="fa fa-check"></i><b>7</b> Presence/Absence Analysis</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="node-calibration.html"><a href="node-calibration.html#set-parameters"><i class="fa fa-check"></i><b>6.1</b> 5.1 Set parameters</a>
+<li class="chapter" data-level="7.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#set-parameters"><i class="fa fa-check"></i><b>7.1</b> Set parameters</a></li>
+<li class="chapter" data-level="7.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-data-from-database-1"><i class="fa fa-check"></i><b>7.2</b> Load data from database</a></li>
+<li class="chapter" data-level="7.3" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-info"><i class="fa fa-check"></i><b>7.3</b> Load Tag Deployment Info</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="node-calibration.html"><a href="node-calibration.html#load-libraries"><i class="fa fa-check"></i><b>6.1.1</b> 5.1.1 Load libraries</a></li>
-<li class="chapter" data-level="6.1.2" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-data-file"><i class="fa fa-check"></i><b>6.1.2</b> 5.1.2 Load sidekick data file</a></li>
-<li class="chapter" data-level="6.1.3" data-path="node-calibration.html"><a href="node-calibration.html#load-environmental-variables-into-rstudio"><i class="fa fa-check"></i><b>6.1.3</b> 5.1.3 Load environmental variables into RStudio</a></li>
-<li class="chapter" data-level="6.1.4" data-path="node-calibration.html"><a href="node-calibration.html#load-functions"><i class="fa fa-check"></i><b>6.1.4</b> 5.1.4 Load functions</a></li>
-<li class="chapter" data-level="6.1.5" data-path="node-calibration.html"><a href="node-calibration.html#load-settings"><i class="fa fa-check"></i><b>6.1.5</b> 5.1.5 Load settings</a></li>
+<li class="chapter" data-level="7.3.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-file"><i class="fa fa-check"></i><b>7.3.1</b> Load Tag Deployment File</a></li>
+<li class="chapter" data-level="7.3.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#get-list-of-detected-tags"><i class="fa fa-check"></i><b>7.3.2</b> Get List of Detected Tags</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="node-calibration.html"><a href="node-calibration.html#load-node-health-data-from-files"><i class="fa fa-check"></i><b>6.2</b> 5.2 Load Node Health Data from Files</a></li>
-<li class="chapter" data-level="6.3" data-path="node-calibration.html"><a href="node-calibration.html#get-node-locations"><i class="fa fa-check"></i><b>6.3</b> 5.3 Get Node Locations</a></li>
-<li class="chapter" data-level="6.4" data-path="node-calibration.html"><a href="node-calibration.html#load-station-detection-from-files"><i class="fa fa-check"></i><b>6.4</b> 5.4 Load Station Detection from Files</a></li>
-<li class="chapter" data-level="6.5" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-calibration-data-from-file"><i class="fa fa-check"></i><b>6.5</b> 5.5 Load Sidekick Calibration Data from File</a></li>
-<li class="chapter" data-level="6.6" data-path="node-calibration.html"><a href="node-calibration.html#calculate-the-rssi-vs.-distance-relationship"><i class="fa fa-check"></i><b>6.6</b> 5.6 Calculate the RSSI vs. Distance Relationship</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html"><i class="fa fa-check"></i><b>7</b> 6 Presence/Absence Analysis</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#set-parameters-1"><i class="fa fa-check"></i><b>7.1</b> 6.1 Set parameters</a></li>
-<li class="chapter" data-level="7.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-data-from-database-1"><i class="fa fa-check"></i><b>7.2</b> 6.2 Load data from database</a></li>
-<li class="chapter" data-level="7.3" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-info"><i class="fa fa-check"></i><b>7.3</b> 6.3 Load Tag Deployment Info</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-file"><i class="fa fa-check"></i><b>7.3.1</b> 6.3.1 Load Tag Deployment File</a></li>
-<li class="chapter" data-level="7.3.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#get-list-of-detected-tags"><i class="fa fa-check"></i><b>7.3.2</b> 6.3.2 Get List of Detected Tags</a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#generate-detection-summary"><i class="fa fa-check"></i><b>7.4</b> 6.4 Generate Detection Summary</a></li>
-<li class="chapter" data-level="7.5" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#show-detection-history-for-a-specific-tag"><i class="fa fa-check"></i><b>7.5</b> 6.5 Show Detection History for a Specific Tag</a></li>
+<li class="chapter" data-level="7.4" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#generate-detection-summary"><i class="fa fa-check"></i><b>7.4</b> Generate Detection Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#show-detection-history-for-a-specific-tag"><i class="fa fa-check"></i><b>7.5</b> Show Detection History for a Specific Tag</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="activity-budget.html"><a href="activity-budget.html"><i class="fa fa-check"></i><b>8</b> 7 Activity Budget</a>
 <ul>
@@ -239,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.1.1" data-path="habitat-use.html"><a href="habitat-use.html#activate-renv"><i class="fa fa-check"></i><b>9.1.1</b> 8.1.1 Activate renv</a></li>
 <li class="chapter" data-level="9.1.2" data-path="habitat-use.html"><a href="habitat-use.html#load-libraries-and-settings-1"><i class="fa fa-check"></i><b>9.1.2</b> 8.1.2 Load libraries and settings</a></li>
-<li class="chapter" data-level="9.1.3" data-path="habitat-use.html"><a href="habitat-use.html#load-functions-1"><i class="fa fa-check"></i><b>9.1.3</b> 8.1.3 Load Functions</a></li>
+<li class="chapter" data-level="9.1.3" data-path="habitat-use.html"><a href="habitat-use.html#load-functions"><i class="fa fa-check"></i><b>9.1.3</b> 8.1.3 Load Functions</a></li>
 <li class="chapter" data-level="9.1.4" data-path="habitat-use.html"><a href="habitat-use.html#load-rssi-coefficients"><i class="fa fa-check"></i><b>9.1.4</b> 8.1.4 Load RSSI Coefficients</a></li>
 <li class="chapter" data-level="9.1.5" data-path="habitat-use.html"><a href="habitat-use.html#load-settings-2"><i class="fa fa-check"></i><b>9.1.5</b> 8.1.5 Load Settings</a></li>
 </ul></li>
@@ -254,8 +258,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#loading-settings"><i class="fa fa-check"></i><b>10.1</b> 9.1 Loading Settings</a>
 <ul>
 <li class="chapter" data-level="10.1.1" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#activate-renv-1"><i class="fa fa-check"></i><b>10.1.1</b> 9.1.1 Activate renv</a></li>
-<li class="chapter" data-level="10.1.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-libraries-1"><i class="fa fa-check"></i><b>10.1.2</b> 9.1.2 Load libraries</a></li>
-<li class="chapter" data-level="10.1.3" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-functions-2"><i class="fa fa-check"></i><b>10.1.3</b> 9.1.3 Load functions</a></li>
+<li class="chapter" data-level="10.1.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-libraries"><i class="fa fa-check"></i><b>10.1.2</b> 9.1.2 Load libraries</a></li>
+<li class="chapter" data-level="10.1.3" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-functions-1"><i class="fa fa-check"></i><b>10.1.3</b> 9.1.3 Load functions</a></li>
 <li class="chapter" data-level="10.1.4" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-settings-3"><i class="fa fa-check"></i><b>10.1.4</b> 9.1.4 Load settings</a></li>
 </ul></li>
 <li class="chapter" data-level="10.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-node-health-data-from-database"><i class="fa fa-check"></i><b>10.2</b> 9.2 Load Node Health data from Database</a></li>
@@ -272,7 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="multilateration.html"><a href="multilateration.html#load-settings-4"><i class="fa fa-check"></i><b>11.1</b> Load settings</a>
 <ul>
 <li class="chapter" data-level="11.1.1" data-path="multilateration.html"><a href="multilateration.html#reset-rs-brain-remove-all-previous-objects"><i class="fa fa-check"></i><b>11.1.1</b> Reset R’s brain, remove all previous objects</a></li>
-<li class="chapter" data-level="11.1.2" data-path="multilateration.html"><a href="multilateration.html#load-functions-3"><i class="fa fa-check"></i><b>11.1.2</b> Load functions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="multilateration.html"><a href="multilateration.html#load-functions-2"><i class="fa fa-check"></i><b>11.1.2</b> Load functions</a></li>
 <li class="chapter" data-level="11.1.3" data-path="multilateration.html"><a href="multilateration.html#re-create-sample-data-for-calibration"><i class="fa fa-check"></i><b>11.1.3</b> Re-create sample data for calibration</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="multilateration.html"><a href="multilateration.html#isolate-raw-received-signal-strength-rss-data-from-node-network-associated-with-test-data"><i class="fa fa-check"></i><b>11.2</b> Isolate raw Received Signal Strength (RSS) data from Node network associated with Test Data</a></li>
@@ -303,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="download-data" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> 2 Download Data<a href="download-data.html#download-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Chapter 3</span> Download Data<a href="download-data.html#download-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>To download your CTT data, you first will need to create an SQL relational database. Why create a relational database instead of loading the csv files directly? Using a database uses much less memory when combining or cleaning data frames compared to loading data directly into RStudio.</p>
 <p>If you are new to relational databases, you should use <a href="https://duckdb.org/why_duckdb">DuckDB</a>, a simple database management systems (DMBS) that is easy to install and use in RStudio.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="download-data.html#cb6-1" tabindex="-1"></a><span class="co"># activate renv environment</span></span>
@@ -317,7 +321,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-6"><a href="download-data.html#cb7-6" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">&#39;duckdb/duckdb-r&#39;</span>)</span>
 <span id="cb7-7"><a href="download-data.html#cb7-7" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">&#39;cellular-tracking-technologies/celltracktech&#39;</span>)</span></code></pre></div>
 <div id="create-a-duckdb-database" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> 2.1 Create a DuckDB database<a href="download-data.html#create-a-duckdb-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.1</span> Create a DuckDB database<a href="download-data.html#create-a-duckdb-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Below is a sample script to create a DuckDB database</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="download-data.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
 <span id="cb8-2"><a href="download-data.html#cb8-2" tabindex="-1"></a></span>
@@ -329,17 +333,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-8"><a href="download-data.html#cb8-8" tabindex="-1"></a>myproject <span class="ot">&lt;-</span> <span class="st">&quot;Meadows V2&quot;</span> <span class="co"># this is your project name on your CTT account, here we are using the CTT project &#39;Meadows V2&#39;</span></span>
 <span id="cb8-9"><a href="download-data.html#cb8-9" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="download-data.html#cb8-10" tabindex="-1"></a><span class="co"># Create your data directory if it does not exist</span></span>
-<span id="cb8-11"><a href="download-data.html#cb8-11" tabindex="-1"></a>outpath <span class="ot">&lt;-</span> <span class="st">&quot;./data/meadows/&quot;</span> <span class="co"># where your downloaded files are to go</span></span>
+<span id="cb8-11"><a href="download-data.html#cb8-11" tabindex="-1"></a>outpath <span class="ot">&lt;-</span> <span class="st">&quot;./data/&quot;</span> <span class="co"># where your downloaded files are to go</span></span>
 <span id="cb8-12"><a href="download-data.html#cb8-12" tabindex="-1"></a></span>
 <span id="cb8-13"><a href="download-data.html#cb8-13" tabindex="-1"></a><span class="fu">create_outpath</span>(outpath)</span>
 <span id="cb8-14"><a href="download-data.html#cb8-14" tabindex="-1"></a></span>
 <span id="cb8-15"><a href="download-data.html#cb8-15" tabindex="-1"></a><span class="co"># Connect to Database using DuckDB -----------------------------------------------------</span></span>
 <span id="cb8-16"><a href="download-data.html#cb8-16" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
-<span id="cb8-17"><a href="download-data.html#cb8-17" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/meadows/meadows2.db&quot;</span>, </span>
+<span id="cb8-17"><a href="download-data.html#cb8-17" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.db&quot;</span>, </span>
 <span id="cb8-18"><a href="download-data.html#cb8-18" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
 <div id="download-data-from-the-ctt-api" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> 2.2 Download data from the CTT API<a href="download-data.html#download-data-from-the-ctt-api" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.2</span> Download data from the CTT API<a href="download-data.html#download-data-from-the-ctt-api" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You are now connected to your DuckDB database, but so far nothing is in the database. The script below will download your data from the CTT servers and insert the files into your local database.</p>
 <p>NOTE! Your Sensor Station must be set to upload data to our servers. If your station does not upload data, skip this block and go to section 2.2.1.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="download-data.html#cb9-1" tabindex="-1"></a><span class="fu">get_my_data</span>(my_token,</span>
@@ -355,58 +359,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-2"><a href="download-data.html#cb10-2" tabindex="-1"></a>  <span class="ex">Gateway</span> Timeout <span class="er">(</span><span class="ex">HTTP</span> 504<span class="kw">)</span><span class="bu">.</span></span></code></pre></div>
 <p>It is fine, just run the <code>get_my_data()</code> function again and it should work properly.</p>
 <div id="create-database-from-files-on-your-computer" class="section level3 hasAnchor" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> 2.2.1 Create Database from Files on your Computer<a href="download-data.html#create-database-from-files-on-your-computer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">3.2.1</span> Create Database from Files on your Computer<a href="download-data.html#create-database-from-files-on-your-computer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you already have your Sensor Station files on your computer (i.e. your sensor station is not connected to the internet), you can use the code block below to create a database and add those files to it.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="download-data.html#cb11-1" tabindex="-1"></a>celltracktech<span class="sc">::</span><span class="fu">create_duck</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="download-data.html#cb11-1" tabindex="-1"></a>celltracktech<span class="sc">::</span><span class="fu">create_database</span>(<span class="at">my_token =</span> my_token,</span>
+<span id="cb11-2"><a href="download-data.html#cb11-2" tabindex="-1"></a>                               <span class="at">outpath =</span> outpath,</span>
+<span id="cb11-3"><a href="download-data.html#cb11-3" tabindex="-1"></a>                               <span class="at">myproject =</span> myproject,</span>
+<span id="cb11-4"><a href="download-data.html#cb11-4" tabindex="-1"></a>                               <span class="at">db_name =</span> con)</span></code></pre></div>
 </div>
 </div>
 <div id="updating-the-database" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> 2.3 Updating the database<a href="download-data.html#updating-the-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.3</span> Updating the database<a href="download-data.html#updating-the-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Upload the compressed data (i.e. the ‘.csv.gz’ files) into your DuckDB database:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="download-data.html#cb12-1" tabindex="-1"></a><span class="fu">update_db</span>(con, outpath, myproject)</span></code></pre></div>
 </div>
 <div id="disconnecting-from-the-database" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> 2.4 Disconnecting from the database<a href="download-data.html#disconnecting-from-the-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.4</span> Disconnecting from the database<a href="download-data.html#disconnecting-from-the-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The benefit of using a relational database is that it does not need to be loaded into your computer memory the entire time you are analyzing your data. You can connect to it, filter/clean the data you want, and then disconnect once you are done, freeing up computer memory for more intensive data analysis tasks.</p>
 <p>To disconnect from the database, run the following command:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="download-data.html#cb13-1" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 </div>
 <div id="uploading-node-data-from-the-sd-card" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> 2.5 Uploading Node Data from the SD Card<a href="download-data.html#uploading-node-data-from-the-sd-card" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.5</span> Uploading Node Data from the SD Card<a href="download-data.html#uploading-node-data-from-the-sd-card" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Note! This step is optional! If you are not uploading data from the Node SD cards, you can skip to chapter 3!</strong></p>
 <div id="create-nodes-directory" class="section level3 hasAnchor" number="3.5.1">
-<h3><span class="header-section-number">3.5.1</span> 2.5.1 Create Nodes directory<a href="download-data.html#create-nodes-directory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">3.5.1</span> Create Nodes directory<a href="download-data.html#create-nodes-directory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To upload Node data from the SD cards, you will need to create a ‘nodes’ folder in the CTT Project Name folder. For example, we will create a folder in the ‘Meadows V2’ folder in the ‘./data/meadows/’ directory:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="download-data.html#cb14-1" tabindex="-1"></a><span class="fu">create_outpath</span>(<span class="st">&#39;./data/meadows/Meadows V2/nodes/&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="download-data.html#cb14-1" tabindex="-1"></a><span class="fu">create_outpath</span>(<span class="st">&#39;./data/Meadows V2/nodes/&#39;</span>)</span></code></pre></div>
 </div>
 <div id="create-individual-directories-for-each-node" class="section level3 hasAnchor" number="3.5.2">
-<h3><span class="header-section-number">3.5.2</span> 2.5.2 Create individual directories for each Node<a href="download-data.html#create-individual-directories-for-each-node" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">3.5.2</span> Create individual directories for each Node<a href="download-data.html#create-individual-directories-for-each-node" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Then, create a folder for each Node. In the example below, we are creating a folder for Node 3B8845:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="download-data.html#cb15-1" tabindex="-1"></a><span class="fu">create_outpath</span>(<span class="st">&#39;./data/meadows/Meadows V2/nodes/3B8845/&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="download-data.html#cb15-1" tabindex="-1"></a><span class="fu">create_outpath</span>(<span class="st">&#39;./data/Meadows V2/nodes/3B8845/&#39;</span>)</span></code></pre></div>
 </div>
 <div id="upload-node-data-to-your-duckdb-database" class="section level3 hasAnchor" number="3.5.3">
-<h3><span class="header-section-number">3.5.3</span> 2.5.3 Upload Node data to your DuckDB database<a href="download-data.html#upload-node-data-to-your-duckdb-database" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">3.5.3</span> Upload Node data to your DuckDB database<a href="download-data.html#upload-node-data-to-your-duckdb-database" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Remember, we need to re-connect to the DuckDB database to upload the Node data:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="download-data.html#cb16-1" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
-<span id="cb16-2"><a href="download-data.html#cb16-2" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/meadows/meadows.duckdb&quot;</span>, </span>
+<span id="cb16-2"><a href="download-data.html#cb16-2" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
 <span id="cb16-3"><a href="download-data.html#cb16-3" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb16-4"><a href="download-data.html#cb16-4" tabindex="-1"></a></span>
 <span id="cb16-5"><a href="download-data.html#cb16-5" tabindex="-1"></a><span class="co"># Import node data into your database</span></span>
 <span id="cb16-6"><a href="download-data.html#cb16-6" tabindex="-1"></a><span class="fu">import_node_data</span>(<span class="at">d =</span> con,</span>
 <span id="cb16-7"><a href="download-data.html#cb16-7" tabindex="-1"></a>                 <span class="at">outpath =</span> outpath,</span>
-<span id="cb16-8"><a href="download-data.html#cb16-8" tabindex="-1"></a>                 <span class="at">myproject =</span> myproject)</span>
-<span id="cb16-9"><a href="download-data.html#cb16-9" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="download-data.html#cb16-10" tabindex="-1"></a><span class="co"># update the database</span></span>
-<span id="cb16-11"><a href="download-data.html#cb16-11" tabindex="-1"></a><span class="fu">update_db</span>(<span class="at">d =</span> con,</span>
-<span id="cb16-12"><a href="download-data.html#cb16-12" tabindex="-1"></a>          <span class="at">outpath =</span> outpath,</span>
-<span id="cb16-13"><a href="download-data.html#cb16-13" tabindex="-1"></a>          <span class="at">myproject =</span> myproject,</span>
-<span id="cb16-14"><a href="download-data.html#cb16-14" tabindex="-1"></a>          <span class="at">fix =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb16-15"><a href="download-data.html#cb16-15" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="download-data.html#cb16-16" tabindex="-1"></a><span class="co"># disconnect from the database</span></span>
-<span id="cb16-17"><a href="download-data.html#cb16-17" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<span id="cb16-8"><a href="download-data.html#cb16-8" tabindex="-1"></a>                 <span class="at">myproject =</span> myproject,</span>
+<span id="cb16-9"><a href="download-data.html#cb16-9" tabindex="-1"></a>                 <span class="at">station_id =</span> <span class="st">&#39;6CA25D375881&#39;</span>)</span>
+<span id="cb16-10"><a href="download-data.html#cb16-10" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="download-data.html#cb16-11" tabindex="-1"></a><span class="co"># disconnect from the database</span></span>
+<span id="cb16-12"><a href="download-data.html#cb16-12" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<p>The <code>import_node_data</code> will import the node csv files into the “node_” data tables and insert the csv files into the regular “raw”, “blu”, and “node_health” tables.</p>
 <p>You have finished uploading data to your database!</p>
-
 </div>
+</div>
+<div id="create-postgres-database" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Create Postgres Database<a href="download-data.html#create-postgres-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you or your lab are familiar with PostgreSQL, you can connect to your database with this:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="download-data.html#cb17-1" tabindex="-1"></a><span class="co"># create Postgres database</span></span>
+<span id="cb17-2"><a href="download-data.html#cb17-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(</span>
+<span id="cb17-3"><a href="download-data.html#cb17-3" tabindex="-1"></a>  RPostgres<span class="sc">::</span><span class="fu">Postgres</span>(),</span>
+<span id="cb17-4"><a href="download-data.html#cb17-4" tabindex="-1"></a>  <span class="at">dbname=</span><span class="st">&quot;meadows&quot;</span></span>
+<span id="cb17-5"><a href="download-data.html#cb17-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Creating and editing a Postgres database is vastly different from a DuckDB database. You can find more information on Postgres and R <a href="https://faculty.washington.edu/phurvitz/r_sql/createdb.html">here</a>.</p>
+
 </div>
 </div>
             </section>
@@ -415,7 +428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="project-setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sql-queries.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="accessing-database.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
