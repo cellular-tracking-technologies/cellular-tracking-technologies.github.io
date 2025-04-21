@@ -32,20 +32,11 @@ We are now ready to start calculating presence/absence.
 ```{r}
 options(digits = 10)
 
-# DEFS
-source("R/defs/plot_themes.R")
-# UTILS
-source("R/functions/utils/get_time_value.R")
-# NDOE
-source("R/functions/node/node_functions.R")
-# TAG
-source("R/functions/tag/tag_functions.R")
-
 # Specify the path to your database file
-database_file <- "./data/meadows/meadows.duckdb"
+database_file <- "./data/Meadows V2/meadows.duckdb"
 
 # Specify the path to the deployment info file
-deployment_info_file <- "data/meadows/meadows_deployments_2023.csv"
+deployment_info_file <- "data/Meadows V2/meadows_deployments_2023.csv"
 
 # Specify the time range of node data you want to import for this analysis
 start_time <- as.POSIXct("2023-08-01 00:00:00", tz = "GMT")
@@ -93,7 +84,8 @@ ggplot(tag_det_count,
            y = n)) +
   geom_bar(stat = "identity") +
   coord_flip() +
-  labs(x = "Tag ID", y = "Detection Count") +
+  labs(x = "Tag ID", 
+       y = "Detection Count") +
   tag_hist_plot_theme
 ```
 
@@ -107,7 +99,8 @@ detection_df <- subset.data.frame(detection_df,
 
 # OPTIONAL: You can select individual species here
 # subsetting the deployment dataframe to only include NOWA or northern waterthrush
-deployment_df <- subset.data.frame(deployment_df,Species == "NOWA")
+deployment_df <- subset.data.frame(deployment_df,
+                                   Species == "NOWA")
 # detection_df <- subset.data.frame(detection_df,TagId %in% deployment_df$TagId)
 
 det_summary_df <- detection_summary(
@@ -125,7 +118,8 @@ ggplot(data = detection_df,
                       det_summary_df$tag_id))) +
   geom_bin2d(binwidth = c(3600, 1)) + # Hour time bins
   scale_fill_continuous(type = "viridis") +
-  labs(x = "Time (UTC)", y = "Tag Id") +
+  labs(x = "Time (UTC)", 
+       y = "Tag Id") +
   tag_hist_plot_theme
 
 ```

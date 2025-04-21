@@ -157,7 +157,7 @@ node_summary = node_health_df %>%
 
 # save node time offsets to csv
 readr::write_csv(node_summary,
-                 file = './data/meadows/node_time_offset_20230802.csv')
+                 file = './data/Meadows V2/node_time_offset_20230802.csv')
 
 # plot the time offset
 ggplot(node_summary,
