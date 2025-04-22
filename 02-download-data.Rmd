@@ -43,7 +43,7 @@ myproject <- "Meadows V2" # this is your project name on your CTT account, here 
 # Create your data directory if it does not exist
 outpath <- "./data/" # where your downloaded files are to go
 
-create_outpath(outpath)
+create_outpath(paste0(outpath, myproject, '/'))
 
 # Connect to Database using DuckDB -----------------------------------------------------
 con <- DBI::dbConnect(duckdb::duckdb(), 
@@ -156,3 +156,4 @@ con <- DBI::dbConnect(
 
 Creating and editing a Postgres database is vastly different from a DuckDB database. You can find more information on Postgres and R [here](https://faculty.washington.edu/phurvitz/r_sql/createdb.html).
 
+You should be able to do all the above as long as you use `RPostgres::Postgres()` in your database connection.
