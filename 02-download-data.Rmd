@@ -1,12 +1,46 @@
-
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
 # Download Data
+If you want to download just your data files (in .csv.gz format), you can run the following script:
 
-To download your CTT data, you first will need to create an SQL relational database. Why create a relational database instead of loading the csv files directly? Using a database uses much less memory when combining or cleaning data frames compared to loading data directly into RStudio. 
+```{r}
+# load env file into environment
+load_dot_env(file='.env')
+
+# Settings ----------------------------------------------------------------
+my_token <- Sys.getenv('API_KEY') # load env variable into my_token
+myproject <- "Meadows V2" # this is your project name on your CTT account, here we are using the CTT project 'Meadows V2'
+
+# Create your data directory if it does not exist
+outpath <- "./data/" # where your downloaded files are to go
+
+# Create project name folder
+create_outpath(paste0(outpath, myproject, '/'))
+
+# Download data files
+get_my_data(my_token,
+            outpath, 
+            myproject=myproject,
+            begin=as.Date("2023-08-01"),
+            end=as.Date("2023-12-31"),
+            filetypes=c("raw", "blu", "gps", "node_health")
+)
+```
+
+You can download the following file types:
+
+* raw: 434 MHz tag detections
+* blu: 2.4 GHz tag detections
+* gps: Sensor Station lat/lon with timestamps
+* node_health: data on node battery, temperature, tag detections, etc.
+* telemetry: ???
+* sensorgnome: 166 MHz tag detections (Motus will need to translate the data into something usable)
+* log: Sensor Station log files
+
+Trying to load all the data files into RStudio's memory will lead to issues, namely maxing out on memory usage. Instead, you should create an SQL relational database. Using a database uses much less memory when combining or cleaning data frames compared to loading data directly into RStudio, which leaves more memory for analyses. 
 
 If you are new to relational databases, you should use [DuckDB](https://duckdb.org/why_duckdb), a simple database management systems (DMBS) that is easy to install and use in RStudio.
 
@@ -54,16 +88,16 @@ con <- DBI::dbConnect(duckdb::duckdb(),
 
 ## Download data from the CTT API
 
-You are now connected to your DuckDB database, but so far nothing is in the database. The script below will download your data from the CTT servers and insert the files into your local database.
+You are now connected to your DuckDB database, but so far nothing is in the database. The script below will download your data from the CTT servers. If you do not want to use a database, you can still use the `get_my_data()` function to download the .csv.gz files.
 
 NOTE! Your Sensor Station must be set to upload data to our servers. If your station does not upload data, skip this block and go to section 2.2.1.
 ```{r eval=FALSE}
-get_my_data(my_token,
-            outpath, 
-            con, 
-            myproject=myproject,
-            begin=as.Date("2023-08-01"),
-            end=as.Date("2023-12-31"),
+get_my_data(my_token = my_token,
+            outpath = outpath, 
+            db_name = con, 
+            myproject = myproject,
+            begin = as.Date("2023-08-01"),
+            end = as.Date("2023-12-31"),
             filetypes=c("raw", "node_health")
 )
 ```
@@ -120,6 +154,11 @@ Then, create a folder for each Node. In the example below, we are creating a fol
 create_outpath('./data/Meadows V2/nodes/3B8845/')
 ```
 
+If you are only uploading data from the node SD cards frequently, you should create a parent folder for the date you removed the data from the SD card. The nodes save files incrementally (i.e. 434_mhz_beep_0, 434_mhz_beep1, etc.). If you remove the files, it will start back at 0 again. When you put the files with the same name in the same folder, one of them will be overwritten.
+
+```{r}
+create_outpath('./data/Meadows V2/nodes/20250423/3B8845)')
+```
 ### Upload Node data to your DuckDB database
 
 Remember, we need to re-connect to the DuckDB database to upload the Node data:
@@ -138,7 +177,14 @@ import_node_data(d = con,
 DBI::dbDisconnect(con)
 ```
 
-The `import_node_data` will import the node csv files into the "node_" data tables and insert the csv files into the regular "raw", "blu", and "node_health" tables.
+The `import_node_data` will import the node csv files into their own 'node' tables
+
+* node_raw
+* node_blu
+* node_gps
+* node_health_from_node
+
+and insert the csv files into the regular "raw", "blu", and "node_health" tables.
 
 You have finished uploading data to your database!
 

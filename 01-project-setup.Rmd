@@ -51,9 +51,6 @@ echo "API_KEY=your_api_key" >> .env
 ```    
 
 ```{r eval = FALSE}
-install.packages('dotenv')
-library(dotenv)
-
 # load the env file
 load_dot_env(file='.env')
 
