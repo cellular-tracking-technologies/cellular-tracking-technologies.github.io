@@ -37,6 +37,8 @@ After creating a .R file and loading a library, use `renv::snapshot()` to update
 renv::snapshot()
 ```
 
+If you are working with collaborators, you’ll then need to commit renv.lock, .Rprofile, renv/settings.json and renv/activate.R so they can work with the same packages and package versions as you.
+
 ## Create a '.env' file
 
 For NodeJs and Python projects, many data scientists use environment variables to store sensitive data such as passwords, API credentials, and other info that should not be publicly shared. These environment variables can then be accessed by the R project without displaying the sensitive information on your R script.
