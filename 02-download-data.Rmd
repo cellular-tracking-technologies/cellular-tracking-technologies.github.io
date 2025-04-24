@@ -21,12 +21,13 @@ outpath <- "./data/" # where your downloaded files are to go
 create_outpath(paste0(outpath, myproject, '/'))
 
 # Download data files
-get_my_data(my_token,
-            outpath, 
-            myproject=myproject,
-            begin=as.Date("2023-08-01"),
-            end=as.Date("2023-12-31"),
-            filetypes=c("raw", "blu", "gps", "node_health")
+get_my_data(my_token = my_token,
+            outpath = outpath, 
+            db_name = NULL,
+            myproject = myproject,
+            begin = as.Date("2023-08-01"),
+            end = as.Date("2023-12-31"),
+            filetypes=c("raw", "blu", "gps", "node_health", "sensorgnome", "telemetry", 'log')
 )
 ```
 
@@ -81,7 +82,7 @@ create_outpath(paste0(outpath, myproject, '/'))
 
 # Connect to Database using DuckDB -----------------------------------------------------
 con <- DBI::dbConnect(duckdb::duckdb(), 
-                      dbdir = "./data/Meadows V2/meadows.db", 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
                       read_only = FALSE)
 ```
 
@@ -98,7 +99,7 @@ get_my_data(my_token = my_token,
             myproject = myproject,
             begin = as.Date("2023-08-01"),
             end = as.Date("2023-12-31"),
-            filetypes=c("raw", "node_health")
+            filetypes=c("raw", "blu", "gps", "node_health", "sensorgnome", "telemetry", 'log')
 )
 ```
 
@@ -193,7 +194,7 @@ You have finished uploading data to your database!
 If you or your lab are familiar with PostgreSQL, you can connect to your database with this:
 
 ```{r}
-# create Postgres database
+# connect to Postgres database
 con <- DBI::dbConnect(
   RPostgres::Postgres(),
   dbname="meadows"

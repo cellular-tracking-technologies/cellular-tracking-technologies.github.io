@@ -23,7 +23,7 @@ unique_tags = tbl(con, 'raw') |>
   summarize(num_detect = n()) |>
   select(tag_id, num_detect) |>
   arrange(desc(num_detect)) |>
-  as_duckdb_tibble()
+  collect()
 
 DBI::dbDisconnect(con)
 
@@ -64,15 +64,17 @@ con <- DBI::dbConnect(duckdb::duckdb(),
                       read_only = FALSE)
 
 # list last 10 records in raw
-raw = DBI::dbGetQuery(con, "SELECT * FROM raw "); raw
-tail(raw)
+raw = DBI::dbGetQuery(con, "SELECT * FROM raw
+                           ORDER BY time DESC
+                           LIMIT 10")
+raw
 
 # find unique tags in the raw table
 unique_tag = dbGetQuery(conn,
-                          'SELECT tag_id, COUNT(*) AS num_detect
-                          FROM raw
-                          GROUP BY tag_id
-                          ORDER BY num_detect DESC')
+                        'SELECT tag_id, COUNT(*) AS num_detect
+                        FROM raw
+                        GROUP BY tag_id
+                        ORDER BY num_detect DESC')
 DBI::dbDisconnect(con)
 
 ```
