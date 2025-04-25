@@ -48,6 +48,8 @@ load_dot_env(file='.env')
 ### Load settings
 ```{r}
 # Settings - ----------------------------------------------------------------
+
+# set significant digits (number of digits after decimal)
 options(digits = 10)
 
 # These were created in Chapter 2. If you do not have these in your project directory, go back and repeat Ch. 2.
@@ -109,7 +111,7 @@ node_locs <- calculate_node_locations(node_health_df)
 # Plot the average node locations
 node_loc_plot <- plot_node_locations(node_health_df, 
                                      node_locs,
-                                     theme = classic_plot_theme)
+                                     theme = classic_plot_theme())
 node_loc_plot
 
 # Write the node locations to a file
@@ -173,7 +175,10 @@ This function will match sidekick detections to detections recorded by nodes and
 For Blu Series tags use_sync=TRUE, for 434 MHz tags use_sync=FALSE.
 
 ```{r}
-rssi_v_dist <- calc_rssi_v_dist(node_locs, sidekick_tag_df, detection_df, use_sync = FALSE)
+rssi_v_dist <- calc_rssi_v_dist(node_locs = node_locs, 
+                                sidekick_tag_df = sidekick_tag_df, 
+                                detection_df = detection_df, 
+                                use_sync = FALSE)
 
 # Plot the resulting RSSI and distance data
 ggplot() +
@@ -185,7 +190,7 @@ ggplot() +
        x="Distance (m)",
        y="RSSI (dBm)",
        colour="Node ID") +
-  classic_plot_theme
+  classic_plot_theme()
 
 # Fit the RSSI vs distance data with exponential relationship
 nlsfit <- nls(
@@ -201,7 +206,7 @@ rssi_coefs <- c(co[1, 1], co[2, 1], co[3, 1])
 # Add a predicted column to the RSSI vs distance data
 rssi_v_dist$pred <- predict(nlsfit)
 # Plot the RSSI vs distance data with the fit curve
-calibration_plot <- plot_calibration_result(rssi_v_dist, classic_plot_theme)
+calibration_plot <- plot_calibration_result(rssi_v_dist, classic_plot_theme())
 calibration_plot
 
 # Print the coefficients from the fit. You'll need these coefficients later
