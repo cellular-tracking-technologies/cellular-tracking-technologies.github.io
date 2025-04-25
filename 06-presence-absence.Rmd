@@ -69,6 +69,8 @@ DBI::dbDisconnect(con)
 ### Load Tag Deployment File
 
 Again, you will need to create this file yourself. You might want to include other info about the individuals in this file for later analysis (species, weight, sex, etc.).
+
+For this tutorial, the deployment file is provided:
 ```{r}
 deployment_df <- read.csv(deployment_info_file)
 ```
@@ -86,7 +88,7 @@ ggplot(tag_det_count,
   coord_flip() +
   labs(x = "Tag ID", 
        y = "Detection Count") +
-  tag_hist_plot_theme
+  tag_hist_plot_theme()
 ```
 
 ## Generate Detection Summary
@@ -95,7 +97,8 @@ While it is good to know how many detections an individual tag has, it is better
 ```{r}
 # Discard detections that aren't from deployed tags
 detection_df <- subset.data.frame(detection_df, 
-                                  tag_id %in% deployment_df$TagId)
+                                  tag_id %in% deployment_df$TagId) |>
+                              filter(is.na(tag_id) == FALSE)
 
 # OPTIONAL: You can select individual species here
 # subsetting the deployment dataframe to only include NOWA or northern waterthrush
@@ -120,7 +123,7 @@ ggplot(data = detection_df,
   scale_fill_continuous(type = "viridis") +
   labs(x = "Time (UTC)", 
        y = "Tag Id") +
-  tag_hist_plot_theme
+  tag_hist_plot_theme()
 
 ```
 
@@ -128,11 +131,11 @@ ggplot(data = detection_df,
 
 ```{r}
 # selected tag is a power tag on a swamp sparrow
-selected_tag_id <- "2D4B782D"
+selected_tag_id <- "1978341E"
 
 # set your start and stop times
-plot_start_time <- as.POSIXct("2023-10-05 10:00:00", tz = "GMT")
-plot_stop_time <- as.POSIXct("2023-10-05 14:00:00", tz = "GMT")
+plot_start_time <- as.POSIXct("2023-10-09 10:00:00", tz = "GMT")
+plot_stop_time <- as.POSIXct("2023-10-11 14:00:00", tz = "GMT")
 
 # subset the detection_df to only include the selected tag id
 tag_dets <- subset.data.frame(detection_df, tag_id == selected_tag_id)
@@ -149,5 +152,5 @@ ggplot(tag_dets) +
                 selected_tag_id)) +
   xlab("Time (UTC)") +
   ylab("RSSI (dBm)") +
-  classic_plot_theme
+  classic_plot_theme()
 ```
