@@ -24,6 +24,7 @@ library(celltracktech)
 # library(dplyr)
 # library(ggplot2)
 
+# set significant digits
 options(digits = 10)
 
 # Specify the path to your database file
