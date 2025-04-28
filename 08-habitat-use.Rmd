@@ -16,9 +16,6 @@ renv::activate()
 
 ### Load libraries and settings
 ```{r}
-# library(dplyr)
-# library(duckdb)
-# library(ggplot2)
 library(celltracktech)
 ```
 
@@ -43,6 +40,7 @@ a <- -103.46373779280
 b <- -59.03199894670
 c <- 0.01188255653
 
+# create list of rssi coefficients
 rssi_coefs <- c(a, b, c)
 ```
 
@@ -103,11 +101,9 @@ node_locs <- calculate_node_locations(node_health_df)
 # Plot the average node locations
 node_loc_plot <- plot_node_locations(node_health_df, 
                                      node_locs, 
-                                     theme = classic_plot_theme)
+                                     theme = classic_plot_theme())
 node_loc_plot
 
-# Write the node locations to a file
-# export_node_locations("results/node_locations.csv",node_locs)
 # Draw a map with the node locations
 node_map <- map_node_locations(node_locs, tile_url = my_tile_url)
 node_map
@@ -118,7 +114,9 @@ node_map
 These are your tag detections in the 'raw' or 'blu' data tables in your database.
 ```{r}
 # Load from DB
-con <- DBI::dbConnect(duckdb::duckdb(), dbdir = database_file, read_only = TRUE)
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = database_file, 
+                      read_only = TRUE)
 
 # load raw data table into RStudio and filter it based on start and stop time
 detection_df <- tbl(con, "raw") |>
@@ -207,7 +205,7 @@ c <- 0.01188255653
 
 rssi_coefs <- c(a, b, c)
 
-# Selected Tag Id - Power Tag on a Swamp Sparrow (SWSP), 1/8 wave, may need to set rssi coefficient lower for detections
+# Selected Tag Id - Power Tag on a Swamp Sparrow (SWSP), 1/8 wave
 selected_tag_id <- "2D4B782D"
 
 ```
