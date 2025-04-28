@@ -78,7 +78,7 @@ plot_stop_time <- as.POSIXct("2023-09-02 06:00:00", tz = "GMT")
 
 ### Scatter Plot of RSSI vs time by Node
 ```{r}
-ggplot(tag_dets) +
+ggplot(data = tag_dets) +
   geom_point(aes(x = time, 
                  y = tag_rssi, 
                  colour = node_id), 
@@ -95,7 +95,7 @@ Here we see that this bird was spending most of the time in the vicinity of node
 
 Next we will quantify the activity level. Activity is an arbitrary variable; it can be movement, roosting, a specific behavior, etc. You will need to define what activity is based on your study.
 ```{r}
-ggplot(tag_activity) +
+ggplot(data = tag_activity) +
   geom_point(aes(x = time, 
                  y = abs_act, 
                  colour = node_id), 
@@ -115,7 +115,7 @@ We can summarize the above plot even further by creating a heatmap. The code chu
 
 my_breaks <- c(1, 10, 100, 1000, 10000)
 
-ggplot(tag_activity, 
+ggplot(data = tag_activity, 
        aes(x = time, 
            y = abs_act)) +
   geom_bin2d(binwidth = c(3600, 1)) +
@@ -127,7 +127,7 @@ ggplot(tag_activity,
                        labels = my_breaks) +
   xlab("Time (UTC)") +
   ylab("Activity / Hour (Arb. Units)") +  
-  classic_plot_theme
+  classic_plot_theme()
 ```
 From this plot, we can see that there are multiple instances of low activity (demonstrated by the yellow bins at activity/hour 1), and fewer instances of high activity (demonstrated by the blue bins at activity/hour 4 and above).
 
@@ -135,7 +135,7 @@ From this plot, we can see that there are multiple instances of low activity (de
 
 This code chunk makes the same plot as above, but also displays the average activity level as a red line.
 ```{r}
-ggplot(tag_activity, 
+ggplot(data = tag_activity, 
        aes(x = time, 
            y = abs_act)) +
  geom_bin2d(binwidth = c(3600, 1)) +
@@ -155,7 +155,7 @@ ggplot(tag_activity,
                        trans = "log", 
                        breaks = my_breaks, 
                        labels = my_breaks) +
-  classic_plot_theme
+  classic_plot_theme()
 ```
 Here we see the average activity level for this tag is roughly 1 per hour from September 1 to September 2.
 
@@ -164,7 +164,7 @@ Here we see the average activity level for this tag is roughly 1 per hour from S
 Let's zoom in and isolate the average activity per hour:
 
 ```{r}
-ggplot(tag_activity) +
+ggplot(data = tag_activity) +
   geom_line(data = avg_tag_act, 
             aes(x = time, 
                 y = avg_activity),
@@ -180,7 +180,7 @@ ggplot(tag_activity) +
                        trans = "log", 
                        breaks = my_breaks, 
                        labels = my_breaks) +
-  classic_plot_theme
+  classic_plot_theme()
 ```
 We see that average activity is highest between 6am-12pm but decreases suddenly after that, which is what we would expect for bird activity level in September.
 
