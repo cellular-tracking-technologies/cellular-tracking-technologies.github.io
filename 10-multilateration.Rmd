@@ -23,7 +23,9 @@ options(digits=9) # sets number after decimal
 ### Load libraries
 ```{r}
 library(celltracktech)
-library(data.table)
+library(nlstools)
+library(slider)
+library(padr)
 source("R/Functions_Paxton-CTTUpdate.R")
 ```
 
@@ -89,7 +91,7 @@ ggplot(data = combined_data,
 ```
 As distance increases, we see average RSS decreasing exponentially.
 
-### Preliminary Exponential Decay Model - Determine staring values for the final model
+### Preliminary Exponential Decay Model - Determine starting values for the final model
 
 * SSasvmp - self start for exponential model to find the data starting values
 * Asvm - horizontal asymptote (when large values) - y values decay to this value
@@ -224,5 +226,6 @@ beep.grouped <- prep.data(test_data,
 RSS.filter <- -95
 location.estimates <- trilateration(beep.grouped, nodes, RSS.FILTER)
 
+# this will take a while...
 mapping(nodes, location.estimates)
 ```
