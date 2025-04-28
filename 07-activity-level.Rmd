@@ -87,9 +87,9 @@ ggplot(tag_dets) +
   ggtitle(paste("Detections", selected_tag_id)) +
   xlab("Time (UTC)") + 
   ylab("RSSI (dBm)") +
-  classic_plot_theme
+  classic_plot_theme()
 ```
-Here we see that this bird was spending most of the time in the vicinity of nodes 3282EC, 339CAE, and 37824B, but then spends a considerable amount of time near node 32941A.
+Here we see that this bird was spending most of the time in the vicinity of nodes 3282EC, 339CAE, and 37824B, but the strongest detections are near node 32841A.
 
 ### Scatter Plot of activity vs time by Node
 
@@ -104,7 +104,7 @@ ggplot(tag_activity) +
   xlab("Time (UTC)") +
   ylab("Activity (Arb. Units)") +
   xlim(plot_start_time, plot_stop_time) +
-  classic_plot_theme
+  classic_plot_theme()
 ```
 Here we see the activity level (y-axis) for every 5 min from September 1 to September 2. Each color represents a unique Node ID. From a brief glance, this tag had low to mid activity levels near nodes 3282EC and 37824B, but it is still difficult to discern what is going on in this plot.
 
