@@ -19,9 +19,7 @@ renv::activate()
 
 ### Load libraries
 ```{r}
-library(dplyr)
-library(duckdb)
-library(ggplot2)
+library(celltracktech)
 ```
 
 ### Load settings
@@ -30,7 +28,7 @@ library(ggplot2)
 database_file <- "./data/Meadows V2/meadows.duckdb"
 
 # (OPTIONAL) Specify Node time offsets if necessary
-node_time_offset_file <- "./data/node_time_offset_8_2_2023.csv"
+node_time_offset_file <- "./data/Meadows V2/node_time_offset_20230802.csv"
 node_toff_df <- read.csv(node_time_offset_file)
 
 # Specify the tag ID that you want to locate
@@ -65,10 +63,14 @@ my_tile_url <- "https://mt2.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
 ## Load Node Health data from Database
 ```{r}
 # Load from DB
-con <- DBI::dbConnect(duckdb::duckdb(), dbdir = database_file, read_only = TRUE)
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = database_file, 
+                      read_only = TRUE)
+
 node_health_df <- tbl(con, "node_health") |>
   filter(time >= node_start_time & time <= node_stop_time) |>
   collect()
+
 DBI::dbDisconnect(con)
 ```
 
@@ -79,10 +81,12 @@ node_locs <- calculate_node_locations(node_health_df)
 # Plot the average node locations
 node_loc_plot <- plot_node_locations(node_health_df,
                                      node_locs,
-                                     theme = classic_plot_theme)
+                                     theme = classic_plot_theme())
 node_loc_plot
+
 # Write the node locations to a file
 export_node_locations("./results/node_locations.csv", node_locs)
+
 # Draw a map with the node locations
 node_map <- map_node_locations(node_locs, tile_url = my_tile_url)
 node_map
@@ -91,12 +95,18 @@ node_map
 ## Load Station Detection Data
 ```{r}
 # Load from DB
-con <- DBI::dbConnect(duckdb::duckdb(), dbdir = database_file, read_only = TRUE)
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = database_file, 
+                      read_only = TRUE)
+
 detection_df <- tbl(con, "raw") |>
   filter(time >= det_start_time & time <= det_stop_time) |>
   filter(tag_id == my_tag_id) |>
+  mutate(time_value = as.integer(time)) |>
   collect()
+
 DBI::dbDisconnect(con)
+
 detection_df <- detection_df %>% mutate(time_value = as.integer(time))
 ```
 
@@ -194,40 +204,75 @@ track_map
 # If you've recorded a test track with the sidekick and want to see how well you
 # are able to recreate it you can use the commands below.
 sidekick_file_path <- "./data/Meadows V2/sidekick/calibration_2023_8_3_t2.csv"
+
 # Get Sidekick data from CSV (note I modified the headers for cleaner names in here)
 sidekick_df <- read.csv(sidekick_file_path)
+
 # Correct sidekick time formatting
 sidekick_df <- sidekick_df %>% mutate(time_utc = substring(c(sidekick_df$time_utc), 1, 19))
+
 # Add numerical time value column
 sidekick_df <- sidekick_df %>% mutate(time_value = get_time_value(sidekick_df$time_utc))
+
 # Trim Sidekick data to the time of the calculated track
 sidekick_df <- subset.data.frame(sidekick_df, time_value <= max(track_df$time))
 
 track_error_df <- calc_track_error(sidekick_df, track_df)
+
 print(track_error_df)
 print(min(track_error_df$error))
 print(max(track_error_df$error))
-print(paste("GS Solution Error = ", mean(track_error_df$error), " +/- ", sd(track_error_df$error)))
-#print(paste("ML Solution Error = ", mean(track_error_df$ml_error), " +/- ", sd(track_error_df$ml_error)))
 
-compare_map <- map_track_error(node_locs, track_error_df, sidekick_df, my_tile_url)
+print(paste("Grid Search Solution Error = ",
+            mean(track_error_df$error),
+            " +/- ",
+            sd(track_error_df$error)))
+
+print(paste("Multilateration Solution Error = ",
+            mean(track_error_df$ml_error),
+            " +/- ",
+            sd(track_error_df$ml_error)))
+
+compare_map <- map_track_error(node_locs,
+                               track_error_df,
+                               sidekick_df,
+                               my_tile_url)
 compare_map
 ```
 
 ## Plot Uncertainty Analysis
 ```{r}
-# need legend for different color dots
+# plot grid search analysis error and multilateration error across track point
 ggplot() +
-  geom_point(data = track_error_df, aes(x = i, y = ml_error), color = "orange") +
-  geom_point(data = track_error_df, aes(x = i, y = error)) +
+  geom_point(data = track_error_df,
+             aes(x = i,
+                 y = ml_error,
+                 color = 'Multilateration Error')) +
+  geom_point(data = track_error_df,
+             aes(x = i,
+                 y = error,
+                 color = 'Grid Search Error')) +
+  labs(color = 'Error Type') +
+  scale_color_manual(values=c('Grid Search Error' = 'black',
+                              'Multilateration Error' = 'orange'))+
   xlab("Track Point #") +
   ylab("Solution Error (m)") +
-  classic_plot_theme
+  classic_plot_theme()
 
+# plotting grid search analysis error across max rssi (dBm)
 ggplot() +
-  #geom_point(data = track_error_df, aes(x = max_rssi, y = ml_error), color = "orange") +
-  geom_point(data = track_error_df, aes(x = max_rssi, y = error)) +
+  geom_point(data = track_error_df, 
+             aes(x = max_rssi, 
+                 y = ml_error,
+                 color = 'Multilateration Error')) +
+  geom_point(data = track_error_df, 
+             aes(x = max_rssi, 
+                 y = error,
+                 color = 'Grid Search Error')) +
+  labs(color = 'Error Type') +
+  scale_color_manual(values=c('Grid Search Error' = 'black',
+                              'Multilateration Error' = 'orange'))+
   xlab("Max RSSI (dBm)") +
   ylab("Position Error (m)") +
-  classic_plot_theme
+  classic_plot_theme()
 ```
