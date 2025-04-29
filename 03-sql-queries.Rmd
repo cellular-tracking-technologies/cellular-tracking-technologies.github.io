@@ -11,7 +11,6 @@ If you are new to database queries but familiar with dplyr and tidyverse, I reco
 
 ```{r}
 library(celltracktech)
-library(duckplyr)
 
 con <- DBI::dbConnect(duckdb::duckdb(), 
                       dbdir = "./data/Meadows V2/meadows.duckdb", 
@@ -70,7 +69,7 @@ raw = DBI::dbGetQuery(con, "SELECT * FROM raw
 raw
 
 # find unique tags in the raw table
-unique_tag = dbGetQuery(conn,
+unique_tag = dbGetQuery(con,
                         'SELECT tag_id, COUNT(*) AS num_detect
                         FROM raw
                         GROUP BY tag_id
