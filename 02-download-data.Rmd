@@ -7,6 +7,9 @@ knitr::opts_chunk$set(eval = FALSE)
 If you want to download just your data files (in .csv.gz format), you can run the following script:
 
 ```{r}
+# load the celltracktech library
+library(celltracktech)
+
 # load env file into environment
 load_dot_env(file='.env')
 
@@ -20,7 +23,7 @@ outpath <- "./data/" # where your downloaded files are to go
 # Create project name folder
 create_outpath(paste0(outpath, myproject, '/'))
 
-# Download data files
+# Download just the data files onto your computer
 get_my_data(my_token = my_token,
             outpath = outpath, 
             db_name = NULL,
