@@ -181,6 +181,8 @@ import_node_data(d = con,
 DBI::dbDisconnect(con)
 ```
 
+If you get `Error in files_loc[1, ] : incorrect number of dimensions` you did not create the `nodes` folder in the correct location.
+
 The `import_node_data` will import the node csv files into their own 'node' tables
 
 * node_raw
