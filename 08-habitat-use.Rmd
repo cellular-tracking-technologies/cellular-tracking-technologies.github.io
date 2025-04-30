@@ -194,6 +194,8 @@ loc_density_map <- map_location_density(loc_density_df = loc_density, my_tile_ur
 loc_density_map
 ```
 
+If you zoom in on the map, you can see the areas where the animal spent most of its time.
+
 For tags with 1/8 wavelengths, you may need to use a lower RSSI coefficient to accurately map tracks and habitat use. Try using -115 for RSSI coefficient 'a'.
 
 Below is an example of a Power Tag with a 1/8 wave antenna, and will need a lower RSSI coefficient:
@@ -207,5 +209,6 @@ rssi_coefs <- c(a, b, c)
 
 # Selected Tag Id - Power Tag on a Swamp Sparrow (SWSP), 1/8 wave
 selected_tag_id <- "2D4B782D"
-
 ```
+
+Run the rest of the code blocks after setting these new RSSI coefficients to plot the habitat use of an individual with a 1/8 wave antenna.
