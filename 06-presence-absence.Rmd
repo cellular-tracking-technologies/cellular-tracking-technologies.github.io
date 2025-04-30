@@ -24,7 +24,15 @@ Ex.
 |664C5219|08/23/23|NOWA|Power|1/8 wave|
 |4C2A0707|08/20/23|NOWA|Power|1/8 wave|
 
-Then move that tag deployment file into the 'outpath' folder. For example, we will move the `meadows_deployments_2023.csv`, which contains the above info on numerous tags across multiple species into the `data/meadows/` folder.
+Then move that tag deployment file into the 'outpath' folder.
+
+The `celltracktech` package includes the deployments data for the Meadows V2 project. We will import it into the RStudio environment and save it as a .csv file in the `data/Meadows V2/` folder for this tutorial. 
+
+```{r}
+write_csv(celltracktech::deployments, './data/Meadows V2/meadows_deployments_2023.csv')
+```
+
+If you are using your own data, move your project-specific deployments .csv file into your `data/<project name>/` folder.
 
 We are now ready to start calculating presence/absence.
 
@@ -70,9 +78,8 @@ DBI::dbDisconnect(con)
 
 Again, you will need to create this file yourself. You might want to include other info about the individuals in this file for later analysis (species, weight, sex, etc.).
 
-For this tutorial, the deployment file is provided:
 ```{r}
-deployment_df <- read.csv(deployment_info_file)
+deployment_df <- read_csv(deployment_info_file)
 ```
 
 ### Get List of Detected Tags
@@ -82,7 +89,8 @@ tag_det_count <- get_tag_detection_count(detection_df, min_det_count = 250000)
 
 # plot the number of detections for each individual tag
 ggplot(tag_det_count, 
-       aes(x = factor(tag_id), 
+       aes(x = factor(x = tag_id,
+                      levels = tag_id), 
            y = n)) +
   geom_bar(stat = "identity") +
   coord_flip() +

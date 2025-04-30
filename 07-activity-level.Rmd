@@ -21,8 +21,6 @@ renv::activate()
 ```{r}
 # load celltracktech library
 library(celltracktech)
-# library(dplyr)
-# library(ggplot2)
 
 # set significant digits
 options(digits = 10)
