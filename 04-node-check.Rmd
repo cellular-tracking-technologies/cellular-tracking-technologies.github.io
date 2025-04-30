@@ -69,7 +69,7 @@ node_health_df <- node_health_df |>
             .keep_all = TRUE)
 ```
 
-#### Checking Nodes are operating
+#### Check if nodes are operating properly
 
 ```{r}
 # Look at the number of health records received from each node
@@ -165,12 +165,11 @@ ggplot(node_summary,
            color=factor(node_id))) +
   geom_point() +
   ggtitle("Time Offset") +
-  # xlab("Time (UTC)") +
   ylab("Time (s)") +
   geom_hline(yintercept=0, 
              linetype="dotted", 
              color = "red", 
-             size=1) +
+             linewidth=1) +
   labs(color = 'Node ID') +
   classic_plot_theme() +
   theme(axis.title.x = element_blank(),
