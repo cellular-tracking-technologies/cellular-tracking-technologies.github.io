@@ -8,7 +8,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 Here we will go over how to create a local project directory (or folder as it is commonly known) on your own personal computer.
 
-## Create a R Studio Project
+## Create an R Studio Project
 
 1. Download the latest versions of R and RStudio. As of writing this tutorial, the latest version of R is 4.4.2, and RStudio is '2024-12.0.467'.
 
@@ -38,6 +38,10 @@ renv::snapshot()
 ```
 
 If you are working with collaborators, you’ll then need to commit renv.lock, .Rprofile, renv/settings.json and renv/activate.R so they can work with the same packages and package versions as you.
+
+## Request an API token
+
+To access the CTT Application Programming Interface (API) (i.e. the program to download your data from the CTT servers), you will need an API token. You can request one [here](https://celltracktech.com/pages/csd-radio-api-key-request).
 
 ## Create a '.env' file
 

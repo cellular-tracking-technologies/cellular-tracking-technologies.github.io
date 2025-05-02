@@ -45,8 +45,6 @@ myproject <- "Meadows V2" # this is your project name on your CTT account, here 
 outpath <- "./data/" # where your downloaded files are to go
 
 # Specify the time range of node data you want to import for this analysis
-# start_time <- as.POSIXct("2023-10-01 00:00:00",tz="GMT")
-# stop_time <- as.POSIXct("2023-11-01 00:00:00",tz="GMT")
 start_time <- as.POSIXct("2023-08-01 00:00:00", tz = "GMT")
 stop_time <- as.POSIXct("2023-08-07 00:00:00", tz = "GMT")
 

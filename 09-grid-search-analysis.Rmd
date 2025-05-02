@@ -44,6 +44,9 @@ rssi_coefs <- c(a, b, c)
 #   This range should cover a large time window where your nodes were in
 #   a constant location.  All node health records in this time window
 #   will be used to accurately determine the position of your nodes
+
+# IMPORTANT! If you have included a node time offset file,
+# make sure it was calculated using the same start and stop times as below.
 node_start_time <- as.POSIXct("2023-08-01 00:00:00", tz = "GMT")
 node_stop_time <- as.POSIXct("2023-08-07 00:00:00", tz = "GMT")
 
@@ -204,11 +207,10 @@ track_map
 # If you've recorded a test track with the sidekick and want to see how well you
 # are able to recreate it you can use the commands below.
 
-### NEED TO ADD TEST SIDEKICK CALIBRATION FILES!!!
-sidekick_file_path <- "./data/Meadows V2/sidekick/calibration_2023_8_3_t2.csv"
-
-# Get Sidekick data from CSV (note I modified the headers for cleaner names in here)
-sidekick_df <- read.csv(sidekick_file_path)
+# load test track from celltracktech package; if you recorded a test track, you
+# would need to load it from the .csv file
+# sidekick_df <- read_csv('./path/to/csv_file')
+sidekick_df <- celltracktech::sidekick_cal_test2
 
 # Correct sidekick time formatting
 sidekick_df <- sidekick_df %>% mutate(time_utc = substring(c(sidekick_df$time_utc), 1, 19))
