@@ -78,6 +78,7 @@ DBI::dbDisconnect(con)
 ```{r}
 # Calculate the average node locations
 node_locs <- calculate_node_locations(node_health_df)
+
 # Plot the average node locations
 node_loc_plot <- plot_node_locations(node_health_df,
                                      node_locs,
@@ -102,7 +103,6 @@ con <- DBI::dbConnect(duckdb::duckdb(),
 detection_df <- tbl(con, "raw") |>
   filter(time >= det_start_time & time <= det_stop_time) |>
   filter(tag_id == my_tag_id) |>
-  mutate(time_value = as.integer(time)) |>
   collect()
 
 DBI::dbDisconnect(con)
@@ -203,6 +203,8 @@ track_map
 ```{r}
 # If you've recorded a test track with the sidekick and want to see how well you
 # are able to recreate it you can use the commands below.
+
+### NEED TO ADD TEST SIDEKICK CALIBRATION FILES!!!
 sidekick_file_path <- "./data/Meadows V2/sidekick/calibration_2023_8_3_t2.csv"
 
 # Get Sidekick data from CSV (note I modified the headers for cleaner names in here)

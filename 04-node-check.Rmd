@@ -45,8 +45,10 @@ myproject <- "Meadows V2" # this is your project name on your CTT account, here 
 outpath <- "./data/" # where your downloaded files are to go
 
 # Specify the time range of node data you want to import for this analysis
-start_time <- as.POSIXct("2023-10-01 00:00:00",tz="GMT")
-stop_time <- as.POSIXct("2023-11-01 00:00:00",tz="GMT")
+# start_time <- as.POSIXct("2023-10-01 00:00:00",tz="GMT")
+# stop_time <- as.POSIXct("2023-11-01 00:00:00",tz="GMT")
+start_time <- as.POSIXct("2023-08-01 00:00:00", tz = "GMT")
+stop_time <- as.POSIXct("2023-08-07 00:00:00", tz = "GMT")
 
 # Connect to Database using DuckDB -----------------------------------------------------
 con <- DBI::dbConnect(duckdb::duckdb(), 
@@ -154,7 +156,7 @@ node_summary = node_health_df %>%
   summarize(mean_time_offset = mean(time_offset), n = n())
 
 # save node time offsets to csv
-readr::write_csv(node_summary,
+write_csv(node_summary,
                  file = './data/Meadows V2/node_time_offset_20230802.csv')
 
 # plot the time offset
