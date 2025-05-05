@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Accessing Database | ‘celltracktech’ Data Analysis package</title>
+  <title>Chapter 4 Obtaining Data from Database | ‘celltracktech’ Data Analysis package</title>
   <meta name="description" content="This is a manual for the R package ‘celltracktech’" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Accessing Database | ‘celltracktech’ Data Analysis package" />
+  <meta property="og:title" content="Chapter 4 Obtaining Data from Database | ‘celltracktech’ Data Analysis package" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a manual for the R package ‘celltracktech’" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Accessing Database | ‘celltracktech’ Data Analysis package" />
+  <meta name="twitter:title" content="Chapter 4 Obtaining Data from Database | ‘celltracktech’ Data Analysis package" />
   
   <meta name="twitter:description" content="This is a manual for the R package ‘celltracktech’" />
   
@@ -158,7 +158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="project-setup.html"><a href="project-setup.html#request-an-api-token"><i class="fa fa-check"></i><b>2.2</b> Request an API token</a></li>
 <li class="chapter" data-level="2.3" data-path="project-setup.html"><a href="project-setup.html#create-a-.env-file"><i class="fa fa-check"></i><b>2.3</b> Create a ‘.env’ file</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>2.3.1</b> Add .env file to .gitignore</a></li>
+<li class="chapter" data-level="2.3.1" data-path="project-setup.html"><a href="project-setup.html#load-the-api-key-into-your-rstudio-environment"><i class="fa fa-check"></i><b>2.3.1</b> Load the API key into your RStudio environment</a></li>
+<li class="chapter" data-level="2.3.2" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>2.3.2</b> Add .env file to .gitignore</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>2.4</b> Organize your Project Directory</a></li>
 </ul></li>
@@ -179,12 +180,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="download-data.html"><a href="download-data.html#create-postgres-database"><i class="fa fa-check"></i><b>3.6</b> Create Postgres Database</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="accessing-database.html"><a href="accessing-database.html"><i class="fa fa-check"></i><b>4</b> Accessing Database</a>
+<li class="chapter" data-level="4" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html"><i class="fa fa-check"></i><b>4</b> Obtaining Data from Database</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="accessing-database.html"><a href="accessing-database.html#duckplyr"><i class="fa fa-check"></i><b>4.1</b> Duckplyr</a></li>
-<li class="chapter" data-level="4.2" data-path="accessing-database.html"><a href="accessing-database.html#sql-queries"><i class="fa fa-check"></i><b>4.2</b> SQL Queries</a></li>
-<li class="chapter" data-level="4.3" data-path="accessing-database.html"><a href="accessing-database.html#list-tables"><i class="fa fa-check"></i><b>4.3</b> List Tables</a></li>
-<li class="chapter" data-level="4.4" data-path="accessing-database.html"><a href="accessing-database.html#load-each-data-table-into-rstudio"><i class="fa fa-check"></i><b>4.4</b> Load each data table into RStudio</a></li>
+<li class="chapter" data-level="4.1" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#duckplyr"><i class="fa fa-check"></i><b>4.1</b> Duckplyr</a></li>
+<li class="chapter" data-level="4.2" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#sql-queries"><i class="fa fa-check"></i><b>4.2</b> SQL Queries</a></li>
+<li class="chapter" data-level="4.3" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#list-tables"><i class="fa fa-check"></i><b>4.3</b> List Tables</a></li>
+<li class="chapter" data-level="4.4" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#find-unique-tags-in-raw-table"><i class="fa fa-check"></i><b>4.4</b> Find unique tags in <code>raw</code> table</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="node-check.html"><a href="node-check.html"><i class="fa fa-check"></i><b>5</b> Node Check</a>
 <ul>
@@ -193,7 +194,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.1" data-path="node-check.html"><a href="node-check.html#node-health---check-health-records"><i class="fa fa-check"></i><b>5.1.1</b> Node Health - Check Health Records</a></li>
 <li class="chapter" data-level="5.1.2" data-path="node-check.html"><a href="node-check.html#battery-and-solar-levels"><i class="fa fa-check"></i><b>5.1.2</b> Battery and Solar Levels</a></li>
 <li class="chapter" data-level="5.1.3" data-path="node-check.html"><a href="node-check.html#check-gps"><i class="fa fa-check"></i><b>5.1.3</b> Check GPS</a></li>
-<li class="chapter" data-level="5.1.4" data-path="node-check.html"><a href="node-check.html#check-time-offset"><i class="fa fa-check"></i><b>5.1.4</b> Check Time Offset</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="node-calibration.html"><a href="node-calibration.html"><i class="fa fa-check"></i><b>6</b> Node Calibration</a>
@@ -306,68 +306,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="accessing-database" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Accessing Database<a href="accessing-database.html#accessing-database" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="obtaining-data-from-database" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Obtaining Data from Database<a href="obtaining-data-from-database.html#obtaining-data-from-database" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="duckplyr" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Duckplyr<a href="accessing-database.html#duckplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>If you are new to database queries but familiar with dplyr and tidyverse, I recommend using <code>duckplyr</code>. You can find more information about <code>duckplyr</code> <a href="https://duckdb.org/2024/04/02/duckplyr.html">here</a> but the main takeaway is that you can query your database using dplyr phrases and pipes, while also saving memory on loading data.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="accessing-database.html#cb21-1" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
-<span id="cb21-2"><a href="accessing-database.html#cb21-2" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="accessing-database.html#cb21-3" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
-<span id="cb21-4"><a href="accessing-database.html#cb21-4" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
-<span id="cb21-5"><a href="accessing-database.html#cb21-5" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb21-6"><a href="accessing-database.html#cb21-6" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="accessing-database.html#cb21-7" tabindex="-1"></a><span class="co"># load raw data table and find unique tags</span></span>
-<span id="cb21-8"><a href="accessing-database.html#cb21-8" tabindex="-1"></a>unique_tags <span class="ot">=</span> <span class="fu">tbl</span>(con, <span class="st">&#39;raw&#39;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-9"><a href="accessing-database.html#cb21-9" tabindex="-1"></a>  <span class="fu">group_by</span>(tag_id) <span class="sc">|&gt;</span></span>
-<span id="cb21-10"><a href="accessing-database.html#cb21-10" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">num_detect =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb21-11"><a href="accessing-database.html#cb21-11" tabindex="-1"></a>  <span class="fu">select</span>(tag_id, num_detect) <span class="sc">|&gt;</span></span>
-<span id="cb21-12"><a href="accessing-database.html#cb21-12" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(num_detect)) <span class="sc">|&gt;</span></span>
-<span id="cb21-13"><a href="accessing-database.html#cb21-13" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
-<span id="cb21-14"><a href="accessing-database.html#cb21-14" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="accessing-database.html#cb21-15" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<h2><span class="header-section-number">4.1</span> Duckplyr<a href="obtaining-data-from-database.html#duckplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you are new to database queries but familiar with <code>dplyr</code> and <code>tidyverse</code>, we recommend using <code>duckplyr</code>. You can find more information about <code>duckplyr</code> <a href="https://duckdb.org/2024/04/02/duckplyr.html">here</a> but the main takeaway is that you can query your database using dplyr phrases and pipes, while also saving memory on loading data.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="obtaining-data-from-database.html#cb21-1" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
+<span id="cb21-2"><a href="obtaining-data-from-database.html#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="obtaining-data-from-database.html#cb21-3" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb21-4"><a href="obtaining-data-from-database.html#cb21-4" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
+<span id="cb21-5"><a href="obtaining-data-from-database.html#cb21-5" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-6"><a href="obtaining-data-from-database.html#cb21-6" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="obtaining-data-from-database.html#cb21-7" tabindex="-1"></a><span class="co"># load raw data table and find unique tags</span></span>
+<span id="cb21-8"><a href="obtaining-data-from-database.html#cb21-8" tabindex="-1"></a>unique_tags <span class="ot">=</span> <span class="fu">tbl</span>(con, <span class="st">&#39;raw&#39;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-9"><a href="obtaining-data-from-database.html#cb21-9" tabindex="-1"></a>  <span class="fu">group_by</span>(tag_id) <span class="sc">|&gt;</span></span>
+<span id="cb21-10"><a href="obtaining-data-from-database.html#cb21-10" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">num_detect =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb21-11"><a href="obtaining-data-from-database.html#cb21-11" tabindex="-1"></a>  <span class="fu">select</span>(tag_id, num_detect) <span class="sc">|&gt;</span></span>
+<span id="cb21-12"><a href="obtaining-data-from-database.html#cb21-12" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(num_detect)) <span class="sc">|&gt;</span></span>
+<span id="cb21-13"><a href="obtaining-data-from-database.html#cb21-13" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb21-14"><a href="obtaining-data-from-database.html#cb21-14" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="obtaining-data-from-database.html#cb21-15" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 </div>
 <div id="sql-queries" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> SQL Queries<a href="accessing-database.html#sql-queries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.2</span> SQL Queries<a href="obtaining-data-from-database.html#sql-queries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you are more comfortable with the SQL syntax, you can use SQL queries to get data from different tables.</p>
 <p>This chapter is a quick summary on how to use SQL in R. If you would like more info on how to run different queries, use this tutorial: <a href="https://solutions.posit.co/connections/db/getting-started/database-queries/">https://solutions.posit.co/connections/db/getting-started/database-queries/</a></p>
 </div>
 <div id="list-tables" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> List Tables<a href="accessing-database.html#list-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.3</span> List Tables<a href="obtaining-data-from-database.html#list-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>List the tables in your database. If everything was run correctly, each data file type (raw, blu, node-health, etc.) should be in its own data table.</p>
 <p>Remember to reconnect to the database!</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="accessing-database.html#cb22-1" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
-<span id="cb22-2"><a href="accessing-database.html#cb22-2" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="accessing-database.html#cb22-3" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
-<span id="cb22-4"><a href="accessing-database.html#cb22-4" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
-<span id="cb22-5"><a href="accessing-database.html#cb22-5" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb22-6"><a href="accessing-database.html#cb22-6" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="accessing-database.html#cb22-7" tabindex="-1"></a><span class="co"># list tables in database</span></span>
-<span id="cb22-8"><a href="accessing-database.html#cb22-8" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbListTables</span>(con)</span>
-<span id="cb22-9"><a href="accessing-database.html#cb22-9" tabindex="-1"></a></span>
-<span id="cb22-10"><a href="accessing-database.html#cb22-10" tabindex="-1"></a><span class="co"># disconnect from database</span></span>
-<span id="cb22-11"><a href="accessing-database.html#cb22-11" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="obtaining-data-from-database.html#cb22-1" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
+<span id="cb22-2"><a href="obtaining-data-from-database.html#cb22-2" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="obtaining-data-from-database.html#cb22-3" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb22-4"><a href="obtaining-data-from-database.html#cb22-4" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
+<span id="cb22-5"><a href="obtaining-data-from-database.html#cb22-5" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-6"><a href="obtaining-data-from-database.html#cb22-6" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="obtaining-data-from-database.html#cb22-7" tabindex="-1"></a><span class="co"># list tables in database</span></span>
+<span id="cb22-8"><a href="obtaining-data-from-database.html#cb22-8" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbListTables</span>(con)</span>
+<span id="cb22-9"><a href="obtaining-data-from-database.html#cb22-9" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="obtaining-data-from-database.html#cb22-10" tabindex="-1"></a><span class="co"># disconnect from database</span></span>
+<span id="cb22-11"><a href="obtaining-data-from-database.html#cb22-11" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 </div>
-<div id="load-each-data-table-into-rstudio" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Load each data table into RStudio<a href="accessing-database.html#load-each-data-table-into-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="accessing-database.html#cb23-1" tabindex="-1"></a><span class="co"># connect to database</span></span>
-<span id="cb23-2"><a href="accessing-database.html#cb23-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
-<span id="cb23-3"><a href="accessing-database.html#cb23-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
-<span id="cb23-4"><a href="accessing-database.html#cb23-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb23-5"><a href="accessing-database.html#cb23-5" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="accessing-database.html#cb23-6" tabindex="-1"></a><span class="co"># list last 10 records in raw</span></span>
-<span id="cb23-7"><a href="accessing-database.html#cb23-7" tabindex="-1"></a>raw <span class="ot">=</span> DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM raw</span></span>
-<span id="cb23-8"><a href="accessing-database.html#cb23-8" tabindex="-1"></a><span class="st">                           ORDER BY time DESC</span></span>
-<span id="cb23-9"><a href="accessing-database.html#cb23-9" tabindex="-1"></a><span class="st">                           LIMIT 10&quot;</span>)</span>
-<span id="cb23-10"><a href="accessing-database.html#cb23-10" tabindex="-1"></a>raw</span>
-<span id="cb23-11"><a href="accessing-database.html#cb23-11" tabindex="-1"></a></span>
-<span id="cb23-12"><a href="accessing-database.html#cb23-12" tabindex="-1"></a><span class="co"># find unique tags in the raw table</span></span>
-<span id="cb23-13"><a href="accessing-database.html#cb23-13" tabindex="-1"></a>unique_tag <span class="ot">=</span> <span class="fu">dbGetQuery</span>(con,</span>
-<span id="cb23-14"><a href="accessing-database.html#cb23-14" tabindex="-1"></a>                        <span class="st">&#39;SELECT tag_id, COUNT(*) AS num_detect</span></span>
-<span id="cb23-15"><a href="accessing-database.html#cb23-15" tabindex="-1"></a><span class="st">                        FROM raw</span></span>
-<span id="cb23-16"><a href="accessing-database.html#cb23-16" tabindex="-1"></a><span class="st">                        GROUP BY tag_id</span></span>
-<span id="cb23-17"><a href="accessing-database.html#cb23-17" tabindex="-1"></a><span class="st">                        ORDER BY num_detect DESC&#39;</span>)</span>
-<span id="cb23-18"><a href="accessing-database.html#cb23-18" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<div id="find-unique-tags-in-raw-table" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Find unique tags in <code>raw</code> table<a href="obtaining-data-from-database.html#find-unique-tags-in-raw-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="obtaining-data-from-database.html#cb23-1" tabindex="-1"></a><span class="co"># connect to database</span></span>
+<span id="cb23-2"><a href="obtaining-data-from-database.html#cb23-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb23-3"><a href="obtaining-data-from-database.html#cb23-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span>, </span>
+<span id="cb23-4"><a href="obtaining-data-from-database.html#cb23-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-5"><a href="obtaining-data-from-database.html#cb23-5" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="obtaining-data-from-database.html#cb23-6" tabindex="-1"></a><span class="co"># list last 10 records in raw</span></span>
+<span id="cb23-7"><a href="obtaining-data-from-database.html#cb23-7" tabindex="-1"></a>raw <span class="ot">=</span> DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM raw</span></span>
+<span id="cb23-8"><a href="obtaining-data-from-database.html#cb23-8" tabindex="-1"></a><span class="st">                           ORDER BY time DESC</span></span>
+<span id="cb23-9"><a href="obtaining-data-from-database.html#cb23-9" tabindex="-1"></a><span class="st">                           LIMIT 10&quot;</span>)</span>
+<span id="cb23-10"><a href="obtaining-data-from-database.html#cb23-10" tabindex="-1"></a>raw</span>
+<span id="cb23-11"><a href="obtaining-data-from-database.html#cb23-11" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="obtaining-data-from-database.html#cb23-12" tabindex="-1"></a><span class="co"># find unique tags in the raw table</span></span>
+<span id="cb23-13"><a href="obtaining-data-from-database.html#cb23-13" tabindex="-1"></a>unique_tag <span class="ot">=</span> <span class="fu">dbGetQuery</span>(con,</span>
+<span id="cb23-14"><a href="obtaining-data-from-database.html#cb23-14" tabindex="-1"></a>                        <span class="st">&#39;SELECT tag_id, COUNT(*) AS num_detect</span></span>
+<span id="cb23-15"><a href="obtaining-data-from-database.html#cb23-15" tabindex="-1"></a><span class="st">                        FROM raw</span></span>
+<span id="cb23-16"><a href="obtaining-data-from-database.html#cb23-16" tabindex="-1"></a><span class="st">                        GROUP BY tag_id</span></span>
+<span id="cb23-17"><a href="obtaining-data-from-database.html#cb23-17" tabindex="-1"></a><span class="st">                        ORDER BY num_detect DESC&#39;</span>)</span>
+<span id="cb23-18"><a href="obtaining-data-from-database.html#cb23-18" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 <p>Note: you do not need to load each table into RStudio. You should only load the tables you need to for your analysis.</p>
 
 </div>

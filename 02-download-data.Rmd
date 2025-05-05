@@ -4,6 +4,36 @@ knitr::opts_chunk$set(eval = FALSE)
 ```
 
 # Download Data
+
+You can download the following file types:
+
+* raw: 434 MHz tag detections
+* blu: 2.4 GHz tag detections
+* gps: Sensor Station lat/lon with timestamps
+* node_health: data on node battery, temperature, tag detections, etc.
+* telemetry: ???
+* sensorgnome: 166 MHz tag detections (Motus will need to translate the data into something usable)
+* log: Sensor Station log files
+
+Trying to load all the data files into RStudio's memory will lead to issues, namely maxing out on memory usage. Instead, you should create an SQL relational database. Using a database uses much less memory when combining or cleaning data frames compared to loading data directly into RStudio, which leaves more memory for analyses. 
+
+If you are new to relational databases, you should use [DuckDB](https://duckdb.org/why_duckdb), a simple database management systems (DMBS) that is easy to install and use in RStudio.
+
+```{r}
+# activate renv environment
+renv::activate()
+```
+
+The `celltracktech` package includes all the packages you need. Download it from github using `renv`.
+
+**!NOTE** The DuckDB install will take ~ 30 min. Please allocate time accordingly.
+```{r eval=FALSE}
+# install the celltracktech package using renv
+library(renv)
+
+renv::install('cellular-tracking-technologies/celltracktech')
+```
+
 If you want to download just your data files (in .csv.gz format), you can run the following script:
 
 ```{r}
@@ -34,55 +64,11 @@ get_my_data(my_token = my_token,
 )
 ```
 
-You can download the following file types:
-
-* raw: 434 MHz tag detections
-* blu: 2.4 GHz tag detections
-* gps: Sensor Station lat/lon with timestamps
-* node_health: data on node battery, temperature, tag detections, etc.
-* telemetry: ???
-* sensorgnome: 166 MHz tag detections (Motus will need to translate the data into something usable)
-* log: Sensor Station log files
-
-Trying to load all the data files into RStudio's memory will lead to issues, namely maxing out on memory usage. Instead, you should create an SQL relational database. Using a database uses much less memory when combining or cleaning data frames compared to loading data directly into RStudio, which leaves more memory for analyses. 
-
-If you are new to relational databases, you should use [DuckDB](https://duckdb.org/why_duckdb), a simple database management systems (DMBS) that is easy to install and use in RStudio.
-
-```{r}
-# activate renv environment
-renv::activate()
-```
-
-**!NOTE** The DuckDB install will take ~ 30 min. Please allocate time accordingly.
-```{r eval=FALSE}
-# install duckdb using renv
-library(renv)
-
-renv::install(c('httr', 'DBI', 'RPostgres', 'tidyverse', 'rjson', 'dplyr', 'tidyr', 'tibble', 'readr', 'dotenv'))
-# renv::install('duckdb', repos = c('https://duckdb.r-universe.dev', 'https://cloud.r-project.org'))
-renv::install('duckdb/duckdb-r')
-renv::install('cellular-tracking-technologies/celltracktech')
-```
-
 ## Create a DuckDB database
 
 Below is a sample script to create a DuckDB database
 
 ```{r eval=FALSE}
-library(celltracktech)
-
-# load env file into environment
-load_dot_env(file='.env')
-
-# Settings ----------------------------------------------------------------
-my_token <- Sys.getenv('API_KEY') # load env variable into my_token
-myproject <- "Meadows V2" # this is your project name on your CTT account, here we are using the CTT project 'Meadows V2'
-
-# Create your data directory if it does not exist
-outpath <- "./data/" # where your downloaded files are to go
-
-create_outpath(paste0(outpath, myproject, '/'))
-
 # Connect to Database using DuckDB -----------------------------------------------------
 con <- DBI::dbConnect(duckdb::duckdb(), 
                       dbdir = "./data/Meadows V2/meadows.duckdb", 

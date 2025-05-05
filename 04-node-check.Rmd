@@ -4,7 +4,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Node Check
 
-With your data you can do the following analyses:
+With your data you can run the following analyses:
 
 * Presence/absence using detection times
 * Activity budget using the change in signal strength over time
@@ -89,7 +89,9 @@ ggplot(node_record_counts,
        y = "Node Id") +
   tag_hist_plot_theme()
 ```
-We can see after running the above script that Nodes 3B3B8F, 339CAE, and 32909D have relatively low number of records, so we may want to exclude them from further analyses.
+![Plot of node health record counts](images/node_check_1.1.2_check_if_nodes_are_operating_properly.png)
+
+We can see after running the above script that Nodes 339CAE and 32841A have relatively low number of records, so we may want to exclude them from further analyses.
 
 ### Battery and Solar Levels
 
@@ -102,20 +104,28 @@ ggplot(node_health_df) +
                  y = battery,
                  colour = node_id)) +
   classic_plot_theme()
+```
 
+![Plot of node battery voltage (V) vs. time](images/node_check_1.1.3_battery_vs_time_all_nodes.png)
+
+```{r}
 # Plot the Battery & Solar voltage vs. time for a specific node
 # Node 326710 is a normal working Node
 selected_node_id <- "326710"
 batt_solar_plot <- plot_battery_solar(node_health_df = node_health_df, 
                                       selected_node_id = selected_node_id)
 batt_solar_plot 
+```
+![Plot of Battery and Solar voltage (V) vs. time for a specific node](images/node_check_1.1.3_node_specific_battery_solar_normal.png)
 
+```{r}
 # based on the Battery voltage vs. time plot, Node 32909D has a low battery voltage
 selected_node_id <- '32909D'
 batt_solar_plot <- plot_battery_solar(node_health_df = node_health_df, 
                                       selected_node_id = selected_node_id)
 batt_solar_plot 
 ```
+![Plot of Battery and Solar voltage (V) vs. time for a specific node](images/node_check_1.1.3_node_specific_battery_solar_bad.png)
 Node 326710 is working properly and has consistent solar voltages during the day (~ 5 V) and a consistent battery voltage over time (i.e. 3.5-3.6 V), while node 32909D has inconsistent solar voltages, hinting at either dirty solar panels or covered solar panels, and a much lower battery voltage (~ 2.8 V).
 
 ### Check GPS
@@ -141,7 +151,7 @@ node_locations <- calculate_node_locations(nodes_meadows)
 plot_node_locations(nodes_meadows, node_locations)
 
 ```
-
+![Plot of nodes in lat/lon](images/node_check_1.3_node_locations.png)
 ### Check Time Offset
 
 Plot time offset for each node.
@@ -178,4 +188,4 @@ ggplot(node_summary,
         )
 
 ```
-
+  ![Node time offset](images/node_check_1.4_time_offset.png)

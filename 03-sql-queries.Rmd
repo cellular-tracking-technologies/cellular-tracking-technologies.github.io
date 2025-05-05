@@ -3,11 +3,11 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# Accessing Database
+# Obtaining Data from Database
 
 ## Duckplyr
 
-If you are new to database queries but familiar with dplyr and tidyverse, I recommend using `duckplyr`. You can find more information about `duckplyr` [here](https://duckdb.org/2024/04/02/duckplyr.html) but the main takeaway is that you can query your database using dplyr phrases and pipes, while also saving memory on loading data.
+If you are new to database queries but familiar with `dplyr` and `tidyverse`, we recommend using `duckplyr`. You can find more information about `duckplyr` [here](https://duckdb.org/2024/04/02/duckplyr.html) but the main takeaway is that you can query your database using dplyr phrases and pipes, while also saving memory on loading data.
 
 ```{r}
 library(celltracktech)
@@ -54,7 +54,7 @@ DBI::dbListTables(con)
 DBI::dbDisconnect(con)
 
 ```
-## Load each data table into RStudio
+## Find unique tags in `raw` table
 
 ```{r}
 # connect to database

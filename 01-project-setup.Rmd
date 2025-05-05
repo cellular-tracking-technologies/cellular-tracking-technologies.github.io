@@ -37,7 +37,7 @@ After creating a .R file and loading a library, use `renv::snapshot()` to update
 renv::snapshot()
 ```
 
-If you are working with collaborators, you’ll then need to commit renv.lock, .Rprofile, renv/settings.json and renv/activate.R so they can work with the same packages and package versions as you.
+If you are working with collaborators, you’ll then need to commit `renv.lock`, `.Rprofile`, `renv/settings.json` and `renv/activate.R` so they can work with the same packages and package versions as you.
 
 ## Request an API token
 
@@ -45,17 +45,18 @@ To access the CTT Application Programming Interface (API) (i.e. the program to d
 
 ## Create a '.env' file
 
-For NodeJs and Python projects, many data scientists use environment variables to store sensitive data such as passwords, API credentials, and other info that should not be publicly shared. These environment variables can then be accessed by the R project without displaying the sensitive information on your R script.
+For NodeJs and Python projects, many data scientists use environment variables, or a user-defined variable, to store sensitive data such as passwords, API credentials, and other info that should not be publicly shared. These environment variables can then be accessed by the R project without displaying the sensitive information on your R script.
 
 To store the environment variables, use a '.env' file and the R package 'dotenv'.
 
-In a terminal window, run the following command to create a .env file in your project directory and store your CTT API key:
-```{bash}
-touch .env
-
-echo "API_KEY=your_api_key" >> .env
+Run the following command in an R script or the R console to create a .env file in your project directory and store your CTT API key:
+```{r}
+system('touch .env; echo "API_KEY=your_api_key" >> .env')
 ```    
 
+Replace "your_api_key" with your actual API key from your `account.celltracktech.com` profile.
+
+### Load the API key into your RStudio environment
 ```{r eval = FALSE}
 # load the env file
 load_dot_env(file='.env')
@@ -77,6 +78,6 @@ You are now ready to start downloading data!
 
 In your project directory create the following folders to organize your files:
 
-* src - where you store your .R scripts
+* src - where you store your `.R` scripts
 * data - store downloaded data from CTT and modified dataframes
-* results - store plots and tables
+* results - store plots made with `ggplot2`
