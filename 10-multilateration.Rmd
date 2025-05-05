@@ -23,15 +23,11 @@ options(digits=9) # sets number after decimal
 ### Load libraries
 ```{r}
 library(celltracktech)
-library(nlstools)
-library(slider)
-library(padr)
-source("R/Functions_Paxton-CTTUpdate.R")
 ```
 
 ### Re-create sample data from node calibration (Chapter 5)
 ```{r}
-#create time window by reducing location precision or can input data with TestId column (user-defined window)
+# create time window by reducing location precision or can input data with TestId column (user-defined window)
 
 # load node calibration file from Chapter 5
 # mytest <- read.csv("./calibration_2023_8_3_all.csv")
