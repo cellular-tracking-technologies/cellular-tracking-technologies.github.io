@@ -127,7 +127,7 @@
 
 \title{`celltracktech' Data Analysis package}
 \author{Jessica Gorzo}
-\date{2025-05-05}
+\date{2025-05-06}
 
 \begin{document}
 \maketitle
@@ -828,6 +828,12 @@ Plot time offset for each node.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/node_check_1.4_time_offset.png}
+\caption{Node time offset}
+\end{figure}
+
 \chapter{Node Calibration}\label{node-calibration}
 
 In the previous chapter we saw that various ways that the node gps can differ, which can lead to inaccurate received signal strength indicators (RSSI) from the tag.
@@ -993,7 +999,17 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \NormalTok{                                     node\_locs,}
                                      \AttributeTok{theme =} \FunctionTok{classic\_plot\_theme}\NormalTok{())}
 \NormalTok{node\_loc\_plot}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/node_calibration_2.4_node_loc_plot.png}
+\caption{Node location plot}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# Write the node locations to a file}
 \FunctionTok{create\_outpath}\NormalTok{(}\StringTok{\textquotesingle{}results\textquotesingle{}}\NormalTok{)}
 
@@ -1006,6 +1022,12 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \NormalTok{node\_map}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/node_calibration_2.4_node_map.png}
+\caption{Node location map}
+\end{figure}
 
 \subsection{Load Station Detection from Files}\label{load-station-detection-from-files}
 
@@ -1055,6 +1077,12 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/node_calibration_2.5_sidekick_calibration.png}
+\caption{Node location plot}
+\end{figure}
+
 \section{Calculate the RSSI vs.~Distance Relationship}\label{calculate-the-rssi-vs.-distance-relationship}
 
 This function will match sidekick detections to detections recorded by nodes and sent to the station. Then using the sidekick location, the node locations calculated above, and the rssi measured in the node, a list of rssi and distance pairs is generated and returned.
@@ -1079,7 +1107,17 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
        \AttributeTok{y=}\StringTok{"RSSI (dBm)"}\NormalTok{,}
        \AttributeTok{colour=}\StringTok{"Node ID"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{classic\_plot\_theme}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/node_calibration_3.1_calculate_rssi_vs_distance.png}
+\caption{RSSI vs.~Distance}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# Fit the RSSI vs distance data with exponential relationship}
 \NormalTok{nlsfit }\OtherTok{\textless{}{-}} \FunctionTok{nls}\NormalTok{(}
 \NormalTok{  rssi }\SpecialCharTok{\textasciitilde{}}\NormalTok{ a }\SpecialCharTok{{-}}\NormalTok{ b }\SpecialCharTok{*} \FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{c }\SpecialCharTok{*}\NormalTok{ distance),}
@@ -1105,6 +1143,12 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 \FunctionTok{print}\NormalTok{(rssi\_coefs)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/node_calibration_3.1_fit_relationship.png}
+\caption{RSSI vs.~Distance}
+\end{figure}
 
 Your node grid is now calibrated!
 

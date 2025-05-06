@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2025-05-05" />
+<meta name="date" content="2025-05-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -353,125 +353,125 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <p>Then move that tag deployment file into the ‘outpath’ folder.</p>
 <p>The <code>celltracktech</code> package includes the deployments data for the Meadows V2 project. We will import it into the RStudio environment and save it as a .csv file in the <code>data/Meadows V2/</code> folder for this tutorial.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="presenceabsence-analysis.html#cb41-1" tabindex="-1"></a><span class="fu">write_csv</span>(celltracktech<span class="sc">::</span>deployments, <span class="st">&#39;./data/Meadows V2/meadows_deployments_2023.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="presenceabsence-analysis.html#cb43-1" tabindex="-1"></a><span class="fu">write_csv</span>(celltracktech<span class="sc">::</span>deployments, <span class="st">&#39;./data/Meadows V2/meadows_deployments_2023.csv&#39;</span>)</span></code></pre></div>
 <p>If you are using your own data, move your project-specific deployments .csv file into your <code>data/&lt;project name&gt;/</code> folder.</p>
 <p>We are now ready to start calculating presence/absence.</p>
 <div id="set-parameters" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Set parameters<a href="presenceabsence-analysis.html#set-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="presenceabsence-analysis.html#cb42-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">10</span>)</span>
-<span id="cb42-2"><a href="presenceabsence-analysis.html#cb42-2" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="presenceabsence-analysis.html#cb42-3" tabindex="-1"></a><span class="co"># Specify the path to your database file</span></span>
-<span id="cb42-4"><a href="presenceabsence-analysis.html#cb42-4" tabindex="-1"></a>database_file <span class="ot">&lt;-</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span></span>
-<span id="cb42-5"><a href="presenceabsence-analysis.html#cb42-5" tabindex="-1"></a></span>
-<span id="cb42-6"><a href="presenceabsence-analysis.html#cb42-6" tabindex="-1"></a><span class="co"># Specify the path to the deployment info file</span></span>
-<span id="cb42-7"><a href="presenceabsence-analysis.html#cb42-7" tabindex="-1"></a>deployment_info_file <span class="ot">&lt;-</span> <span class="st">&quot;data/Meadows V2/meadows_deployments_2023.csv&quot;</span></span>
-<span id="cb42-8"><a href="presenceabsence-analysis.html#cb42-8" tabindex="-1"></a></span>
-<span id="cb42-9"><a href="presenceabsence-analysis.html#cb42-9" tabindex="-1"></a><span class="co"># Specify the time range of node data you want to import for this analysis</span></span>
-<span id="cb42-10"><a href="presenceabsence-analysis.html#cb42-10" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-08-01 00:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
-<span id="cb42-11"><a href="presenceabsence-analysis.html#cb42-11" tabindex="-1"></a>stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-12-31 00:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="presenceabsence-analysis.html#cb44-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">10</span>)</span>
+<span id="cb44-2"><a href="presenceabsence-analysis.html#cb44-2" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="presenceabsence-analysis.html#cb44-3" tabindex="-1"></a><span class="co"># Specify the path to your database file</span></span>
+<span id="cb44-4"><a href="presenceabsence-analysis.html#cb44-4" tabindex="-1"></a>database_file <span class="ot">&lt;-</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span></span>
+<span id="cb44-5"><a href="presenceabsence-analysis.html#cb44-5" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="presenceabsence-analysis.html#cb44-6" tabindex="-1"></a><span class="co"># Specify the path to the deployment info file</span></span>
+<span id="cb44-7"><a href="presenceabsence-analysis.html#cb44-7" tabindex="-1"></a>deployment_info_file <span class="ot">&lt;-</span> <span class="st">&quot;data/Meadows V2/meadows_deployments_2023.csv&quot;</span></span>
+<span id="cb44-8"><a href="presenceabsence-analysis.html#cb44-8" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="presenceabsence-analysis.html#cb44-9" tabindex="-1"></a><span class="co"># Specify the time range of node data you want to import for this analysis</span></span>
+<span id="cb44-10"><a href="presenceabsence-analysis.html#cb44-10" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-08-01 00:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
+<span id="cb44-11"><a href="presenceabsence-analysis.html#cb44-11" tabindex="-1"></a>stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-12-31 00:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
 </div>
 <div id="load-data-from-database-1" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Load data from database<a href="presenceabsence-analysis.html#load-data-from-database-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="presenceabsence-analysis.html#cb43-1" tabindex="-1"></a><span class="co"># Load from DB</span></span>
-<span id="cb43-2"><a href="presenceabsence-analysis.html#cb43-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
-<span id="cb43-3"><a href="presenceabsence-analysis.html#cb43-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> database_file, </span>
-<span id="cb43-4"><a href="presenceabsence-analysis.html#cb43-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb43-5"><a href="presenceabsence-analysis.html#cb43-5" tabindex="-1"></a></span>
-<span id="cb43-6"><a href="presenceabsence-analysis.html#cb43-6" tabindex="-1"></a><span class="co"># load the raw data table in to RStudio and subset it based on your start and stop times</span></span>
-<span id="cb43-7"><a href="presenceabsence-analysis.html#cb43-7" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb43-8"><a href="presenceabsence-analysis.html#cb43-8" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> start_time <span class="sc">&amp;</span> time <span class="sc">&lt;=</span> stop_time) <span class="sc">|&gt;</span></span>
-<span id="cb43-9"><a href="presenceabsence-analysis.html#cb43-9" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
-<span id="cb43-10"><a href="presenceabsence-analysis.html#cb43-10" tabindex="-1"></a></span>
-<span id="cb43-11"><a href="presenceabsence-analysis.html#cb43-11" tabindex="-1"></a><span class="co"># if you study uses blu tags, load the blu data table into RStudio</span></span>
-<span id="cb43-12"><a href="presenceabsence-analysis.html#cb43-12" tabindex="-1"></a>detection_blu <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb43-13"><a href="presenceabsence-analysis.html#cb43-13" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> start_time <span class="sc">&amp;</span> time <span class="sc">&lt;=</span> stop_time) <span class="sc">|&gt;</span></span>
-<span id="cb43-14"><a href="presenceabsence-analysis.html#cb43-14" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
-<span id="cb43-15"><a href="presenceabsence-analysis.html#cb43-15" tabindex="-1"></a></span>
-<span id="cb43-16"><a href="presenceabsence-analysis.html#cb43-16" tabindex="-1"></a><span class="co"># disconnect from database</span></span>
-<span id="cb43-17"><a href="presenceabsence-analysis.html#cb43-17" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="presenceabsence-analysis.html#cb45-1" tabindex="-1"></a><span class="co"># Load from DB</span></span>
+<span id="cb45-2"><a href="presenceabsence-analysis.html#cb45-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb45-3"><a href="presenceabsence-analysis.html#cb45-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> database_file, </span>
+<span id="cb45-4"><a href="presenceabsence-analysis.html#cb45-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-5"><a href="presenceabsence-analysis.html#cb45-5" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="presenceabsence-analysis.html#cb45-6" tabindex="-1"></a><span class="co"># load the raw data table in to RStudio and subset it based on your start and stop times</span></span>
+<span id="cb45-7"><a href="presenceabsence-analysis.html#cb45-7" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb45-8"><a href="presenceabsence-analysis.html#cb45-8" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> start_time <span class="sc">&amp;</span> time <span class="sc">&lt;=</span> stop_time) <span class="sc">|&gt;</span></span>
+<span id="cb45-9"><a href="presenceabsence-analysis.html#cb45-9" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb45-10"><a href="presenceabsence-analysis.html#cb45-10" tabindex="-1"></a></span>
+<span id="cb45-11"><a href="presenceabsence-analysis.html#cb45-11" tabindex="-1"></a><span class="co"># if you study uses blu tags, load the blu data table into RStudio</span></span>
+<span id="cb45-12"><a href="presenceabsence-analysis.html#cb45-12" tabindex="-1"></a>detection_blu <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb45-13"><a href="presenceabsence-analysis.html#cb45-13" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> start_time <span class="sc">&amp;</span> time <span class="sc">&lt;=</span> stop_time) <span class="sc">|&gt;</span></span>
+<span id="cb45-14"><a href="presenceabsence-analysis.html#cb45-14" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb45-15"><a href="presenceabsence-analysis.html#cb45-15" tabindex="-1"></a></span>
+<span id="cb45-16"><a href="presenceabsence-analysis.html#cb45-16" tabindex="-1"></a><span class="co"># disconnect from database</span></span>
+<span id="cb45-17"><a href="presenceabsence-analysis.html#cb45-17" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 </div>
 <div id="load-tag-deployment-info" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Load Tag Deployment Info<a href="presenceabsence-analysis.html#load-tag-deployment-info" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="load-tag-deployment-file" class="section level3 hasAnchor" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Load Tag Deployment File<a href="presenceabsence-analysis.html#load-tag-deployment-file" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Again, you will need to create this file yourself. You might want to include other info about the individuals in this file for later analysis (species, weight, sex, etc.).</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="presenceabsence-analysis.html#cb44-1" tabindex="-1"></a>deployment_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(deployment_info_file)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="presenceabsence-analysis.html#cb46-1" tabindex="-1"></a>deployment_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(deployment_info_file)</span></code></pre></div>
 </div>
 <div id="get-list-of-detected-tags" class="section level3 hasAnchor" number="7.3.2">
 <h3><span class="header-section-number">7.3.2</span> Get List of Detected Tags<a href="presenceabsence-analysis.html#get-list-of-detected-tags" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="presenceabsence-analysis.html#cb45-1" tabindex="-1"></a><span class="co"># count the number of detections for each tag. the minimum number of detections to be included in this dataframe is 250000. You can set the `min_det_count` to whatever is appropriate for your study.</span></span>
-<span id="cb45-2"><a href="presenceabsence-analysis.html#cb45-2" tabindex="-1"></a>tag_det_count <span class="ot">&lt;-</span> <span class="fu">get_tag_detection_count</span>(detection_df, <span class="at">min_det_count =</span> <span class="dv">250000</span>)</span>
-<span id="cb45-3"><a href="presenceabsence-analysis.html#cb45-3" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="presenceabsence-analysis.html#cb45-4" tabindex="-1"></a><span class="co"># plot the number of detections for each individual tag</span></span>
-<span id="cb45-5"><a href="presenceabsence-analysis.html#cb45-5" tabindex="-1"></a><span class="fu">ggplot</span>(tag_det_count, </span>
-<span id="cb45-6"><a href="presenceabsence-analysis.html#cb45-6" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(<span class="at">x =</span> tag_id,</span>
-<span id="cb45-7"><a href="presenceabsence-analysis.html#cb45-7" tabindex="-1"></a>                      <span class="at">levels =</span> tag_id), </span>
-<span id="cb45-8"><a href="presenceabsence-analysis.html#cb45-8" tabindex="-1"></a>           <span class="at">y =</span> n)) <span class="sc">+</span></span>
-<span id="cb45-9"><a href="presenceabsence-analysis.html#cb45-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
-<span id="cb45-10"><a href="presenceabsence-analysis.html#cb45-10" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb45-11"><a href="presenceabsence-analysis.html#cb45-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Tag ID&quot;</span>, </span>
-<span id="cb45-12"><a href="presenceabsence-analysis.html#cb45-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Detection Count&quot;</span>) <span class="sc">+</span></span>
-<span id="cb45-13"><a href="presenceabsence-analysis.html#cb45-13" tabindex="-1"></a>  <span class="fu">tag_hist_plot_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="presenceabsence-analysis.html#cb47-1" tabindex="-1"></a><span class="co"># count the number of detections for each tag. the minimum number of detections to be included in this dataframe is 250000. You can set the `min_det_count` to whatever is appropriate for your study.</span></span>
+<span id="cb47-2"><a href="presenceabsence-analysis.html#cb47-2" tabindex="-1"></a>tag_det_count <span class="ot">&lt;-</span> <span class="fu">get_tag_detection_count</span>(detection_df, <span class="at">min_det_count =</span> <span class="dv">250000</span>)</span>
+<span id="cb47-3"><a href="presenceabsence-analysis.html#cb47-3" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="presenceabsence-analysis.html#cb47-4" tabindex="-1"></a><span class="co"># plot the number of detections for each individual tag</span></span>
+<span id="cb47-5"><a href="presenceabsence-analysis.html#cb47-5" tabindex="-1"></a><span class="fu">ggplot</span>(tag_det_count, </span>
+<span id="cb47-6"><a href="presenceabsence-analysis.html#cb47-6" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(<span class="at">x =</span> tag_id,</span>
+<span id="cb47-7"><a href="presenceabsence-analysis.html#cb47-7" tabindex="-1"></a>                      <span class="at">levels =</span> tag_id), </span>
+<span id="cb47-8"><a href="presenceabsence-analysis.html#cb47-8" tabindex="-1"></a>           <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb47-9"><a href="presenceabsence-analysis.html#cb47-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-10"><a href="presenceabsence-analysis.html#cb47-10" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb47-11"><a href="presenceabsence-analysis.html#cb47-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Tag ID&quot;</span>, </span>
+<span id="cb47-12"><a href="presenceabsence-analysis.html#cb47-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Detection Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-13"><a href="presenceabsence-analysis.html#cb47-13" tabindex="-1"></a>  <span class="fu">tag_hist_plot_theme</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="generate-detection-summary" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> Generate Detection Summary<a href="presenceabsence-analysis.html#generate-detection-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>While it is good to know how many detections an individual tag has, it is better to know how many detections there were across time. The code chunk below will subset your <code>detection_df</code> based on the tags in your tag deployment file, and create a plot of detections across time.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="presenceabsence-analysis.html#cb46-1" tabindex="-1"></a><span class="co"># Discard detections that aren&#39;t from deployed tags</span></span>
-<span id="cb46-2"><a href="presenceabsence-analysis.html#cb46-2" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(detection_df, </span>
-<span id="cb46-3"><a href="presenceabsence-analysis.html#cb46-3" tabindex="-1"></a>                                  tag_id <span class="sc">%in%</span> deployment_df<span class="sc">$</span>TagId) <span class="sc">|&gt;</span></span>
-<span id="cb46-4"><a href="presenceabsence-analysis.html#cb46-4" tabindex="-1"></a>                              <span class="fu">filter</span>(<span class="fu">is.na</span>(tag_id) <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
-<span id="cb46-5"><a href="presenceabsence-analysis.html#cb46-5" tabindex="-1"></a></span>
-<span id="cb46-6"><a href="presenceabsence-analysis.html#cb46-6" tabindex="-1"></a><span class="co"># OPTIONAL: You can select individual species here</span></span>
-<span id="cb46-7"><a href="presenceabsence-analysis.html#cb46-7" tabindex="-1"></a><span class="co"># subsetting the deployment dataframe to only include NOWA or northern waterthrush</span></span>
-<span id="cb46-8"><a href="presenceabsence-analysis.html#cb46-8" tabindex="-1"></a>deployment_df <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(deployment_df,</span>
-<span id="cb46-9"><a href="presenceabsence-analysis.html#cb46-9" tabindex="-1"></a>                                   Species <span class="sc">==</span> <span class="st">&quot;NOWA&quot;</span>)</span>
-<span id="cb46-10"><a href="presenceabsence-analysis.html#cb46-10" tabindex="-1"></a><span class="co"># detection_df &lt;- subset.data.frame(detection_df,TagId %in% deployment_df$TagId)</span></span>
-<span id="cb46-11"><a href="presenceabsence-analysis.html#cb46-11" tabindex="-1"></a></span>
-<span id="cb46-12"><a href="presenceabsence-analysis.html#cb46-12" tabindex="-1"></a>det_summary_df <span class="ot">&lt;-</span> <span class="fu">detection_summary</span>(</span>
-<span id="cb46-13"><a href="presenceabsence-analysis.html#cb46-13" tabindex="-1"></a>  <span class="at">detection_df =</span> detection_df,</span>
-<span id="cb46-14"><a href="presenceabsence-analysis.html#cb46-14" tabindex="-1"></a>  <span class="at">tag_list =</span> deployment_df<span class="sc">$</span>TagId</span>
-<span id="cb46-15"><a href="presenceabsence-analysis.html#cb46-15" tabindex="-1"></a>)</span>
-<span id="cb46-16"><a href="presenceabsence-analysis.html#cb46-16" tabindex="-1"></a></span>
-<span id="cb46-17"><a href="presenceabsence-analysis.html#cb46-17" tabindex="-1"></a><span class="co"># create detection summary data frame and sort it based on last detection date</span></span>
-<span id="cb46-18"><a href="presenceabsence-analysis.html#cb46-18" tabindex="-1"></a>det_summary_df <span class="ot">&lt;-</span> det_summary_df[<span class="fu">order</span>(det_summary_df<span class="sc">$</span>last_det, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
-<span id="cb46-19"><a href="presenceabsence-analysis.html#cb46-19" tabindex="-1"></a></span>
-<span id="cb46-20"><a href="presenceabsence-analysis.html#cb46-20" tabindex="-1"></a><span class="co"># create a heat-bin plot, with the bins reperesenting time periods, and the color representing the number of detections</span></span>
-<span id="cb46-21"><a href="presenceabsence-analysis.html#cb46-21" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> detection_df, </span>
-<span id="cb46-22"><a href="presenceabsence-analysis.html#cb46-22" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb46-23"><a href="presenceabsence-analysis.html#cb46-23" tabindex="-1"></a>           <span class="at">y =</span> <span class="fu">factor</span>(tag_id, </span>
-<span id="cb46-24"><a href="presenceabsence-analysis.html#cb46-24" tabindex="-1"></a>                      det_summary_df<span class="sc">$</span>tag_id))) <span class="sc">+</span></span>
-<span id="cb46-25"><a href="presenceabsence-analysis.html#cb46-25" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">3600</span>, <span class="dv">1</span>)) <span class="sc">+</span> <span class="co"># Hour time bins</span></span>
-<span id="cb46-26"><a href="presenceabsence-analysis.html#cb46-26" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="sc">+</span></span>
-<span id="cb46-27"><a href="presenceabsence-analysis.html#cb46-27" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Time (UTC)&quot;</span>, </span>
-<span id="cb46-28"><a href="presenceabsence-analysis.html#cb46-28" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Tag Id&quot;</span>) <span class="sc">+</span></span>
-<span id="cb46-29"><a href="presenceabsence-analysis.html#cb46-29" tabindex="-1"></a>  <span class="fu">tag_hist_plot_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="presenceabsence-analysis.html#cb48-1" tabindex="-1"></a><span class="co"># Discard detections that aren&#39;t from deployed tags</span></span>
+<span id="cb48-2"><a href="presenceabsence-analysis.html#cb48-2" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(detection_df, </span>
+<span id="cb48-3"><a href="presenceabsence-analysis.html#cb48-3" tabindex="-1"></a>                                  tag_id <span class="sc">%in%</span> deployment_df<span class="sc">$</span>TagId) <span class="sc">|&gt;</span></span>
+<span id="cb48-4"><a href="presenceabsence-analysis.html#cb48-4" tabindex="-1"></a>                              <span class="fu">filter</span>(<span class="fu">is.na</span>(tag_id) <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
+<span id="cb48-5"><a href="presenceabsence-analysis.html#cb48-5" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="presenceabsence-analysis.html#cb48-6" tabindex="-1"></a><span class="co"># OPTIONAL: You can select individual species here</span></span>
+<span id="cb48-7"><a href="presenceabsence-analysis.html#cb48-7" tabindex="-1"></a><span class="co"># subsetting the deployment dataframe to only include NOWA or northern waterthrush</span></span>
+<span id="cb48-8"><a href="presenceabsence-analysis.html#cb48-8" tabindex="-1"></a>deployment_df <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(deployment_df,</span>
+<span id="cb48-9"><a href="presenceabsence-analysis.html#cb48-9" tabindex="-1"></a>                                   Species <span class="sc">==</span> <span class="st">&quot;NOWA&quot;</span>)</span>
+<span id="cb48-10"><a href="presenceabsence-analysis.html#cb48-10" tabindex="-1"></a><span class="co"># detection_df &lt;- subset.data.frame(detection_df,TagId %in% deployment_df$TagId)</span></span>
+<span id="cb48-11"><a href="presenceabsence-analysis.html#cb48-11" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="presenceabsence-analysis.html#cb48-12" tabindex="-1"></a>det_summary_df <span class="ot">&lt;-</span> <span class="fu">detection_summary</span>(</span>
+<span id="cb48-13"><a href="presenceabsence-analysis.html#cb48-13" tabindex="-1"></a>  <span class="at">detection_df =</span> detection_df,</span>
+<span id="cb48-14"><a href="presenceabsence-analysis.html#cb48-14" tabindex="-1"></a>  <span class="at">tag_list =</span> deployment_df<span class="sc">$</span>TagId</span>
+<span id="cb48-15"><a href="presenceabsence-analysis.html#cb48-15" tabindex="-1"></a>)</span>
+<span id="cb48-16"><a href="presenceabsence-analysis.html#cb48-16" tabindex="-1"></a></span>
+<span id="cb48-17"><a href="presenceabsence-analysis.html#cb48-17" tabindex="-1"></a><span class="co"># create detection summary data frame and sort it based on last detection date</span></span>
+<span id="cb48-18"><a href="presenceabsence-analysis.html#cb48-18" tabindex="-1"></a>det_summary_df <span class="ot">&lt;-</span> det_summary_df[<span class="fu">order</span>(det_summary_df<span class="sc">$</span>last_det, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb48-19"><a href="presenceabsence-analysis.html#cb48-19" tabindex="-1"></a></span>
+<span id="cb48-20"><a href="presenceabsence-analysis.html#cb48-20" tabindex="-1"></a><span class="co"># create a heat-bin plot, with the bins reperesenting time periods, and the color representing the number of detections</span></span>
+<span id="cb48-21"><a href="presenceabsence-analysis.html#cb48-21" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> detection_df, </span>
+<span id="cb48-22"><a href="presenceabsence-analysis.html#cb48-22" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb48-23"><a href="presenceabsence-analysis.html#cb48-23" tabindex="-1"></a>           <span class="at">y =</span> <span class="fu">factor</span>(tag_id, </span>
+<span id="cb48-24"><a href="presenceabsence-analysis.html#cb48-24" tabindex="-1"></a>                      det_summary_df<span class="sc">$</span>tag_id))) <span class="sc">+</span></span>
+<span id="cb48-25"><a href="presenceabsence-analysis.html#cb48-25" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">3600</span>, <span class="dv">1</span>)) <span class="sc">+</span> <span class="co"># Hour time bins</span></span>
+<span id="cb48-26"><a href="presenceabsence-analysis.html#cb48-26" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-27"><a href="presenceabsence-analysis.html#cb48-27" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Time (UTC)&quot;</span>, </span>
+<span id="cb48-28"><a href="presenceabsence-analysis.html#cb48-28" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Tag Id&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-29"><a href="presenceabsence-analysis.html#cb48-29" tabindex="-1"></a>  <span class="fu">tag_hist_plot_theme</span>()</span></code></pre></div>
 </div>
 <div id="show-detection-history-for-a-specific-tag" class="section level2 hasAnchor" number="7.5">
 <h2><span class="header-section-number">7.5</span> Show Detection History for a Specific Tag<a href="presenceabsence-analysis.html#show-detection-history-for-a-specific-tag" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="presenceabsence-analysis.html#cb47-1" tabindex="-1"></a><span class="co"># selected tag is a power tag on a swamp sparrow</span></span>
-<span id="cb47-2"><a href="presenceabsence-analysis.html#cb47-2" tabindex="-1"></a>selected_tag_id <span class="ot">&lt;-</span> <span class="st">&quot;1978341E&quot;</span></span>
-<span id="cb47-3"><a href="presenceabsence-analysis.html#cb47-3" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="presenceabsence-analysis.html#cb47-4" tabindex="-1"></a><span class="co"># set your start and stop times</span></span>
-<span id="cb47-5"><a href="presenceabsence-analysis.html#cb47-5" tabindex="-1"></a>plot_start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-10-09 10:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
-<span id="cb47-6"><a href="presenceabsence-analysis.html#cb47-6" tabindex="-1"></a>plot_stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-10-11 14:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
-<span id="cb47-7"><a href="presenceabsence-analysis.html#cb47-7" tabindex="-1"></a></span>
-<span id="cb47-8"><a href="presenceabsence-analysis.html#cb47-8" tabindex="-1"></a><span class="co"># subset the detection_df to only include the selected tag id</span></span>
-<span id="cb47-9"><a href="presenceabsence-analysis.html#cb47-9" tabindex="-1"></a>tag_dets <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(detection_df, tag_id <span class="sc">==</span> selected_tag_id)</span>
-<span id="cb47-10"><a href="presenceabsence-analysis.html#cb47-10" tabindex="-1"></a></span>
-<span id="cb47-11"><a href="presenceabsence-analysis.html#cb47-11" tabindex="-1"></a><span class="co"># plot the number of detections for this specific tag at each node across time</span></span>
-<span id="cb47-12"><a href="presenceabsence-analysis.html#cb47-12" tabindex="-1"></a><span class="fu">ggplot</span>(tag_dets) <span class="sc">+</span></span>
-<span id="cb47-13"><a href="presenceabsence-analysis.html#cb47-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb47-14"><a href="presenceabsence-analysis.html#cb47-14" tabindex="-1"></a>                 <span class="at">y =</span> tag_rssi, </span>
-<span id="cb47-15"><a href="presenceabsence-analysis.html#cb47-15" tabindex="-1"></a>                 <span class="at">colour =</span> node_id), </span>
-<span id="cb47-16"><a href="presenceabsence-analysis.html#cb47-16" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb47-17"><a href="presenceabsence-analysis.html#cb47-17" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">as.POSIXct</span>(plot_start_time), </span>
-<span id="cb47-18"><a href="presenceabsence-analysis.html#cb47-18" tabindex="-1"></a>       <span class="fu">as.POSIXct</span>(plot_stop_time)) <span class="sc">+</span></span>
-<span id="cb47-19"><a href="presenceabsence-analysis.html#cb47-19" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Detections&quot;</span>, </span>
-<span id="cb47-20"><a href="presenceabsence-analysis.html#cb47-20" tabindex="-1"></a>                selected_tag_id)) <span class="sc">+</span></span>
-<span id="cb47-21"><a href="presenceabsence-analysis.html#cb47-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb47-22"><a href="presenceabsence-analysis.html#cb47-22" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;RSSI (dBm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb47-23"><a href="presenceabsence-analysis.html#cb47-23" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="presenceabsence-analysis.html#cb49-1" tabindex="-1"></a><span class="co"># selected tag is a power tag on a swamp sparrow</span></span>
+<span id="cb49-2"><a href="presenceabsence-analysis.html#cb49-2" tabindex="-1"></a>selected_tag_id <span class="ot">&lt;-</span> <span class="st">&quot;1978341E&quot;</span></span>
+<span id="cb49-3"><a href="presenceabsence-analysis.html#cb49-3" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="presenceabsence-analysis.html#cb49-4" tabindex="-1"></a><span class="co"># set your start and stop times</span></span>
+<span id="cb49-5"><a href="presenceabsence-analysis.html#cb49-5" tabindex="-1"></a>plot_start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-10-09 10:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
+<span id="cb49-6"><a href="presenceabsence-analysis.html#cb49-6" tabindex="-1"></a>plot_stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-10-11 14:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
+<span id="cb49-7"><a href="presenceabsence-analysis.html#cb49-7" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="presenceabsence-analysis.html#cb49-8" tabindex="-1"></a><span class="co"># subset the detection_df to only include the selected tag id</span></span>
+<span id="cb49-9"><a href="presenceabsence-analysis.html#cb49-9" tabindex="-1"></a>tag_dets <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(detection_df, tag_id <span class="sc">==</span> selected_tag_id)</span>
+<span id="cb49-10"><a href="presenceabsence-analysis.html#cb49-10" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="presenceabsence-analysis.html#cb49-11" tabindex="-1"></a><span class="co"># plot the number of detections for this specific tag at each node across time</span></span>
+<span id="cb49-12"><a href="presenceabsence-analysis.html#cb49-12" tabindex="-1"></a><span class="fu">ggplot</span>(tag_dets) <span class="sc">+</span></span>
+<span id="cb49-13"><a href="presenceabsence-analysis.html#cb49-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb49-14"><a href="presenceabsence-analysis.html#cb49-14" tabindex="-1"></a>                 <span class="at">y =</span> tag_rssi, </span>
+<span id="cb49-15"><a href="presenceabsence-analysis.html#cb49-15" tabindex="-1"></a>                 <span class="at">colour =</span> node_id), </span>
+<span id="cb49-16"><a href="presenceabsence-analysis.html#cb49-16" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb49-17"><a href="presenceabsence-analysis.html#cb49-17" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">as.POSIXct</span>(plot_start_time), </span>
+<span id="cb49-18"><a href="presenceabsence-analysis.html#cb49-18" tabindex="-1"></a>       <span class="fu">as.POSIXct</span>(plot_stop_time)) <span class="sc">+</span></span>
+<span id="cb49-19"><a href="presenceabsence-analysis.html#cb49-19" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Detections&quot;</span>, </span>
+<span id="cb49-20"><a href="presenceabsence-analysis.html#cb49-20" tabindex="-1"></a>                selected_tag_id)) <span class="sc">+</span></span>
+<span id="cb49-21"><a href="presenceabsence-analysis.html#cb49-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-22"><a href="presenceabsence-analysis.html#cb49-22" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;RSSI (dBm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-23"><a href="presenceabsence-analysis.html#cb49-23" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
 
 </div>
 </div>

@@ -120,7 +120,10 @@ node_loc_plot <- plot_node_locations(node_health_df,
                                      node_locs,
                                      theme = classic_plot_theme())
 node_loc_plot
+```
+![Node location plot](images/node_calibration_2.4_node_loc_plot.png)
 
+```{r}
 # Write the node locations to a file
 create_outpath('results')
 
@@ -132,6 +135,7 @@ node_map <- map_node_locations(node_locs,
                                tile_url = my_tile_url)
 node_map
 ```
+![Node location map](images/node_calibration_2.4_node_map.png)
 
 ### Load Station Detection from Files
 ```{r}
@@ -174,6 +178,7 @@ calibration_map <- map_calibration_track(node_locs,
 
 calibration_map
 ```
+![Node location plot](images/node_calibration_2.5_sidekick_calibration.png)
 
 ## Calculate the RSSI vs. Distance Relationship
 
@@ -198,7 +203,11 @@ ggplot() +
        y="RSSI (dBm)",
        colour="Node ID") +
   classic_plot_theme()
+```
+![RSSI vs. Distance](images/node_calibration_3.1_calculate_rssi_vs_distance.png)
 
+
+```{r}
 # Fit the RSSI vs distance data with exponential relationship
 nlsfit <- nls(
   rssi ~ a - b * exp(-c * distance),
@@ -223,5 +232,6 @@ calibration_plot
 # for localization.
 print(rssi_coefs)
 ```
+![RSSI vs. Distance](images/node_calibration_3.1_fit_relationship.png)
 
 Your node grid is now calibrated!
