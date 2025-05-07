@@ -1714,12 +1714,28 @@ Due to variations in GPS coordinates, it is a good idea to plot the Node locatio
 \NormalTok{                                     node\_locs, }
                                      \AttributeTok{theme =} \FunctionTok{classic\_plot\_theme}\NormalTok{())}
 \NormalTok{node\_loc\_plot}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/habitat_use_node_loc_plot.png}
+\caption{Average node locations}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# Draw a map with the node locations}
 \NormalTok{node\_map }\OtherTok{\textless{}{-}} \FunctionTok{map\_node\_locations}\NormalTok{(node\_locs, }\AttributeTok{tile\_url =}\NormalTok{ my\_tile\_url)}
 \NormalTok{node\_map}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/habitat_use_node_map.png}
+\caption{Node location map}
+\end{figure}
 
 \section{Load Station Detection Data}\label{load-station-detection-data}
 
@@ -1776,6 +1792,12 @@ To actually quantify the amount of habitat an animal uses, we will create a 500x
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/habitat_use_grid_map.png}
+\caption{Node grid map}
+\end{figure}
+
 \section{Calculate Locations}\label{calculate-locations}
 
 This will display the tag tracks and the tag location on the node grid map.
@@ -1804,7 +1826,17 @@ This will display the tag tracks and the tag location on the node grid map.
 \NormalTok{                       locations\_df, }
 \NormalTok{                       my\_tile\_url)}
 \NormalTok{track\_map}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/habitat_use_track_map.png}
+\caption{Node track map}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# calculate and display the location density on the node grid map}
 \CommentTok{\# source("R/functions/grid\_search/grid\_search\_functions.R")}
 \NormalTok{loc\_density }\OtherTok{\textless{}{-}} \FunctionTok{calc\_location\_density}\NormalTok{(}\AttributeTok{grid\_df =}\NormalTok{ grid\_df, }
@@ -1814,6 +1846,12 @@ This will display the tag tracks and the tag location on the node grid map.
 \NormalTok{loc\_density\_map}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/habitat_use_location_density_map.png}
+\caption{Location Density Map}
+\end{figure}
 
 If you zoom in on the map, you can see the areas where the animal spent most of its time.
 

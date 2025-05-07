@@ -103,11 +103,15 @@ node_loc_plot <- plot_node_locations(node_health_df,
                                      node_locs, 
                                      theme = classic_plot_theme())
 node_loc_plot
+```
+![Average node locations](images/habitat_use_node_loc_plot.png)
 
+```{r}
 # Draw a map with the node locations
 node_map <- map_node_locations(node_locs, tile_url = my_tile_url)
 node_map
 ```
+![Node location map](images/habitat_use_node_map.png)
 
 ## Load Station Detection Data
 
@@ -157,6 +161,7 @@ grid_df <- build_grid(
 grid_map <- draw_grid(node_locs, grid_df)
 grid_map
 ```
+![Node grid map](images/habitat_use_grid_map.png)
 
 ## Calculate Locations
 
@@ -184,7 +189,10 @@ track_map <- map_track(node_locs,
                        locations_df, 
                        my_tile_url)
 track_map
+```
+![Node track map](images/habitat_use_track_map.png)
 
+```{r}
 # calculate and display the location density on the node grid map
 # source("R/functions/grid_search/grid_search_functions.R")
 loc_density <- calc_location_density(grid_df = grid_df, 
@@ -193,6 +201,7 @@ loc_density <- calc_location_density(grid_df = grid_df,
 loc_density_map <- map_location_density(loc_density_df = loc_density, my_tile_url)
 loc_density_map
 ```
+![Location Density Map](images/habitat_use_location_density_map.png)
 
 If you zoom in on the map, you can see the areas where the animal spent most of its time.
 

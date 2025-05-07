@@ -393,102 +393,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-5"><a href="habitat-use.html#cb65-5" tabindex="-1"></a>node_loc_plot <span class="ot">&lt;-</span> <span class="fu">plot_node_locations</span>(node_health_df, </span>
 <span id="cb65-6"><a href="habitat-use.html#cb65-6" tabindex="-1"></a>                                     node_locs, </span>
 <span id="cb65-7"><a href="habitat-use.html#cb65-7" tabindex="-1"></a>                                     <span class="at">theme =</span> <span class="fu">classic_plot_theme</span>())</span>
-<span id="cb65-8"><a href="habitat-use.html#cb65-8" tabindex="-1"></a>node_loc_plot</span>
-<span id="cb65-9"><a href="habitat-use.html#cb65-9" tabindex="-1"></a></span>
-<span id="cb65-10"><a href="habitat-use.html#cb65-10" tabindex="-1"></a><span class="co"># Draw a map with the node locations</span></span>
-<span id="cb65-11"><a href="habitat-use.html#cb65-11" tabindex="-1"></a>node_map <span class="ot">&lt;-</span> <span class="fu">map_node_locations</span>(node_locs, <span class="at">tile_url =</span> my_tile_url)</span>
-<span id="cb65-12"><a href="habitat-use.html#cb65-12" tabindex="-1"></a>node_map</span></code></pre></div>
+<span id="cb65-8"><a href="habitat-use.html#cb65-8" tabindex="-1"></a>node_loc_plot</span></code></pre></div>
+<div class="float">
+<img src="images/habitat_use_node_loc_plot.png" alt="Average node locations" />
+<div class="figcaption">Average node locations</div>
+</div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="habitat-use.html#cb66-1" tabindex="-1"></a><span class="co"># Draw a map with the node locations</span></span>
+<span id="cb66-2"><a href="habitat-use.html#cb66-2" tabindex="-1"></a>node_map <span class="ot">&lt;-</span> <span class="fu">map_node_locations</span>(node_locs, <span class="at">tile_url =</span> my_tile_url)</span>
+<span id="cb66-3"><a href="habitat-use.html#cb66-3" tabindex="-1"></a>node_map</span></code></pre></div>
+<div class="float">
+<img src="images/habitat_use_node_map.png" alt="Node location map" />
+<div class="figcaption">Node location map</div>
+</div>
 </div>
 <div id="load-station-detection-data" class="section level2 hasAnchor" number="9.4">
 <h2><span class="header-section-number">9.4</span> Load Station Detection Data<a href="habitat-use.html#load-station-detection-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>These are your tag detections in the ‘raw’ or ‘blu’ data tables in your database.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="habitat-use.html#cb66-1" tabindex="-1"></a><span class="co"># Load from DB</span></span>
-<span id="cb66-2"><a href="habitat-use.html#cb66-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
-<span id="cb66-3"><a href="habitat-use.html#cb66-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> database_file, </span>
-<span id="cb66-4"><a href="habitat-use.html#cb66-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb66-5"><a href="habitat-use.html#cb66-5" tabindex="-1"></a></span>
-<span id="cb66-6"><a href="habitat-use.html#cb66-6" tabindex="-1"></a><span class="co"># load raw data table into RStudio and filter it based on start and stop time</span></span>
-<span id="cb66-7"><a href="habitat-use.html#cb66-7" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb66-8"><a href="habitat-use.html#cb66-8" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> det_start_time <span class="sc">&amp;&amp;</span> time <span class="sc">&lt;=</span> det_stop_time) <span class="sc">|&gt;</span></span>
-<span id="cb66-9"><a href="habitat-use.html#cb66-9" tabindex="-1"></a>  <span class="fu">filter</span>(tag_id <span class="sc">==</span> selected_tag_id) <span class="sc">|&gt;</span></span>
-<span id="cb66-10"><a href="habitat-use.html#cb66-10" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
-<span id="cb66-11"><a href="habitat-use.html#cb66-11" tabindex="-1"></a></span>
-<span id="cb66-12"><a href="habitat-use.html#cb66-12" tabindex="-1"></a><span class="co"># disconnect from the databse</span></span>
-<span id="cb66-13"><a href="habitat-use.html#cb66-13" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span>
-<span id="cb66-14"><a href="habitat-use.html#cb66-14" tabindex="-1"></a></span>
-<span id="cb66-15"><a href="habitat-use.html#cb66-15" tabindex="-1"></a><span class="co"># create time_value variable</span></span>
-<span id="cb66-16"><a href="habitat-use.html#cb66-16" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> detection_df <span class="sc">%&gt;%</span> </span>
-<span id="cb66-17"><a href="habitat-use.html#cb66-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time_value =</span> <span class="fu">as.integer</span>(time))</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="habitat-use.html#cb67-1" tabindex="-1"></a><span class="co"># Load from DB</span></span>
+<span id="cb67-2"><a href="habitat-use.html#cb67-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb67-3"><a href="habitat-use.html#cb67-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> database_file, </span>
+<span id="cb67-4"><a href="habitat-use.html#cb67-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb67-5"><a href="habitat-use.html#cb67-5" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="habitat-use.html#cb67-6" tabindex="-1"></a><span class="co"># load raw data table into RStudio and filter it based on start and stop time</span></span>
+<span id="cb67-7"><a href="habitat-use.html#cb67-7" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb67-8"><a href="habitat-use.html#cb67-8" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> det_start_time <span class="sc">&amp;&amp;</span> time <span class="sc">&lt;=</span> det_stop_time) <span class="sc">|&gt;</span></span>
+<span id="cb67-9"><a href="habitat-use.html#cb67-9" tabindex="-1"></a>  <span class="fu">filter</span>(tag_id <span class="sc">==</span> selected_tag_id) <span class="sc">|&gt;</span></span>
+<span id="cb67-10"><a href="habitat-use.html#cb67-10" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb67-11"><a href="habitat-use.html#cb67-11" tabindex="-1"></a></span>
+<span id="cb67-12"><a href="habitat-use.html#cb67-12" tabindex="-1"></a><span class="co"># disconnect from the databse</span></span>
+<span id="cb67-13"><a href="habitat-use.html#cb67-13" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span>
+<span id="cb67-14"><a href="habitat-use.html#cb67-14" tabindex="-1"></a></span>
+<span id="cb67-15"><a href="habitat-use.html#cb67-15" tabindex="-1"></a><span class="co"># create time_value variable</span></span>
+<span id="cb67-16"><a href="habitat-use.html#cb67-16" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> detection_df <span class="sc">%&gt;%</span> </span>
+<span id="cb67-17"><a href="habitat-use.html#cb67-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time_value =</span> <span class="fu">as.integer</span>(time))</span></code></pre></div>
 </div>
 <div id="build-a-grid" class="section level2 hasAnchor" number="9.5">
 <h2><span class="header-section-number">9.5</span> Build a Grid<a href="habitat-use.html#build-a-grid" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To actually quantify the amount of habitat an animal uses, we will create a 500x800 m grid and overlay it over the map. Each grid bin will be 5x5m.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="habitat-use.html#cb67-1" tabindex="-1"></a><span class="co"># set the grid coordinates</span></span>
-<span id="cb67-2"><a href="habitat-use.html#cb67-2" tabindex="-1"></a>grid_center_lat <span class="ot">&lt;-</span> <span class="fl">38.93664800</span></span>
-<span id="cb67-3"><a href="habitat-use.html#cb67-3" tabindex="-1"></a>grid_center_lon <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">74.9462</span></span>
-<span id="cb67-4"><a href="habitat-use.html#cb67-4" tabindex="-1"></a>grid_size_x <span class="ot">&lt;-</span> <span class="dv">500</span> <span class="co"># meters</span></span>
-<span id="cb67-5"><a href="habitat-use.html#cb67-5" tabindex="-1"></a>grid_size_y <span class="ot">&lt;-</span> <span class="dv">800</span> <span class="co"># meters</span></span>
-<span id="cb67-6"><a href="habitat-use.html#cb67-6" tabindex="-1"></a>grid_bin_size <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># meters</span></span>
-<span id="cb67-7"><a href="habitat-use.html#cb67-7" tabindex="-1"></a></span>
-<span id="cb67-8"><a href="habitat-use.html#cb67-8" tabindex="-1"></a><span class="co"># Create a data frame with the details about the grid</span></span>
-<span id="cb67-9"><a href="habitat-use.html#cb67-9" tabindex="-1"></a>grid_df <span class="ot">&lt;-</span> <span class="fu">build_grid</span>(</span>
-<span id="cb67-10"><a href="habitat-use.html#cb67-10" tabindex="-1"></a>  <span class="at">node_locs =</span> node_locs,</span>
-<span id="cb67-11"><a href="habitat-use.html#cb67-11" tabindex="-1"></a>  <span class="at">center_lat =</span> grid_center_lat,</span>
-<span id="cb67-12"><a href="habitat-use.html#cb67-12" tabindex="-1"></a>  <span class="at">center_lon =</span> grid_center_lon,</span>
-<span id="cb67-13"><a href="habitat-use.html#cb67-13" tabindex="-1"></a>  <span class="at">x_size_meters =</span> grid_size_x,</span>
-<span id="cb67-14"><a href="habitat-use.html#cb67-14" tabindex="-1"></a>  <span class="at">y_size_meters =</span> grid_size_y,</span>
-<span id="cb67-15"><a href="habitat-use.html#cb67-15" tabindex="-1"></a>  <span class="at">bin_size =</span> grid_bin_size</span>
-<span id="cb67-16"><a href="habitat-use.html#cb67-16" tabindex="-1"></a>)</span>
-<span id="cb67-17"><a href="habitat-use.html#cb67-17" tabindex="-1"></a></span>
-<span id="cb67-18"><a href="habitat-use.html#cb67-18" tabindex="-1"></a><span class="co"># Draw all of the grid bins on a map</span></span>
-<span id="cb67-19"><a href="habitat-use.html#cb67-19" tabindex="-1"></a>grid_map <span class="ot">&lt;-</span> <span class="fu">draw_grid</span>(node_locs, grid_df)</span>
-<span id="cb67-20"><a href="habitat-use.html#cb67-20" tabindex="-1"></a>grid_map</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="habitat-use.html#cb68-1" tabindex="-1"></a><span class="co"># set the grid coordinates</span></span>
+<span id="cb68-2"><a href="habitat-use.html#cb68-2" tabindex="-1"></a>grid_center_lat <span class="ot">&lt;-</span> <span class="fl">38.93664800</span></span>
+<span id="cb68-3"><a href="habitat-use.html#cb68-3" tabindex="-1"></a>grid_center_lon <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">74.9462</span></span>
+<span id="cb68-4"><a href="habitat-use.html#cb68-4" tabindex="-1"></a>grid_size_x <span class="ot">&lt;-</span> <span class="dv">500</span> <span class="co"># meters</span></span>
+<span id="cb68-5"><a href="habitat-use.html#cb68-5" tabindex="-1"></a>grid_size_y <span class="ot">&lt;-</span> <span class="dv">800</span> <span class="co"># meters</span></span>
+<span id="cb68-6"><a href="habitat-use.html#cb68-6" tabindex="-1"></a>grid_bin_size <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># meters</span></span>
+<span id="cb68-7"><a href="habitat-use.html#cb68-7" tabindex="-1"></a></span>
+<span id="cb68-8"><a href="habitat-use.html#cb68-8" tabindex="-1"></a><span class="co"># Create a data frame with the details about the grid</span></span>
+<span id="cb68-9"><a href="habitat-use.html#cb68-9" tabindex="-1"></a>grid_df <span class="ot">&lt;-</span> <span class="fu">build_grid</span>(</span>
+<span id="cb68-10"><a href="habitat-use.html#cb68-10" tabindex="-1"></a>  <span class="at">node_locs =</span> node_locs,</span>
+<span id="cb68-11"><a href="habitat-use.html#cb68-11" tabindex="-1"></a>  <span class="at">center_lat =</span> grid_center_lat,</span>
+<span id="cb68-12"><a href="habitat-use.html#cb68-12" tabindex="-1"></a>  <span class="at">center_lon =</span> grid_center_lon,</span>
+<span id="cb68-13"><a href="habitat-use.html#cb68-13" tabindex="-1"></a>  <span class="at">x_size_meters =</span> grid_size_x,</span>
+<span id="cb68-14"><a href="habitat-use.html#cb68-14" tabindex="-1"></a>  <span class="at">y_size_meters =</span> grid_size_y,</span>
+<span id="cb68-15"><a href="habitat-use.html#cb68-15" tabindex="-1"></a>  <span class="at">bin_size =</span> grid_bin_size</span>
+<span id="cb68-16"><a href="habitat-use.html#cb68-16" tabindex="-1"></a>)</span>
+<span id="cb68-17"><a href="habitat-use.html#cb68-17" tabindex="-1"></a></span>
+<span id="cb68-18"><a href="habitat-use.html#cb68-18" tabindex="-1"></a><span class="co"># Draw all of the grid bins on a map</span></span>
+<span id="cb68-19"><a href="habitat-use.html#cb68-19" tabindex="-1"></a>grid_map <span class="ot">&lt;-</span> <span class="fu">draw_grid</span>(node_locs, grid_df)</span>
+<span id="cb68-20"><a href="habitat-use.html#cb68-20" tabindex="-1"></a>grid_map</span></code></pre></div>
+<div class="float">
+<img src="images/habitat_use_grid_map.png" alt="Node grid map" />
+<div class="figcaption">Node grid map</div>
+</div>
 </div>
 <div id="calculate-locations" class="section level2 hasAnchor" number="9.6">
 <h2><span class="header-section-number">9.6</span> Calculate Locations<a href="habitat-use.html#calculate-locations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This will display the tag tracks and the tag location on the node grid map.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="habitat-use.html#cb68-1" tabindex="-1"></a><span class="co"># create a locations dataframe with the calculate_track() function</span></span>
-<span id="cb68-2"><a href="habitat-use.html#cb68-2" tabindex="-1"></a>locations_df <span class="ot">&lt;-</span> <span class="fu">calculate_track</span>(</span>
-<span id="cb68-3"><a href="habitat-use.html#cb68-3" tabindex="-1"></a>  <span class="at">start_time =</span> <span class="st">&quot;2023-10-04 23:00:00&quot;</span>,</span>
-<span id="cb68-4"><a href="habitat-use.html#cb68-4" tabindex="-1"></a>  <span class="co"># start_time = &quot;2023-08-01 00:00:00&quot;,</span></span>
-<span id="cb68-5"><a href="habitat-use.html#cb68-5" tabindex="-1"></a>  <span class="at">length_seconds =</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">3600</span>,</span>
-<span id="cb68-6"><a href="habitat-use.html#cb68-6" tabindex="-1"></a>  <span class="at">step_size_seconds =</span> <span class="dv">15</span>,</span>
-<span id="cb68-7"><a href="habitat-use.html#cb68-7" tabindex="-1"></a>  <span class="at">det_time_window =</span> <span class="dv">30</span>, <span class="co"># Must have detection within this window to be included in position calculation</span></span>
-<span id="cb68-8"><a href="habitat-use.html#cb68-8" tabindex="-1"></a>  <span class="at">filter_alpha =</span> <span class="fl">0.7</span>,</span>
-<span id="cb68-9"><a href="habitat-use.html#cb68-9" tabindex="-1"></a>  <span class="at">filter_time_range =</span> <span class="dv">60</span>, <span class="co"># Time range to include detections in filtered value</span></span>
-<span id="cb68-10"><a href="habitat-use.html#cb68-10" tabindex="-1"></a>  <span class="at">grid_df =</span> grid_df,</span>
-<span id="cb68-11"><a href="habitat-use.html#cb68-11" tabindex="-1"></a>  <span class="at">detection_df =</span> detection_df,</span>
-<span id="cb68-12"><a href="habitat-use.html#cb68-12" tabindex="-1"></a>  <span class="at">node_locs =</span> node_locs,</span>
-<span id="cb68-13"><a href="habitat-use.html#cb68-13" tabindex="-1"></a>  <span class="at">rssi_coefs =</span> rssi_coefs,</span>
-<span id="cb68-14"><a href="habitat-use.html#cb68-14" tabindex="-1"></a>  <span class="at">track_frame_output_path =</span> <span class="cn">NULL</span> <span class="co"># If NULL no individual frames will be saved</span></span>
-<span id="cb68-15"><a href="habitat-use.html#cb68-15" tabindex="-1"></a>)</span>
-<span id="cb68-16"><a href="habitat-use.html#cb68-16" tabindex="-1"></a><span class="fu">print</span>(locations_df)</span>
-<span id="cb68-17"><a href="habitat-use.html#cb68-17" tabindex="-1"></a></span>
-<span id="cb68-18"><a href="habitat-use.html#cb68-18" tabindex="-1"></a><span class="co"># overlay the tag tracks on the node grid and satelitte picture</span></span>
-<span id="cb68-19"><a href="habitat-use.html#cb68-19" tabindex="-1"></a>track_map <span class="ot">&lt;-</span> <span class="fu">map_track</span>(node_locs, </span>
-<span id="cb68-20"><a href="habitat-use.html#cb68-20" tabindex="-1"></a>                       locations_df, </span>
-<span id="cb68-21"><a href="habitat-use.html#cb68-21" tabindex="-1"></a>                       my_tile_url)</span>
-<span id="cb68-22"><a href="habitat-use.html#cb68-22" tabindex="-1"></a>track_map</span>
-<span id="cb68-23"><a href="habitat-use.html#cb68-23" tabindex="-1"></a></span>
-<span id="cb68-24"><a href="habitat-use.html#cb68-24" tabindex="-1"></a><span class="co"># calculate and display the location density on the node grid map</span></span>
-<span id="cb68-25"><a href="habitat-use.html#cb68-25" tabindex="-1"></a><span class="co"># source(&quot;R/functions/grid_search/grid_search_functions.R&quot;)</span></span>
-<span id="cb68-26"><a href="habitat-use.html#cb68-26" tabindex="-1"></a>loc_density <span class="ot">&lt;-</span> <span class="fu">calc_location_density</span>(<span class="at">grid_df =</span> grid_df, </span>
-<span id="cb68-27"><a href="habitat-use.html#cb68-27" tabindex="-1"></a>                                     <span class="at">locations_df =</span> locations_df)</span>
-<span id="cb68-28"><a href="habitat-use.html#cb68-28" tabindex="-1"></a></span>
-<span id="cb68-29"><a href="habitat-use.html#cb68-29" tabindex="-1"></a>loc_density_map <span class="ot">&lt;-</span> <span class="fu">map_location_density</span>(<span class="at">loc_density_df =</span> loc_density, my_tile_url)</span>
-<span id="cb68-30"><a href="habitat-use.html#cb68-30" tabindex="-1"></a>loc_density_map</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="habitat-use.html#cb69-1" tabindex="-1"></a><span class="co"># create a locations dataframe with the calculate_track() function</span></span>
+<span id="cb69-2"><a href="habitat-use.html#cb69-2" tabindex="-1"></a>locations_df <span class="ot">&lt;-</span> <span class="fu">calculate_track</span>(</span>
+<span id="cb69-3"><a href="habitat-use.html#cb69-3" tabindex="-1"></a>  <span class="at">start_time =</span> <span class="st">&quot;2023-10-04 23:00:00&quot;</span>,</span>
+<span id="cb69-4"><a href="habitat-use.html#cb69-4" tabindex="-1"></a>  <span class="co"># start_time = &quot;2023-08-01 00:00:00&quot;,</span></span>
+<span id="cb69-5"><a href="habitat-use.html#cb69-5" tabindex="-1"></a>  <span class="at">length_seconds =</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">3600</span>,</span>
+<span id="cb69-6"><a href="habitat-use.html#cb69-6" tabindex="-1"></a>  <span class="at">step_size_seconds =</span> <span class="dv">15</span>,</span>
+<span id="cb69-7"><a href="habitat-use.html#cb69-7" tabindex="-1"></a>  <span class="at">det_time_window =</span> <span class="dv">30</span>, <span class="co"># Must have detection within this window to be included in position calculation</span></span>
+<span id="cb69-8"><a href="habitat-use.html#cb69-8" tabindex="-1"></a>  <span class="at">filter_alpha =</span> <span class="fl">0.7</span>,</span>
+<span id="cb69-9"><a href="habitat-use.html#cb69-9" tabindex="-1"></a>  <span class="at">filter_time_range =</span> <span class="dv">60</span>, <span class="co"># Time range to include detections in filtered value</span></span>
+<span id="cb69-10"><a href="habitat-use.html#cb69-10" tabindex="-1"></a>  <span class="at">grid_df =</span> grid_df,</span>
+<span id="cb69-11"><a href="habitat-use.html#cb69-11" tabindex="-1"></a>  <span class="at">detection_df =</span> detection_df,</span>
+<span id="cb69-12"><a href="habitat-use.html#cb69-12" tabindex="-1"></a>  <span class="at">node_locs =</span> node_locs,</span>
+<span id="cb69-13"><a href="habitat-use.html#cb69-13" tabindex="-1"></a>  <span class="at">rssi_coefs =</span> rssi_coefs,</span>
+<span id="cb69-14"><a href="habitat-use.html#cb69-14" tabindex="-1"></a>  <span class="at">track_frame_output_path =</span> <span class="cn">NULL</span> <span class="co"># If NULL no individual frames will be saved</span></span>
+<span id="cb69-15"><a href="habitat-use.html#cb69-15" tabindex="-1"></a>)</span>
+<span id="cb69-16"><a href="habitat-use.html#cb69-16" tabindex="-1"></a><span class="fu">print</span>(locations_df)</span>
+<span id="cb69-17"><a href="habitat-use.html#cb69-17" tabindex="-1"></a></span>
+<span id="cb69-18"><a href="habitat-use.html#cb69-18" tabindex="-1"></a><span class="co"># overlay the tag tracks on the node grid and satelitte picture</span></span>
+<span id="cb69-19"><a href="habitat-use.html#cb69-19" tabindex="-1"></a>track_map <span class="ot">&lt;-</span> <span class="fu">map_track</span>(node_locs, </span>
+<span id="cb69-20"><a href="habitat-use.html#cb69-20" tabindex="-1"></a>                       locations_df, </span>
+<span id="cb69-21"><a href="habitat-use.html#cb69-21" tabindex="-1"></a>                       my_tile_url)</span>
+<span id="cb69-22"><a href="habitat-use.html#cb69-22" tabindex="-1"></a>track_map</span></code></pre></div>
+<div class="float">
+<img src="images/habitat_use_track_map.png" alt="Node track map" />
+<div class="figcaption">Node track map</div>
+</div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="habitat-use.html#cb70-1" tabindex="-1"></a><span class="co"># calculate and display the location density on the node grid map</span></span>
+<span id="cb70-2"><a href="habitat-use.html#cb70-2" tabindex="-1"></a><span class="co"># source(&quot;R/functions/grid_search/grid_search_functions.R&quot;)</span></span>
+<span id="cb70-3"><a href="habitat-use.html#cb70-3" tabindex="-1"></a>loc_density <span class="ot">&lt;-</span> <span class="fu">calc_location_density</span>(<span class="at">grid_df =</span> grid_df, </span>
+<span id="cb70-4"><a href="habitat-use.html#cb70-4" tabindex="-1"></a>                                     <span class="at">locations_df =</span> locations_df)</span>
+<span id="cb70-5"><a href="habitat-use.html#cb70-5" tabindex="-1"></a></span>
+<span id="cb70-6"><a href="habitat-use.html#cb70-6" tabindex="-1"></a>loc_density_map <span class="ot">&lt;-</span> <span class="fu">map_location_density</span>(<span class="at">loc_density_df =</span> loc_density, my_tile_url)</span>
+<span id="cb70-7"><a href="habitat-use.html#cb70-7" tabindex="-1"></a>loc_density_map</span></code></pre></div>
+<div class="float">
+<img src="images/habitat_use_location_density_map.png" alt="Location Density Map" />
+<div class="figcaption">Location Density Map</div>
+</div>
 <p>If you zoom in on the map, you can see the areas where the animal spent most of its time.</p>
 <p>For tags with 1/8 wavelengths, you may need to use a lower RSSI coefficient to accurately map tracks and habitat use. Try using -115 for RSSI coefficient ‘a’.</p>
 <p>Below is an example of a Power Tag with a 1/8 wave antenna, and will need a lower RSSI coefficient:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="habitat-use.html#cb69-1" tabindex="-1"></a><span class="co"># Specify the RSSI vs Distance fit coefficients from calibration</span></span>
-<span id="cb69-2"><a href="habitat-use.html#cb69-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">115.0</span> <span class="co"># for 1/8 wave tags</span></span>
-<span id="cb69-3"><a href="habitat-use.html#cb69-3" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">59.03199894670</span></span>
-<span id="cb69-4"><a href="habitat-use.html#cb69-4" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fl">0.01188255653</span></span>
-<span id="cb69-5"><a href="habitat-use.html#cb69-5" tabindex="-1"></a></span>
-<span id="cb69-6"><a href="habitat-use.html#cb69-6" tabindex="-1"></a>rssi_coefs <span class="ot">&lt;-</span> <span class="fu">c</span>(a, b, c)</span>
-<span id="cb69-7"><a href="habitat-use.html#cb69-7" tabindex="-1"></a></span>
-<span id="cb69-8"><a href="habitat-use.html#cb69-8" tabindex="-1"></a><span class="co"># Selected Tag Id - Power Tag on a Swamp Sparrow (SWSP), 1/8 wave</span></span>
-<span id="cb69-9"><a href="habitat-use.html#cb69-9" tabindex="-1"></a>selected_tag_id <span class="ot">&lt;-</span> <span class="st">&quot;2D4B782D&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="habitat-use.html#cb71-1" tabindex="-1"></a><span class="co"># Specify the RSSI vs Distance fit coefficients from calibration</span></span>
+<span id="cb71-2"><a href="habitat-use.html#cb71-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">115.0</span> <span class="co"># for 1/8 wave tags</span></span>
+<span id="cb71-3"><a href="habitat-use.html#cb71-3" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">59.03199894670</span></span>
+<span id="cb71-4"><a href="habitat-use.html#cb71-4" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fl">0.01188255653</span></span>
+<span id="cb71-5"><a href="habitat-use.html#cb71-5" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="habitat-use.html#cb71-6" tabindex="-1"></a>rssi_coefs <span class="ot">&lt;-</span> <span class="fu">c</span>(a, b, c)</span>
+<span id="cb71-7"><a href="habitat-use.html#cb71-7" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="habitat-use.html#cb71-8" tabindex="-1"></a><span class="co"># Selected Tag Id - Power Tag on a Swamp Sparrow (SWSP), 1/8 wave</span></span>
+<span id="cb71-9"><a href="habitat-use.html#cb71-9" tabindex="-1"></a>selected_tag_id <span class="ot">&lt;-</span> <span class="st">&quot;2D4B782D&quot;</span></span></code></pre></div>
 <p>Run the rest of the code blocks after setting these new RSSI coefficients to plot the habitat use of an individual with a 1/8 wave antenna.</p>
 
 </div>
