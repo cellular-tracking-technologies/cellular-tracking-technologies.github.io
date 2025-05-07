@@ -127,7 +127,7 @@
 
 \title{`celltracktech' Data Analysis package}
 \author{Jessica Gorzo}
-\date{2025-05-06}
+\date{2025-05-07}
 
 \begin{document}
 \maketitle
@@ -1225,9 +1225,9 @@ We are now ready to start calculating presence/absence.
   \FunctionTok{collect}\NormalTok{()}
 
 \CommentTok{\# if you study uses blu tags, load the blu data table into RStudio}
-\NormalTok{detection\_blu }\OtherTok{\textless{}{-}} \FunctionTok{tbl}\NormalTok{(con, }\StringTok{"raw"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{filter}\NormalTok{(time }\SpecialCharTok{\textgreater{}=}\NormalTok{ start\_time }\SpecialCharTok{\&}\NormalTok{ time }\SpecialCharTok{\textless{}=}\NormalTok{ stop\_time) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{collect}\NormalTok{()}
+\CommentTok{\# detection\_blu \textless{}{-} tbl(con, "blu") |\textgreater{} }
+\CommentTok{\#   filter(time \textgreater{}= start\_time \& time \textless{}= stop\_time) |\textgreater{}}
+\CommentTok{\#   collect()}
 
 \CommentTok{\# disconnect from database}
 \NormalTok{DBI}\SpecialCharTok{::}\FunctionTok{dbDisconnect}\NormalTok{(con)}
@@ -1265,6 +1265,12 @@ Again, you will need to create this file yourself. You might want to include oth
   \FunctionTok{tag\_hist\_plot\_theme}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/presence_absence_detected_tags_histogram.png}
+\caption{Number of detections per tag}
+\end{figure}
 
 \section{Generate Detection Summary}\label{generate-detection-summary}
 
@@ -1304,6 +1310,12 @@ While it is good to know how many detections an individual tag has, it is better
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/presence_absence_detections_heat_bin.png}
+\caption{Heat-plot of tag detections over time}
+\end{figure}
+
 \section{Show Detection History for a Specific Tag}\label{show-detection-history-for-a-specific-tag}
 
 \begin{Shaded}
@@ -1333,6 +1345,12 @@ While it is good to know how many detections an individual tag has, it is better
   \FunctionTok{classic\_plot\_theme}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/presence_absence_detections_over_time_specific_tag.png}
+\caption{Heat-plot of tag detections over time}
+\end{figure}
 
 \chapter{Activity Budget}\label{activity-budget}
 
@@ -1440,6 +1458,12 @@ When is the animal active and/or inactive? Use the following script to answer re
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/activity_level_rssi_vs_time_by_node.png}
+\caption{Scatter plot of RSSI vs time by Node}
+\end{figure}
+
 Here we see that this bird was spending most of the time in the vicinity of nodes 3282EC, 339CAE, and 37824B, but the strongest detections are near node 32841A.
 
 \subsection{Scatter Plot of activity vs time by Node}\label{scatter-plot-of-activity-vs-time-by-node}
@@ -1460,6 +1484,12 @@ Next we will quantify the activity level. Activity is an arbitrary variable; it 
   \FunctionTok{classic\_plot\_theme}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/activity_level_activity_vs_time_by_node.png}
+\caption{Scatter plot of Activity Level vs time by Node}
+\end{figure}
 
 Here we see the activity level (y-axis) for every 5 min from September 1 to September 2. Each color represents a unique Node ID. From a brief glance, this tag had low to mid activity levels near nodes 3282EC and 37824B, but it is still difficult to discern what is going on in this plot.
 
@@ -1486,6 +1516,12 @@ We can summarize the above plot even further by creating a heatmap. The code chu
   \FunctionTok{classic\_plot\_theme}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/presence_absence_2d_histogram_activity_vs_time.png}
+\caption{2D Histogram of Activity over Time by Node}
+\end{figure}
 
 From this plot, we can see that there are multiple instances of low activity (demonstrated by the yellow bins at activity/hour 1), and fewer instances of high activity (demonstrated by the blue bins at activity/hour 4 and above).
 
@@ -1519,6 +1555,12 @@ This code chunk makes the same plot as above, but also displays the average acti
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/activity_level_average_activity_vs_time.png}
+\caption{2D Histogram of Activity over Time by Node with Average Activity}
+\end{figure}
+
 Here we see the average activity level for this tag is roughly 1 per hour from September 1 to September 2.
 
 \subsection{Avg activity / hour Vs time.}\label{avg-activity-hour-vs-time.}
@@ -1546,6 +1588,12 @@ Let's zoom in and isolate the average activity per hour:
   \FunctionTok{classic\_plot\_theme}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{images/activity_level_average_activity_per_hour_vs_time.png}
+\caption{Average Activity per hour vs.~time}
+\end{figure}
 
 We see that average activity is highest between 6am-12pm but decreases suddenly after that, which is what we would expect for bird activity level in September.
 

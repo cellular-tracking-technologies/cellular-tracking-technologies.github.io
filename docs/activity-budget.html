@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2025-05-06" />
+<meta name="date" content="2025-05-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -382,6 +382,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-8"><a href="activity-budget.html#cb54-8" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb54-9"><a href="activity-budget.html#cb54-9" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;RSSI (dBm)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb54-10"><a href="activity-budget.html#cb54-10" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/activity_level_rssi_vs_time_by_node.png" alt="Scatter plot of RSSI vs time by Node" />
+<div class="figcaption">Scatter plot of RSSI vs time by Node</div>
+</div>
 <p>Here we see that this bird was spending most of the time in the vicinity of nodes 3282EC, 339CAE, and 37824B, but the strongest detections are near node 32841A.</p>
 </div>
 <div id="scatter-plot-of-activity-vs-time-by-node" class="section level3 hasAnchor" number="8.3.2">
@@ -397,6 +401,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb55-8"><a href="activity-budget.html#cb55-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb55-9"><a href="activity-budget.html#cb55-9" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
 <span id="cb55-10"><a href="activity-budget.html#cb55-10" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/activity_level_activity_vs_time_by_node.png" alt="Scatter plot of Activity Level vs time by Node" />
+<div class="figcaption">Scatter plot of Activity Level vs time by Node</div>
+</div>
 <p>Here we see the activity level (y-axis) for every 5 min from September 1 to September 2. Each color represents a unique Node ID. From a brief glance, this tag had low to mid activity levels near nodes 3282EC and 37824B, but it is still difficult to discern what is going on in this plot.</p>
 </div>
 <div id="d-histogram-of-activity-over-time" class="section level3 hasAnchor" number="8.3.3">
@@ -417,6 +425,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb56-13"><a href="activity-budget.html#cb56-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb56-14"><a href="activity-budget.html#cb56-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span>  </span>
 <span id="cb56-15"><a href="activity-budget.html#cb56-15" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/presence_absence_2d_histogram_activity_vs_time.png" alt="2D Histogram of Activity over Time by Node" />
+<div class="figcaption">2D Histogram of Activity over Time by Node</div>
+</div>
 <p>From this plot, we can see that there are multiple instances of low activity (demonstrated by the yellow bins at activity/hour 1), and fewer instances of high activity (demonstrated by the blue bins at activity/hour 4 and above).</p>
 </div>
 <div id="d-histogram-of-activity-vs-time-with-avg-activity" class="section level3 hasAnchor" number="8.3.4">
@@ -443,6 +455,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb57-19"><a href="activity-budget.html#cb57-19" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
 <span id="cb57-20"><a href="activity-budget.html#cb57-20" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
 <span id="cb57-21"><a href="activity-budget.html#cb57-21" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/activity_level_average_activity_vs_time.png" alt="2D Histogram of Activity over Time by Node with Average Activity" />
+<div class="figcaption">2D Histogram of Activity over Time by Node with Average Activity</div>
+</div>
 <p>Here we see the average activity level for this tag is roughly 1 per hour from September 1 to September 2.</p>
 </div>
 <div id="avg-activity-hour-vs-time." class="section level3 hasAnchor" number="8.3.5">
@@ -465,6 +481,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-15"><a href="activity-budget.html#cb58-15" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
 <span id="cb58-16"><a href="activity-budget.html#cb58-16" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
 <span id="cb58-17"><a href="activity-budget.html#cb58-17" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/activity_level_average_activity_per_hour_vs_time.png" alt="Average Activity per hour vs. time" />
+<div class="figcaption">Average Activity per hour vs. time</div>
+</div>
 <p>We see that average activity is highest between 6am-12pm but decreases suddenly after that, which is what we would expect for bird activity level in September.</p>
 
 </div>

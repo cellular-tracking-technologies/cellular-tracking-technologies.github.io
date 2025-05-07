@@ -64,9 +64,9 @@ detection_df <- tbl(con, "raw") |>
   collect()
 
 # if you study uses blu tags, load the blu data table into RStudio
-detection_blu <- tbl(con, "raw") |> 
-  filter(time >= start_time & time <= stop_time) |>
-  collect()
+# detection_blu <- tbl(con, "blu") |> 
+#   filter(time >= start_time & time <= stop_time) |>
+#   collect()
 
 # disconnect from database
 DBI::dbDisconnect(con)
@@ -98,6 +98,7 @@ ggplot(tag_det_count,
        y = "Detection Count") +
   tag_hist_plot_theme()
 ```
+![Number of detections per tag](images/presence_absence_detected_tags_histogram.png)
 
 ## Generate Detection Summary
 
@@ -132,8 +133,9 @@ ggplot(data = detection_df,
   labs(x = "Time (UTC)", 
        y = "Tag Id") +
   tag_hist_plot_theme()
-
 ```
+![Heat-plot of tag detections over time](images/presence_absence_detections_heat_bin.png)
+
 
 ## Show Detection History for a Specific Tag
 
@@ -162,3 +164,4 @@ ggplot(tag_dets) +
   ylab("RSSI (dBm)") +
   classic_plot_theme()
 ```
+![Heat-plot of tag detections over time](images/presence_absence_detections_over_time_specific_tag.png)

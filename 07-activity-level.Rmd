@@ -87,6 +87,8 @@ ggplot(data = tag_dets) +
   ylab("RSSI (dBm)") +
   classic_plot_theme()
 ```
+![Scatter plot of RSSI vs time by Node](images/activity_level_rssi_vs_time_by_node.png)
+
 Here we see that this bird was spending most of the time in the vicinity of nodes 3282EC, 339CAE, and 37824B, but the strongest detections are near node 32841A.
 
 ### Scatter Plot of activity vs time by Node
@@ -104,6 +106,8 @@ ggplot(data = tag_activity) +
   xlim(plot_start_time, plot_stop_time) +
   classic_plot_theme()
 ```
+![Scatter plot of Activity Level vs time by Node](images/activity_level_activity_vs_time_by_node.png)
+
 Here we see the activity level (y-axis) for every 5 min from September 1 to September 2. Each color represents a unique Node ID. From a brief glance, this tag had low to mid activity levels near nodes 3282EC and 37824B, but it is still difficult to discern what is going on in this plot.
 
 ### 2D Histogram of Activity over Time
@@ -127,6 +131,8 @@ ggplot(data = tag_activity,
   ylab("Activity / Hour (Arb. Units)") +  
   classic_plot_theme()
 ```
+![2D Histogram of Activity over Time by Node](images/presence_absence_2d_histogram_activity_vs_time.png)
+
 From this plot, we can see that there are multiple instances of low activity (demonstrated by the yellow bins at activity/hour 1), and fewer instances of high activity (demonstrated by the blue bins at activity/hour 4 and above).
 
 ### 2D histogram of activity vs time WITH avg activity
@@ -155,6 +161,8 @@ ggplot(data = tag_activity,
                        labels = my_breaks) +
   classic_plot_theme()
 ```
+![2D Histogram of Activity over Time by Node with Average Activity](images/activity_level_average_activity_vs_time.png)
+
 Here we see the average activity level for this tag is roughly 1 per hour from September 1 to September 2.
 
 ### Avg activity / hour Vs time.
@@ -180,5 +188,8 @@ ggplot(data = tag_activity) +
                        labels = my_breaks) +
   classic_plot_theme()
 ```
+![Average Activity per hour vs. time](images/activity_level_average_activity_per_hour_vs_time.png)
+
+
 We see that average activity is highest between 6am-12pm but decreases suddenly after that, which is what we would expect for bird activity level in September.
 

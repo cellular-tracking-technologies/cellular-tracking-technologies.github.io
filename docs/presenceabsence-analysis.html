@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2025-05-06" />
+<meta name="date" content="2025-05-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -383,9 +383,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb45-9"><a href="presenceabsence-analysis.html#cb45-9" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
 <span id="cb45-10"><a href="presenceabsence-analysis.html#cb45-10" tabindex="-1"></a></span>
 <span id="cb45-11"><a href="presenceabsence-analysis.html#cb45-11" tabindex="-1"></a><span class="co"># if you study uses blu tags, load the blu data table into RStudio</span></span>
-<span id="cb45-12"><a href="presenceabsence-analysis.html#cb45-12" tabindex="-1"></a>detection_blu <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb45-13"><a href="presenceabsence-analysis.html#cb45-13" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> start_time <span class="sc">&amp;</span> time <span class="sc">&lt;=</span> stop_time) <span class="sc">|&gt;</span></span>
-<span id="cb45-14"><a href="presenceabsence-analysis.html#cb45-14" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb45-12"><a href="presenceabsence-analysis.html#cb45-12" tabindex="-1"></a><span class="co"># detection_blu &lt;- tbl(con, &quot;blu&quot;) |&gt; </span></span>
+<span id="cb45-13"><a href="presenceabsence-analysis.html#cb45-13" tabindex="-1"></a><span class="co">#   filter(time &gt;= start_time &amp; time &lt;= stop_time) |&gt;</span></span>
+<span id="cb45-14"><a href="presenceabsence-analysis.html#cb45-14" tabindex="-1"></a><span class="co">#   collect()</span></span>
 <span id="cb45-15"><a href="presenceabsence-analysis.html#cb45-15" tabindex="-1"></a></span>
 <span id="cb45-16"><a href="presenceabsence-analysis.html#cb45-16" tabindex="-1"></a><span class="co"># disconnect from database</span></span>
 <span id="cb45-17"><a href="presenceabsence-analysis.html#cb45-17" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
@@ -412,6 +412,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb47-11"><a href="presenceabsence-analysis.html#cb47-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Tag ID&quot;</span>, </span>
 <span id="cb47-12"><a href="presenceabsence-analysis.html#cb47-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Detection Count&quot;</span>) <span class="sc">+</span></span>
 <span id="cb47-13"><a href="presenceabsence-analysis.html#cb47-13" tabindex="-1"></a>  <span class="fu">tag_hist_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/presence_absence_detected_tags_histogram.png" alt="Number of detections per tag" />
+<div class="figcaption">Number of detections per tag</div>
+</div>
 </div>
 </div>
 <div id="generate-detection-summary" class="section level2 hasAnchor" number="7.4">
@@ -446,6 +450,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb48-27"><a href="presenceabsence-analysis.html#cb48-27" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Time (UTC)&quot;</span>, </span>
 <span id="cb48-28"><a href="presenceabsence-analysis.html#cb48-28" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Tag Id&quot;</span>) <span class="sc">+</span></span>
 <span id="cb48-29"><a href="presenceabsence-analysis.html#cb48-29" tabindex="-1"></a>  <span class="fu">tag_hist_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/presence_absence_detections_heat_bin.png" alt="Heat-plot of tag detections over time" />
+<div class="figcaption">Heat-plot of tag detections over time</div>
+</div>
 </div>
 <div id="show-detection-history-for-a-specific-tag" class="section level2 hasAnchor" number="7.5">
 <h2><span class="header-section-number">7.5</span> Show Detection History for a Specific Tag<a href="presenceabsence-analysis.html#show-detection-history-for-a-specific-tag" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -472,6 +480,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb49-21"><a href="presenceabsence-analysis.html#cb49-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb49-22"><a href="presenceabsence-analysis.html#cb49-22" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;RSSI (dBm)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb49-23"><a href="presenceabsence-analysis.html#cb49-23" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/presence_absence_detections_over_time_specific_tag.png" alt="Heat-plot of tag detections over time" />
+<div class="figcaption">Heat-plot of tag detections over time</div>
+</div>
 
 </div>
 </div>
