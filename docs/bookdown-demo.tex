@@ -127,7 +127,7 @@
 
 \title{`celltracktech' Data Analysis package}
 \author{Jessica Gorzo}
-\date{2025-05-07}
+\date{2025-05-16}
 
 \begin{document}
 \maketitle
@@ -2280,6 +2280,7 @@ You should use this method when your node grid is evenly spaced.
 \end{Highlighting}
 \end{Shaded}
 
+\includegraphics{images/multilateration_rss_vs_distance.png}
 As distance increases, we see average RSS decreasing exponentially.
 
 \subsection{Preliminary Exponential Decay Model - Determine starting values for the final model}\label{preliminary-exponential-decay-model---determine-starting-values-for-the-final-model}
@@ -2372,7 +2373,17 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
   \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"RSS (dB)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Distance (m)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_classic}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/multilateration_predicted_line.png}
+\caption{RSS vs.~Distance with Predicted Line}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{unname}\NormalTok{(}\FunctionTok{coef}\NormalTok{(nls.mod)[}\DecValTok{1}\NormalTok{])}
 \NormalTok{S }\OtherTok{\textless{}{-}} \FunctionTok{unname}\NormalTok{(}\FunctionTok{coef}\NormalTok{(nls.mod)[}\DecValTok{2}\NormalTok{])}
 \NormalTok{K }\OtherTok{\textless{}{-}} \FunctionTok{unname}\NormalTok{(}\FunctionTok{coef}\NormalTok{(nls.mod)[}\DecValTok{3}\NormalTok{])}
@@ -2404,7 +2415,17 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
       \AttributeTok{color =} \StringTok{"red"}\NormalTok{,}
       \CommentTok{\#fillColor = "red",}
       \AttributeTok{fillOpacity =} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{figure}
+\centering
+\includegraphics{images/multilateration_rings_map.png}
+\caption{Ring Map}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{no.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration.TestData.NoFilter}\NormalTok{(combined\_data)}
 \NormalTok{RSS.FILTER }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{80}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{85}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{90}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{95}\NormalTok{)}
 \NormalTok{RSS.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration.TestData.RSS.Filter}\NormalTok{(combined\_data, RSS.FILTER)}

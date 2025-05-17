@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo" />
 
 
-<meta name="date" content="2025-05-07" />
+<meta name="date" content="2025-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -382,7 +382,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb87-4"><a href="multilateration.html#cb87-4" tabindex="-1"></a>           <span class="at">y =</span> avgRSS, </span>
 <span id="cb87-5"><a href="multilateration.html#cb87-5" tabindex="-1"></a>           <span class="at">color =</span> node_id)) <span class="sc">+</span> </span>
 <span id="cb87-6"><a href="multilateration.html#cb87-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p>As distance increases, we see average RSS decreasing exponentially.</p>
+<p><img src="images/multilateration_rss_vs_distance.png" alt="RSS vs. Distance" />
+As distance increases, we see average RSS decreasing exponentially.</p>
 <div id="preliminary-exponential-decay-model---determine-starting-values-for-the-final-model" class="section level3 hasAnchor" number="11.3.1">
 <h3><span class="header-section-number">11.3.1</span> Preliminary Exponential Decay Model - Determine starting values for the final model<a href="multilateration.html#preliminary-exponential-decay-model---determine-starting-values-for-the-final-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
@@ -453,70 +454,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb89-39"><a href="multilateration.html#cb89-39" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="fl">1.25</span>) <span class="sc">+</span></span>
 <span id="cb89-40"><a href="multilateration.html#cb89-40" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;RSS (dB)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb89-41"><a href="multilateration.html#cb89-41" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Distance (m)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb89-42"><a href="multilateration.html#cb89-42" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb89-43"><a href="multilateration.html#cb89-43" tabindex="-1"></a></span>
-<span id="cb89-44"><a href="multilateration.html#cb89-44" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(nls.mod)[<span class="dv">1</span>])</span>
-<span id="cb89-45"><a href="multilateration.html#cb89-45" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(nls.mod)[<span class="dv">2</span>])</span>
-<span id="cb89-46"><a href="multilateration.html#cb89-46" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(nls.mod)[<span class="dv">3</span>])</span>
-<span id="cb89-47"><a href="multilateration.html#cb89-47" tabindex="-1"></a></span>
-<span id="cb89-48"><a href="multilateration.html#cb89-48" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">estimate.distance</span>(combined_data, K, a, S)</span>
-<span id="cb89-49"><a href="multilateration.html#cb89-49" tabindex="-1"></a></span>
-<span id="cb89-50"><a href="multilateration.html#cb89-50" tabindex="-1"></a>tile_url <span class="ot">=</span> <span class="st">&quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;</span></span>
-<span id="cb89-51"><a href="multilateration.html#cb89-51" tabindex="-1"></a>testout <span class="ot">&lt;-</span> combined_data[combined_data<span class="sc">$</span>TestId<span class="sc">==</span><span class="dv">0</span>,]</span>
-<span id="cb89-52"><a href="multilateration.html#cb89-52" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb89-53"><a href="multilateration.html#cb89-53" tabindex="-1"></a>    <span class="fu">addTiles</span>(</span>
-<span id="cb89-54"><a href="multilateration.html#cb89-54" tabindex="-1"></a>      <span class="at">urlTemplate =</span> tile_url,</span>
-<span id="cb89-55"><a href="multilateration.html#cb89-55" tabindex="-1"></a>      <span class="at">options =</span> <span class="fu">tileOptions</span>(<span class="at">maxZoom =</span> <span class="dv">25</span>)</span>
-<span id="cb89-56"><a href="multilateration.html#cb89-56" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb89-57"><a href="multilateration.html#cb89-57" tabindex="-1"></a>    <span class="fu">addCircleMarkers</span>(</span>
-<span id="cb89-58"><a href="multilateration.html#cb89-58" tabindex="-1"></a>      <span class="at">data =</span> nodes,</span>
-<span id="cb89-59"><a href="multilateration.html#cb89-59" tabindex="-1"></a>      <span class="at">lat =</span> nodes<span class="sc">$</span>node_lat,</span>
-<span id="cb89-60"><a href="multilateration.html#cb89-60" tabindex="-1"></a>      <span class="at">lng =</span> nodes<span class="sc">$</span>node_lng,</span>
-<span id="cb89-61"><a href="multilateration.html#cb89-61" tabindex="-1"></a>      <span class="at">radius =</span> <span class="dv">5</span>,</span>
-<span id="cb89-62"><a href="multilateration.html#cb89-62" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">&quot;cyan&quot;</span>,</span>
-<span id="cb89-63"><a href="multilateration.html#cb89-63" tabindex="-1"></a>      <span class="at">fillColor =</span> <span class="st">&quot;cyan&quot;</span>,</span>
-<span id="cb89-64"><a href="multilateration.html#cb89-64" tabindex="-1"></a>      <span class="at">fillOpacity =</span> <span class="fl">0.5</span>,</span>
-<span id="cb89-65"><a href="multilateration.html#cb89-65" tabindex="-1"></a>      <span class="at">label =</span> nodes<span class="sc">$</span>node_id</span>
-<span id="cb89-66"><a href="multilateration.html#cb89-66" tabindex="-1"></a>    )  <span class="sc">%&gt;%</span></span>
-<span id="cb89-67"><a href="multilateration.html#cb89-67" tabindex="-1"></a>    <span class="fu">addCircles</span>(</span>
-<span id="cb89-68"><a href="multilateration.html#cb89-68" tabindex="-1"></a>      <span class="at">data=</span>testout, </span>
-<span id="cb89-69"><a href="multilateration.html#cb89-69" tabindex="-1"></a>      <span class="at">lat =</span> testout<span class="sc">$</span>node_lat,</span>
-<span id="cb89-70"><a href="multilateration.html#cb89-70" tabindex="-1"></a>      <span class="at">lng =</span> testout<span class="sc">$</span>node_lng,</span>
-<span id="cb89-71"><a href="multilateration.html#cb89-71" tabindex="-1"></a>      <span class="at">radius =</span> testout<span class="sc">$</span>distance,</span>
-<span id="cb89-72"><a href="multilateration.html#cb89-72" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb89-73"><a href="multilateration.html#cb89-73" tabindex="-1"></a>      <span class="co">#fillColor = &quot;red&quot;,</span></span>
-<span id="cb89-74"><a href="multilateration.html#cb89-74" tabindex="-1"></a>      <span class="at">fillOpacity =</span> <span class="dv">0</span>)</span>
-<span id="cb89-75"><a href="multilateration.html#cb89-75" tabindex="-1"></a></span>
-<span id="cb89-76"><a href="multilateration.html#cb89-76" tabindex="-1"></a>no.filters <span class="ot">&lt;-</span> <span class="fu">trilateration.TestData.NoFilter</span>(combined_data)</span>
-<span id="cb89-77"><a href="multilateration.html#cb89-77" tabindex="-1"></a>RSS.FILTER <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">85</span>, <span class="sc">-</span><span class="dv">90</span>, <span class="sc">-</span><span class="dv">95</span>)</span>
-<span id="cb89-78"><a href="multilateration.html#cb89-78" tabindex="-1"></a>RSS.filters <span class="ot">&lt;-</span> <span class="fu">trilateration.TestData.RSS.Filter</span>(combined_data, RSS.FILTER)</span>
-<span id="cb89-79"><a href="multilateration.html#cb89-79" tabindex="-1"></a><span class="co">#DIST.FILTER &lt;- c(315,500,750,1000)</span></span>
-<span id="cb89-80"><a href="multilateration.html#cb89-80" tabindex="-1"></a><span class="co"># Calculate error of location estimates of each test location when Distance filters are applied prior to trilateration </span></span>
-<span id="cb89-81"><a href="multilateration.html#cb89-81" tabindex="-1"></a><span class="co">#Dist.filters &lt;- trilateration.TestData.Distance.Filter(combined_data, DIST.FILTER)</span></span>
-<span id="cb89-82"><a href="multilateration.html#cb89-82" tabindex="-1"></a></span>
-<span id="cb89-83"><a href="multilateration.html#cb89-83" tabindex="-1"></a>SLIDE.TIME <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb89-84"><a href="multilateration.html#cb89-84" tabindex="-1"></a>GROUP.TIME <span class="ot">&lt;-</span> <span class="st">&quot;1 min&quot;</span></span>
-<span id="cb89-85"><a href="multilateration.html#cb89-85" tabindex="-1"></a></span>
-<span id="cb89-86"><a href="multilateration.html#cb89-86" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> testdata <span class="sc">%&gt;%</span></span>
-<span id="cb89-87"><a href="multilateration.html#cb89-87" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2023-10-05&quot;</span>) <span class="sc">&amp;</span> time <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2023-10-15&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb89-88"><a href="multilateration.html#cb89-88" tabindex="-1"></a>  <span class="fu">filter</span>(tag_id <span class="sc">==</span> <span class="st">&quot;2D4B782D&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb89-89"><a href="multilateration.html#cb89-89" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
-<span id="cb89-90"><a href="multilateration.html#cb89-90" tabindex="-1"></a></span>
-<span id="cb89-91"><a href="multilateration.html#cb89-91" tabindex="-1"></a><span class="co"># Function to prepare beep data for trilateration </span></span>
-<span id="cb89-92"><a href="multilateration.html#cb89-92" tabindex="-1"></a><span class="co"># by estimating distance of a signal based on RSS values</span></span>
-<span id="cb89-93"><a href="multilateration.html#cb89-93" tabindex="-1"></a>beep.grouped <span class="ot">&lt;-</span> <span class="fu">prep.data</span>(test_data,</span>
-<span id="cb89-94"><a href="multilateration.html#cb89-94" tabindex="-1"></a>                          nodes,</span>
-<span id="cb89-95"><a href="multilateration.html#cb89-95" tabindex="-1"></a>                          SLIDE.TIME,</span>
-<span id="cb89-96"><a href="multilateration.html#cb89-96" tabindex="-1"></a>                          GROUP.TIME,</span>
-<span id="cb89-97"><a href="multilateration.html#cb89-97" tabindex="-1"></a>                          K, </span>
-<span id="cb89-98"><a href="multilateration.html#cb89-98" tabindex="-1"></a>                          a, </span>
-<span id="cb89-99"><a href="multilateration.html#cb89-99" tabindex="-1"></a>                          S) </span>
-<span id="cb89-100"><a href="multilateration.html#cb89-100" tabindex="-1"></a></span>
-<span id="cb89-101"><a href="multilateration.html#cb89-101" tabindex="-1"></a>RSS.filter <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">95</span></span>
-<span id="cb89-102"><a href="multilateration.html#cb89-102" tabindex="-1"></a>location.estimates <span class="ot">&lt;-</span> <span class="fu">trilateration</span>(beep.grouped, nodes, RSS.FILTER)</span>
-<span id="cb89-103"><a href="multilateration.html#cb89-103" tabindex="-1"></a></span>
-<span id="cb89-104"><a href="multilateration.html#cb89-104" tabindex="-1"></a><span class="co"># this will take a while...</span></span>
-<span id="cb89-105"><a href="multilateration.html#cb89-105" tabindex="-1"></a><span class="fu">mapping</span>(nodes, location.estimates)</span></code></pre></div>
+<span id="cb89-42"><a href="multilateration.html#cb89-42" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/multilateration_predicted_line.png" alt="RSS vs. Distance with Predicted Line" />
+<div class="figcaption">RSS vs. Distance with Predicted Line</div>
+</div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="multilateration.html#cb90-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(nls.mod)[<span class="dv">1</span>])</span>
+<span id="cb90-2"><a href="multilateration.html#cb90-2" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(nls.mod)[<span class="dv">2</span>])</span>
+<span id="cb90-3"><a href="multilateration.html#cb90-3" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(nls.mod)[<span class="dv">3</span>])</span>
+<span id="cb90-4"><a href="multilateration.html#cb90-4" tabindex="-1"></a></span>
+<span id="cb90-5"><a href="multilateration.html#cb90-5" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">estimate.distance</span>(combined_data, K, a, S)</span>
+<span id="cb90-6"><a href="multilateration.html#cb90-6" tabindex="-1"></a></span>
+<span id="cb90-7"><a href="multilateration.html#cb90-7" tabindex="-1"></a>tile_url <span class="ot">=</span> <span class="st">&quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;</span></span>
+<span id="cb90-8"><a href="multilateration.html#cb90-8" tabindex="-1"></a>testout <span class="ot">&lt;-</span> combined_data[combined_data<span class="sc">$</span>TestId<span class="sc">==</span><span class="dv">0</span>,]</span>
+<span id="cb90-9"><a href="multilateration.html#cb90-9" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb90-10"><a href="multilateration.html#cb90-10" tabindex="-1"></a>    <span class="fu">addTiles</span>(</span>
+<span id="cb90-11"><a href="multilateration.html#cb90-11" tabindex="-1"></a>      <span class="at">urlTemplate =</span> tile_url,</span>
+<span id="cb90-12"><a href="multilateration.html#cb90-12" tabindex="-1"></a>      <span class="at">options =</span> <span class="fu">tileOptions</span>(<span class="at">maxZoom =</span> <span class="dv">25</span>)</span>
+<span id="cb90-13"><a href="multilateration.html#cb90-13" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb90-14"><a href="multilateration.html#cb90-14" tabindex="-1"></a>    <span class="fu">addCircleMarkers</span>(</span>
+<span id="cb90-15"><a href="multilateration.html#cb90-15" tabindex="-1"></a>      <span class="at">data =</span> nodes,</span>
+<span id="cb90-16"><a href="multilateration.html#cb90-16" tabindex="-1"></a>      <span class="at">lat =</span> nodes<span class="sc">$</span>node_lat,</span>
+<span id="cb90-17"><a href="multilateration.html#cb90-17" tabindex="-1"></a>      <span class="at">lng =</span> nodes<span class="sc">$</span>node_lng,</span>
+<span id="cb90-18"><a href="multilateration.html#cb90-18" tabindex="-1"></a>      <span class="at">radius =</span> <span class="dv">5</span>,</span>
+<span id="cb90-19"><a href="multilateration.html#cb90-19" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">&quot;cyan&quot;</span>,</span>
+<span id="cb90-20"><a href="multilateration.html#cb90-20" tabindex="-1"></a>      <span class="at">fillColor =</span> <span class="st">&quot;cyan&quot;</span>,</span>
+<span id="cb90-21"><a href="multilateration.html#cb90-21" tabindex="-1"></a>      <span class="at">fillOpacity =</span> <span class="fl">0.5</span>,</span>
+<span id="cb90-22"><a href="multilateration.html#cb90-22" tabindex="-1"></a>      <span class="at">label =</span> nodes<span class="sc">$</span>node_id</span>
+<span id="cb90-23"><a href="multilateration.html#cb90-23" tabindex="-1"></a>    )  <span class="sc">%&gt;%</span></span>
+<span id="cb90-24"><a href="multilateration.html#cb90-24" tabindex="-1"></a>    <span class="fu">addCircles</span>(</span>
+<span id="cb90-25"><a href="multilateration.html#cb90-25" tabindex="-1"></a>      <span class="at">data=</span>testout, </span>
+<span id="cb90-26"><a href="multilateration.html#cb90-26" tabindex="-1"></a>      <span class="at">lat =</span> testout<span class="sc">$</span>node_lat,</span>
+<span id="cb90-27"><a href="multilateration.html#cb90-27" tabindex="-1"></a>      <span class="at">lng =</span> testout<span class="sc">$</span>node_lng,</span>
+<span id="cb90-28"><a href="multilateration.html#cb90-28" tabindex="-1"></a>      <span class="at">radius =</span> testout<span class="sc">$</span>distance,</span>
+<span id="cb90-29"><a href="multilateration.html#cb90-29" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb90-30"><a href="multilateration.html#cb90-30" tabindex="-1"></a>      <span class="co">#fillColor = &quot;red&quot;,</span></span>
+<span id="cb90-31"><a href="multilateration.html#cb90-31" tabindex="-1"></a>      <span class="at">fillOpacity =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="float">
+<img src="images/multilateration_rings_map.png" alt="Ring Map" />
+<div class="figcaption">Ring Map</div>
+</div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="multilateration.html#cb91-1" tabindex="-1"></a>no.filters <span class="ot">&lt;-</span> <span class="fu">trilateration.TestData.NoFilter</span>(combined_data)</span>
+<span id="cb91-2"><a href="multilateration.html#cb91-2" tabindex="-1"></a>RSS.FILTER <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">85</span>, <span class="sc">-</span><span class="dv">90</span>, <span class="sc">-</span><span class="dv">95</span>)</span>
+<span id="cb91-3"><a href="multilateration.html#cb91-3" tabindex="-1"></a>RSS.filters <span class="ot">&lt;-</span> <span class="fu">trilateration.TestData.RSS.Filter</span>(combined_data, RSS.FILTER)</span>
+<span id="cb91-4"><a href="multilateration.html#cb91-4" tabindex="-1"></a><span class="co">#DIST.FILTER &lt;- c(315,500,750,1000)</span></span>
+<span id="cb91-5"><a href="multilateration.html#cb91-5" tabindex="-1"></a><span class="co"># Calculate error of location estimates of each test location when Distance filters are applied prior to trilateration </span></span>
+<span id="cb91-6"><a href="multilateration.html#cb91-6" tabindex="-1"></a><span class="co">#Dist.filters &lt;- trilateration.TestData.Distance.Filter(combined_data, DIST.FILTER)</span></span>
+<span id="cb91-7"><a href="multilateration.html#cb91-7" tabindex="-1"></a></span>
+<span id="cb91-8"><a href="multilateration.html#cb91-8" tabindex="-1"></a>SLIDE.TIME <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb91-9"><a href="multilateration.html#cb91-9" tabindex="-1"></a>GROUP.TIME <span class="ot">&lt;-</span> <span class="st">&quot;1 min&quot;</span></span>
+<span id="cb91-10"><a href="multilateration.html#cb91-10" tabindex="-1"></a></span>
+<span id="cb91-11"><a href="multilateration.html#cb91-11" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> testdata <span class="sc">%&gt;%</span></span>
+<span id="cb91-12"><a href="multilateration.html#cb91-12" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2023-10-05&quot;</span>) <span class="sc">&amp;</span> time <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2023-10-15&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb91-13"><a href="multilateration.html#cb91-13" tabindex="-1"></a>  <span class="fu">filter</span>(tag_id <span class="sc">==</span> <span class="st">&quot;2D4B782D&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb91-14"><a href="multilateration.html#cb91-14" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb91-15"><a href="multilateration.html#cb91-15" tabindex="-1"></a></span>
+<span id="cb91-16"><a href="multilateration.html#cb91-16" tabindex="-1"></a><span class="co"># Function to prepare beep data for trilateration </span></span>
+<span id="cb91-17"><a href="multilateration.html#cb91-17" tabindex="-1"></a><span class="co"># by estimating distance of a signal based on RSS values</span></span>
+<span id="cb91-18"><a href="multilateration.html#cb91-18" tabindex="-1"></a>beep.grouped <span class="ot">&lt;-</span> <span class="fu">prep.data</span>(test_data,</span>
+<span id="cb91-19"><a href="multilateration.html#cb91-19" tabindex="-1"></a>                          nodes,</span>
+<span id="cb91-20"><a href="multilateration.html#cb91-20" tabindex="-1"></a>                          SLIDE.TIME,</span>
+<span id="cb91-21"><a href="multilateration.html#cb91-21" tabindex="-1"></a>                          GROUP.TIME,</span>
+<span id="cb91-22"><a href="multilateration.html#cb91-22" tabindex="-1"></a>                          K, </span>
+<span id="cb91-23"><a href="multilateration.html#cb91-23" tabindex="-1"></a>                          a, </span>
+<span id="cb91-24"><a href="multilateration.html#cb91-24" tabindex="-1"></a>                          S) </span>
+<span id="cb91-25"><a href="multilateration.html#cb91-25" tabindex="-1"></a></span>
+<span id="cb91-26"><a href="multilateration.html#cb91-26" tabindex="-1"></a>RSS.filter <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">95</span></span>
+<span id="cb91-27"><a href="multilateration.html#cb91-27" tabindex="-1"></a>location.estimates <span class="ot">&lt;-</span> <span class="fu">trilateration</span>(beep.grouped, nodes, RSS.FILTER)</span>
+<span id="cb91-28"><a href="multilateration.html#cb91-28" tabindex="-1"></a></span>
+<span id="cb91-29"><a href="multilateration.html#cb91-29" tabindex="-1"></a><span class="co"># this will take a while...</span></span>
+<span id="cb91-30"><a href="multilateration.html#cb91-30" tabindex="-1"></a><span class="fu">mapping</span>(nodes, location.estimates)</span></code></pre></div>
 
 </div>
 </div>

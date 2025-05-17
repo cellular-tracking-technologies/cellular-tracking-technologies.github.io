@@ -85,6 +85,7 @@ ggplot(data = combined_data,
            color = node_id)) + 
   geom_point(size = 2)
 ```
+![RSS vs. Distance](images/multilateration_rss_vs_distance.png)
 As distance increases, we see average RSS decreasing exponentially.
 
 ### Preliminary Exponential Decay Model - Determine starting values for the final model
@@ -161,7 +162,10 @@ ggplot(combined_data, aes(x = distance,
   scale_y_continuous(name = "RSS (dB)") +
   scale_x_continuous(name = "Distance (m)") +
   theme_classic()
+```
+![RSS vs. Distance with Predicted Line](images/multilateration_predicted_line.png)
 
+```{r}
 a <- unname(coef(nls.mod)[1])
 S <- unname(coef(nls.mod)[2])
 K <- unname(coef(nls.mod)[3])
@@ -193,7 +197,10 @@ leaflet() %>%
       color = "red",
       #fillColor = "red",
       fillOpacity = 0)
+```
+![Ring Map](images/multilateration_rings_map.png)
 
+```{r}
 no.filters <- trilateration.TestData.NoFilter(combined_data)
 RSS.FILTER <- c(-80, -85, -90, -95)
 RSS.filters <- trilateration.TestData.RSS.Filter(combined_data, RSS.FILTER)
