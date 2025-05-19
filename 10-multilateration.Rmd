@@ -8,6 +8,8 @@ This process is just like habitat use and grid search analysis, but instead of u
 
 You should use this method when your node grid is evenly spaced.
 
+This code was developed by Dr. Kristina Paxton and Dr. Jessica Gorzo, and was adapted from the study below:
+
 [Multilateration paper](https://pubmed.ncbi.nlm.nih.gov/35169450/)
 
 ## Load settings
