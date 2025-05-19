@@ -1,6 +1,6 @@
 --- 
 title: "'celltracktech' Data Analysis package"
-author: "Jessica Gorzo"
+author: "Jessica Gorzo, Sean Burcher, Meelyn Pandit"
 editor: "Meelyn Pandit"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 # AOS2024 - 'celltracktech' Workshop
 
-This RBook goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the 'celltracktech' R package. This package was developed by Dr. Jessica Gorzo, Dr. Sean Burcher, and Dr. Kristin Paxton.
+This RBook goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the 'celltracktech' R package. This package was developed by Dr. Jessica Gorzo, Dr. Sean Burcher, and Dr. Meelyn Pandit.
 
 This document will serve as a tutorial on how Cellular Tracking Technologies (CTT) registered users can download their data from our server, analyze the data using multilateration, and visualize the data using the built-in package functions.
 
