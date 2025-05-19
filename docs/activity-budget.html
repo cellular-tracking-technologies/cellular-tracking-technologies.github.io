@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Activity Budget | ‘celltracktech’ Data Analysis package</title>
+  <meta name="description" content="This is a manual for the R package ‘celltracktech’" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Activity Budget | ‘celltracktech’ Data Analysis package" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a manual for the R package ‘celltracktech’" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Activity Budget | ‘celltracktech’ Data Analysis package" />
+  
+  <meta name="twitter:description" content="This is a manual for the R package ‘celltracktech’" />
+  
+
+<meta name="author" content="Jessica Gorzo" />
+
+
+<meta name="date" content="2025-05-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
+<link rel="prev" href="presenceabsence-analysis.html"/>
+<link rel="next" href="habitat-use.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">CTT Data Tools</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> AOS2024 - ‘celltracktech’ Workshop</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#additional-libraries-needed-linux-users"><i class="fa fa-check"></i><b>1.1</b> Additional Libraries Needed (Linux users)</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#install-postgresql-libraries"><i class="fa fa-check"></i><b>1.1.1</b> Install PostgreSQL libraries</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#installing-r-spatial-on-ubuntu"><i class="fa fa-check"></i><b>1.1.2</b> Installing R Spatial on Ubuntu</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="project-setup.html"><a href="project-setup.html"><i class="fa fa-check"></i><b>2</b> Project Setup</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="project-setup.html"><a href="project-setup.html#create-an-r-studio-project"><i class="fa fa-check"></i><b>2.1</b> Create an R Studio Project</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="project-setup.html"><a href="project-setup.html#git"><i class="fa fa-check"></i><b>2.1.1</b> Git</a></li>
+<li class="chapter" data-level="2.1.2" data-path="project-setup.html"><a href="project-setup.html#renv"><i class="fa fa-check"></i><b>2.1.2</b> <code>renv</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="project-setup.html"><a href="project-setup.html#request-an-api-token"><i class="fa fa-check"></i><b>2.2</b> Request an API token</a></li>
+<li class="chapter" data-level="2.3" data-path="project-setup.html"><a href="project-setup.html#create-a-.env-file"><i class="fa fa-check"></i><b>2.3</b> Create a ‘.env’ file</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="project-setup.html"><a href="project-setup.html#load-the-api-key-into-your-rstudio-environment"><i class="fa fa-check"></i><b>2.3.1</b> Load the API key into your RStudio environment</a></li>
+<li class="chapter" data-level="2.3.2" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>2.3.2</b> Add .env file to .gitignore</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>2.4</b> Organize your Project Directory</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>3</b> Download Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="download-data.html"><a href="download-data.html#create-a-duckdb-database"><i class="fa fa-check"></i><b>3.1</b> Create a DuckDB database</a></li>
+<li class="chapter" data-level="3.2" data-path="download-data.html"><a href="download-data.html#download-data-from-the-ctt-api"><i class="fa fa-check"></i><b>3.2</b> Download data from the CTT API</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="download-data.html"><a href="download-data.html#create-database-from-files-on-your-computer"><i class="fa fa-check"></i><b>3.2.1</b> Create Database from Files on your Computer</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="download-data.html"><a href="download-data.html#updating-the-database"><i class="fa fa-check"></i><b>3.3</b> Updating the database</a></li>
+<li class="chapter" data-level="3.4" data-path="download-data.html"><a href="download-data.html#disconnecting-from-the-database"><i class="fa fa-check"></i><b>3.4</b> Disconnecting from the database</a></li>
+<li class="chapter" data-level="3.5" data-path="download-data.html"><a href="download-data.html#uploading-node-data-from-the-sd-card"><i class="fa fa-check"></i><b>3.5</b> Uploading Node Data from the SD Card</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="download-data.html"><a href="download-data.html#create-nodes-directory"><i class="fa fa-check"></i><b>3.5.1</b> Create Nodes directory</a></li>
+<li class="chapter" data-level="3.5.2" data-path="download-data.html"><a href="download-data.html#create-individual-directories-for-each-node"><i class="fa fa-check"></i><b>3.5.2</b> Create individual directories for each Node</a></li>
+<li class="chapter" data-level="3.5.3" data-path="download-data.html"><a href="download-data.html#upload-node-data-to-your-duckdb-database"><i class="fa fa-check"></i><b>3.5.3</b> Upload Node data to your DuckDB database</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="download-data.html"><a href="download-data.html#create-postgres-database"><i class="fa fa-check"></i><b>3.6</b> Create Postgres Database</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html"><i class="fa fa-check"></i><b>4</b> Obtaining Data from Database</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#duckplyr"><i class="fa fa-check"></i><b>4.1</b> Duckplyr</a></li>
+<li class="chapter" data-level="4.2" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#sql-queries"><i class="fa fa-check"></i><b>4.2</b> SQL Queries</a></li>
+<li class="chapter" data-level="4.3" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#list-tables"><i class="fa fa-check"></i><b>4.3</b> List Tables</a></li>
+<li class="chapter" data-level="4.4" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#find-unique-tags-in-raw-table"><i class="fa fa-check"></i><b>4.4</b> Find unique tags in <code>raw</code> table</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="node-check.html"><a href="node-check.html"><i class="fa fa-check"></i><b>5</b> Node Check</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="node-check.html"><a href="node-check.html#node-health"><i class="fa fa-check"></i><b>5.1</b> Node Health</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="node-check.html"><a href="node-check.html#node-health---check-health-records"><i class="fa fa-check"></i><b>5.1.1</b> Node Health - Check Health Records</a></li>
+<li class="chapter" data-level="5.1.2" data-path="node-check.html"><a href="node-check.html#battery-and-solar-levels"><i class="fa fa-check"></i><b>5.1.2</b> Battery and Solar Levels</a></li>
+<li class="chapter" data-level="5.1.3" data-path="node-check.html"><a href="node-check.html#check-gps"><i class="fa fa-check"></i><b>5.1.3</b> Check GPS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="node-calibration.html"><a href="node-calibration.html"><i class="fa fa-check"></i><b>6</b> Node Calibration</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-data-file"><i class="fa fa-check"></i><b>6.1</b> Load sidekick data file</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="node-calibration.html"><a href="node-calibration.html#if-you-do-not-have-a-sidekick-data-file"><i class="fa fa-check"></i><b>6.1.1</b> IF YOU DO NOT HAVE A SIDEKICK DATA FILE:</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="node-calibration.html"><a href="node-calibration.html#setup"><i class="fa fa-check"></i><b>6.2</b> Setup</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="node-calibration.html"><a href="node-calibration.html#load-environmental-variables-into-rstudio"><i class="fa fa-check"></i><b>6.2.1</b> Load environmental variables into RStudio</a></li>
+<li class="chapter" data-level="6.2.2" data-path="node-calibration.html"><a href="node-calibration.html#load-settings"><i class="fa fa-check"></i><b>6.2.2</b> Load settings</a></li>
+<li class="chapter" data-level="6.2.3" data-path="node-calibration.html"><a href="node-calibration.html#load-node-health-data-from-files"><i class="fa fa-check"></i><b>6.2.3</b> Load Node Health Data from Files</a></li>
+<li class="chapter" data-level="6.2.4" data-path="node-calibration.html"><a href="node-calibration.html#get-node-locations"><i class="fa fa-check"></i><b>6.2.4</b> Get Node Locations</a></li>
+<li class="chapter" data-level="6.2.5" data-path="node-calibration.html"><a href="node-calibration.html#load-station-detection-from-files"><i class="fa fa-check"></i><b>6.2.5</b> Load Station Detection from Files</a></li>
+<li class="chapter" data-level="6.2.6" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-calibration-data"><i class="fa fa-check"></i><b>6.2.6</b> Load Sidekick Calibration Data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="node-calibration.html"><a href="node-calibration.html#calculate-the-rssi-vs.-distance-relationship"><i class="fa fa-check"></i><b>6.3</b> Calculate the RSSI vs. Distance Relationship</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html"><i class="fa fa-check"></i><b>7</b> Presence/Absence Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#set-parameters"><i class="fa fa-check"></i><b>7.1</b> Set parameters</a></li>
+<li class="chapter" data-level="7.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-data-from-database-1"><i class="fa fa-check"></i><b>7.2</b> Load data from database</a></li>
+<li class="chapter" data-level="7.3" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-info"><i class="fa fa-check"></i><b>7.3</b> Load Tag Deployment Info</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-file"><i class="fa fa-check"></i><b>7.3.1</b> Load Tag Deployment File</a></li>
+<li class="chapter" data-level="7.3.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#get-list-of-detected-tags"><i class="fa fa-check"></i><b>7.3.2</b> Get List of Detected Tags</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#generate-detection-summary"><i class="fa fa-check"></i><b>7.4</b> Generate Detection Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#show-detection-history-for-a-specific-tag"><i class="fa fa-check"></i><b>7.5</b> Show Detection History for a Specific Tag</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="activity-budget.html"><a href="activity-budget.html"><i class="fa fa-check"></i><b>8</b> Activity Budget</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="activity-budget.html"><a href="activity-budget.html#load-settings-1"><i class="fa fa-check"></i><b>8.1</b> Load settings</a></li>
+<li class="chapter" data-level="8.2" data-path="activity-budget.html"><a href="activity-budget.html#load-tag-node-detection-data"><i class="fa fa-check"></i><b>8.2</b> Load Tag Node Detection Data</a></li>
+<li class="chapter" data-level="8.3" data-path="activity-budget.html"><a href="activity-budget.html#tag-activity"><i class="fa fa-check"></i><b>8.3</b> Tag Activity</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="activity-budget.html"><a href="activity-budget.html#scatter-plot-of-rssi-vs-time-by-node"><i class="fa fa-check"></i><b>8.3.1</b> Scatter Plot of RSSI vs time by Node</a></li>
+<li class="chapter" data-level="8.3.2" data-path="activity-budget.html"><a href="activity-budget.html#scatter-plot-of-activity-vs-time-by-node"><i class="fa fa-check"></i><b>8.3.2</b> Scatter Plot of activity vs time by Node</a></li>
+<li class="chapter" data-level="8.3.3" data-path="activity-budget.html"><a href="activity-budget.html#d-histogram-of-activity-over-time"><i class="fa fa-check"></i><b>8.3.3</b> 2D Histogram of Activity over Time</a></li>
+<li class="chapter" data-level="8.3.4" data-path="activity-budget.html"><a href="activity-budget.html#d-histogram-of-activity-vs-time-with-avg-activity"><i class="fa fa-check"></i><b>8.3.4</b> 2D histogram of activity vs time WITH avg activity</a></li>
+<li class="chapter" data-level="8.3.5" data-path="activity-budget.html"><a href="activity-budget.html#avg-activity-hour-vs-time."><i class="fa fa-check"></i><b>8.3.5</b> Avg activity / hour Vs time.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="habitat-use.html"><a href="habitat-use.html"><i class="fa fa-check"></i><b>9</b> Habitat Use</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="habitat-use.html"><a href="habitat-use.html#load-libraries-and-settings"><i class="fa fa-check"></i><b>9.1</b> Load libraries and settings</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="habitat-use.html"><a href="habitat-use.html#activate-renv"><i class="fa fa-check"></i><b>9.1.1</b> Activate renv</a></li>
+<li class="chapter" data-level="9.1.2" data-path="habitat-use.html"><a href="habitat-use.html#load-libraries-and-settings-1"><i class="fa fa-check"></i><b>9.1.2</b> Load libraries and settings</a></li>
+<li class="chapter" data-level="9.1.3" data-path="habitat-use.html"><a href="habitat-use.html#load-functions"><i class="fa fa-check"></i><b>9.1.3</b> Load Functions</a></li>
+<li class="chapter" data-level="9.1.4" data-path="habitat-use.html"><a href="habitat-use.html#load-rssi-coefficients"><i class="fa fa-check"></i><b>9.1.4</b> Load RSSI Coefficients</a></li>
+<li class="chapter" data-level="9.1.5" data-path="habitat-use.html"><a href="habitat-use.html#load-settings-2"><i class="fa fa-check"></i><b>9.1.5</b> Load Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="habitat-use.html"><a href="habitat-use.html#load-node-health-data-from-files-1"><i class="fa fa-check"></i><b>9.2</b> Load Node Health Data from Files</a></li>
+<li class="chapter" data-level="9.3" data-path="habitat-use.html"><a href="habitat-use.html#get-node-locations-1"><i class="fa fa-check"></i><b>9.3</b> Get Node Locations</a></li>
+<li class="chapter" data-level="9.4" data-path="habitat-use.html"><a href="habitat-use.html#load-station-detection-data"><i class="fa fa-check"></i><b>9.4</b> Load Station Detection Data</a></li>
+<li class="chapter" data-level="9.5" data-path="habitat-use.html"><a href="habitat-use.html#build-a-grid"><i class="fa fa-check"></i><b>9.5</b> Build a Grid</a></li>
+<li class="chapter" data-level="9.6" data-path="habitat-use.html"><a href="habitat-use.html#calculate-locations"><i class="fa fa-check"></i><b>9.6</b> Calculate Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html"><i class="fa fa-check"></i><b>10</b> Grid Search Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#loading-settings"><i class="fa fa-check"></i><b>10.1</b> Loading Settings</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#activate-renv-1"><i class="fa fa-check"></i><b>10.1.1</b> Activate renv</a></li>
+<li class="chapter" data-level="10.1.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-libraries"><i class="fa fa-check"></i><b>10.1.2</b> Load libraries</a></li>
+<li class="chapter" data-level="10.1.3" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-settings-3"><i class="fa fa-check"></i><b>10.1.3</b> Load settings</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-node-health-data-from-database"><i class="fa fa-check"></i><b>10.2</b> Load Node Health data from Database</a></li>
+<li class="chapter" data-level="10.3" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#get-node-locations-2"><i class="fa fa-check"></i><b>10.3</b> Get Node Locations</a></li>
+<li class="chapter" data-level="10.4" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-station-detection-data-1"><i class="fa fa-check"></i><b>10.4</b> Load Station Detection Data</a></li>
+<li class="chapter" data-level="10.5" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#build-a-node-grid"><i class="fa fa-check"></i><b>10.5</b> Build a Node Grid</a></li>
+<li class="chapter" data-level="10.6" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#optional-calculate-test-solution"><i class="fa fa-check"></i><b>10.6</b> (Optional) Calculate Test Solution</a></li>
+<li class="chapter" data-level="10.7" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#calculate-track"><i class="fa fa-check"></i><b>10.7</b> Calculate Track</a></li>
+<li class="chapter" data-level="10.8" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#optional-compare-with-known-track"><i class="fa fa-check"></i><b>10.8</b> (Optional) Compare with Known Track</a></li>
+<li class="chapter" data-level="10.9" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#plot-uncertainty-analysis"><i class="fa fa-check"></i><b>10.9</b> Plot Uncertainty Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="multilateration.html"><a href="multilateration.html"><i class="fa fa-check"></i><b>11</b> Multilateration</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="multilateration.html"><a href="multilateration.html#load-settings-4"><i class="fa fa-check"></i><b>11.1</b> Load settings</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="multilateration.html"><a href="multilateration.html#reset-rs-brain-remove-all-previous-objects"><i class="fa fa-check"></i><b>11.1.1</b> Reset R’s brain, remove all previous objects</a></li>
+<li class="chapter" data-level="11.1.2" data-path="multilateration.html"><a href="multilateration.html#load-libraries-1"><i class="fa fa-check"></i><b>11.1.2</b> Load libraries</a></li>
+<li class="chapter" data-level="11.1.3" data-path="multilateration.html"><a href="multilateration.html#re-create-sample-data-from-node-calibration-chapter-5"><i class="fa fa-check"></i><b>11.1.3</b> Re-create sample data from node calibration (Chapter 5)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="multilateration.html"><a href="multilateration.html#isolate-raw-received-signal-strength-rss-data-from-node-network-associated-with-test-data"><i class="fa fa-check"></i><b>11.2</b> Isolate raw Received Signal Strength (RSS) data from Node network associated with Test Data</a></li>
+<li class="chapter" data-level="11.3" data-path="multilateration.html"><a href="multilateration.html#exponential-decay-function---relationship-between-distance-and-tag-rss-values"><i class="fa fa-check"></i><b>11.3</b> Exponential Decay Function - Relationship between Distance and Tag RSS Values</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="multilateration.html"><a href="multilateration.html#preliminary-exponential-decay-model---determine-starting-values-for-the-final-model"><i class="fa fa-check"></i><b>11.3.1</b> Preliminary Exponential Decay Model - Determine starting values for the final model</a></li>
+<li class="chapter" data-level="11.3.2" data-path="multilateration.html"><a href="multilateration.html#final-exponential-decay-model"><i class="fa fa-check"></i><b>11.3.2</b> Final Exponential Decay Model</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">‘celltracktech’ Data Analysis package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="activity-budget" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Activity Budget<a href="activity-budget.html#activity-budget" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>When is the animal active and/or inactive? Use the following script to answer research questions like:</p>
+<ul>
+<li>Nesting/Incubation behavior</li>
+<li>Roosting times</li>
+<li>Foraging times</li>
+<li>Mortality detection</li>
+</ul>
+<div id="load-settings-1" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Load settings<a href="activity-budget.html#load-settings-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="activity-budget.html#cb50-1" tabindex="-1"></a><span class="co"># activate renv</span></span>
+<span id="cb50-2"><a href="activity-budget.html#cb50-2" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="activity-budget.html#cb51-1" tabindex="-1"></a><span class="co"># load celltracktech library</span></span>
+<span id="cb51-2"><a href="activity-budget.html#cb51-2" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
+<span id="cb51-3"><a href="activity-budget.html#cb51-3" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="activity-budget.html#cb51-4" tabindex="-1"></a><span class="co"># set significant digits</span></span>
+<span id="cb51-5"><a href="activity-budget.html#cb51-5" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">10</span>)</span>
+<span id="cb51-6"><a href="activity-budget.html#cb51-6" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="activity-budget.html#cb51-7" tabindex="-1"></a><span class="co"># Specify the path to your database file</span></span>
+<span id="cb51-8"><a href="activity-budget.html#cb51-8" tabindex="-1"></a>database_file <span class="ot">&lt;-</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span></span>
+<span id="cb51-9"><a href="activity-budget.html#cb51-9" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="activity-budget.html#cb51-10" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-01 00:00:00&quot;</span>,<span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
+<span id="cb51-11"><a href="activity-budget.html#cb51-11" tabindex="-1"></a>stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-02 00:00:00&quot;</span>,<span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
+</div>
+<div id="load-tag-node-detection-data" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Load Tag Node Detection Data<a href="activity-budget.html#load-tag-node-detection-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="activity-budget.html#cb52-1" tabindex="-1"></a><span class="co"># Connect to database</span></span>
+<span id="cb52-2"><a href="activity-budget.html#cb52-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb52-3"><a href="activity-budget.html#cb52-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> database_file, </span>
+<span id="cb52-4"><a href="activity-budget.html#cb52-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-5"><a href="activity-budget.html#cb52-5" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="activity-budget.html#cb52-6" tabindex="-1"></a><span class="co"># load raw data table into RStudio</span></span>
+<span id="cb52-7"><a href="activity-budget.html#cb52-7" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb52-8"><a href="activity-budget.html#cb52-8" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> start_time <span class="sc">&amp;&amp;</span> time <span class="sc">&lt;=</span> stop_time) <span class="sc">|&gt;</span></span>
+<span id="cb52-9"><a href="activity-budget.html#cb52-9" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb52-10"><a href="activity-budget.html#cb52-10" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="activity-budget.html#cb52-11" tabindex="-1"></a><span class="co"># disconnect from the database</span></span>
+<span id="cb52-12"><a href="activity-budget.html#cb52-12" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+</div>
+<div id="tag-activity" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Tag Activity<a href="activity-budget.html#tag-activity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="activity-budget.html#cb53-1" tabindex="-1"></a><span class="co"># selected_tag_id &lt;- &quot;2D4B782D&quot;, # SWSP (swamp sparrow) - Power Tag</span></span>
+<span id="cb53-2"><a href="activity-budget.html#cb53-2" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="activity-budget.html#cb53-3" tabindex="-1"></a><span class="co"># select a specific tag, below is a Power Tag on a Northern Waterthrush (NOWA)</span></span>
+<span id="cb53-4"><a href="activity-budget.html#cb53-4" tabindex="-1"></a>selected_tag_id <span class="ot">&lt;-</span> <span class="st">&#39;614B661E&#39;</span></span>
+<span id="cb53-5"><a href="activity-budget.html#cb53-5" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="activity-budget.html#cb53-6" tabindex="-1"></a><span class="co"># subset detection_df dataframe to only included the selected_tag_id</span></span>
+<span id="cb53-7"><a href="activity-budget.html#cb53-7" tabindex="-1"></a>tag_dets <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(detection_df, tag_id <span class="sc">==</span> selected_tag_id)</span>
+<span id="cb53-8"><a href="activity-budget.html#cb53-8" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="activity-budget.html#cb53-9" tabindex="-1"></a><span class="co"># sort the rows by time, ascending</span></span>
+<span id="cb53-10"><a href="activity-budget.html#cb53-10" tabindex="-1"></a>tag_dets <span class="ot">&lt;-</span> tag_dets[<span class="fu">order</span>(tag_dets<span class="sc">$</span>time, <span class="at">decreasing =</span> <span class="cn">FALSE</span>), ]</span>
+<span id="cb53-11"><a href="activity-budget.html#cb53-11" tabindex="-1"></a></span>
+<span id="cb53-12"><a href="activity-budget.html#cb53-12" tabindex="-1"></a>tag_beep_interval <span class="ot">&lt;-</span> <span class="dv">13</span> <span class="co"># seconds, will need to know of tag type beep intervals</span></span>
+<span id="cb53-13"><a href="activity-budget.html#cb53-13" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="activity-budget.html#cb53-14" tabindex="-1"></a><span class="co"># calculate tag activity - this turns the number of detections into a single value for a 5 min bin for each Node</span></span>
+<span id="cb53-15"><a href="activity-budget.html#cb53-15" tabindex="-1"></a>tag_activity <span class="ot">&lt;-</span> <span class="fu">calculate_tag_activity</span>(tag_dets, tag_beep_interval)</span>
+<span id="cb53-16"><a href="activity-budget.html#cb53-16" tabindex="-1"></a></span>
+<span id="cb53-17"><a href="activity-budget.html#cb53-17" tabindex="-1"></a><span class="co"># calculate average tag activity</span></span>
+<span id="cb53-18"><a href="activity-budget.html#cb53-18" tabindex="-1"></a>avg_tag_act <span class="ot">&lt;-</span> <span class="fu">calc_avg_activity</span>(tag_activity, start_time, stop_time)</span>
+<span id="cb53-19"><a href="activity-budget.html#cb53-19" tabindex="-1"></a></span>
+<span id="cb53-20"><a href="activity-budget.html#cb53-20" tabindex="-1"></a><span class="co"># set start and stop times for the plots (next section)</span></span>
+<span id="cb53-21"><a href="activity-budget.html#cb53-21" tabindex="-1"></a>plot_start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-01 06:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
+<span id="cb53-22"><a href="activity-budget.html#cb53-22" tabindex="-1"></a>plot_stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-02 06:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
+<div id="scatter-plot-of-rssi-vs-time-by-node" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Scatter Plot of RSSI vs time by Node<a href="activity-budget.html#scatter-plot-of-rssi-vs-time-by-node" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="activity-budget.html#cb54-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_dets) <span class="sc">+</span></span>
+<span id="cb54-2"><a href="activity-budget.html#cb54-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb54-3"><a href="activity-budget.html#cb54-3" tabindex="-1"></a>                 <span class="at">y =</span> tag_rssi, </span>
+<span id="cb54-4"><a href="activity-budget.html#cb54-4" tabindex="-1"></a>                 <span class="at">colour =</span> node_id), </span>
+<span id="cb54-5"><a href="activity-budget.html#cb54-5" tabindex="-1"></a>             <span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb54-6"><a href="activity-budget.html#cb54-6" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
+<span id="cb54-7"><a href="activity-budget.html#cb54-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Detections&quot;</span>, selected_tag_id)) <span class="sc">+</span></span>
+<span id="cb54-8"><a href="activity-budget.html#cb54-8" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb54-9"><a href="activity-budget.html#cb54-9" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;RSSI (dBm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-10"><a href="activity-budget.html#cb54-10" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/activity_level_rssi_vs_time_by_node.png" alt="Scatter plot of RSSI vs time by Node" />
+<div class="figcaption">Scatter plot of RSSI vs time by Node</div>
+</div>
+<p>Here we see that this bird was spending most of the time in the vicinity of nodes 3282EC, 339CAE, and 37824B, but the strongest detections are near node 32841A.</p>
+</div>
+<div id="scatter-plot-of-activity-vs-time-by-node" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Scatter Plot of activity vs time by Node<a href="activity-budget.html#scatter-plot-of-activity-vs-time-by-node" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Next we will quantify the activity level. Activity is an arbitrary variable; it can be movement, roosting, a specific behavior, etc. You will need to define what activity is based on your study.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="activity-budget.html#cb55-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="activity-budget.html#cb55-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb55-3"><a href="activity-budget.html#cb55-3" tabindex="-1"></a>                 <span class="at">y =</span> abs_act, </span>
+<span id="cb55-4"><a href="activity-budget.html#cb55-4" tabindex="-1"></a>                 <span class="at">colour =</span> node_id), </span>
+<span id="cb55-5"><a href="activity-budget.html#cb55-5" tabindex="-1"></a>             <span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="activity-budget.html#cb55-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Detections&quot;</span>, selected_tag_id)) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="activity-budget.html#cb55-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-8"><a href="activity-budget.html#cb55-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-9"><a href="activity-budget.html#cb55-9" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
+<span id="cb55-10"><a href="activity-budget.html#cb55-10" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/activity_level_activity_vs_time_by_node.png" alt="Scatter plot of Activity Level vs time by Node" />
+<div class="figcaption">Scatter plot of Activity Level vs time by Node</div>
+</div>
+<p>Here we see the activity level (y-axis) for every 5 min from September 1 to September 2. Each color represents a unique Node ID. From a brief glance, this tag had low to mid activity levels near nodes 3282EC and 37824B, but it is still difficult to discern what is going on in this plot.</p>
+</div>
+<div id="d-histogram-of-activity-over-time" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> 2D Histogram of Activity over Time<a href="activity-budget.html#d-histogram-of-activity-over-time" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can summarize the above plot even further by creating a heatmap. The code chunk below creates a heatmap bin plot, which displays the activity for an individual over a period of time, with the color of each bin representing the count of activity (on a log scale), while the bins tell us the activity level.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="activity-budget.html#cb56-1" tabindex="-1"></a>my_breaks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10000</span>)</span>
+<span id="cb56-2"><a href="activity-budget.html#cb56-2" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="activity-budget.html#cb56-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity, </span>
+<span id="cb56-4"><a href="activity-budget.html#cb56-4" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb56-5"><a href="activity-budget.html#cb56-5" tabindex="-1"></a>           <span class="at">y =</span> abs_act)) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="activity-budget.html#cb56-6" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">3600</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="activity-budget.html#cb56-7" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, </span>
+<span id="cb56-8"><a href="activity-budget.html#cb56-8" tabindex="-1"></a>       plot_stop_time) <span class="sc">+</span></span>
+<span id="cb56-9"><a href="activity-budget.html#cb56-9" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
+<span id="cb56-10"><a href="activity-budget.html#cb56-10" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb56-11"><a href="activity-budget.html#cb56-11" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
+<span id="cb56-12"><a href="activity-budget.html#cb56-12" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
+<span id="cb56-13"><a href="activity-budget.html#cb56-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-14"><a href="activity-budget.html#cb56-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb56-15"><a href="activity-budget.html#cb56-15" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/presence_absence_2d_histogram_activity_vs_time.png" alt="2D Histogram of Activity over Time by Node" />
+<div class="figcaption">2D Histogram of Activity over Time by Node</div>
+</div>
+<p>From this plot, we can see that there are multiple instances of low activity (demonstrated by the yellow bins at activity/hour 1), and fewer instances of high activity (demonstrated by the blue bins at activity/hour 4 and above).</p>
+</div>
+<div id="d-histogram-of-activity-vs-time-with-avg-activity" class="section level3 hasAnchor" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> 2D histogram of activity vs time WITH avg activity<a href="activity-budget.html#d-histogram-of-activity-vs-time-with-avg-activity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This code chunk makes the same plot as above, but also displays the average activity level as a red line.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="activity-budget.html#cb57-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity, </span>
+<span id="cb57-2"><a href="activity-budget.html#cb57-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb57-3"><a href="activity-budget.html#cb57-3" tabindex="-1"></a>           <span class="at">y =</span> abs_act)) <span class="sc">+</span></span>
+<span id="cb57-4"><a href="activity-budget.html#cb57-4" tabindex="-1"></a> <span class="fu">geom_bin2d</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">3600</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="activity-budget.html#cb57-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> avg_tag_act, </span>
+<span id="cb57-6"><a href="activity-budget.html#cb57-6" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb57-7"><a href="activity-budget.html#cb57-7" tabindex="-1"></a>                <span class="at">y =</span> avg_activity),</span>
+<span id="cb57-8"><a href="activity-budget.html#cb57-8" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-9"><a href="activity-budget.html#cb57-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> avg_tag_act, </span>
+<span id="cb57-10"><a href="activity-budget.html#cb57-10" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb57-11"><a href="activity-budget.html#cb57-11" tabindex="-1"></a>                 <span class="at">y =</span> avg_activity), </span>
+<span id="cb57-12"><a href="activity-budget.html#cb57-12" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-13"><a href="activity-budget.html#cb57-13" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, </span>
+<span id="cb57-14"><a href="activity-budget.html#cb57-14" tabindex="-1"></a>       plot_stop_time) <span class="sc">+</span></span>
+<span id="cb57-15"><a href="activity-budget.html#cb57-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-16"><a href="activity-budget.html#cb57-16" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-17"><a href="activity-budget.html#cb57-17" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
+<span id="cb57-18"><a href="activity-budget.html#cb57-18" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb57-19"><a href="activity-budget.html#cb57-19" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
+<span id="cb57-20"><a href="activity-budget.html#cb57-20" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
+<span id="cb57-21"><a href="activity-budget.html#cb57-21" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/activity_level_average_activity_vs_time.png" alt="2D Histogram of Activity over Time by Node with Average Activity" />
+<div class="figcaption">2D Histogram of Activity over Time by Node with Average Activity</div>
+</div>
+<p>Here we see the average activity level for this tag is roughly 1 per hour from September 1 to September 2.</p>
+</div>
+<div id="avg-activity-hour-vs-time." class="section level3 hasAnchor" number="8.3.5">
+<h3><span class="header-section-number">8.3.5</span> Avg activity / hour Vs time.<a href="activity-budget.html#avg-activity-hour-vs-time." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s zoom in and isolate the average activity per hour:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="activity-budget.html#cb58-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="activity-budget.html#cb58-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> avg_tag_act, </span>
+<span id="cb58-3"><a href="activity-budget.html#cb58-3" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb58-4"><a href="activity-budget.html#cb58-4" tabindex="-1"></a>                <span class="at">y =</span> avg_activity),</span>
+<span id="cb58-5"><a href="activity-budget.html#cb58-5" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="activity-budget.html#cb58-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> avg_tag_act, </span>
+<span id="cb58-7"><a href="activity-budget.html#cb58-7" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb58-8"><a href="activity-budget.html#cb58-8" tabindex="-1"></a>                 <span class="at">y =</span> avg_activity), </span>
+<span id="cb58-9"><a href="activity-budget.html#cb58-9" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-10"><a href="activity-budget.html#cb58-10" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
+<span id="cb58-11"><a href="activity-budget.html#cb58-11" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-12"><a href="activity-budget.html#cb58-12" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-13"><a href="activity-budget.html#cb58-13" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
+<span id="cb58-14"><a href="activity-budget.html#cb58-14" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb58-15"><a href="activity-budget.html#cb58-15" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
+<span id="cb58-16"><a href="activity-budget.html#cb58-16" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
+<span id="cb58-17"><a href="activity-budget.html#cb58-17" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="float">
+<img src="images/activity_level_average_activity_per_hour_vs_time.png" alt="Average Activity per hour vs. time" />
+<div class="figcaption">Average Activity per hour vs. time</div>
+</div>
+<p>We see that average activity is highest between 6am-12pm but decreases suddenly after that, which is what we would expect for bird activity level in September.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="presenceabsence-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="habitat-use.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/07-activity-level.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

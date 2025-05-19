@@ -1,0 +1,81 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Obtaining Data from Database
+
+## Duckplyr
+
+If you are new to database queries but familiar with `dplyr` and `tidyverse`, we recommend using `duckplyr`. You can find more information about `duckplyr` [here](https://duckdb.org/2024/04/02/duckplyr.html) but the main takeaway is that you can query your database using dplyr phrases and pipes, while also saving memory on loading data.
+
+```{r}
+library(celltracktech)
+
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
+                      read_only = FALSE)
+
+# load raw data table and find unique tags
+unique_tags = tbl(con, 'raw') |> 
+  group_by(tag_id) |>
+  summarize(num_detect = n()) |>
+  select(tag_id, num_detect) |>
+  arrange(desc(num_detect)) |>
+  collect()
+
+DBI::dbDisconnect(con)
+
+```
+
+## SQL Queries
+
+If you are more comfortable with the SQL syntax, you can use SQL queries to get data from different tables.
+
+This chapter is a quick summary on how to use SQL in R. If you would like more info on how to run different queries, use this tutorial: [https://solutions.posit.co/connections/db/getting-started/database-queries/](https://solutions.posit.co/connections/db/getting-started/database-queries/) 
+
+## List Tables
+
+List the tables in your database. If everything was run correctly, each data file type (raw, blu, node-health, etc.) should be in its own data table.
+
+Remember to reconnect to the database!
+
+```{r}
+library(celltracktech)
+
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
+                      read_only = FALSE)
+
+# list tables in database
+DBI::dbListTables(con)
+
+# disconnect from database
+DBI::dbDisconnect(con)
+
+```
+## Find unique tags in `raw` table
+
+```{r}
+# connect to database
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = "./data/Meadows V2/meadows.duckdb", 
+                      read_only = FALSE)
+
+# list last 10 records in raw
+raw = DBI::dbGetQuery(con, "SELECT * FROM raw
+                           ORDER BY time DESC
+                           LIMIT 10")
+raw
+
+# find unique tags in the raw table
+unique_tag = dbGetQuery(con,
+                        'SELECT tag_id, COUNT(*) AS num_detect
+                        FROM raw
+                        GROUP BY tag_id
+                        ORDER BY num_detect DESC')
+DBI::dbDisconnect(con)
+
+```
+
+Note: you do not need to load each table into RStudio. You should only load the tables you need to for your analysis.

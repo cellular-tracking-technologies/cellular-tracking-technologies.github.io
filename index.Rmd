@@ -1,6 +1,7 @@
 --- 
-title: "Cellular Tracking Technologies: Data Tools"
+title: "'celltracktech' Data Analysis package"
 author: "Jessica Gorzo"
+editor: "Meelyn Pandit"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -9,23 +10,35 @@ bibliography: "doc.bib"
 biblio-style: apalike
 link-citations: yes
 github-repo: rstudio/bookdown-demo
-description: "This is a manual for the R data tools"
+description: "This is a manual for the R package 'celltracktech'"
 favicon: "CTT-FB-logo-STACKED.jpg"
 ---
+
 ```{r, include=FALSE}
-options(tinytex.verbose = TRUE)
-library(knitr)
-```
-# Instructions {-}
-
-```{r, echo=FALSE}
-knitr::include_graphics("bookdown-demo_files/figure-html/unnamed.png")
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
-A RStudio tutorial is beyond the scope of this readme, but there are great resources to get you [started with installing R and RStudio](https://www.earthdatascience.org/courses/earth-analytics/document-your-science/setup-r-rstudio/).
+# AOS2024 - 'celltracktech' Workshop
 
-To install the R package, please run:  
+This RBook goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the 'celltracktech' R package. This package was developed by Dr. Jessica Gorzo, Dr. Sean Burcher, and Dr. Kristin Paxton.
+
+This document will serve as a tutorial on how Cellular Tracking Technologies (CTT) registered users can download their data from our server, analyze the data using multilateration, and visualize the data using the built-in package functions.
+
+This tutorial provides step-by-step instructions on how to obtain your data. This style is used to increase accessibility for absolute beginners in R, SQL, and data science.
+
+## Additional Libraries Needed (Linux users)
+
+**Note** If you are using Linux (specifically Ubuntu), you may need to install the following libraries in the teriminal.
+
+### Install PostgreSQL libraries
+```{bash}
+sudo apt install libpq-dev libssl-dev
 ```
-library(devtools)
-install_github('cellular-tracking-technologies/celltracktech')
+
+### Installing R Spatial on Ubuntu
+```{bash}
+sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+sudo apt update
+sudo apt install libgdal-dev libgeos-dev libproj-dev libtbb-dev
 ```
