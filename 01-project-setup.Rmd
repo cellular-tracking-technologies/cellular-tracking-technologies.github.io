@@ -41,7 +41,7 @@ If you are working with collaborators, you’ll then need to commit `renv.lock`,
 
 ## Request an API token
 
-To access the CTT Application Programming Interface (API) (i.e. the program to download your data from the CTT servers), you will need an API token. You can request one [here](https://celltracktech.com/pages/csd-radio-api-key-request).
+To access the CTT Application Programming Interface (API) (i.e. the program to download your data from the CTT servers), you will need an API token. You can request one [here](https://celltracktech.com/pages/csd-radio-api-key-request). Add "Meadows V2" in the comments section.
 
 ## Create a '.env' file
 
