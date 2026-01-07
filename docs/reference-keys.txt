@@ -14,9 +14,9 @@ organize-your-project-directory
 download-data
 create-a-duckdb-database
 download-data-from-the-ctt-api
-create-database-from-files-on-your-computer
 updating-the-database
 disconnecting-from-the-database
+create-database-from-files-on-your-computer
 uploading-node-data-from-the-sd-card
 create-nodes-directory
 create-individual-directories-for-each-node
