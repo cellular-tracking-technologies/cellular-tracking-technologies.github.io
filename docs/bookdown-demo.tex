@@ -1,10 +1,11 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[
 ]{book}
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -35,7 +36,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -88,21 +88,24 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
 \usepackage{booktabs}
 \usepackage{amsthm}
 \makeatletter
@@ -111,23 +114,18 @@
   \thm@postskip=\thm@preskip
 }
 \makeatother
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\usepackage[]{natbib}
-\bibliographystyle{apalike}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
   pdftitle={`celltracktech' Data Analysis package},
-  pdfauthor={Jessica Gorzo},
+  pdfauthor={Jessica Gorzo, Sean Burcher, Meelyn Pandit},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \title{`celltracktech' Data Analysis package}
-\author{Jessica Gorzo}
-\date{2025-05-16}
+\author{Jessica Gorzo, Sean Burcher, Meelyn Pandit}
+\date{2026-01-07}
 
 \begin{document}
 \maketitle
@@ -138,7 +136,7 @@
 }
 \chapter{AOS2024 - `celltracktech' Workshop}\label{aos2024---celltracktech-workshop}
 
-This RBook goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the `celltracktech' R package. This package was developed by Dr.~Jessica Gorzo, Dr.~Sean Burcher, and Dr.~Kristin Paxton.
+This RBook goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the `celltracktech' R package. This package was developed by Dr.~Jessica Gorzo, Dr.~Sean Burcher, and Dr.~Meelyn Pandit.
 
 This document will serve as a tutorial on how Cellular Tracking Technologies (CTT) registered users can download their data from our server, analyze the data using multilateration, and visualize the data using the built-in package functions.
 
@@ -216,7 +214,7 @@ If you are working with collaborators, you'll then need to commit \texttt{renv.l
 
 \section{Request an API token}\label{request-an-api-token}
 
-To access the CTT Application Programming Interface (API) (i.e.~the program to download your data from the CTT servers), you will need an API token. You can request one \href{https://celltracktech.com/pages/csd-radio-api-key-request}{here}.
+To access the CTT Application Programming Interface (API) (i.e.~the program to download your data from the CTT servers), you will need an API token. You can request one \href{https://celltracktech.com/pages/csd-radio-api-key-request}{here}. Add ``Meadows V2'' in the comments section.
 
 \section{Create a `.env' file}\label{create-a-.env-file}
 
@@ -252,7 +250,7 @@ Finally, you will need to add the .env file to the .gitignore file, so that when
 
 Open the .gitignore file in RStudio and add `.env' (without the quotes) to the file and save it.
 
-\includegraphics{images/git-ignore-env.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/git-ignore-env.png}}
 You are now ready to start downloading data!
 
 \section{Organize your Project Directory}\label{organize-your-project-directory}
@@ -315,38 +313,6 @@ The \texttt{celltracktech} package includes all the packages you need. Download 
 \end{Highlighting}
 \end{Shaded}
 
-If you want to download just your data files (in .csv.gz format), you can run the following script:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# load the celltracktech library}
-\FunctionTok{library}\NormalTok{(celltracktech)}
-
-\CommentTok{\# load env file into environment}
-\FunctionTok{load\_dot\_env}\NormalTok{(}\AttributeTok{file=}\StringTok{\textquotesingle{}.env\textquotesingle{}}\NormalTok{)}
-
-\CommentTok{\# Settings {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\NormalTok{my\_token }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{\textquotesingle{}API\_KEY\textquotesingle{}}\NormalTok{) }\CommentTok{\# load env variable into my\_token}
-\NormalTok{myproject }\OtherTok{\textless{}{-}} \StringTok{"Meadows V2"} \CommentTok{\# this is your project name on your CTT account, here we are using the CTT project \textquotesingle{}Meadows V2\textquotesingle{}}
-
-\CommentTok{\# Create your data directory if it does not exist}
-\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data/"} \CommentTok{\# where your downloaded files are to go}
-
-\CommentTok{\# Create project name folder}
-\FunctionTok{create\_outpath}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(outpath, myproject, }\StringTok{\textquotesingle{}/\textquotesingle{}}\NormalTok{))}
-
-\CommentTok{\# Download just the data files onto your computer}
-\FunctionTok{get\_my\_data}\NormalTok{(}\AttributeTok{my\_token =}\NormalTok{ my\_token,}
-            \AttributeTok{outpath =}\NormalTok{ outpath, }
-            \AttributeTok{db\_name =} \ConstantTok{NULL}\NormalTok{,}
-            \AttributeTok{myproject =}\NormalTok{ myproject,}
-            \AttributeTok{begin =} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2023{-}08{-}01"}\NormalTok{),}
-            \AttributeTok{end =} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2023{-}12{-}31"}\NormalTok{),}
-            \AttributeTok{filetypes=}\FunctionTok{c}\NormalTok{(}\StringTok{"raw"}\NormalTok{, }\StringTok{"blu"}\NormalTok{, }\StringTok{"gps"}\NormalTok{, }\StringTok{"node\_health"}\NormalTok{, }\StringTok{"sensorgnome"}\NormalTok{, }\StringTok{"telemetry"}\NormalTok{, }\StringTok{\textquotesingle{}log\textquotesingle{}}\NormalTok{)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Create a DuckDB database}\label{create-a-duckdb-database}
 
 Below is a sample script to create a DuckDB database
@@ -390,19 +356,6 @@ You may get this error message:
 
 It is fine, just run the \texttt{get\_my\_data()} function again and it should work properly.
 
-\subsection{Create Database from Files on your Computer}\label{create-database-from-files-on-your-computer}
-
-If you already have your Sensor Station files on your computer (i.e.~your sensor station is not connected to the internet), you can use the code block below to create a database and add those files to it.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{celltracktech}\SpecialCharTok{::}\FunctionTok{create\_database}\NormalTok{(}\AttributeTok{my\_token =}\NormalTok{ my\_token,}
-                               \AttributeTok{outpath =}\NormalTok{ outpath,}
-                               \AttributeTok{myproject =}\NormalTok{ myproject,}
-                               \AttributeTok{db\_name =}\NormalTok{ con)}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Updating the database}\label{updating-the-database}
 
 Upload the compressed data (i.e.~the `.csv.gz' files) into your DuckDB database:
@@ -422,6 +375,19 @@ To disconnect from the database, run the following command:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{DBI}\SpecialCharTok{::}\FunctionTok{dbDisconnect}\NormalTok{(con)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Create Database from Files on your Computer}\label{create-database-from-files-on-your-computer}
+
+If you already have your Sensor Station files on your computer (i.e.~your sensor station is not connected to the internet), you can use the code block below to create a database and add those files to it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{celltracktech}\SpecialCharTok{::}\FunctionTok{create\_database}\NormalTok{(}\AttributeTok{my\_token =}\NormalTok{ my\_token,}
+                               \AttributeTok{outpath =}\NormalTok{ outpath,}
+                               \AttributeTok{myproject =}\NormalTok{ myproject,}
+                               \AttributeTok{db\_name =}\NormalTok{ con)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -497,6 +463,38 @@ The \texttt{import\_node\_data} will import the node csv files into their own `n
 and insert the csv files into the regular ``raw'', ``blu'', and ``node\_health'' tables.
 
 You have finished uploading data to your database!
+
+If you want to download just your data files (in .csv.gz format), and not use a database, you can run the following script:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# load the celltracktech library}
+\FunctionTok{library}\NormalTok{(celltracktech)}
+
+\CommentTok{\# load env file into environment}
+\FunctionTok{load\_dot\_env}\NormalTok{(}\AttributeTok{file=}\StringTok{\textquotesingle{}.env\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Settings {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{my\_token }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{\textquotesingle{}API\_KEY\textquotesingle{}}\NormalTok{) }\CommentTok{\# load env variable into my\_token}
+\NormalTok{myproject }\OtherTok{\textless{}{-}} \StringTok{"Meadows V2"} \CommentTok{\# this is your project name on your CTT account, here we are using the CTT project \textquotesingle{}Meadows V2\textquotesingle{}}
+
+\CommentTok{\# Create your data directory if it does not exist}
+\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data/"} \CommentTok{\# where your downloaded files are to go}
+
+\CommentTok{\# Create project name folder}
+\FunctionTok{create\_outpath}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(outpath, myproject, }\StringTok{\textquotesingle{}/\textquotesingle{}}\NormalTok{))}
+
+\CommentTok{\# Download just the data files onto your computer}
+\FunctionTok{get\_my\_data}\NormalTok{(}\AttributeTok{my\_token =}\NormalTok{ my\_token,}
+            \AttributeTok{outpath =}\NormalTok{ outpath, }
+            \AttributeTok{db\_name =} \ConstantTok{NULL}\NormalTok{,}
+            \AttributeTok{myproject =}\NormalTok{ myproject,}
+            \AttributeTok{begin =} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2023{-}08{-}01"}\NormalTok{),}
+            \AttributeTok{end =} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2023{-}12{-}31"}\NormalTok{),}
+            \AttributeTok{filetypes=}\FunctionTok{c}\NormalTok{(}\StringTok{"raw"}\NormalTok{, }\StringTok{"blu"}\NormalTok{, }\StringTok{"gps"}\NormalTok{, }\StringTok{"node\_health"}\NormalTok{, }\StringTok{"sensorgnome"}\NormalTok{, }\StringTok{"telemetry"}\NormalTok{, }\StringTok{\textquotesingle{}log\textquotesingle{}}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Create Postgres Database}\label{create-postgres-database}
 
@@ -707,7 +705,7 @@ Another example is that foliage cover leads to no charging, low battery voltage,
 
 \begin{figure}
 \centering
-\includegraphics{images/node_check_1.1.2_check_if_nodes_are_operating_properly.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.1.2_check_if_nodes_are_operating_properly.png}}
 \caption{Plot of node health record counts}
 \end{figure}
 
@@ -730,7 +728,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 
 \begin{figure}
 \centering
-\includegraphics{images/node_check_1.1.3_battery_vs_time_all_nodes.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.1.3_battery_vs_time_all_nodes.png}}
 \caption{Plot of node battery voltage (V) vs.~time}
 \end{figure}
 
@@ -747,7 +745,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 
 \begin{figure}
 \centering
-\includegraphics{images/node_check_1.1.3_node_specific_battery_solar_normal.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.1.3_node_specific_battery_solar_normal.png}}
 \caption{Plot of Battery and Solar voltage (V) vs.~time for a specific node}
 \end{figure}
 
@@ -761,7 +759,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{images/node_check_1.1.3_node_specific_battery_solar_bad.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.1.3_node_specific_battery_solar_bad.png}}
 Node 326710 is working properly and has consistent solar voltages during the day (\textasciitilde{} 5 V) and a consistent battery voltage over time (i.e.~3.5-3.6 V), while node 32909D has inconsistent solar voltages, hinting at either dirty solar panels or covered solar panels, and a much lower battery voltage (\textasciitilde{} 2.8 V).
 
 \subsection{Check GPS}\label{check-gps}
@@ -789,7 +787,7 @@ If the clock is out of sync, the GPS coordinates may not be calculated correctly
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{images/node_check_1.3_node_locations.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.3_node_locations.png}}
 \#\#\# Check Time Offset
 
 Plot time offset for each node.
@@ -830,7 +828,7 @@ Plot time offset for each node.
 
 \begin{figure}
 \centering
-\includegraphics{images/node_check_1.4_time_offset.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.4_time_offset.png}}
 \caption{Node time offset}
 \end{figure}
 
@@ -877,14 +875,14 @@ Create your own sidekick file by walking with a tag through node grid, stopping 
 Example:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1698}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1132}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1509}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0755}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0566}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0566}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1321}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.2453}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1698}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1132}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1509}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0755}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0566}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0566}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1321}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.2453}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 tag\_type
@@ -1004,7 +1002,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\includegraphics{images/node_calibration_2.4_node_loc_plot.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_2.4_node_loc_plot.png}}
 \caption{Node location plot}
 \end{figure}
 
@@ -1025,7 +1023,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\includegraphics{images/node_calibration_2.4_node_map.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_2.4_node_map.png}}
 \caption{Node location map}
 \end{figure}
 
@@ -1079,7 +1077,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\includegraphics{images/node_calibration_2.5_sidekick_calibration.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_2.5_sidekick_calibration.png}}
 \caption{Node location plot}
 \end{figure}
 
@@ -1112,7 +1110,7 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 
 \begin{figure}
 \centering
-\includegraphics{images/node_calibration_3.1_calculate_rssi_vs_distance.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_3.1_calculate_rssi_vs_distance.png}}
 \caption{RSSI vs.~Distance}
 \end{figure}
 
@@ -1146,7 +1144,7 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 
 \begin{figure}
 \centering
-\includegraphics{images/node_calibration_3.1_fit_relationship.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_3.1_fit_relationship.png}}
 \caption{RSSI vs.~Distance}
 \end{figure}
 
@@ -1268,7 +1266,7 @@ Again, you will need to create this file yourself. You might want to include oth
 
 \begin{figure}
 \centering
-\includegraphics{images/presence_absence_detected_tags_histogram.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/presence_absence_detected_tags_histogram.png}}
 \caption{Number of detections per tag}
 \end{figure}
 
@@ -1312,7 +1310,7 @@ While it is good to know how many detections an individual tag has, it is better
 
 \begin{figure}
 \centering
-\includegraphics{images/presence_absence_detections_heat_bin.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/presence_absence_detections_heat_bin.png}}
 \caption{Heat-plot of tag detections over time}
 \end{figure}
 
@@ -1348,7 +1346,7 @@ While it is good to know how many detections an individual tag has, it is better
 
 \begin{figure}
 \centering
-\includegraphics{images/presence_absence_detections_over_time_specific_tag.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/presence_absence_detections_over_time_specific_tag.png}}
 \caption{Heat-plot of tag detections over time}
 \end{figure}
 
@@ -1460,7 +1458,7 @@ When is the animal active and/or inactive? Use the following script to answer re
 
 \begin{figure}
 \centering
-\includegraphics{images/activity_level_rssi_vs_time_by_node.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/activity_level_rssi_vs_time_by_node.png}}
 \caption{Scatter plot of RSSI vs time by Node}
 \end{figure}
 
@@ -1487,7 +1485,7 @@ Next we will quantify the activity level. Activity is an arbitrary variable; it 
 
 \begin{figure}
 \centering
-\includegraphics{images/activity_level_activity_vs_time_by_node.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/activity_level_activity_vs_time_by_node.png}}
 \caption{Scatter plot of Activity Level vs time by Node}
 \end{figure}
 
@@ -1519,7 +1517,7 @@ We can summarize the above plot even further by creating a heatmap. The code chu
 
 \begin{figure}
 \centering
-\includegraphics{images/presence_absence_2d_histogram_activity_vs_time.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/presence_absence_2d_histogram_activity_vs_time.png}}
 \caption{2D Histogram of Activity over Time by Node}
 \end{figure}
 
@@ -1557,7 +1555,7 @@ This code chunk makes the same plot as above, but also displays the average acti
 
 \begin{figure}
 \centering
-\includegraphics{images/activity_level_average_activity_vs_time.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/activity_level_average_activity_vs_time.png}}
 \caption{2D Histogram of Activity over Time by Node with Average Activity}
 \end{figure}
 
@@ -1591,7 +1589,7 @@ Let's zoom in and isolate the average activity per hour:
 
 \begin{figure}
 \centering
-\includegraphics{images/activity_level_average_activity_per_hour_vs_time.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/activity_level_average_activity_per_hour_vs_time.png}}
 \caption{Average Activity per hour vs.~time}
 \end{figure}
 
@@ -1719,7 +1717,7 @@ Due to variations in GPS coordinates, it is a good idea to plot the Node locatio
 
 \begin{figure}
 \centering
-\includegraphics{images/habitat_use_node_loc_plot.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_node_loc_plot.png}}
 \caption{Average node locations}
 \end{figure}
 
@@ -1733,7 +1731,7 @@ Due to variations in GPS coordinates, it is a good idea to plot the Node locatio
 
 \begin{figure}
 \centering
-\includegraphics{images/habitat_use_node_map.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_node_map.png}}
 \caption{Node location map}
 \end{figure}
 
@@ -1794,7 +1792,7 @@ To actually quantify the amount of habitat an animal uses, we will create a 500x
 
 \begin{figure}
 \centering
-\includegraphics{images/habitat_use_grid_map.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_grid_map.png}}
 \caption{Node grid map}
 \end{figure}
 
@@ -1831,7 +1829,7 @@ This will display the tag tracks and the tag location on the node grid map.
 
 \begin{figure}
 \centering
-\includegraphics{images/habitat_use_track_map.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_track_map.png}}
 \caption{Node track map}
 \end{figure}
 
@@ -1849,7 +1847,7 @@ This will display the tag tracks and the tag location on the node grid map.
 
 \begin{figure}
 \centering
-\includegraphics{images/habitat_use_location_density_map.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_location_density_map.png}}
 \caption{Location Density Map}
 \end{figure}
 
@@ -2187,6 +2185,8 @@ This process is just like habitat use and grid search analysis, but instead of u
 
 You should use this method when your node grid is evenly spaced.
 
+This code was developed by Dr.~Kristina Paxton and Dr.~Jessica Gorzo, and was adapted from the study below:
+
 \href{https://pubmed.ncbi.nlm.nih.gov/35169450/}{Multilateration paper}
 
 \section{Load settings}\label{load-settings-4}
@@ -2280,7 +2280,7 @@ You should use this method when your node grid is evenly spaced.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{images/multilateration_rss_vs_distance.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/multilateration_rss_vs_distance.png}}
 As distance increases, we see average RSS decreasing exponentially.
 
 \subsection{Preliminary Exponential Decay Model - Determine starting values for the final model}\label{preliminary-exponential-decay-model---determine-starting-values-for-the-final-model}
@@ -2378,7 +2378,7 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \begin{figure}
 \centering
-\includegraphics{images/multilateration_predicted_line.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/multilateration_predicted_line.png}}
 \caption{RSS vs.~Distance with Predicted Line}
 \end{figure}
 
@@ -2420,7 +2420,7 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \begin{figure}
 \centering
-\includegraphics{images/multilateration_rings_map.png}
+\pandocbounded{\includegraphics[keepaspectratio]{images/multilateration_rings_map.png}}
 \caption{Ring Map}
 \end{figure}
 
@@ -2460,6 +2460,6 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 \end{Shaded}
 
 
-  \bibliography{doc.bib}
+\bibliography{doc.bib}
 
 \end{document}
