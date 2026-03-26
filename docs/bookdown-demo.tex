@@ -125,7 +125,7 @@
 
 \title{`celltracktech' Data Analysis package}
 \author{Jessica Gorzo, Sean Burcher, Meelyn Pandit}
-\date{2026-01-07}
+\date{2026-03-26}
 
 \begin{document}
 \maketitle
@@ -212,6 +212,16 @@ After creating a .R file and loading a library, use \texttt{renv::snapshot()} to
 
 If you are working with collaborators, you'll then need to commit \texttt{renv.lock}, \texttt{.Rprofile}, \texttt{renv/settings.json} and \texttt{renv/activate.R} so they can work with the same packages and package versions as you.
 
+\section{Download the ``celltracktech'' package using renv}\label{download-the-celltracktech-package-using-renv}
+
+Copy and paste the following command into your R console. This command will install the latest version of the celltracktech package from GitHub.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{renv}\SpecialCharTok{::}\FunctionTok{install}\NormalTok{(}\StringTok{\textquotesingle{}cellular{-}tracking{-}technologies/celltracktech\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \section{Request an API token}\label{request-an-api-token}
 
 To access the CTT Application Programming Interface (API) (i.e.~the program to download your data from the CTT servers), you will need an API token. You can request one \href{https://celltracktech.com/pages/csd-radio-api-key-request}{here}. Add ``Meadows V2'' in the comments section.
@@ -250,7 +260,7 @@ Finally, you will need to add the .env file to the .gitignore file, so that when
 
 Open the .gitignore file in RStudio and add `.env' (without the quotes) to the file and save it.
 
-\pandocbounded{\includegraphics[keepaspectratio]{images/git-ignore-env.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/git-ignore-env.png}}
 You are now ready to start downloading data!
 
 \section{Organize your Project Directory}\label{organize-your-project-directory}
@@ -705,7 +715,7 @@ Another example is that foliage cover leads to no charging, low battery voltage,
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.1.2_check_if_nodes_are_operating_properly.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.1.2_check_if_nodes_are_operating_properly.png}}
 \caption{Plot of node health record counts}
 \end{figure}
 
@@ -728,7 +738,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.1.3_battery_vs_time_all_nodes.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.1.3_battery_vs_time_all_nodes.png}}
 \caption{Plot of node battery voltage (V) vs.~time}
 \end{figure}
 
@@ -745,7 +755,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.1.3_node_specific_battery_solar_normal.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.1.3_node_specific_battery_solar_normal.png}}
 \caption{Plot of Battery and Solar voltage (V) vs.~time for a specific node}
 \end{figure}
 
@@ -759,7 +769,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.1.3_node_specific_battery_solar_bad.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.1.3_node_specific_battery_solar_bad.png}}
 Node 326710 is working properly and has consistent solar voltages during the day (\textasciitilde{} 5 V) and a consistent battery voltage over time (i.e.~3.5-3.6 V), while node 32909D has inconsistent solar voltages, hinting at either dirty solar panels or covered solar panels, and a much lower battery voltage (\textasciitilde{} 2.8 V).
 
 \subsection{Check GPS}\label{check-gps}
@@ -787,7 +797,7 @@ If the clock is out of sync, the GPS coordinates may not be calculated correctly
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.3_node_locations.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.3_node_locations.png}}
 \#\#\# Check Time Offset
 
 Plot time offset for each node.
@@ -828,7 +838,7 @@ Plot time offset for each node.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_check_1.4_time_offset.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.4_time_offset.png}}
 \caption{Node time offset}
 \end{figure}
 
@@ -1002,7 +1012,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_2.4_node_loc_plot.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_2.4_node_loc_plot.png}}
 \caption{Node location plot}
 \end{figure}
 
@@ -1023,7 +1033,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_2.4_node_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_2.4_node_map.png}}
 \caption{Node location map}
 \end{figure}
 
@@ -1077,7 +1087,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_2.5_sidekick_calibration.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_2.5_sidekick_calibration.png}}
 \caption{Node location plot}
 \end{figure}
 
@@ -1110,7 +1120,7 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_3.1_calculate_rssi_vs_distance.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_3.1_calculate_rssi_vs_distance.png}}
 \caption{RSSI vs.~Distance}
 \end{figure}
 
@@ -1144,7 +1154,7 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/node_calibration_3.1_fit_relationship.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_3.1_fit_relationship.png}}
 \caption{RSSI vs.~Distance}
 \end{figure}
 
@@ -1266,7 +1276,7 @@ Again, you will need to create this file yourself. You might want to include oth
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/presence_absence_detected_tags_histogram.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/presence_absence_detected_tags_histogram.png}}
 \caption{Number of detections per tag}
 \end{figure}
 
@@ -1310,7 +1320,7 @@ While it is good to know how many detections an individual tag has, it is better
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/presence_absence_detections_heat_bin.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/presence_absence_detections_heat_bin.png}}
 \caption{Heat-plot of tag detections over time}
 \end{figure}
 
@@ -1346,7 +1356,7 @@ While it is good to know how many detections an individual tag has, it is better
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/presence_absence_detections_over_time_specific_tag.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/presence_absence_detections_over_time_specific_tag.png}}
 \caption{Heat-plot of tag detections over time}
 \end{figure}
 
@@ -1458,7 +1468,7 @@ When is the animal active and/or inactive? Use the following script to answer re
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/activity_level_rssi_vs_time_by_node.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/activity_level_rssi_vs_time_by_node.png}}
 \caption{Scatter plot of RSSI vs time by Node}
 \end{figure}
 
@@ -1485,7 +1495,7 @@ Next we will quantify the activity level. Activity is an arbitrary variable; it 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/activity_level_activity_vs_time_by_node.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/activity_level_activity_vs_time_by_node.png}}
 \caption{Scatter plot of Activity Level vs time by Node}
 \end{figure}
 
@@ -1517,7 +1527,7 @@ We can summarize the above plot even further by creating a heatmap. The code chu
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/presence_absence_2d_histogram_activity_vs_time.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/presence_absence_2d_histogram_activity_vs_time.png}}
 \caption{2D Histogram of Activity over Time by Node}
 \end{figure}
 
@@ -1555,7 +1565,7 @@ This code chunk makes the same plot as above, but also displays the average acti
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/activity_level_average_activity_vs_time.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/activity_level_average_activity_vs_time.png}}
 \caption{2D Histogram of Activity over Time by Node with Average Activity}
 \end{figure}
 
@@ -1589,7 +1599,7 @@ Let's zoom in and isolate the average activity per hour:
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/activity_level_average_activity_per_hour_vs_time.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/activity_level_average_activity_per_hour_vs_time.png}}
 \caption{Average Activity per hour vs.~time}
 \end{figure}
 
@@ -1717,7 +1727,7 @@ Due to variations in GPS coordinates, it is a good idea to plot the Node locatio
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_node_loc_plot.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_node_loc_plot.png}}
 \caption{Average node locations}
 \end{figure}
 
@@ -1731,7 +1741,7 @@ Due to variations in GPS coordinates, it is a good idea to plot the Node locatio
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_node_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_node_map.png}}
 \caption{Node location map}
 \end{figure}
 
@@ -1792,7 +1802,7 @@ To actually quantify the amount of habitat an animal uses, we will create a 500x
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_grid_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_grid_map.png}}
 \caption{Node grid map}
 \end{figure}
 
@@ -1829,7 +1839,7 @@ This will display the tag tracks and the tag location on the node grid map.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_track_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_track_map.png}}
 \caption{Node track map}
 \end{figure}
 
@@ -1847,7 +1857,7 @@ This will display the tag tracks and the tag location on the node grid map.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/habitat_use_location_density_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_location_density_map.png}}
 \caption{Location Density Map}
 \end{figure}
 
@@ -2280,7 +2290,7 @@ This code was developed by Dr.~Kristina Paxton and Dr.~Jessica Gorzo, and was ad
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{images/multilateration_rss_vs_distance.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/multilateration_rss_vs_distance.png}}
 As distance increases, we see average RSS decreasing exponentially.
 
 \subsection{Preliminary Exponential Decay Model - Determine starting values for the final model}\label{preliminary-exponential-decay-model---determine-starting-values-for-the-final-model}
@@ -2378,7 +2388,7 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/multilateration_predicted_line.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/multilateration_predicted_line.png}}
 \caption{RSS vs.~Distance with Predicted Line}
 \end{figure}
 
@@ -2420,7 +2430,7 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{images/multilateration_rings_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/multilateration_rings_map.png}}
 \caption{Ring Map}
 \end{figure}
 

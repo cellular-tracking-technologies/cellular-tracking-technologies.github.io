@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo, Sean Burcher, Meelyn Pandit" />
 
 
-<meta name="date" content="2026-01-07" />
+<meta name="date" content="2026-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,13 +156,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.1" data-path="project-setup.html"><a href="project-setup.html#git"><i class="fa fa-check"></i><b>2.1.1</b> Git</a></li>
 <li class="chapter" data-level="2.1.2" data-path="project-setup.html"><a href="project-setup.html#renv"><i class="fa fa-check"></i><b>2.1.2</b> <code>renv</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="project-setup.html"><a href="project-setup.html#request-an-api-token"><i class="fa fa-check"></i><b>2.2</b> Request an API token</a></li>
-<li class="chapter" data-level="2.3" data-path="project-setup.html"><a href="project-setup.html#create-a-.env-file"><i class="fa fa-check"></i><b>2.3</b> Create a ‘.env’ file</a>
+<li class="chapter" data-level="2.2" data-path="project-setup.html"><a href="project-setup.html#download-the-celltracktech-package-using-renv"><i class="fa fa-check"></i><b>2.2</b> Download the “celltracktech” package using renv</a></li>
+<li class="chapter" data-level="2.3" data-path="project-setup.html"><a href="project-setup.html#request-an-api-token"><i class="fa fa-check"></i><b>2.3</b> Request an API token</a></li>
+<li class="chapter" data-level="2.4" data-path="project-setup.html"><a href="project-setup.html#create-a-.env-file"><i class="fa fa-check"></i><b>2.4</b> Create a ‘.env’ file</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="project-setup.html"><a href="project-setup.html#load-the-api-key-into-your-rstudio-environment"><i class="fa fa-check"></i><b>2.3.1</b> Load the API key into your RStudio environment</a></li>
-<li class="chapter" data-level="2.3.2" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>2.3.2</b> Add .env file to .gitignore</a></li>
+<li class="chapter" data-level="2.4.1" data-path="project-setup.html"><a href="project-setup.html#load-the-api-key-into-your-rstudio-environment"><i class="fa fa-check"></i><b>2.4.1</b> Load the API key into your RStudio environment</a></li>
+<li class="chapter" data-level="2.4.2" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>2.4.2</b> Add .env file to .gitignore</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>2.4</b> Organize your Project Directory</a></li>
+<li class="chapter" data-level="2.5" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>2.5</b> Organize your Project Directory</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>3</b> Download Data</a>
 <ul>
@@ -335,35 +336,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you are working with collaborators, you’ll then need to commit <code>renv.lock</code>, <code>.Rprofile</code>, <code>renv/settings.json</code> and <code>renv/activate.R</code> so they can work with the same packages and package versions as you.</p>
 </div>
 </div>
-<div id="request-an-api-token" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Request an API token<a href="project-setup.html#request-an-api-token" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="download-the-celltracktech-package-using-renv" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Download the “celltracktech” package using renv<a href="project-setup.html#download-the-celltracktech-package-using-renv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Copy and paste the following command into your R console. This command will install the latest version of the celltracktech package from GitHub.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="project-setup.html#cb5-1" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">&#39;cellular-tracking-technologies/celltracktech&#39;</span>)</span></code></pre></div>
+</div>
+<div id="request-an-api-token" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Request an API token<a href="project-setup.html#request-an-api-token" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To access the CTT Application Programming Interface (API) (i.e. the program to download your data from the CTT servers), you will need an API token. You can request one <a href="https://celltracktech.com/pages/csd-radio-api-key-request">here</a>. Add “Meadows V2” in the comments section.</p>
 </div>
-<div id="create-a-.env-file" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Create a ‘.env’ file<a href="project-setup.html#create-a-.env-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="create-a-.env-file" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Create a ‘.env’ file<a href="project-setup.html#create-a-.env-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For NodeJs and Python projects, many data scientists use environment variables, or a user-defined variable, to store sensitive data such as passwords, API credentials, and other info that should not be publicly shared. These environment variables can then be accessed by the R project without displaying the sensitive information on your R script.</p>
 <p>To store the environment variables, use a ‘.env’ file and the R package ‘dotenv’.</p>
 <p>Run the following command in an R script or the R console to create a .env file in your project directory and store your CTT API key:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="project-setup.html#cb5-1" tabindex="-1"></a><span class="fu">system</span>(<span class="st">&#39;touch .env; echo &quot;API_KEY=your_api_key&quot; &gt;&gt; .env&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="project-setup.html#cb6-1" tabindex="-1"></a><span class="fu">system</span>(<span class="st">&#39;touch .env; echo &quot;API_KEY=your_api_key&quot; &gt;&gt; .env&#39;</span>)</span></code></pre></div>
 <p>Replace “your_api_key” with your actual API key from your <code>account.celltracktech.com</code> profile.</p>
-<div id="load-the-api-key-into-your-rstudio-environment" class="section level3 hasAnchor" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Load the API key into your RStudio environment<a href="project-setup.html#load-the-api-key-into-your-rstudio-environment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="project-setup.html#cb6-1" tabindex="-1"></a><span class="co"># load the env file</span></span>
-<span id="cb6-2"><a href="project-setup.html#cb6-2" tabindex="-1"></a><span class="fu">load_dot_env</span>(<span class="at">file=</span><span class="st">&#39;.env&#39;</span>)</span>
-<span id="cb6-3"><a href="project-setup.html#cb6-3" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="project-setup.html#cb6-4" tabindex="-1"></a><span class="co"># get your api key from the env file</span></span>
-<span id="cb6-5"><a href="project-setup.html#cb6-5" tabindex="-1"></a>my_token <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">&#39;API_KEY&#39;</span>)</span></code></pre></div>
+<div id="load-the-api-key-into-your-rstudio-environment" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Load the API key into your RStudio environment<a href="project-setup.html#load-the-api-key-into-your-rstudio-environment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="project-setup.html#cb7-1" tabindex="-1"></a><span class="co"># load the env file</span></span>
+<span id="cb7-2"><a href="project-setup.html#cb7-2" tabindex="-1"></a><span class="fu">load_dot_env</span>(<span class="at">file=</span><span class="st">&#39;.env&#39;</span>)</span>
+<span id="cb7-3"><a href="project-setup.html#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="project-setup.html#cb7-4" tabindex="-1"></a><span class="co"># get your api key from the env file</span></span>
+<span id="cb7-5"><a href="project-setup.html#cb7-5" tabindex="-1"></a>my_token <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">&#39;API_KEY&#39;</span>)</span></code></pre></div>
 </div>
-<div id="add-.env-file-to-.gitignore" class="section level3 hasAnchor" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Add .env file to .gitignore<a href="project-setup.html#add-.env-file-to-.gitignore" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="add-.env-file-to-.gitignore" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Add .env file to .gitignore<a href="project-setup.html#add-.env-file-to-.gitignore" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Finally, you will need to add the .env file to the .gitignore file, so that when you commit changes to your R project the .env file is not included. That way your environmental variables will stay on your computer until you share them with collaborators.</p>
 <p>Open the .gitignore file in RStudio and add ‘.env’ (without the quotes) to the file and save it.</p>
 <p><img src="images/git-ignore-env.png" alt="screenshot of .gitignore file with .env listed as file to ignore when uploading to git/github." />
 You are now ready to start downloading data!</p>
 </div>
 </div>
-<div id="organize-your-project-directory" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Organize your Project Directory<a href="project-setup.html#organize-your-project-directory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="organize-your-project-directory" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Organize your Project Directory<a href="project-setup.html#organize-your-project-directory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In your project directory create the following folders to organize your files:</p>
 <ul>
 <li>src - where you store your <code>.R</code> scripts</li>
