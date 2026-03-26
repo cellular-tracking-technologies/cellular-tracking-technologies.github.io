@@ -6,6 +6,7 @@ project-setup
 create-an-r-studio-project
 git
 renv
+download-the-celltracktech-package-using-renv
 request-an-api-token
 create-a-.env-file
 load-the-api-key-into-your-rstudio-environment

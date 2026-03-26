@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo, Sean Burcher, Meelyn Pandit" />
 
 
-<meta name="date" content="2026-01-07" />
+<meta name="date" content="2026-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,13 +156,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.1" data-path="project-setup.html"><a href="project-setup.html#git"><i class="fa fa-check"></i><b>2.1.1</b> Git</a></li>
 <li class="chapter" data-level="2.1.2" data-path="project-setup.html"><a href="project-setup.html#renv"><i class="fa fa-check"></i><b>2.1.2</b> <code>renv</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="project-setup.html"><a href="project-setup.html#request-an-api-token"><i class="fa fa-check"></i><b>2.2</b> Request an API token</a></li>
-<li class="chapter" data-level="2.3" data-path="project-setup.html"><a href="project-setup.html#create-a-.env-file"><i class="fa fa-check"></i><b>2.3</b> Create a ‘.env’ file</a>
+<li class="chapter" data-level="2.2" data-path="project-setup.html"><a href="project-setup.html#download-the-celltracktech-package-using-renv"><i class="fa fa-check"></i><b>2.2</b> Download the “celltracktech” package using renv</a></li>
+<li class="chapter" data-level="2.3" data-path="project-setup.html"><a href="project-setup.html#request-an-api-token"><i class="fa fa-check"></i><b>2.3</b> Request an API token</a></li>
+<li class="chapter" data-level="2.4" data-path="project-setup.html"><a href="project-setup.html#create-a-.env-file"><i class="fa fa-check"></i><b>2.4</b> Create a ‘.env’ file</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="project-setup.html"><a href="project-setup.html#load-the-api-key-into-your-rstudio-environment"><i class="fa fa-check"></i><b>2.3.1</b> Load the API key into your RStudio environment</a></li>
-<li class="chapter" data-level="2.3.2" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>2.3.2</b> Add .env file to .gitignore</a></li>
+<li class="chapter" data-level="2.4.1" data-path="project-setup.html"><a href="project-setup.html#load-the-api-key-into-your-rstudio-environment"><i class="fa fa-check"></i><b>2.4.1</b> Load the API key into your RStudio environment</a></li>
+<li class="chapter" data-level="2.4.2" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>2.4.2</b> Add .env file to .gitignore</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>2.4</b> Organize your Project Directory</a></li>
+<li class="chapter" data-level="2.5" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>2.5</b> Organize your Project Directory</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>3</b> Download Data</a>
 <ul>
@@ -318,71 +319,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="load-settings-1" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Load settings<a href="activity-budget.html#load-settings-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="activity-budget.html#cb50-1" tabindex="-1"></a><span class="co"># activate renv</span></span>
-<span id="cb50-2"><a href="activity-budget.html#cb50-2" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="activity-budget.html#cb51-1" tabindex="-1"></a><span class="co"># load celltracktech library</span></span>
-<span id="cb51-2"><a href="activity-budget.html#cb51-2" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
-<span id="cb51-3"><a href="activity-budget.html#cb51-3" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="activity-budget.html#cb51-4" tabindex="-1"></a><span class="co"># set significant digits</span></span>
-<span id="cb51-5"><a href="activity-budget.html#cb51-5" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">10</span>)</span>
-<span id="cb51-6"><a href="activity-budget.html#cb51-6" tabindex="-1"></a></span>
-<span id="cb51-7"><a href="activity-budget.html#cb51-7" tabindex="-1"></a><span class="co"># Specify the path to your database file</span></span>
-<span id="cb51-8"><a href="activity-budget.html#cb51-8" tabindex="-1"></a>database_file <span class="ot">&lt;-</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span></span>
-<span id="cb51-9"><a href="activity-budget.html#cb51-9" tabindex="-1"></a></span>
-<span id="cb51-10"><a href="activity-budget.html#cb51-10" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-01 00:00:00&quot;</span>,<span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
-<span id="cb51-11"><a href="activity-budget.html#cb51-11" tabindex="-1"></a>stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-02 00:00:00&quot;</span>,<span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="activity-budget.html#cb51-1" tabindex="-1"></a><span class="co"># activate renv</span></span>
+<span id="cb51-2"><a href="activity-budget.html#cb51-2" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">activate</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="activity-budget.html#cb52-1" tabindex="-1"></a><span class="co"># load celltracktech library</span></span>
+<span id="cb52-2"><a href="activity-budget.html#cb52-2" tabindex="-1"></a><span class="fu">library</span>(celltracktech)</span>
+<span id="cb52-3"><a href="activity-budget.html#cb52-3" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="activity-budget.html#cb52-4" tabindex="-1"></a><span class="co"># set significant digits</span></span>
+<span id="cb52-5"><a href="activity-budget.html#cb52-5" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">10</span>)</span>
+<span id="cb52-6"><a href="activity-budget.html#cb52-6" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="activity-budget.html#cb52-7" tabindex="-1"></a><span class="co"># Specify the path to your database file</span></span>
+<span id="cb52-8"><a href="activity-budget.html#cb52-8" tabindex="-1"></a>database_file <span class="ot">&lt;-</span> <span class="st">&quot;./data/Meadows V2/meadows.duckdb&quot;</span></span>
+<span id="cb52-9"><a href="activity-budget.html#cb52-9" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="activity-budget.html#cb52-10" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-01 00:00:00&quot;</span>,<span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
+<span id="cb52-11"><a href="activity-budget.html#cb52-11" tabindex="-1"></a>stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-02 00:00:00&quot;</span>,<span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
 </div>
 <div id="load-tag-node-detection-data" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Load Tag Node Detection Data<a href="activity-budget.html#load-tag-node-detection-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="activity-budget.html#cb52-1" tabindex="-1"></a><span class="co"># Connect to database</span></span>
-<span id="cb52-2"><a href="activity-budget.html#cb52-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
-<span id="cb52-3"><a href="activity-budget.html#cb52-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> database_file, </span>
-<span id="cb52-4"><a href="activity-budget.html#cb52-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb52-5"><a href="activity-budget.html#cb52-5" tabindex="-1"></a></span>
-<span id="cb52-6"><a href="activity-budget.html#cb52-6" tabindex="-1"></a><span class="co"># load raw data table into RStudio</span></span>
-<span id="cb52-7"><a href="activity-budget.html#cb52-7" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb52-8"><a href="activity-budget.html#cb52-8" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> start_time <span class="sc">&amp;&amp;</span> time <span class="sc">&lt;=</span> stop_time) <span class="sc">|&gt;</span></span>
-<span id="cb52-9"><a href="activity-budget.html#cb52-9" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
-<span id="cb52-10"><a href="activity-budget.html#cb52-10" tabindex="-1"></a></span>
-<span id="cb52-11"><a href="activity-budget.html#cb52-11" tabindex="-1"></a><span class="co"># disconnect from the database</span></span>
-<span id="cb52-12"><a href="activity-budget.html#cb52-12" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="activity-budget.html#cb53-1" tabindex="-1"></a><span class="co"># Connect to database</span></span>
+<span id="cb53-2"><a href="activity-budget.html#cb53-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), </span>
+<span id="cb53-3"><a href="activity-budget.html#cb53-3" tabindex="-1"></a>                      <span class="at">dbdir =</span> database_file, </span>
+<span id="cb53-4"><a href="activity-budget.html#cb53-4" tabindex="-1"></a>                      <span class="at">read_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-5"><a href="activity-budget.html#cb53-5" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="activity-budget.html#cb53-6" tabindex="-1"></a><span class="co"># load raw data table into RStudio</span></span>
+<span id="cb53-7"><a href="activity-budget.html#cb53-7" tabindex="-1"></a>detection_df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;raw&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb53-8"><a href="activity-budget.html#cb53-8" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> start_time <span class="sc">&amp;&amp;</span> time <span class="sc">&lt;=</span> stop_time) <span class="sc">|&gt;</span></span>
+<span id="cb53-9"><a href="activity-budget.html#cb53-9" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb53-10"><a href="activity-budget.html#cb53-10" tabindex="-1"></a></span>
+<span id="cb53-11"><a href="activity-budget.html#cb53-11" tabindex="-1"></a><span class="co"># disconnect from the database</span></span>
+<span id="cb53-12"><a href="activity-budget.html#cb53-12" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 </div>
 <div id="tag-activity" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Tag Activity<a href="activity-budget.html#tag-activity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="activity-budget.html#cb53-1" tabindex="-1"></a><span class="co"># selected_tag_id &lt;- &quot;2D4B782D&quot;, # SWSP (swamp sparrow) - Power Tag</span></span>
-<span id="cb53-2"><a href="activity-budget.html#cb53-2" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="activity-budget.html#cb53-3" tabindex="-1"></a><span class="co"># select a specific tag, below is a Power Tag on a Northern Waterthrush (NOWA)</span></span>
-<span id="cb53-4"><a href="activity-budget.html#cb53-4" tabindex="-1"></a>selected_tag_id <span class="ot">&lt;-</span> <span class="st">&#39;614B661E&#39;</span></span>
-<span id="cb53-5"><a href="activity-budget.html#cb53-5" tabindex="-1"></a></span>
-<span id="cb53-6"><a href="activity-budget.html#cb53-6" tabindex="-1"></a><span class="co"># subset detection_df dataframe to only included the selected_tag_id</span></span>
-<span id="cb53-7"><a href="activity-budget.html#cb53-7" tabindex="-1"></a>tag_dets <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(detection_df, tag_id <span class="sc">==</span> selected_tag_id)</span>
-<span id="cb53-8"><a href="activity-budget.html#cb53-8" tabindex="-1"></a></span>
-<span id="cb53-9"><a href="activity-budget.html#cb53-9" tabindex="-1"></a><span class="co"># sort the rows by time, ascending</span></span>
-<span id="cb53-10"><a href="activity-budget.html#cb53-10" tabindex="-1"></a>tag_dets <span class="ot">&lt;-</span> tag_dets[<span class="fu">order</span>(tag_dets<span class="sc">$</span>time, <span class="at">decreasing =</span> <span class="cn">FALSE</span>), ]</span>
-<span id="cb53-11"><a href="activity-budget.html#cb53-11" tabindex="-1"></a></span>
-<span id="cb53-12"><a href="activity-budget.html#cb53-12" tabindex="-1"></a>tag_beep_interval <span class="ot">&lt;-</span> <span class="dv">13</span> <span class="co"># seconds, will need to know of tag type beep intervals</span></span>
-<span id="cb53-13"><a href="activity-budget.html#cb53-13" tabindex="-1"></a></span>
-<span id="cb53-14"><a href="activity-budget.html#cb53-14" tabindex="-1"></a><span class="co"># calculate tag activity - this turns the number of detections into a single value for a 5 min bin for each Node</span></span>
-<span id="cb53-15"><a href="activity-budget.html#cb53-15" tabindex="-1"></a>tag_activity <span class="ot">&lt;-</span> <span class="fu">calculate_tag_activity</span>(tag_dets, tag_beep_interval)</span>
-<span id="cb53-16"><a href="activity-budget.html#cb53-16" tabindex="-1"></a></span>
-<span id="cb53-17"><a href="activity-budget.html#cb53-17" tabindex="-1"></a><span class="co"># calculate average tag activity</span></span>
-<span id="cb53-18"><a href="activity-budget.html#cb53-18" tabindex="-1"></a>avg_tag_act <span class="ot">&lt;-</span> <span class="fu">calc_avg_activity</span>(tag_activity, start_time, stop_time)</span>
-<span id="cb53-19"><a href="activity-budget.html#cb53-19" tabindex="-1"></a></span>
-<span id="cb53-20"><a href="activity-budget.html#cb53-20" tabindex="-1"></a><span class="co"># set start and stop times for the plots (next section)</span></span>
-<span id="cb53-21"><a href="activity-budget.html#cb53-21" tabindex="-1"></a>plot_start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-01 06:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
-<span id="cb53-22"><a href="activity-budget.html#cb53-22" tabindex="-1"></a>plot_stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-02 06:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="activity-budget.html#cb54-1" tabindex="-1"></a><span class="co"># selected_tag_id &lt;- &quot;2D4B782D&quot;, # SWSP (swamp sparrow) - Power Tag</span></span>
+<span id="cb54-2"><a href="activity-budget.html#cb54-2" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="activity-budget.html#cb54-3" tabindex="-1"></a><span class="co"># select a specific tag, below is a Power Tag on a Northern Waterthrush (NOWA)</span></span>
+<span id="cb54-4"><a href="activity-budget.html#cb54-4" tabindex="-1"></a>selected_tag_id <span class="ot">&lt;-</span> <span class="st">&#39;614B661E&#39;</span></span>
+<span id="cb54-5"><a href="activity-budget.html#cb54-5" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="activity-budget.html#cb54-6" tabindex="-1"></a><span class="co"># subset detection_df dataframe to only included the selected_tag_id</span></span>
+<span id="cb54-7"><a href="activity-budget.html#cb54-7" tabindex="-1"></a>tag_dets <span class="ot">&lt;-</span> <span class="fu">subset.data.frame</span>(detection_df, tag_id <span class="sc">==</span> selected_tag_id)</span>
+<span id="cb54-8"><a href="activity-budget.html#cb54-8" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="activity-budget.html#cb54-9" tabindex="-1"></a><span class="co"># sort the rows by time, ascending</span></span>
+<span id="cb54-10"><a href="activity-budget.html#cb54-10" tabindex="-1"></a>tag_dets <span class="ot">&lt;-</span> tag_dets[<span class="fu">order</span>(tag_dets<span class="sc">$</span>time, <span class="at">decreasing =</span> <span class="cn">FALSE</span>), ]</span>
+<span id="cb54-11"><a href="activity-budget.html#cb54-11" tabindex="-1"></a></span>
+<span id="cb54-12"><a href="activity-budget.html#cb54-12" tabindex="-1"></a>tag_beep_interval <span class="ot">&lt;-</span> <span class="dv">13</span> <span class="co"># seconds, will need to know of tag type beep intervals</span></span>
+<span id="cb54-13"><a href="activity-budget.html#cb54-13" tabindex="-1"></a></span>
+<span id="cb54-14"><a href="activity-budget.html#cb54-14" tabindex="-1"></a><span class="co"># calculate tag activity - this turns the number of detections into a single value for a 5 min bin for each Node</span></span>
+<span id="cb54-15"><a href="activity-budget.html#cb54-15" tabindex="-1"></a>tag_activity <span class="ot">&lt;-</span> <span class="fu">calculate_tag_activity</span>(tag_dets, tag_beep_interval)</span>
+<span id="cb54-16"><a href="activity-budget.html#cb54-16" tabindex="-1"></a></span>
+<span id="cb54-17"><a href="activity-budget.html#cb54-17" tabindex="-1"></a><span class="co"># calculate average tag activity</span></span>
+<span id="cb54-18"><a href="activity-budget.html#cb54-18" tabindex="-1"></a>avg_tag_act <span class="ot">&lt;-</span> <span class="fu">calc_avg_activity</span>(tag_activity, start_time, stop_time)</span>
+<span id="cb54-19"><a href="activity-budget.html#cb54-19" tabindex="-1"></a></span>
+<span id="cb54-20"><a href="activity-budget.html#cb54-20" tabindex="-1"></a><span class="co"># set start and stop times for the plots (next section)</span></span>
+<span id="cb54-21"><a href="activity-budget.html#cb54-21" tabindex="-1"></a>plot_start_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-01 06:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span>
+<span id="cb54-22"><a href="activity-budget.html#cb54-22" tabindex="-1"></a>plot_stop_time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2023-09-02 06:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
 <div id="scatter-plot-of-rssi-vs-time-by-node" class="section level3 hasAnchor" number="8.3.1">
 <h3><span class="header-section-number">8.3.1</span> Scatter Plot of RSSI vs time by Node<a href="activity-budget.html#scatter-plot-of-rssi-vs-time-by-node" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="activity-budget.html#cb54-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_dets) <span class="sc">+</span></span>
-<span id="cb54-2"><a href="activity-budget.html#cb54-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb54-3"><a href="activity-budget.html#cb54-3" tabindex="-1"></a>                 <span class="at">y =</span> tag_rssi, </span>
-<span id="cb54-4"><a href="activity-budget.html#cb54-4" tabindex="-1"></a>                 <span class="at">colour =</span> node_id), </span>
-<span id="cb54-5"><a href="activity-budget.html#cb54-5" tabindex="-1"></a>             <span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb54-6"><a href="activity-budget.html#cb54-6" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
-<span id="cb54-7"><a href="activity-budget.html#cb54-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Detections&quot;</span>, selected_tag_id)) <span class="sc">+</span></span>
-<span id="cb54-8"><a href="activity-budget.html#cb54-8" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb54-9"><a href="activity-budget.html#cb54-9" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;RSSI (dBm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-10"><a href="activity-budget.html#cb54-10" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="activity-budget.html#cb55-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_dets) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="activity-budget.html#cb55-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb55-3"><a href="activity-budget.html#cb55-3" tabindex="-1"></a>                 <span class="at">y =</span> tag_rssi, </span>
+<span id="cb55-4"><a href="activity-budget.html#cb55-4" tabindex="-1"></a>                 <span class="at">colour =</span> node_id), </span>
+<span id="cb55-5"><a href="activity-budget.html#cb55-5" tabindex="-1"></a>             <span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="activity-budget.html#cb55-6" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="activity-budget.html#cb55-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Detections&quot;</span>, selected_tag_id)) <span class="sc">+</span></span>
+<span id="cb55-8"><a href="activity-budget.html#cb55-8" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb55-9"><a href="activity-budget.html#cb55-9" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;RSSI (dBm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-10"><a href="activity-budget.html#cb55-10" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
 <div class="float">
 <img src="images/activity_level_rssi_vs_time_by_node.png" alt="Scatter plot of RSSI vs time by Node" />
 <div class="figcaption">Scatter plot of RSSI vs time by Node</div>
@@ -392,16 +393,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="scatter-plot-of-activity-vs-time-by-node" class="section level3 hasAnchor" number="8.3.2">
 <h3><span class="header-section-number">8.3.2</span> Scatter Plot of activity vs time by Node<a href="activity-budget.html#scatter-plot-of-activity-vs-time-by-node" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Next we will quantify the activity level. Activity is an arbitrary variable; it can be movement, roosting, a specific behavior, etc. You will need to define what activity is based on your study.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="activity-budget.html#cb55-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity) <span class="sc">+</span></span>
-<span id="cb55-2"><a href="activity-budget.html#cb55-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb55-3"><a href="activity-budget.html#cb55-3" tabindex="-1"></a>                 <span class="at">y =</span> abs_act, </span>
-<span id="cb55-4"><a href="activity-budget.html#cb55-4" tabindex="-1"></a>                 <span class="at">colour =</span> node_id), </span>
-<span id="cb55-5"><a href="activity-budget.html#cb55-5" tabindex="-1"></a>             <span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-6"><a href="activity-budget.html#cb55-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Detections&quot;</span>, selected_tag_id)) <span class="sc">+</span></span>
-<span id="cb55-7"><a href="activity-budget.html#cb55-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb55-8"><a href="activity-budget.html#cb55-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb55-9"><a href="activity-budget.html#cb55-9" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
-<span id="cb55-10"><a href="activity-budget.html#cb55-10" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="activity-budget.html#cb56-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="activity-budget.html#cb56-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb56-3"><a href="activity-budget.html#cb56-3" tabindex="-1"></a>                 <span class="at">y =</span> abs_act, </span>
+<span id="cb56-4"><a href="activity-budget.html#cb56-4" tabindex="-1"></a>                 <span class="at">colour =</span> node_id), </span>
+<span id="cb56-5"><a href="activity-budget.html#cb56-5" tabindex="-1"></a>             <span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="activity-budget.html#cb56-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Detections&quot;</span>, selected_tag_id)) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="activity-budget.html#cb56-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-8"><a href="activity-budget.html#cb56-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-9"><a href="activity-budget.html#cb56-9" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
+<span id="cb56-10"><a href="activity-budget.html#cb56-10" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
 <div class="float">
 <img src="images/activity_level_activity_vs_time_by_node.png" alt="Scatter plot of Activity Level vs time by Node" />
 <div class="figcaption">Scatter plot of Activity Level vs time by Node</div>
@@ -411,21 +412,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="d-histogram-of-activity-over-time" class="section level3 hasAnchor" number="8.3.3">
 <h3><span class="header-section-number">8.3.3</span> 2D Histogram of Activity over Time<a href="activity-budget.html#d-histogram-of-activity-over-time" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can summarize the above plot even further by creating a heatmap. The code chunk below creates a heatmap bin plot, which displays the activity for an individual over a period of time, with the color of each bin representing the count of activity (on a log scale), while the bins tell us the activity level.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="activity-budget.html#cb56-1" tabindex="-1"></a>my_breaks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10000</span>)</span>
-<span id="cb56-2"><a href="activity-budget.html#cb56-2" tabindex="-1"></a></span>
-<span id="cb56-3"><a href="activity-budget.html#cb56-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity, </span>
-<span id="cb56-4"><a href="activity-budget.html#cb56-4" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb56-5"><a href="activity-budget.html#cb56-5" tabindex="-1"></a>           <span class="at">y =</span> abs_act)) <span class="sc">+</span></span>
-<span id="cb56-6"><a href="activity-budget.html#cb56-6" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">3600</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb56-7"><a href="activity-budget.html#cb56-7" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, </span>
-<span id="cb56-8"><a href="activity-budget.html#cb56-8" tabindex="-1"></a>       plot_stop_time) <span class="sc">+</span></span>
-<span id="cb56-9"><a href="activity-budget.html#cb56-9" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
-<span id="cb56-10"><a href="activity-budget.html#cb56-10" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
-<span id="cb56-11"><a href="activity-budget.html#cb56-11" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
-<span id="cb56-12"><a href="activity-budget.html#cb56-12" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
-<span id="cb56-13"><a href="activity-budget.html#cb56-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb56-14"><a href="activity-budget.html#cb56-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span>  </span>
-<span id="cb56-15"><a href="activity-budget.html#cb56-15" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="activity-budget.html#cb57-1" tabindex="-1"></a>my_breaks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10000</span>)</span>
+<span id="cb57-2"><a href="activity-budget.html#cb57-2" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="activity-budget.html#cb57-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity, </span>
+<span id="cb57-4"><a href="activity-budget.html#cb57-4" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb57-5"><a href="activity-budget.html#cb57-5" tabindex="-1"></a>           <span class="at">y =</span> abs_act)) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="activity-budget.html#cb57-6" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">3600</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb57-7"><a href="activity-budget.html#cb57-7" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, </span>
+<span id="cb57-8"><a href="activity-budget.html#cb57-8" tabindex="-1"></a>       plot_stop_time) <span class="sc">+</span></span>
+<span id="cb57-9"><a href="activity-budget.html#cb57-9" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
+<span id="cb57-10"><a href="activity-budget.html#cb57-10" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb57-11"><a href="activity-budget.html#cb57-11" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
+<span id="cb57-12"><a href="activity-budget.html#cb57-12" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
+<span id="cb57-13"><a href="activity-budget.html#cb57-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-14"><a href="activity-budget.html#cb57-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb57-15"><a href="activity-budget.html#cb57-15" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
 <div class="float">
 <img src="images/presence_absence_2d_histogram_activity_vs_time.png" alt="2D Histogram of Activity over Time by Node" />
 <div class="figcaption">2D Histogram of Activity over Time by Node</div>
@@ -435,27 +436,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="d-histogram-of-activity-vs-time-with-avg-activity" class="section level3 hasAnchor" number="8.3.4">
 <h3><span class="header-section-number">8.3.4</span> 2D histogram of activity vs time WITH avg activity<a href="activity-budget.html#d-histogram-of-activity-vs-time-with-avg-activity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This code chunk makes the same plot as above, but also displays the average activity level as a red line.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="activity-budget.html#cb57-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity, </span>
-<span id="cb57-2"><a href="activity-budget.html#cb57-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb57-3"><a href="activity-budget.html#cb57-3" tabindex="-1"></a>           <span class="at">y =</span> abs_act)) <span class="sc">+</span></span>
-<span id="cb57-4"><a href="activity-budget.html#cb57-4" tabindex="-1"></a> <span class="fu">geom_bin2d</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">3600</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb57-5"><a href="activity-budget.html#cb57-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> avg_tag_act, </span>
-<span id="cb57-6"><a href="activity-budget.html#cb57-6" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb57-7"><a href="activity-budget.html#cb57-7" tabindex="-1"></a>                <span class="at">y =</span> avg_activity),</span>
-<span id="cb57-8"><a href="activity-budget.html#cb57-8" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb57-9"><a href="activity-budget.html#cb57-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> avg_tag_act, </span>
-<span id="cb57-10"><a href="activity-budget.html#cb57-10" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb57-11"><a href="activity-budget.html#cb57-11" tabindex="-1"></a>                 <span class="at">y =</span> avg_activity), </span>
-<span id="cb57-12"><a href="activity-budget.html#cb57-12" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb57-13"><a href="activity-budget.html#cb57-13" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, </span>
-<span id="cb57-14"><a href="activity-budget.html#cb57-14" tabindex="-1"></a>       plot_stop_time) <span class="sc">+</span></span>
-<span id="cb57-15"><a href="activity-budget.html#cb57-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb57-16"><a href="activity-budget.html#cb57-16" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb57-17"><a href="activity-budget.html#cb57-17" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
-<span id="cb57-18"><a href="activity-budget.html#cb57-18" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
-<span id="cb57-19"><a href="activity-budget.html#cb57-19" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
-<span id="cb57-20"><a href="activity-budget.html#cb57-20" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
-<span id="cb57-21"><a href="activity-budget.html#cb57-21" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="activity-budget.html#cb58-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity, </span>
+<span id="cb58-2"><a href="activity-budget.html#cb58-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb58-3"><a href="activity-budget.html#cb58-3" tabindex="-1"></a>           <span class="at">y =</span> abs_act)) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="activity-budget.html#cb58-4" tabindex="-1"></a> <span class="fu">geom_bin2d</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">3600</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb58-5"><a href="activity-budget.html#cb58-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> avg_tag_act, </span>
+<span id="cb58-6"><a href="activity-budget.html#cb58-6" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb58-7"><a href="activity-budget.html#cb58-7" tabindex="-1"></a>                <span class="at">y =</span> avg_activity),</span>
+<span id="cb58-8"><a href="activity-budget.html#cb58-8" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-9"><a href="activity-budget.html#cb58-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> avg_tag_act, </span>
+<span id="cb58-10"><a href="activity-budget.html#cb58-10" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb58-11"><a href="activity-budget.html#cb58-11" tabindex="-1"></a>                 <span class="at">y =</span> avg_activity), </span>
+<span id="cb58-12"><a href="activity-budget.html#cb58-12" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-13"><a href="activity-budget.html#cb58-13" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, </span>
+<span id="cb58-14"><a href="activity-budget.html#cb58-14" tabindex="-1"></a>       plot_stop_time) <span class="sc">+</span></span>
+<span id="cb58-15"><a href="activity-budget.html#cb58-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-16"><a href="activity-budget.html#cb58-16" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-17"><a href="activity-budget.html#cb58-17" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
+<span id="cb58-18"><a href="activity-budget.html#cb58-18" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb58-19"><a href="activity-budget.html#cb58-19" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
+<span id="cb58-20"><a href="activity-budget.html#cb58-20" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
+<span id="cb58-21"><a href="activity-budget.html#cb58-21" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
 <div class="float">
 <img src="images/activity_level_average_activity_vs_time.png" alt="2D Histogram of Activity over Time by Node with Average Activity" />
 <div class="figcaption">2D Histogram of Activity over Time by Node with Average Activity</div>
@@ -465,23 +466,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="avg-activity-hour-vs-time." class="section level3 hasAnchor" number="8.3.5">
 <h3><span class="header-section-number">8.3.5</span> Avg activity / hour Vs time.<a href="activity-budget.html#avg-activity-hour-vs-time." class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s zoom in and isolate the average activity per hour:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="activity-budget.html#cb58-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity) <span class="sc">+</span></span>
-<span id="cb58-2"><a href="activity-budget.html#cb58-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> avg_tag_act, </span>
-<span id="cb58-3"><a href="activity-budget.html#cb58-3" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb58-4"><a href="activity-budget.html#cb58-4" tabindex="-1"></a>                <span class="at">y =</span> avg_activity),</span>
-<span id="cb58-5"><a href="activity-budget.html#cb58-5" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb58-6"><a href="activity-budget.html#cb58-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> avg_tag_act, </span>
-<span id="cb58-7"><a href="activity-budget.html#cb58-7" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
-<span id="cb58-8"><a href="activity-budget.html#cb58-8" tabindex="-1"></a>                 <span class="at">y =</span> avg_activity), </span>
-<span id="cb58-9"><a href="activity-budget.html#cb58-9" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb58-10"><a href="activity-budget.html#cb58-10" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
-<span id="cb58-11"><a href="activity-budget.html#cb58-11" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb58-12"><a href="activity-budget.html#cb58-12" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb58-13"><a href="activity-budget.html#cb58-13" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
-<span id="cb58-14"><a href="activity-budget.html#cb58-14" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
-<span id="cb58-15"><a href="activity-budget.html#cb58-15" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
-<span id="cb58-16"><a href="activity-budget.html#cb58-16" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
-<span id="cb58-17"><a href="activity-budget.html#cb58-17" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="activity-budget.html#cb59-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tag_activity) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="activity-budget.html#cb59-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> avg_tag_act, </span>
+<span id="cb59-3"><a href="activity-budget.html#cb59-3" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb59-4"><a href="activity-budget.html#cb59-4" tabindex="-1"></a>                <span class="at">y =</span> avg_activity),</span>
+<span id="cb59-5"><a href="activity-budget.html#cb59-5" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-6"><a href="activity-budget.html#cb59-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> avg_tag_act, </span>
+<span id="cb59-7"><a href="activity-budget.html#cb59-7" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> time, </span>
+<span id="cb59-8"><a href="activity-budget.html#cb59-8" tabindex="-1"></a>                 <span class="at">y =</span> avg_activity), </span>
+<span id="cb59-9"><a href="activity-budget.html#cb59-9" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;Red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-10"><a href="activity-budget.html#cb59-10" tabindex="-1"></a>  <span class="fu">xlim</span>(plot_start_time, plot_stop_time) <span class="sc">+</span></span>
+<span id="cb59-11"><a href="activity-budget.html#cb59-11" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Time (UTC)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-12"><a href="activity-budget.html#cb59-12" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Activity / Hour (Arb. Units)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-13"><a href="activity-budget.html#cb59-13" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Counts&quot;</span>, </span>
+<span id="cb59-14"><a href="activity-budget.html#cb59-14" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb59-15"><a href="activity-budget.html#cb59-15" tabindex="-1"></a>                       <span class="at">breaks =</span> my_breaks, </span>
+<span id="cb59-16"><a href="activity-budget.html#cb59-16" tabindex="-1"></a>                       <span class="at">labels =</span> my_breaks) <span class="sc">+</span></span>
+<span id="cb59-17"><a href="activity-budget.html#cb59-17" tabindex="-1"></a>  <span class="fu">classic_plot_theme</span>()</span></code></pre></div>
 <div class="float">
 <img src="images/activity_level_average_activity_per_hour_vs_time.png" alt="Average Activity per hour vs. time" />
 <div class="figcaption">Average Activity per hour vs. time</div>
