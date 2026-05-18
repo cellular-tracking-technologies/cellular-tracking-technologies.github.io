@@ -12,3 +12,137 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+/* ── API Reference Styles ── */
+
+.method-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 13px;
+  font-family: monospace;
+  color: #fff;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.method-post {
+  background-color: #49cc90;
+}
+.endpoint-path {
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  vertical-align: middle;
+}
+.endpoint-header {
+  background-color: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+.param-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 14px;
+}
+.param-table th {
+  background-color: #4b4b4b;
+  color: #fff;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+}
+.param-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.param-table tr:hover {
+  background-color: #f5f5f5;
+}
+.param-required {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 11px;
+}
+.param-optional {
+  color: #7f8c8d;
+  font-size: 11px;
+}
+.param-type {
+  font-family: monospace;
+  color: #8e44ad;
+  font-size: 13px;
+}
+.error-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.error-table th {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 8px 12px;
+  text-align: left;
+}
+.error-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e8e8e8;
+  vertical-align: top;
+}
+.error-table tr:hover {
+  background-color: #fdf2f2;
+}
+.error-code {
+  font-family: monospace;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.response-section {
+  border-left: 4px solid #49cc90;
+  padding-left: 16px;
+  margin: 16px 0;
+}
+.info-box {
+  background-color: #eaf4fc;
+  border-left: 4px solid #3498db;
+  padding: 12px 16px;
+  border-radius: 0 6px 6px 0;
+  margin: 16px 0;
+  font-size: 14px;
+}
+.tag-label {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.tag-projects { background-color: #3498db; }
+.tag-stations { background-color: #e67e22; }
+.tag-files { background-color: #9b59b6; }
+.used-by {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.used-by code {
+  background-color: #eef;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+.section-divider {
+  border: none;
+  border-top: 2px solid #e0e0e0;
+  margin: 32px 0;
+}

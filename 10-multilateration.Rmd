@@ -203,12 +203,12 @@ leaflet() %>%
 ![Ring Map](images/multilateration_rings_map.png)
 
 ```{r}
-no.filters <- trilateration.TestData.NoFilter(combined_data)
+no.filters <- trilateration_testdata_nofilter(combined_data)
 RSS.FILTER <- c(-80, -85, -90, -95)
-RSS.filters <- trilateration.TestData.RSS.Filter(combined_data, RSS.FILTER)
+RSS.filters <- trilateration_testdata_rss_filter(combined_data, RSS.FILTER)
 #DIST.FILTER <- c(315,500,750,1000)
 # Calculate error of location estimates of each test location when Distance filters are applied prior to trilateration 
-#Dist.filters <- trilateration.TestData.Distance.Filter(combined_data, DIST.FILTER)
+#Dist.filters <- trilateration_testdata_distance_filter(combined_data, DIST.FILTER)
 
 SLIDE.TIME <- 2
 GROUP.TIME <- "1 min"

@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 API Reference | ‘celltracktech’ Data Analysis package</title>
+  <meta name="description" content="This is a manual for the R package ‘celltracktech’" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 API Reference | ‘celltracktech’ Data Analysis package" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a manual for the R package ‘celltracktech’" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 API Reference | ‘celltracktech’ Data Analysis package" />
+  
+  <meta name="twitter:description" content="This is a manual for the R package ‘celltracktech’" />
+  
+
+<meta name="author" content="Jessica Gorzo, Sean Burcher, Meelyn Pandit" />
+
+
+<meta name="date" content="2026-05-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
+<link rel="prev" href="multilateration.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">CTT Data Tools</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>AOS2024 - ‘celltracktech’ Workshop</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#additional-libraries-needed-linux-users"><i class="fa fa-check"></i><b>0.1</b> Additional Libraries Needed (Linux users)</a>
+<ul>
+<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#install-postgresql-libraries"><i class="fa fa-check"></i><b>0.1.1</b> Install PostgreSQL libraries</a></li>
+<li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#installing-r-spatial-on-ubuntu"><i class="fa fa-check"></i><b>0.1.2</b> Installing R Spatial on Ubuntu</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="project-setup.html"><a href="project-setup.html"><i class="fa fa-check"></i><b>1</b> Project Setup</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="project-setup.html"><a href="project-setup.html#create-an-r-studio-project"><i class="fa fa-check"></i><b>1.1</b> Create an R Studio Project</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="project-setup.html"><a href="project-setup.html#git"><i class="fa fa-check"></i><b>1.1.1</b> Git</a></li>
+<li class="chapter" data-level="1.1.2" data-path="project-setup.html"><a href="project-setup.html#renv"><i class="fa fa-check"></i><b>1.1.2</b> <code>renv</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="project-setup.html"><a href="project-setup.html#download-the-celltracktech-package-using-renv"><i class="fa fa-check"></i><b>1.2</b> Download the “celltracktech” package using renv</a></li>
+<li class="chapter" data-level="1.3" data-path="project-setup.html"><a href="project-setup.html#request-an-api-token"><i class="fa fa-check"></i><b>1.3</b> Request an API token</a></li>
+<li class="chapter" data-level="1.4" data-path="project-setup.html"><a href="project-setup.html#create-a-.env-file"><i class="fa fa-check"></i><b>1.4</b> Create a ‘.env’ file</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="project-setup.html"><a href="project-setup.html#load-the-api-key-into-your-rstudio-environment"><i class="fa fa-check"></i><b>1.4.1</b> Load the API key into your RStudio environment</a></li>
+<li class="chapter" data-level="1.4.2" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>1.4.2</b> Add .env file to .gitignore</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>1.5</b> Organize your Project Directory</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>2</b> Download Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="download-data.html"><a href="download-data.html#create-a-duckdb-database"><i class="fa fa-check"></i><b>2.1</b> Create a DuckDB database</a></li>
+<li class="chapter" data-level="2.2" data-path="download-data.html"><a href="download-data.html#download-data-from-the-ctt-api"><i class="fa fa-check"></i><b>2.2</b> Download data from the CTT API</a></li>
+<li class="chapter" data-level="2.3" data-path="download-data.html"><a href="download-data.html#updating-the-database"><i class="fa fa-check"></i><b>2.3</b> Updating the database</a></li>
+<li class="chapter" data-level="2.4" data-path="download-data.html"><a href="download-data.html#disconnecting-from-the-database"><i class="fa fa-check"></i><b>2.4</b> Disconnecting from the database</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="download-data.html"><a href="download-data.html#create-database-from-files-on-your-computer"><i class="fa fa-check"></i><b>2.4.1</b> Create Database from Files on your Computer</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="download-data.html"><a href="download-data.html#uploading-node-data-from-the-sd-card"><i class="fa fa-check"></i><b>2.5</b> Uploading Node Data from the SD Card</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="download-data.html"><a href="download-data.html#create-nodes-directory"><i class="fa fa-check"></i><b>2.5.1</b> Create Nodes directory</a></li>
+<li class="chapter" data-level="2.5.2" data-path="download-data.html"><a href="download-data.html#create-individual-directories-for-each-node"><i class="fa fa-check"></i><b>2.5.2</b> Create individual directories for each Node</a></li>
+<li class="chapter" data-level="2.5.3" data-path="download-data.html"><a href="download-data.html#upload-node-data-to-your-duckdb-database"><i class="fa fa-check"></i><b>2.5.3</b> Upload Node data to your DuckDB database</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="download-data.html"><a href="download-data.html#create-postgres-database"><i class="fa fa-check"></i><b>2.6</b> Create Postgres Database</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html"><i class="fa fa-check"></i><b>3</b> Obtaining Data from Database</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#duckplyr"><i class="fa fa-check"></i><b>3.1</b> Duckplyr</a></li>
+<li class="chapter" data-level="3.2" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#sql-queries"><i class="fa fa-check"></i><b>3.2</b> SQL Queries</a></li>
+<li class="chapter" data-level="3.3" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#list-tables"><i class="fa fa-check"></i><b>3.3</b> List Tables</a></li>
+<li class="chapter" data-level="3.4" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#find-unique-tags-in-raw-table"><i class="fa fa-check"></i><b>3.4</b> Find unique tags in <code>raw</code> table</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="node-check.html"><a href="node-check.html"><i class="fa fa-check"></i><b>4</b> Node Check</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="node-check.html"><a href="node-check.html#node-health"><i class="fa fa-check"></i><b>4.1</b> Node Health</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="node-check.html"><a href="node-check.html#node-health---check-health-records"><i class="fa fa-check"></i><b>4.1.1</b> Node Health - Check Health Records</a></li>
+<li class="chapter" data-level="4.1.2" data-path="node-check.html"><a href="node-check.html#battery-and-solar-levels"><i class="fa fa-check"></i><b>4.1.2</b> Battery and Solar Levels</a></li>
+<li class="chapter" data-level="4.1.3" data-path="node-check.html"><a href="node-check.html#check-gps"><i class="fa fa-check"></i><b>4.1.3</b> Check GPS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="node-calibration.html"><a href="node-calibration.html"><i class="fa fa-check"></i><b>5</b> Node Calibration</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-data-file"><i class="fa fa-check"></i><b>5.1</b> Load sidekick data file</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="node-calibration.html"><a href="node-calibration.html#if-you-do-not-have-a-sidekick-data-file"><i class="fa fa-check"></i><b>5.1.1</b> IF YOU DO NOT HAVE A SIDEKICK DATA FILE:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="node-calibration.html"><a href="node-calibration.html#setup"><i class="fa fa-check"></i><b>5.2</b> Setup</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="node-calibration.html"><a href="node-calibration.html#load-environmental-variables-into-rstudio"><i class="fa fa-check"></i><b>5.2.1</b> Load environmental variables into RStudio</a></li>
+<li class="chapter" data-level="5.2.2" data-path="node-calibration.html"><a href="node-calibration.html#load-settings"><i class="fa fa-check"></i><b>5.2.2</b> Load settings</a></li>
+<li class="chapter" data-level="5.2.3" data-path="node-calibration.html"><a href="node-calibration.html#load-node-health-data-from-files"><i class="fa fa-check"></i><b>5.2.3</b> Load Node Health Data from Files</a></li>
+<li class="chapter" data-level="5.2.4" data-path="node-calibration.html"><a href="node-calibration.html#get-node-locations"><i class="fa fa-check"></i><b>5.2.4</b> Get Node Locations</a></li>
+<li class="chapter" data-level="5.2.5" data-path="node-calibration.html"><a href="node-calibration.html#load-station-detection-from-files"><i class="fa fa-check"></i><b>5.2.5</b> Load Station Detection from Files</a></li>
+<li class="chapter" data-level="5.2.6" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-calibration-data"><i class="fa fa-check"></i><b>5.2.6</b> Load Sidekick Calibration Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="node-calibration.html"><a href="node-calibration.html#calculate-the-rssi-vs.-distance-relationship"><i class="fa fa-check"></i><b>5.3</b> Calculate the RSSI vs. Distance Relationship</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html"><i class="fa fa-check"></i><b>6</b> Presence/Absence Analysis</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#set-parameters"><i class="fa fa-check"></i><b>6.1</b> Set parameters</a></li>
+<li class="chapter" data-level="6.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-data-from-database-1"><i class="fa fa-check"></i><b>6.2</b> Load data from database</a></li>
+<li class="chapter" data-level="6.3" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-info"><i class="fa fa-check"></i><b>6.3</b> Load Tag Deployment Info</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-file"><i class="fa fa-check"></i><b>6.3.1</b> Load Tag Deployment File</a></li>
+<li class="chapter" data-level="6.3.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#get-list-of-detected-tags"><i class="fa fa-check"></i><b>6.3.2</b> Get List of Detected Tags</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#generate-detection-summary"><i class="fa fa-check"></i><b>6.4</b> Generate Detection Summary</a></li>
+<li class="chapter" data-level="6.5" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#show-detection-history-for-a-specific-tag"><i class="fa fa-check"></i><b>6.5</b> Show Detection History for a Specific Tag</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="activity-budget.html"><a href="activity-budget.html"><i class="fa fa-check"></i><b>7</b> Activity Budget</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="activity-budget.html"><a href="activity-budget.html#load-settings-1"><i class="fa fa-check"></i><b>7.1</b> Load settings</a></li>
+<li class="chapter" data-level="7.2" data-path="activity-budget.html"><a href="activity-budget.html#load-tag-node-detection-data"><i class="fa fa-check"></i><b>7.2</b> Load Tag Node Detection Data</a></li>
+<li class="chapter" data-level="7.3" data-path="activity-budget.html"><a href="activity-budget.html#tag-activity"><i class="fa fa-check"></i><b>7.3</b> Tag Activity</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="activity-budget.html"><a href="activity-budget.html#scatter-plot-of-rssi-vs-time-by-node"><i class="fa fa-check"></i><b>7.3.1</b> Scatter Plot of RSSI vs time by Node</a></li>
+<li class="chapter" data-level="7.3.2" data-path="activity-budget.html"><a href="activity-budget.html#scatter-plot-of-activity-vs-time-by-node"><i class="fa fa-check"></i><b>7.3.2</b> Scatter Plot of activity vs time by Node</a></li>
+<li class="chapter" data-level="7.3.3" data-path="activity-budget.html"><a href="activity-budget.html#d-histogram-of-activity-over-time"><i class="fa fa-check"></i><b>7.3.3</b> 2D Histogram of Activity over Time</a></li>
+<li class="chapter" data-level="7.3.4" data-path="activity-budget.html"><a href="activity-budget.html#d-histogram-of-activity-vs-time-with-avg-activity"><i class="fa fa-check"></i><b>7.3.4</b> 2D histogram of activity vs time WITH avg activity</a></li>
+<li class="chapter" data-level="7.3.5" data-path="activity-budget.html"><a href="activity-budget.html#avg-activity-hour-vs-time."><i class="fa fa-check"></i><b>7.3.5</b> Avg activity / hour Vs time.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="habitat-use.html"><a href="habitat-use.html"><i class="fa fa-check"></i><b>8</b> Habitat Use</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="habitat-use.html"><a href="habitat-use.html#load-libraries-and-settings"><i class="fa fa-check"></i><b>8.1</b> Load libraries and settings</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="habitat-use.html"><a href="habitat-use.html#activate-renv"><i class="fa fa-check"></i><b>8.1.1</b> Activate renv</a></li>
+<li class="chapter" data-level="8.1.2" data-path="habitat-use.html"><a href="habitat-use.html#load-libraries-and-settings-1"><i class="fa fa-check"></i><b>8.1.2</b> Load libraries and settings</a></li>
+<li class="chapter" data-level="8.1.3" data-path="habitat-use.html"><a href="habitat-use.html#load-functions"><i class="fa fa-check"></i><b>8.1.3</b> Load Functions</a></li>
+<li class="chapter" data-level="8.1.4" data-path="habitat-use.html"><a href="habitat-use.html#load-rssi-coefficients"><i class="fa fa-check"></i><b>8.1.4</b> Load RSSI Coefficients</a></li>
+<li class="chapter" data-level="8.1.5" data-path="habitat-use.html"><a href="habitat-use.html#load-settings-2"><i class="fa fa-check"></i><b>8.1.5</b> Load Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="habitat-use.html"><a href="habitat-use.html#load-node-health-data-from-files-1"><i class="fa fa-check"></i><b>8.2</b> Load Node Health Data from Files</a></li>
+<li class="chapter" data-level="8.3" data-path="habitat-use.html"><a href="habitat-use.html#get-node-locations-1"><i class="fa fa-check"></i><b>8.3</b> Get Node Locations</a></li>
+<li class="chapter" data-level="8.4" data-path="habitat-use.html"><a href="habitat-use.html#load-station-detection-data"><i class="fa fa-check"></i><b>8.4</b> Load Station Detection Data</a></li>
+<li class="chapter" data-level="8.5" data-path="habitat-use.html"><a href="habitat-use.html#build-a-grid"><i class="fa fa-check"></i><b>8.5</b> Build a Grid</a></li>
+<li class="chapter" data-level="8.6" data-path="habitat-use.html"><a href="habitat-use.html#calculate-locations"><i class="fa fa-check"></i><b>8.6</b> Calculate Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html"><i class="fa fa-check"></i><b>9</b> Grid Search Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#loading-settings"><i class="fa fa-check"></i><b>9.1</b> Loading Settings</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#activate-renv-1"><i class="fa fa-check"></i><b>9.1.1</b> Activate renv</a></li>
+<li class="chapter" data-level="9.1.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-libraries"><i class="fa fa-check"></i><b>9.1.2</b> Load libraries</a></li>
+<li class="chapter" data-level="9.1.3" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-settings-3"><i class="fa fa-check"></i><b>9.1.3</b> Load settings</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-node-health-data-from-database"><i class="fa fa-check"></i><b>9.2</b> Load Node Health data from Database</a></li>
+<li class="chapter" data-level="9.3" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#get-node-locations-2"><i class="fa fa-check"></i><b>9.3</b> Get Node Locations</a></li>
+<li class="chapter" data-level="9.4" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-station-detection-data-1"><i class="fa fa-check"></i><b>9.4</b> Load Station Detection Data</a></li>
+<li class="chapter" data-level="9.5" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#build-a-node-grid"><i class="fa fa-check"></i><b>9.5</b> Build a Node Grid</a></li>
+<li class="chapter" data-level="9.6" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#optional-calculate-test-solution"><i class="fa fa-check"></i><b>9.6</b> (Optional) Calculate Test Solution</a></li>
+<li class="chapter" data-level="9.7" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#calculate-track"><i class="fa fa-check"></i><b>9.7</b> Calculate Track</a></li>
+<li class="chapter" data-level="9.8" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#optional-compare-with-known-track"><i class="fa fa-check"></i><b>9.8</b> (Optional) Compare with Known Track</a></li>
+<li class="chapter" data-level="9.9" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#plot-uncertainty-analysis"><i class="fa fa-check"></i><b>9.9</b> Plot Uncertainty Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="multilateration.html"><a href="multilateration.html"><i class="fa fa-check"></i><b>10</b> Multilateration</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="multilateration.html"><a href="multilateration.html#load-settings-4"><i class="fa fa-check"></i><b>10.1</b> Load settings</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="multilateration.html"><a href="multilateration.html#reset-rs-brain-remove-all-previous-objects"><i class="fa fa-check"></i><b>10.1.1</b> Reset R’s brain, remove all previous objects</a></li>
+<li class="chapter" data-level="10.1.2" data-path="multilateration.html"><a href="multilateration.html#load-libraries-1"><i class="fa fa-check"></i><b>10.1.2</b> Load libraries</a></li>
+<li class="chapter" data-level="10.1.3" data-path="multilateration.html"><a href="multilateration.html#re-create-sample-data-from-node-calibration-chapter-5"><i class="fa fa-check"></i><b>10.1.3</b> Re-create sample data from node calibration (Chapter 5)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="multilateration.html"><a href="multilateration.html#isolate-raw-received-signal-strength-rss-data-from-node-network-associated-with-test-data"><i class="fa fa-check"></i><b>10.2</b> Isolate raw Received Signal Strength (RSS) data from Node network associated with Test Data</a></li>
+<li class="chapter" data-level="10.3" data-path="multilateration.html"><a href="multilateration.html#exponential-decay-function---relationship-between-distance-and-tag-rss-values"><i class="fa fa-check"></i><b>10.3</b> Exponential Decay Function - Relationship between Distance and Tag RSS Values</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="multilateration.html"><a href="multilateration.html#preliminary-exponential-decay-model---determine-starting-values-for-the-final-model"><i class="fa fa-check"></i><b>10.3.1</b> Preliminary Exponential Decay Model - Determine starting values for the final model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="multilateration.html"><a href="multilateration.html#final-exponential-decay-model"><i class="fa fa-check"></i><b>10.3.2</b> Final Exponential Decay Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="api-reference.html"><a href="api-reference.html"><i class="fa fa-check"></i><b>11</b> API Reference</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="api-reference.html"><a href="api-reference.html#typical-workflow"><i class="fa fa-check"></i><b>11.1</b> Typical Workflow</a></li>
+<li class="chapter" data-level="11.2" data-path="api-reference.html"><a href="api-reference.html#post-wrapper"><i class="fa fa-check"></i><b>11.2</b> POST Wrapper</a></li>
+<li class="chapter" data-level="11.3" data-path="api-reference.html"><a href="api-reference.html#list-projects-projects"><i class="fa fa-check"></i><b>11.3</b> List Projects <span class="tag-label tag-projects">Projects</span></a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="api-reference.html"><a href="api-reference.html#parameters"><i class="fa fa-check"></i><b>11.3.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.3.2" data-path="api-reference.html"><a href="api-reference.html#curl-example"><i class="fa fa-check"></i><b>11.3.2</b> curl Example</a></li>
+<li class="chapter" data-level="11.3.3" data-path="api-reference.html"><a href="api-reference.html#response"><i class="fa fa-check"></i><b>11.3.3</b> Response</a></li>
+<li class="chapter" data-level="11.3.4" data-path="api-reference.html"><a href="api-reference.html#errors"><i class="fa fa-check"></i><b>11.3.4</b> Errors</a></li>
+<li class="chapter" data-level="11.3.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions"><i class="fa fa-check"></i><b>11.3.5</b> R Package Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="api-reference.html"><a href="api-reference.html#list-stations-stations"><i class="fa fa-check"></i><b>11.4</b> List Stations <span class="tag-label tag-stations">Stations</span></a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="api-reference.html"><a href="api-reference.html#parameters-1"><i class="fa fa-check"></i><b>11.4.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.4.2" data-path="api-reference.html"><a href="api-reference.html#curl-example-1"><i class="fa fa-check"></i><b>11.4.2</b> curl Example</a></li>
+<li class="chapter" data-level="11.4.3" data-path="api-reference.html"><a href="api-reference.html#response-1"><i class="fa fa-check"></i><b>11.4.3</b> Response</a></li>
+<li class="chapter" data-level="11.4.4" data-path="api-reference.html"><a href="api-reference.html#errors-1"><i class="fa fa-check"></i><b>11.4.4</b> Errors</a></li>
+<li class="chapter" data-level="11.4.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions-1"><i class="fa fa-check"></i><b>11.4.5</b> R Package Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="api-reference.html"><a href="api-reference.html#list-station-files-files"><i class="fa fa-check"></i><b>11.5</b> List Station Files <span class="tag-label tag-files">Files</span></a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="api-reference.html"><a href="api-reference.html#parameters-2"><i class="fa fa-check"></i><b>11.5.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.5.2" data-path="api-reference.html"><a href="api-reference.html#curl-examples"><i class="fa fa-check"></i><b>11.5.2</b> curl Examples</a></li>
+<li class="chapter" data-level="11.5.3" data-path="api-reference.html"><a href="api-reference.html#response-2"><i class="fa fa-check"></i><b>11.5.3</b> Response</a></li>
+<li class="chapter" data-level="11.5.4" data-path="api-reference.html"><a href="api-reference.html#errors-2"><i class="fa fa-check"></i><b>11.5.4</b> Errors</a></li>
+<li class="chapter" data-level="11.5.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions-2"><i class="fa fa-check"></i><b>11.5.5</b> R Package Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="api-reference.html"><a href="api-reference.html#download-file-files"><i class="fa fa-check"></i><b>11.6</b> Download File <span class="tag-label tag-files">Files</span></a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="api-reference.html"><a href="api-reference.html#parameters-3"><i class="fa fa-check"></i><b>11.6.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.6.2" data-path="api-reference.html"><a href="api-reference.html#curl-examples-1"><i class="fa fa-check"></i><b>11.6.2</b> curl Examples</a></li>
+<li class="chapter" data-level="11.6.3" data-path="api-reference.html"><a href="api-reference.html#response-3"><i class="fa fa-check"></i><b>11.6.3</b> Response</a></li>
+<li class="chapter" data-level="11.6.4" data-path="api-reference.html"><a href="api-reference.html#errors-3"><i class="fa fa-check"></i><b>11.6.4</b> Errors</a></li>
+<li class="chapter" data-level="11.6.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions-3"><i class="fa fa-check"></i><b>11.6.5</b> R Package Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">‘celltracktech’ Data Analysis package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="api-reference" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> API Reference<a href="api-reference.html#api-reference" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="info-box">
+<p><strong>Base URL:</strong> <code><a href="https://api.internetofwildlife.com" class="uri">https://api.internetofwildlife.com</a></code>
+ •  <strong>Protocol:</strong> HTTPS
+ •  <strong>Method:</strong> All endpoints use POST
+ •  <strong>Encoding:</strong> JSON
+ •  <strong>Timeout:</strong> 60 seconds per request</p>
+</div>
+<p>All endpoints require an API token passed in the JSON request body as <code>token</code>. The token is loaded from a <code>.env</code> file via <code>dotenv</code> and accessed with <code>Sys.getenv("MY_TOKEN")</code>.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="api-reference.html#cb93-1" tabindex="-1"></a><span class="fu">library</span>(dotenv)</span>
+<span id="cb93-2"><a href="api-reference.html#cb93-2" tabindex="-1"></a><span class="fu">load_dot_env</span>()</span>
+<span id="cb93-3"><a href="api-reference.html#cb93-3" tabindex="-1"></a>my_token <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">&quot;MY_TOKEN&quot;</span>)</span></code></pre></div>
+<div id="typical-workflow" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Typical Workflow<a href="api-reference.html#typical-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<pre><code>1. Authenticate       load_dot_env() -&gt; Sys.getenv(&quot;MY_TOKEN&quot;)
+2. List projects      POST /station/api/projects
+3. List stations      POST /station/api/stations/         (per project)
+4. List files         POST /station/api/file-list          (per station, paginated)
+5. Download files     POST /station/api/download-file/     (per file)
+6. (Optional) Import  file_handle() -&gt; db_prep() -&gt; db_insert()</code></pre>
+<p>The <code>get_my_data()</code> function orchestrates this entire workflow in a single call.</p>
+</div>
+<div id="post-wrapper" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> POST Wrapper<a href="api-reference.html#post-wrapper" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>All endpoints (except direct calls in <code>get_my_projects</code> and <code>project_list</code>) go through the <code>post()</code> function in <code>R/post.R</code>:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="api-reference.html#cb95-1" tabindex="-1"></a><span class="fu">post</span>(endpoint, <span class="at">payload =</span> <span class="cn">NULL</span>, <span class="at">show_progress =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<ul>
+<li>Automatically injects <code>token = my_token</code> into every request</li>
+<li>60-second timeout on all requests</li>
+<li>Detects HTTP 503 and emits a warning suggesting narrower date ranges or pagination</li>
+<li>Calls <code>httr::stop_for_status()</code> to raise on other HTTP errors</li>
+<li>Optional progress bar via <code>httr::progress()</code></li>
+</ul>
+<hr class="section-divider">
+</div>
+<div id="list-projects-projects" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> List Projects <span class="tag-label tag-projects">Projects</span><a href="api-reference.html#list-projects-projects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="endpoint-header">
+<p><span class="method-badge method-post">POST</span>
+<span class="endpoint-path">/station/api/projects</span></p>
+</div>
+<p>Retrieves all projects associated with the authenticated user’s account.</p>
+<div id="parameters" class="section level3 hasAnchor" number="11.3.1">
+<h3><span class="header-section-number">11.3.1</span> Parameters<a href="api-reference.html#parameters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table class="param-table">
+<thead>
+<tr>
+<th>
+Field
+</th>
+<th>
+Type
+</th>
+<th>
+Required
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>token</code>
+</td>
+<td>
+<span class="param-type">string</span>
+</td>
+<td>
+<span class="param-required">REQUIRED</span>
+</td>
+<td>
+API authentication token
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="curl-example" class="section level3 hasAnchor" number="11.3.2">
+<h3><span class="header-section-number">11.3.2</span> curl Example<a href="api-reference.html#curl-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb96"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb96-1"><a href="api-reference.html#cb96-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://api.internetofwildlife.com/station/api/projects <span class="dt">\</span></span>
+<span id="cb96-2"><a href="api-reference.html#cb96-2" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb96-3"><a href="api-reference.html#cb96-3" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;token&quot;: &quot;YOUR_API_TOKEN&quot;}&#39;</span></span></code></pre></div>
+</div>
+<div id="response" class="section level3 hasAnchor" number="11.3.3">
+<h3><span class="header-section-number">11.3.3</span> Response<a href="api-reference.html#response" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="response-section">
+<p><strong>200 OK</strong></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb97-1"><a href="api-reference.html#cb97-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb97-2"><a href="api-reference.html#cb97-2" tabindex="-1"></a>  <span class="dt">&quot;projects&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb97-3"><a href="api-reference.html#cb97-3" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb97-4"><a href="api-reference.html#cb97-4" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;abc123&quot;</span><span class="fu">,</span></span>
+<span id="cb97-5"><a href="api-reference.html#cb97-5" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;My Wildlife Project&quot;</span></span>
+<span id="cb97-6"><a href="api-reference.html#cb97-6" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb97-7"><a href="api-reference.html#cb97-7" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb97-8"><a href="api-reference.html#cb97-8" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;def456&quot;</span><span class="fu">,</span></span>
+<span id="cb97-9"><a href="api-reference.html#cb97-9" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Raptor Tracking Study&quot;</span></span>
+<span id="cb97-10"><a href="api-reference.html#cb97-10" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb97-11"><a href="api-reference.html#cb97-11" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb97-12"><a href="api-reference.html#cb97-12" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+</div>
+<div id="errors" class="section level3 hasAnchor" number="11.3.4">
+<h3><span class="header-section-number">11.3.4</span> Errors<a href="api-reference.html#errors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table class="error-table">
+<thead>
+<tr>
+<th>
+Status
+</th>
+<th>
+Cause
+</th>
+<th>
+What You See
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="error-code">401</span>
+</td>
+<td>
+Invalid or expired API token
+</td>
+<td>
+<code>httr::stop_for_status()</code> raises: <code>“Unauthorized (HTTP 401)”</code>
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">503</span>
+</td>
+<td>
+Server overloaded or temporarily down
+</td>
+<td>
+Warning: <code>“Server query timeout — try narrowing your date range or using pagination”</code>, then execution stops
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Timeout</span>
+</td>
+<td>
+Network issue or server unreachable
+</td>
+<td>
+R error: <code>“Timeout was reached”</code> after 60 seconds
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Empty token</span>
+</td>
+<td>
+<code>.env</code> file missing or <code>MY_TOKEN</code> not set
+</td>
+<td>
+API returns auth error; <code>Sys.getenv(“MY_TOKEN”)</code> silently returns <code>““</code> if unset
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Not found</span>
+</td>
+<td>
+Specified <code>myproject</code> name doesn’t match any project
+</td>
+<td>
+<code>“The project you entered is not found in your project list. Check your spelling and if you have access to the project.”</code>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="r-package-functions" class="section level3 hasAnchor" number="11.3.5">
+<h3><span class="header-section-number">11.3.5</span> R Package Functions<a href="api-reference.html#r-package-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="used-by">
+<ul>
+<li><code>get_my_projects()</code> in <code>R/get_my_projects.R</code> — returns a character vector of project names</li>
+<li><code>project_list()</code> in <code>R/project_list.R</code> — returns filtered project list with optional name matching</li>
+</ul>
+</div>
+<hr class="section-divider">
+</div>
+</div>
+<div id="list-stations-stations" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> List Stations <span class="tag-label tag-stations">Stations</span><a href="api-reference.html#list-stations-stations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="endpoint-header">
+<p><span class="method-badge method-post">POST</span>
+<span class="endpoint-path">/station/api/stations/</span></p>
+</div>
+<p>Retrieves all sensor stations deployed under a given project.</p>
+<div id="parameters-1" class="section level3 hasAnchor" number="11.4.1">
+<h3><span class="header-section-number">11.4.1</span> Parameters<a href="api-reference.html#parameters-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table class="param-table">
+<thead>
+<tr>
+<th>
+Field
+</th>
+<th>
+Type
+</th>
+<th>
+Required
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>token</code>
+</td>
+<td>
+<span class="param-type">string</span>
+</td>
+<td>
+<span class="param-required">REQUIRED</span>
+</td>
+<td>
+API authentication token
+</td>
+</tr>
+<tr>
+<td>
+<code>project-id</code>
+</td>
+<td>
+<span class="param-type">string</span>
+</td>
+<td>
+<span class="param-required">REQUIRED</span>
+</td>
+<td>
+Project identifier obtained from the List Projects endpoint
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="curl-example-1" class="section level3 hasAnchor" number="11.4.2">
+<h3><span class="header-section-number">11.4.2</span> curl Example<a href="api-reference.html#curl-example-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb98"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb98-1"><a href="api-reference.html#cb98-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://api.internetofwildlife.com/station/api/stations/ <span class="dt">\</span></span>
+<span id="cb98-2"><a href="api-reference.html#cb98-2" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb98-3"><a href="api-reference.html#cb98-3" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;token&quot;: &quot;YOUR_API_TOKEN&quot;, &quot;project-id&quot;: &quot;YOUR_PROJECT_ID&quot;}&#39;</span></span></code></pre></div>
+</div>
+<div id="response-1" class="section level3 hasAnchor" number="11.4.3">
+<h3><span class="header-section-number">11.4.3</span> Response<a href="api-reference.html#response-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="response-section">
+<p><strong>200 OK</strong></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb99-1"><a href="api-reference.html#cb99-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb99-2"><a href="api-reference.html#cb99-2" tabindex="-1"></a>  <span class="dt">&quot;stations&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb99-3"><a href="api-reference.html#cb99-3" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb99-4"><a href="api-reference.html#cb99-4" tabindex="-1"></a>      <span class="dt">&quot;station&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb99-5"><a href="api-reference.html#cb99-5" tabindex="-1"></a>        <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;STATION-001&quot;</span></span>
+<span id="cb99-6"><a href="api-reference.html#cb99-6" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb99-7"><a href="api-reference.html#cb99-7" tabindex="-1"></a>      <span class="dt">&quot;deploy-at&quot;</span><span class="fu">:</span> <span class="st">&quot;2024-01-15T00:00:00.000Z&quot;</span><span class="fu">,</span></span>
+<span id="cb99-8"><a href="api-reference.html#cb99-8" tabindex="-1"></a>      <span class="dt">&quot;end-at&quot;</span><span class="fu">:</span> <span class="st">&quot;2024-06-01T00:00:00.000Z&quot;</span></span>
+<span id="cb99-9"><a href="api-reference.html#cb99-9" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb99-10"><a href="api-reference.html#cb99-10" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb99-11"><a href="api-reference.html#cb99-11" tabindex="-1"></a>      <span class="dt">&quot;station&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb99-12"><a href="api-reference.html#cb99-12" tabindex="-1"></a>        <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;STATION-002&quot;</span></span>
+<span id="cb99-13"><a href="api-reference.html#cb99-13" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb99-14"><a href="api-reference.html#cb99-14" tabindex="-1"></a>      <span class="dt">&quot;deploy-at&quot;</span><span class="fu">:</span> <span class="st">&quot;2024-03-01T00:00:00.000Z&quot;</span><span class="fu">,</span></span>
+<span id="cb99-15"><a href="api-reference.html#cb99-15" tabindex="-1"></a>      <span class="dt">&quot;end-at&quot;</span><span class="fu">:</span> <span class="kw">null</span></span>
+<span id="cb99-16"><a href="api-reference.html#cb99-16" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb99-17"><a href="api-reference.html#cb99-17" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb99-18"><a href="api-reference.html#cb99-18" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Each station entry includes:</p>
+<ul>
+<li><strong><code>station.id</code></strong> — unique station identifier</li>
+<li><strong><code>deploy-at</code></strong> — ISO 8601 deployment start timestamp</li>
+<li><strong><code>end-at</code></strong> — ISO 8601 deployment end timestamp (null for active stations)</li>
+</ul>
+</div>
+</div>
+<div id="errors-1" class="section level3 hasAnchor" number="11.4.4">
+<h3><span class="header-section-number">11.4.4</span> Errors<a href="api-reference.html#errors-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table class="error-table">
+<thead>
+<tr>
+<th>
+Status
+</th>
+<th>
+Cause
+</th>
+<th>
+What You See
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="error-code">401</span>
+</td>
+<td>
+Invalid or expired API token
+</td>
+<td>
+<code>httr::stop_for_status()</code> raises: <code>“Unauthorized (HTTP 401)”</code>
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">404</span>
+</td>
+<td>
+<code>project-id</code> does not exist or user lacks access
+</td>
+<td>
+<code>httr::stop_for_status()</code> stops execution with an HTTP error
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">503</span>
+</td>
+<td>
+Server overloaded or temporarily down
+</td>
+<td>
+Warning: <code>“Server query timeout — try narrowing your date range or using pagination”</code>, then execution stops
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Timeout</span>
+</td>
+<td>
+Network issue or server unreachable
+</td>
+<td>
+R error: <code>“Timeout was reached”</code> after 60 seconds
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Empty list</span>
+</td>
+<td>
+Project exists but has no deployed stations
+</td>
+<td>
+Response returns <code>“stations”: []</code>; downstream code in <code>get_data()</code> skips processing
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="r-package-functions-1" class="section level3 hasAnchor" number="11.4.5">
+<h3><span class="header-section-number">11.4.5</span> R Package Functions<a href="api-reference.html#r-package-functions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="used-by">
+<ul>
+<li><code>get_stations()</code> in <code>R/get_stations.R</code></li>
+<li><code>get_data()</code> in <code>R/get_data.R</code> — iterates stations to build file lists</li>
+</ul>
+</div>
+<hr class="section-divider">
+</div>
+</div>
+<div id="list-station-files-files" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> List Station Files <span class="tag-label tag-files">Files</span><a href="api-reference.html#list-station-files-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="endpoint-header">
+<p><span class="method-badge method-post">POST</span>
+<span class="endpoint-path">/station/api/file-list</span></p>
+</div>
+<p>Retrieves metadata for data files available from a specific station, with optional date range and file type filtering. Supports pagination via <code>limit</code> and <code>offset</code>.</p>
+<div id="parameters-2" class="section level3 hasAnchor" number="11.5.1">
+<h3><span class="header-section-number">11.5.1</span> Parameters<a href="api-reference.html#parameters-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table class="param-table">
+<thead>
+<tr>
+<th>
+Field
+</th>
+<th>
+Type
+</th>
+<th>
+Required
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>token</code>
+</td>
+<td>
+<span class="param-type">string</span>
+</td>
+<td>
+<span class="param-required">REQUIRED</span>
+</td>
+<td>
+API authentication token
+</td>
+</tr>
+<tr>
+<td>
+<code>station-id</code>
+</td>
+<td>
+<span class="param-type">string</span>
+</td>
+<td>
+<span class="param-required">REQUIRED</span>
+</td>
+<td>
+Station identifier obtained from the List Stations endpoint
+</td>
+</tr>
+<tr>
+<td>
+<code>begin</code>
+</td>
+<td>
+<span class="param-type">date</span>
+</td>
+<td>
+<span class="param-required">REQUIRED</span>
+</td>
+<td>
+Start date for file search (ISO date format, e.g. <code>2024-01-01</code>)
+</td>
+</tr>
+<tr>
+<td>
+<code>end</code>
+</td>
+<td>
+<span class="param-type">date</span>
+</td>
+<td>
+<span class="param-optional">optional</span>
+</td>
+<td>
+End date for file search. Defaults to today if omitted.
+</td>
+</tr>
+<tr>
+<td>
+<code>file-types</code>
+</td>
+<td>
+<span class="param-type">string[]</span>
+</td>
+<td>
+<span class="param-optional">optional</span>
+</td>
+<td>
+Filter by file types: <code>data</code>, <code>node-data</code>, <code>gps</code>, <code>log</code>, <code>telemetry</code>, <code>sensorgnome</code>, <code>ble</code>, <code>blu</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>limit</code>
+</td>
+<td>
+<span class="param-type">integer</span>
+</td>
+<td>
+<span class="param-optional">optional</span>
+</td>
+<td>
+Maximum number of files to return (for pagination)
+</td>
+</tr>
+<tr>
+<td>
+<code>offset</code>
+</td>
+<td>
+<span class="param-type">integer</span>
+</td>
+<td>
+<span class="param-optional">optional</span>
+</td>
+<td>
+Number of files to skip (for pagination)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="curl-examples" class="section level3 hasAnchor" number="11.5.2">
+<h3><span class="header-section-number">11.5.2</span> curl Examples<a href="api-reference.html#curl-examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Basic request (required fields only):</strong></p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb100-1"><a href="api-reference.html#cb100-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://api.internetofwildlife.com/station/api/file-list <span class="dt">\</span></span>
+<span id="cb100-2"><a href="api-reference.html#cb100-2" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb100-3"><a href="api-reference.html#cb100-3" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;token&quot;: &quot;YOUR_API_TOKEN&quot;, &quot;station-id&quot;: &quot;YOUR_STATION_ID&quot;, &quot;begin&quot;: &quot;2024-01-01&quot;}&#39;</span></span></code></pre></div>
+<p><strong>Full request with all options:</strong></p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb101-1"><a href="api-reference.html#cb101-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://api.internetofwildlife.com/station/api/file-list <span class="dt">\</span></span>
+<span id="cb101-2"><a href="api-reference.html#cb101-2" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb101-3"><a href="api-reference.html#cb101-3" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb101-4"><a href="api-reference.html#cb101-4" tabindex="-1"></a><span class="st">    &quot;token&quot;: &quot;YOUR_API_TOKEN&quot;,</span></span>
+<span id="cb101-5"><a href="api-reference.html#cb101-5" tabindex="-1"></a><span class="st">    &quot;station-id&quot;: &quot;YOUR_STATION_ID&quot;,</span></span>
+<span id="cb101-6"><a href="api-reference.html#cb101-6" tabindex="-1"></a><span class="st">    &quot;begin&quot;: &quot;2024-01-01&quot;,</span></span>
+<span id="cb101-7"><a href="api-reference.html#cb101-7" tabindex="-1"></a><span class="st">    &quot;end&quot;: &quot;2024-02-01&quot;,</span></span>
+<span id="cb101-8"><a href="api-reference.html#cb101-8" tabindex="-1"></a><span class="st">    &quot;file-types&quot;: [&quot;data&quot;, &quot;gps&quot;],</span></span>
+<span id="cb101-9"><a href="api-reference.html#cb101-9" tabindex="-1"></a><span class="st">    &quot;limit&quot;: 100,</span></span>
+<span id="cb101-10"><a href="api-reference.html#cb101-10" tabindex="-1"></a><span class="st">    &quot;offset&quot;: 0</span></span>
+<span id="cb101-11"><a href="api-reference.html#cb101-11" tabindex="-1"></a><span class="st">  }&#39;</span></span></code></pre></div>
+</div>
+<div id="response-2" class="section level3 hasAnchor" number="11.5.3">
+<h3><span class="header-section-number">11.5.3</span> Response<a href="api-reference.html#response-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="response-section">
+<p><strong>200 OK</strong></p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb102-1"><a href="api-reference.html#cb102-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb102-2"><a href="api-reference.html#cb102-2" tabindex="-1"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb102-3"><a href="api-reference.html#cb102-3" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb102-4"><a href="api-reference.html#cb102-4" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;file-789&quot;</span><span class="fu">,</span></span>
+<span id="cb102-5"><a href="api-reference.html#cb102-5" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;CTT-STATION001-data.csv.gz&quot;</span></span>
+<span id="cb102-6"><a href="api-reference.html#cb102-6" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb102-7"><a href="api-reference.html#cb102-7" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb102-8"><a href="api-reference.html#cb102-8" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;file-790&quot;</span><span class="fu">,</span></span>
+<span id="cb102-9"><a href="api-reference.html#cb102-9" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;CTT-STATION001-gps.csv.gz&quot;</span></span>
+<span id="cb102-10"><a href="api-reference.html#cb102-10" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb102-11"><a href="api-reference.html#cb102-11" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb102-12"><a href="api-reference.html#cb102-12" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="info-box">
+<p><strong>Note:</strong> Large date ranges may cause 503 server timeouts. Use <code>get_station_file_list_paginated()</code> to handle this automatically. The paginated version retries failed chunks up to <code>max_retries</code> times (default 3) with exponential backoff (2s, 4s, 6s).</p>
+</div>
+</div>
+<div id="errors-2" class="section level3 hasAnchor" number="11.5.4">
+<h3><span class="header-section-number">11.5.4</span> Errors<a href="api-reference.html#errors-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table class="error-table">
+<thead>
+<tr>
+<th>
+Status
+</th>
+<th>
+Cause
+</th>
+<th>
+What You See
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="error-code">401</span>
+</td>
+<td>
+Invalid or expired API token
+</td>
+<td>
+<code>httr::stop_for_status()</code> raises: <code>“Unauthorized (HTTP 401)”</code>
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">503</span>
+</td>
+<td>
+Date range too large; server times out
+</td>
+<td>
+Warning: <code>“Server query timeout — try narrowing your date range or using pagination”</code>. The paginated wrapper catches this and retries: <code>“Request timed out, retrying (attempt X of Y)…”</code>
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Timeout</span>
+</td>
+<td>
+Network issue or server unreachable
+</td>
+<td>
+R error: <code>“Timeout was reached”</code> after 60 seconds. Paginated wrapper retries up to <code>max_retries</code> times with exponential backoff.
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Invalid type</span>
+</td>
+<td>
+A value in <code>file-types</code> is not one of the 8 valid types
+</td>
+<td>
+Warning: <code>“WARNING: invalid file type specified - ignoring: &lt;type&gt;”</code>. Invalid types are dropped; request proceeds with valid types only.
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">404</span>
+</td>
+<td>
+<code>station-id</code> does not exist
+</td>
+<td>
+<code>httr::stop_for_status()</code> stops execution with an HTTP error
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Empty result</span>
+</td>
+<td>
+Station has no files for the given date range
+</td>
+<td>
+<code>get_data()</code> prints <code>“no files found from API”</code> and returns an empty list
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Max retries</span>
+</td>
+<td>
+Paginated wrapper exhausts all retry attempts on a chunk
+</td>
+<td>
+The original error is re-thrown via <code>stop(e)</code>, halting execution
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="r-package-functions-2" class="section level3 hasAnchor" number="11.5.5">
+<h3><span class="header-section-number">11.5.5</span> R Package Functions<a href="api-reference.html#r-package-functions-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="used-by">
+<ul>
+<li><code>get_station_file_list()</code> in <code>R/get_station_file_list.R</code> — single request with optional pagination params</li>
+<li><code>get_station_file_list_paginated()</code> in <code>R/get_station_file_list_paginated.R</code> — automatic date-chunked pagination with retry logic</li>
+</ul>
+</div>
+<hr class="section-divider">
+</div>
+</div>
+<div id="download-file-files" class="section level2 hasAnchor" number="11.6">
+<h2><span class="header-section-number">11.6</span> Download File <span class="tag-label tag-files">Files</span><a href="api-reference.html#download-file-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="endpoint-header">
+<p><span class="method-badge method-post">POST</span>
+<span class="endpoint-path">/station/api/download-file/</span></p>
+</div>
+<p>Downloads the contents of a single data file by its ID.</p>
+<div id="parameters-3" class="section level3 hasAnchor" number="11.6.1">
+<h3><span class="header-section-number">11.6.1</span> Parameters<a href="api-reference.html#parameters-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table class="param-table">
+<thead>
+<tr>
+<th>
+Field
+</th>
+<th>
+Type
+</th>
+<th>
+Required
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>token</code>
+</td>
+<td>
+<span class="param-type">string</span>
+</td>
+<td>
+<span class="param-required">REQUIRED</span>
+</td>
+<td>
+API authentication token
+</td>
+</tr>
+<tr>
+<td>
+<code>file-id</code>
+</td>
+<td>
+<span class="param-type">string</span>
+</td>
+<td>
+<span class="param-required">REQUIRED</span>
+</td>
+<td>
+File identifier obtained from the List Station Files endpoint
+</td>
+</tr>
+<tr>
+<td>
+<code>bypass-encoding</code>
+</td>
+<td>
+<span class="param-type">string</span>
+</td>
+<td>
+<span class="param-optional">optional</span>
+</td>
+<td>
+Set to <code>“plain”</code> to bypass encoding. Used automatically as a fallback on retry.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="curl-examples-1" class="section level3 hasAnchor" number="11.6.2">
+<h3><span class="header-section-number">11.6.2</span> curl Examples<a href="api-reference.html#curl-examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Basic download:</strong></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb103-1"><a href="api-reference.html#cb103-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://api.internetofwildlife.com/station/api/download-file/ <span class="dt">\</span></span>
+<span id="cb103-2"><a href="api-reference.html#cb103-2" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb103-3"><a href="api-reference.html#cb103-3" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;token&quot;: &quot;YOUR_API_TOKEN&quot;, &quot;file-id&quot;: &quot;YOUR_FILE_ID&quot;}&#39;</span></span></code></pre></div>
+<p><strong>With bypass encoding (fallback on error):</strong></p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb104-1"><a href="api-reference.html#cb104-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://api.internetofwildlife.com/station/api/download-file/ <span class="dt">\</span></span>
+<span id="cb104-2"><a href="api-reference.html#cb104-2" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb104-3"><a href="api-reference.html#cb104-3" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;token&quot;: &quot;YOUR_API_TOKEN&quot;, &quot;file-id&quot;: &quot;YOUR_FILE_ID&quot;, &quot;bypass-encoding&quot;: &quot;plain&quot;}&#39;</span></span></code></pre></div>
+</div>
+<div id="response-3" class="section level3 hasAnchor" number="11.6.3">
+<h3><span class="header-section-number">11.6.3</span> Response<a href="api-reference.html#response-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="response-section">
+<p><strong>200 OK</strong> — Raw file content (CSV text, UTF-8 encoded)</p>
+<pre><code>TagId,NodeId,TagRSSI,Validated,Time
+TAG-001,NODE-A,-70,1,2024-01-15 12:00:00
+TAG-001,NODE-B,-85,1,2024-01-15 12:00:00</code></pre>
+<p>In batch downloads via <code>get_data()</code>, each file result is tracked in a dataframe. The final summary prints: <code>"Download complete: X succeeded, Y failed out of Z files"</code></p>
+</div>
+</div>
+<div id="errors-3" class="section level3 hasAnchor" number="11.6.4">
+<h3><span class="header-section-number">11.6.4</span> Errors<a href="api-reference.html#errors-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table class="error-table">
+<thead>
+<tr>
+<th>
+Status
+</th>
+<th>
+Cause
+</th>
+<th>
+What You See
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="error-code">401</span>
+</td>
+<td>
+Invalid or expired API token
+</td>
+<td>
+<code>httr::stop_for_status()</code> raises: <code>“Unauthorized (HTTP 401)”</code>
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">404</span>
+</td>
+<td>
+<code>file-id</code> does not match any file on the server
+</td>
+<td>
+<code>httr::stop_for_status()</code> stops execution with an HTTP error
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">500</span>
+</td>
+<td>
+File content has encoding issues the server can’t handle
+</td>
+<td>
+<code>download_files()</code> prints <code>“Here’s the original error message:”</code> followed by the error detail, then automatically retries with <code>bypass-encoding = “plain”</code>
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">500 (retry)</span>
+</td>
+<td>
+File is corrupted or unrecoverable (retry also fails)
+</td>
+<td>
+Error propagates up; <code>get_data()</code> catches it per-file and records <code>status = “failed”</code> in results dataframe
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">503</span>
+</td>
+<td>
+Server overloaded or temporarily down
+</td>
+<td>
+Warning: <code>“Server query timeout — try narrowing your date range or using pagination”</code>, then execution stops
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Timeout</span>
+</td>
+<td>
+Network issue or server unreachable
+</td>
+<td>
+R error: <code>“Timeout was reached”</code> after 60 seconds
+</td>
+</tr>
+<tr>
+<td>
+<span class="error-code">Batch failure</span>
+</td>
+<td>
+Any error during a single file download within <code>get_data()</code>
+</td>
+<td>
+File is marked <code>“failed”</code> in the results dataframe; remaining files continue. Final summary: <code>“Download complete: X succeeded, Y failed out of Z files”</code>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="r-package-functions-3" class="section level3 hasAnchor" number="11.6.5">
+<h3><span class="header-section-number">11.6.5</span> R Package Functions<a href="api-reference.html#r-package-functions-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="used-by">
+<ul>
+<li><code>download_files()</code> in <code>R/download_files.R</code></li>
+<li>Called from <code>get_data()</code> in <code>R/get_data.R</code> for each file in the download queue</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="multilateration.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/11-api-reference.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
