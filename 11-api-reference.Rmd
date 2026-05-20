@@ -7,10 +7,14 @@ knitr::opts_chunk$set(eval = FALSE)
 
 <div class="info-box">
 <strong>Base URL:</strong> <code>https://api.internetofwildlife.com</code>
-&nbsp;&bull;&nbsp; <strong>Protocol:</strong> HTTPS
-&nbsp;&bull;&nbsp; <strong>Method:</strong> All endpoints use POST
-&nbsp;&bull;&nbsp; <strong>Encoding:</strong> JSON
-&nbsp;&bull;&nbsp; <strong>Timeout:</strong> 60 seconds per request
+<br>
+<strong>Protocol:</strong> HTTPS
+<br>
+<strong>Method:</strong> All endpoints use POST
+<br>
+<strong>Encoding:</strong> JSON
+<br>
+<strong>Timeout:</strong> 60 seconds per request
 </div>
 
 All endpoints require an API token passed in the JSON request body as `token`. The token is loaded from a `.env` file via `dotenv` and accessed with `Sys.getenv("MY_TOKEN")`.

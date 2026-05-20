@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo, Sean Burcher, Meelyn Pandit" />
 
 
-<meta name="date" content="2026-05-18" />
+<meta name="date" content="2026-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -534,12 +534,12 @@ As distance increases, we see average RSS decreasing exponentially.</p>
 <img src="images/multilateration_rings_map.png" alt="Ring Map" />
 <div class="figcaption">Ring Map</div>
 </div>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="multilateration.html#cb92-1" tabindex="-1"></a>no.filters <span class="ot">&lt;-</span> <span class="fu">trilateration.TestData.NoFilter</span>(combined_data)</span>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="multilateration.html#cb92-1" tabindex="-1"></a>no.filters <span class="ot">&lt;-</span> <span class="fu">trilateration_testdata_nofilter</span>(combined_data)</span>
 <span id="cb92-2"><a href="multilateration.html#cb92-2" tabindex="-1"></a>RSS.FILTER <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>, <span class="sc">-</span><span class="dv">85</span>, <span class="sc">-</span><span class="dv">90</span>, <span class="sc">-</span><span class="dv">95</span>)</span>
-<span id="cb92-3"><a href="multilateration.html#cb92-3" tabindex="-1"></a>RSS.filters <span class="ot">&lt;-</span> <span class="fu">trilateration.TestData.RSS.Filter</span>(combined_data, RSS.FILTER)</span>
+<span id="cb92-3"><a href="multilateration.html#cb92-3" tabindex="-1"></a>RSS.filters <span class="ot">&lt;-</span> <span class="fu">trilateration_testdata_rss_filter</span>(combined_data, RSS.FILTER)</span>
 <span id="cb92-4"><a href="multilateration.html#cb92-4" tabindex="-1"></a><span class="co">#DIST.FILTER &lt;- c(315,500,750,1000)</span></span>
 <span id="cb92-5"><a href="multilateration.html#cb92-5" tabindex="-1"></a><span class="co"># Calculate error of location estimates of each test location when Distance filters are applied prior to trilateration </span></span>
-<span id="cb92-6"><a href="multilateration.html#cb92-6" tabindex="-1"></a><span class="co">#Dist.filters &lt;- trilateration.TestData.Distance.Filter(combined_data, DIST.FILTER)</span></span>
+<span id="cb92-6"><a href="multilateration.html#cb92-6" tabindex="-1"></a><span class="co">#Dist.filters &lt;- trilateration_testdata_distance_filter(combined_data, DIST.FILTER)</span></span>
 <span id="cb92-7"><a href="multilateration.html#cb92-7" tabindex="-1"></a></span>
 <span id="cb92-8"><a href="multilateration.html#cb92-8" tabindex="-1"></a>SLIDE.TIME <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb92-9"><a href="multilateration.html#cb92-9" tabindex="-1"></a>GROUP.TIME <span class="ot">&lt;-</span> <span class="st">&quot;1 min&quot;</span></span>

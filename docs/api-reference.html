@@ -23,7 +23,7 @@
 <meta name="author" content="Jessica Gorzo, Sean Burcher, Meelyn Pandit" />
 
 
-<meta name="date" content="2026-05-18" />
+<meta name="date" content="2026-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -349,10 +349,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 11</span> API Reference<a href="api-reference.html#api-reference" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="info-box">
 <p><strong>Base URL:</strong> <code><a href="https://api.internetofwildlife.com" class="uri">https://api.internetofwildlife.com</a></code>
- •  <strong>Protocol:</strong> HTTPS
- •  <strong>Method:</strong> All endpoints use POST
- •  <strong>Encoding:</strong> JSON
- •  <strong>Timeout:</strong> 60 seconds per request</p>
+<br>
+<strong>Protocol:</strong> HTTPS
+<br>
+<strong>Method:</strong> All endpoints use POST
+<br>
+<strong>Encoding:</strong> JSON
+<br>
+<strong>Timeout:</strong> 60 seconds per request</p>
 </div>
 <p>All endpoints require an API token passed in the JSON request body as <code>token</code>. The token is loaded from a <code>.env</code> file via <code>dotenv</code> and accessed with <code>Sys.getenv("MY_TOKEN")</code>.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="api-reference.html#cb93-1" tabindex="-1"></a><span class="fu">library</span>(dotenv)</span>

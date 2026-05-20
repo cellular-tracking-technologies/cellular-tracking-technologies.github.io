@@ -125,7 +125,7 @@
 
 \title{`celltracktech' Data Analysis package}
 \author{Jessica Gorzo, Sean Burcher, Meelyn Pandit}
-\date{2026-05-18}
+\date{2026-05-20}
 
 \begin{document}
 \maketitle
@@ -2437,12 +2437,12 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{no.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration.TestData.NoFilter}\NormalTok{(combined\_data)}
+\NormalTok{no.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration\_testdata\_nofilter}\NormalTok{(combined\_data)}
 \NormalTok{RSS.FILTER }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{80}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{85}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{90}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{95}\NormalTok{)}
-\NormalTok{RSS.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration.TestData.RSS.Filter}\NormalTok{(combined\_data, RSS.FILTER)}
+\NormalTok{RSS.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration\_testdata\_rss\_filter}\NormalTok{(combined\_data, RSS.FILTER)}
 \CommentTok{\#DIST.FILTER \textless{}{-} c(315,500,750,1000)}
 \CommentTok{\# Calculate error of location estimates of each test location when Distance filters are applied prior to trilateration }
-\CommentTok{\#Dist.filters \textless{}{-} trilateration.TestData.Distance.Filter(combined\_data, DIST.FILTER)}
+\CommentTok{\#Dist.filters \textless{}{-} trilateration\_testdata\_distance\_filter(combined\_data, DIST.FILTER)}
 
 \NormalTok{SLIDE.TIME }\OtherTok{\textless{}{-}} \DecValTok{2}
 \NormalTok{GROUP.TIME }\OtherTok{\textless{}{-}} \StringTok{"1 min"}
@@ -2473,10 +2473,10 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 \chapter{API Reference}\label{api-reference}
 
 Base URL: \url{https://api.internetofwildlife.com}
-~•~ Protocol: HTTPS
-~•~ Method: All endpoints use POST
-~•~ Encoding: JSON
-~•~ Timeout: 60 seconds per request
+Protocol: HTTPS
+Method: All endpoints use POST
+Encoding: JSON
+Timeout: 60 seconds per request
 
 All endpoints require an API token passed in the JSON request body as \texttt{token}. The token is loaded from a \texttt{.env} file via \texttt{dotenv} and accessed with \texttt{Sys.getenv("MY\_TOKEN")}.
 
