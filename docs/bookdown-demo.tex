@@ -125,7 +125,7 @@
 
 \title{`celltracktech' Data Analysis package}
 \author{Jessica Gorzo, Sean Burcher, Meelyn Pandit}
-\date{2026-03-26}
+\date{2026-05-20}
 
 \begin{document}
 \maketitle
@@ -134,7 +134,8 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\chapter{AOS2024 - `celltracktech' Workshop}\label{aos2024---celltracktech-workshop}
+\chapter*{AOS2024 - `celltracktech' Workshop}\label{aos2024---celltracktech-workshop}
+\addcontentsline{toc}{chapter}{AOS2024 - `celltracktech' Workshop}
 
 This RBook goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the `celltracktech' R package. This package was developed by Dr.~Jessica Gorzo, Dr.~Sean Burcher, and Dr.~Meelyn Pandit.
 
@@ -2436,12 +2437,12 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{no.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration.TestData.NoFilter}\NormalTok{(combined\_data)}
+\NormalTok{no.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration\_testdata\_nofilter}\NormalTok{(combined\_data)}
 \NormalTok{RSS.FILTER }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{80}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{85}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{90}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{95}\NormalTok{)}
-\NormalTok{RSS.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration.TestData.RSS.Filter}\NormalTok{(combined\_data, RSS.FILTER)}
+\NormalTok{RSS.filters }\OtherTok{\textless{}{-}} \FunctionTok{trilateration\_testdata\_rss\_filter}\NormalTok{(combined\_data, RSS.FILTER)}
 \CommentTok{\#DIST.FILTER \textless{}{-} c(315,500,750,1000)}
 \CommentTok{\# Calculate error of location estimates of each test location when Distance filters are applied prior to trilateration }
-\CommentTok{\#Dist.filters \textless{}{-} trilateration.TestData.Distance.Filter(combined\_data, DIST.FILTER)}
+\CommentTok{\#Dist.filters \textless{}{-} trilateration\_testdata\_distance\_filter(combined\_data, DIST.FILTER)}
 
 \NormalTok{SLIDE.TIME }\OtherTok{\textless{}{-}} \DecValTok{2}
 \NormalTok{GROUP.TIME }\OtherTok{\textless{}{-}} \StringTok{"1 min"}
@@ -2469,6 +2470,615 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 \end{Highlighting}
 \end{Shaded}
 
+\chapter{API Reference}\label{api-reference}
+
+Base URL: \url{https://api.internetofwildlife.com}
+Protocol: HTTPS
+Method: All endpoints use POST
+Encoding: JSON
+Timeout: 60 seconds per request
+
+All endpoints require an API token passed in the JSON request body as \texttt{token}. The token is loaded from a \texttt{.env} file via \texttt{dotenv} and accessed with \texttt{Sys.getenv("MY\_TOKEN")}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dotenv)}
+\FunctionTok{load\_dot\_env}\NormalTok{()}
+\NormalTok{my\_token }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"MY\_TOKEN"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Typical Workflow}\label{typical-workflow}
+
+\begin{verbatim}
+1. Authenticate       load_dot_env() -> Sys.getenv("MY_TOKEN")
+2. List projects      POST /station/api/projects
+3. List stations      POST /station/api/stations/         (per project)
+4. List files         POST /station/api/file-list          (per station, paginated)
+5. Download files     POST /station/api/download-file/     (per file)
+6. (Optional) Import  file_handle() -> db_prep() -> db_insert()
+\end{verbatim}
+
+The \texttt{get\_my\_data()} function orchestrates this entire workflow in a single call.
+
+\section{POST Wrapper}\label{post-wrapper}
+
+All endpoints (except direct calls in \texttt{get\_my\_projects} and \texttt{project\_list}) go through the \texttt{post()} function in \texttt{R/post.R}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{post}\NormalTok{(endpoint, }\AttributeTok{payload =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{show\_progress =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Automatically injects \texttt{token\ =\ my\_token} into every request
+\item
+  60-second timeout on all requests
+\item
+  Detects HTTP 503 and emits a warning suggesting narrower date ranges or pagination
+\item
+  Calls \texttt{httr::stop\_for\_status()} to raise on other HTTP errors
+\item
+  Optional progress bar via \texttt{httr::progress()}
+\end{itemize}
+
+\section{\texorpdfstring{List Projects {Projects}}{List Projects Projects}}\label{list-projects-projects}
+
+{POST}
+{/station/api/projects}
+
+Retrieves all projects associated with the authenticated user's account.
+
+\subsection{Parameters}\label{parameters}
+
+Field
+
+Type
+
+Required
+
+Description
+
+token
+
+{string}
+
+{REQUIRED}
+
+API authentication token
+
+\subsection{curl Example}\label{curl-example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{curl} \AttributeTok{{-}X}\NormalTok{ POST https://api.internetofwildlife.com/station/api/projects }\DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}H} \StringTok{"Content{-}Type: application/json"} \DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}d} \StringTok{\textquotesingle{}\{"token": "YOUR\_API\_TOKEN"\}\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Response}\label{response}
+
+\textbf{200 OK}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"projects"}\FunctionTok{:} \OtherTok{[}
+    \FunctionTok{\{}
+      \DataTypeTok{"id"}\FunctionTok{:} \StringTok{"abc123"}\FunctionTok{,}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"My Wildlife Project"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"id"}\FunctionTok{:} \StringTok{"def456"}\FunctionTok{,}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Raptor Tracking Study"}
+    \FunctionTok{\}}
+  \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Errors}\label{errors}
+
+Status
+
+Cause
+
+What You See
+
+{401}
+
+Invalid or expired API token
+
+httr::stop\_for\_status() raises: ``Unauthorized (HTTP 401)''
+
+{503}
+
+Server overloaded or temporarily down
+
+Warning: ``Server query timeout --- try narrowing your date range or using pagination'', then execution stops
+
+{Timeout}
+
+Network issue or server unreachable
+
+R error: ``Timeout was reached'' after 60 seconds
+
+{Empty token}
+
+.env file missing or MY\_TOKEN not set
+
+API returns auth error; Sys.getenv(``MY\_TOKEN'') silently returns ``\,`` if unset
+
+{Not found}
+
+Specified myproject name doesn't match any project
+
+``The project you entered is not found in your project list. Check your spelling and if you have access to the project.''
+
+\subsection{R Package Functions}\label{r-package-functions}
+
+\begin{itemize}
+\tightlist
+\item
+  get\_my\_projects() in R/get\_my\_projects.R --- returns a character vector of project names
+\item
+  project\_list() in R/project\_list.R --- returns filtered project list with optional name matching
+\end{itemize}
+
+\section{\texorpdfstring{List Stations {Stations}}{List Stations Stations}}\label{list-stations-stations}
+
+{POST}
+{/station/api/stations/}
+
+Retrieves all sensor stations deployed under a given project.
+
+\subsection{Parameters}\label{parameters-1}
+
+Field
+
+Type
+
+Required
+
+Description
+
+token
+
+{string}
+
+{REQUIRED}
+
+API authentication token
+
+project-id
+
+{string}
+
+{REQUIRED}
+
+Project identifier obtained from the List Projects endpoint
+
+\subsection{curl Example}\label{curl-example-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{curl} \AttributeTok{{-}X}\NormalTok{ POST https://api.internetofwildlife.com/station/api/stations/ }\DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}H} \StringTok{"Content{-}Type: application/json"} \DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}d} \StringTok{\textquotesingle{}\{"token": "YOUR\_API\_TOKEN", "project{-}id": "YOUR\_PROJECT\_ID"\}\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Response}\label{response-1}
+
+\textbf{200 OK}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"stations"}\FunctionTok{:} \OtherTok{[}
+    \FunctionTok{\{}
+      \DataTypeTok{"station"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"id"}\FunctionTok{:} \StringTok{"STATION{-}001"}
+      \FunctionTok{\},}
+      \DataTypeTok{"deploy{-}at"}\FunctionTok{:} \StringTok{"2024{-}01{-}15T00:00:00.000Z"}\FunctionTok{,}
+      \DataTypeTok{"end{-}at"}\FunctionTok{:} \StringTok{"2024{-}06{-}01T00:00:00.000Z"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"station"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"id"}\FunctionTok{:} \StringTok{"STATION{-}002"}
+      \FunctionTok{\},}
+      \DataTypeTok{"deploy{-}at"}\FunctionTok{:} \StringTok{"2024{-}03{-}01T00:00:00.000Z"}\FunctionTok{,}
+      \DataTypeTok{"end{-}at"}\FunctionTok{:} \KeywordTok{null}
+    \FunctionTok{\}}
+  \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Each station entry includes:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\texttt{station.id}} --- unique station identifier
+\item
+  \textbf{\texttt{deploy-at}} --- ISO 8601 deployment start timestamp
+\item
+  \textbf{\texttt{end-at}} --- ISO 8601 deployment end timestamp (null for active stations)
+\end{itemize}
+
+\subsection{Errors}\label{errors-1}
+
+Status
+
+Cause
+
+What You See
+
+{401}
+
+Invalid or expired API token
+
+httr::stop\_for\_status() raises: ``Unauthorized (HTTP 401)''
+
+{404}
+
+project-id does not exist or user lacks access
+
+httr::stop\_for\_status() stops execution with an HTTP error
+
+{503}
+
+Server overloaded or temporarily down
+
+Warning: ``Server query timeout --- try narrowing your date range or using pagination'', then execution stops
+
+{Timeout}
+
+Network issue or server unreachable
+
+R error: ``Timeout was reached'' after 60 seconds
+
+{Empty list}
+
+Project exists but has no deployed stations
+
+Response returns ``stations'': {[}{]}; downstream code in get\_data() skips processing
+
+\subsection{R Package Functions}\label{r-package-functions-1}
+
+\begin{itemize}
+\tightlist
+\item
+  get\_stations() in R/get\_stations.R
+\item
+  get\_data() in R/get\_data.R --- iterates stations to build file lists
+\end{itemize}
+
+\section{\texorpdfstring{List Station Files {Files}}{List Station Files Files}}\label{list-station-files-files}
+
+{POST}
+{/station/api/file-list}
+
+Retrieves metadata for data files available from a specific station, with optional date range and file type filtering. Supports pagination via \texttt{limit} and \texttt{offset}.
+
+\subsection{Parameters}\label{parameters-2}
+
+Field
+
+Type
+
+Required
+
+Description
+
+token
+
+{string}
+
+{REQUIRED}
+
+API authentication token
+
+station-id
+
+{string}
+
+{REQUIRED}
+
+Station identifier obtained from the List Stations endpoint
+
+begin
+
+{date}
+
+{REQUIRED}
+
+Start date for file search (ISO date format, e.g.~2024-01-01)
+
+end
+
+{date}
+
+{optional}
+
+End date for file search. Defaults to today if omitted.
+
+file-types
+
+{string{[}{]}}
+
+{optional}
+
+Filter by file types: data, node-data, gps, log, telemetry, sensorgnome, ble, blu
+
+limit
+
+{integer}
+
+{optional}
+
+Maximum number of files to return (for pagination)
+
+offset
+
+{integer}
+
+{optional}
+
+Number of files to skip (for pagination)
+
+\subsection{curl Examples}\label{curl-examples}
+
+\textbf{Basic request (required fields only):}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{curl} \AttributeTok{{-}X}\NormalTok{ POST https://api.internetofwildlife.com/station/api/file{-}list }\DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}H} \StringTok{"Content{-}Type: application/json"} \DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}d} \StringTok{\textquotesingle{}\{"token": "YOUR\_API\_TOKEN", "station{-}id": "YOUR\_STATION\_ID", "begin": "2024{-}01{-}01"\}\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Full request with all options:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{curl} \AttributeTok{{-}X}\NormalTok{ POST https://api.internetofwildlife.com/station/api/file{-}list }\DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}H} \StringTok{"Content{-}Type: application/json"} \DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}d} \StringTok{\textquotesingle{}\{}
+\StringTok{    "token": "YOUR\_API\_TOKEN",}
+\StringTok{    "station{-}id": "YOUR\_STATION\_ID",}
+\StringTok{    "begin": "2024{-}01{-}01",}
+\StringTok{    "end": "2024{-}02{-}01",}
+\StringTok{    "file{-}types": ["data", "gps"],}
+\StringTok{    "limit": 100,}
+\StringTok{    "offset": 0}
+\StringTok{  \}\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Response}\label{response-2}
+
+\textbf{200 OK}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"files"}\FunctionTok{:} \OtherTok{[}
+    \FunctionTok{\{}
+      \DataTypeTok{"id"}\FunctionTok{:} \StringTok{"file{-}789"}\FunctionTok{,}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"CTT{-}STATION001{-}data.csv.gz"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"id"}\FunctionTok{:} \StringTok{"file{-}790"}\FunctionTok{,}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"CTT{-}STATION001{-}gps.csv.gz"}
+    \FunctionTok{\}}
+  \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Note: Large date ranges may cause 503 server timeouts. Use get\_station\_file\_list\_paginated() to handle this automatically. The paginated version retries failed chunks up to max\_retries times (default 3) with exponential backoff (2s, 4s, 6s).
+
+\subsection{Errors}\label{errors-2}
+
+Status
+
+Cause
+
+What You See
+
+{401}
+
+Invalid or expired API token
+
+httr::stop\_for\_status() raises: ``Unauthorized (HTTP 401)''
+
+{503}
+
+Date range too large; server times out
+
+Warning: ``Server query timeout --- try narrowing your date range or using pagination''. The paginated wrapper catches this and retries: ``Request timed out, retrying (attempt X of Y)\ldots{}''
+
+{Timeout}
+
+Network issue or server unreachable
+
+R error: ``Timeout was reached'' after 60 seconds. Paginated wrapper retries up to max\_retries times with exponential backoff.
+
+{Invalid type}
+
+A value in file-types is not one of the 8 valid types
+
+Warning: ``WARNING: invalid file type specified - ignoring: \textless type\textgreater{}''. Invalid types are dropped; request proceeds with valid types only.
+
+{404}
+
+station-id does not exist
+
+httr::stop\_for\_status() stops execution with an HTTP error
+
+{Empty result}
+
+Station has no files for the given date range
+
+get\_data() prints ``no files found from API'' and returns an empty list
+
+{Max retries}
+
+Paginated wrapper exhausts all retry attempts on a chunk
+
+The original error is re-thrown via stop(e), halting execution
+
+\subsection{R Package Functions}\label{r-package-functions-2}
+
+\begin{itemize}
+\tightlist
+\item
+  get\_station\_file\_list() in R/get\_station\_file\_list.R --- single request with optional pagination params
+\item
+  get\_station\_file\_list\_paginated() in R/get\_station\_file\_list\_paginated.R --- automatic date-chunked pagination with retry logic
+\end{itemize}
+
+\section{\texorpdfstring{Download File {Files}}{Download File Files}}\label{download-file-files}
+
+{POST}
+{/station/api/download-file/}
+
+Downloads the contents of a single data file by its ID.
+
+\subsection{Parameters}\label{parameters-3}
+
+Field
+
+Type
+
+Required
+
+Description
+
+token
+
+{string}
+
+{REQUIRED}
+
+API authentication token
+
+file-id
+
+{string}
+
+{REQUIRED}
+
+File identifier obtained from the List Station Files endpoint
+
+bypass-encoding
+
+{string}
+
+{optional}
+
+Set to ``plain'' to bypass encoding. Used automatically as a fallback on retry.
+
+\subsection{curl Examples}\label{curl-examples-1}
+
+\textbf{Basic download:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{curl} \AttributeTok{{-}X}\NormalTok{ POST https://api.internetofwildlife.com/station/api/download{-}file/ }\DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}H} \StringTok{"Content{-}Type: application/json"} \DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}d} \StringTok{\textquotesingle{}\{"token": "YOUR\_API\_TOKEN", "file{-}id": "YOUR\_FILE\_ID"\}\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{With bypass encoding (fallback on error):}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{curl} \AttributeTok{{-}X}\NormalTok{ POST https://api.internetofwildlife.com/station/api/download{-}file/ }\DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}H} \StringTok{"Content{-}Type: application/json"} \DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}d} \StringTok{\textquotesingle{}\{"token": "YOUR\_API\_TOKEN", "file{-}id": "YOUR\_FILE\_ID", "bypass{-}encoding": "plain"\}\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Response}\label{response-3}
+
+\textbf{200 OK} --- Raw file content (CSV text, UTF-8 encoded)
+
+\begin{verbatim}
+TagId,NodeId,TagRSSI,Validated,Time
+TAG-001,NODE-A,-70,1,2024-01-15 12:00:00
+TAG-001,NODE-B,-85,1,2024-01-15 12:00:00
+\end{verbatim}
+
+In batch downloads via \texttt{get\_data()}, each file result is tracked in a dataframe. The final summary prints: \texttt{"Download\ complete:\ X\ succeeded,\ Y\ failed\ out\ of\ Z\ files"}
+
+\subsection{Errors}\label{errors-3}
+
+Status
+
+Cause
+
+What You See
+
+{401}
+
+Invalid or expired API token
+
+httr::stop\_for\_status() raises: ``Unauthorized (HTTP 401)''
+
+{404}
+
+file-id does not match any file on the server
+
+httr::stop\_for\_status() stops execution with an HTTP error
+
+{500}
+
+File content has encoding issues the server can't handle
+
+download\_files() prints ``Here's the original error message:'' followed by the error detail, then automatically retries with bypass-encoding = ``plain''
+
+{500 (retry)}
+
+File is corrupted or unrecoverable (retry also fails)
+
+Error propagates up; get\_data() catches it per-file and records status = ``failed'' in results dataframe
+
+{503}
+
+Server overloaded or temporarily down
+
+Warning: ``Server query timeout --- try narrowing your date range or using pagination'', then execution stops
+
+{Timeout}
+
+Network issue or server unreachable
+
+R error: ``Timeout was reached'' after 60 seconds
+
+{Batch failure}
+
+Any error during a single file download within get\_data()
+
+File is marked ``failed'' in the results dataframe; remaining files continue. Final summary: ``Download complete: X succeeded, Y failed out of Z files''
+
+\subsection{R Package Functions}\label{r-package-functions-3}
+
+\begin{itemize}
+\tightlist
+\item
+  download\_files() in R/download\_files.R
+\item
+  Called from get\_data() in R/get\_data.R for each file in the download queue
+\end{itemize}
 
 \bibliography{doc.bib}
 

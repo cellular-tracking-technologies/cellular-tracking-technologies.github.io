@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# AOS2024 - 'celltracktech' Workshop
+# AOS2024 - 'celltracktech' Workshop {-}
 
 This RBook goes over the files, functions, and analyses from the 2024 American Ornithological Society (AOS) Workshop in Estes Park, CO on the 'celltracktech' R package. This package was developed by Dr. Jessica Gorzo, Dr. Sean Burcher, and Dr. Meelyn Pandit.
 
