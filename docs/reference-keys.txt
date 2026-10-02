@@ -123,3 +123,10 @@ curl-examples-1
 response-3
 errors-3
 r-package-functions-3
+blu-downloads
+prerequisites
+set-up-your-project-directory
+prepare-your-csv-files
+load-the-csv-files-into-r
+extract-the-blu-data
+analyze-your-data
