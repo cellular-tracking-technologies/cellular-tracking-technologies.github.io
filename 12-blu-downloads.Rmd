@@ -1,0 +1,86 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Blu Downloads
+
+This chapter covers how to load BLU (2.4 GHz / BLE) tag detection data from your Node SD card directly into R using the `read_node_sd_data()` function. This is useful when you do not have a Sensor Station and detect Blu tags using a Node.
+
+## Prerequisites
+
+Make sure you have the `celltracktech` package installed and loaded:
+
+```{r}
+library(celltracktech)
+```
+
+## Set Up Your Project Directory
+
+First, define your project name and output directory. The project name should match the name you use on your Blu Portal account:
+
+```{r}
+myproject <- "blu_tags" # use your project name on your Blu Portal account
+outpath <- "./data" # main directory where you will store your node folders
+node_id <- "abc123" # change to your actual node id
+date <- "20261002"
+```
+
+Create your project directory if it does not already exist. Include the date the you removed the files from the node. Store the files in the date directory so you don't overwrite your files.
+
+## Prepare Your CSV Files
+
+Place your `.csv` files from the Node SD card into your project directory. The BLU detection files on the SD card are named `blu_beep_0.csv`, `blu_beep_1.csv`, etc. (or `2p4_ghz_beep_0.csv` on older firmware). You will need to copy these files manually from the SD card into your project directory.
+
+## Load the CSV Files into R
+
+Use the `read_node_sd_data()` function to read all CSV files from your project directory:
+
+```{r}
+data <- read_node_sd_data(
+  project_dir,
+  node_id = node_id,
+  parse_payload = TRUE
+)
+```
+
+The `read_node_sd_data()` function accepts the following arguments:
+
+- `path`: The path to a directory containing your CSV files, or a single CSV file. If a directory, all CSV files are read recursively.
+- `node_id`: (Optional) Your node ID. If not provided, the function infers the node ID from the parent folder name.
+- `parse_payload`: If `TRUE` (default), the BLU payload hex string is parsed to extract battery voltage and temperature.
+
+The function returns a named list with up to four elements: `beep`, `blu`, `gps`, and `health`. Each element is a data frame with standardized column names, or `NULL` if no files of that type were found.
+
+## Extract the BLU Data
+
+Select just the BLU detection data from the returned list:
+
+```{r}
+detection_df <- data[["blu"]]
+```
+
+Preview the data to see the parsed columns, including `battery_voltage_v` and `temperature_celsius`:
+
+```{r}
+head(detection_df)
+```
+
+The BLU data frame contains the following columns:
+
+| Column | Description |
+|---|---|
+| `time` | Detection timestamp (UTC) |
+| `tag_id` | 8-character tag ID |
+| `tag_rssi` | Received signal strength indicator |
+| `node_id` | Node ID that recorded the detection |
+| `sync` | Sync value |
+| `product` | Product family identifier |
+| `revision` | Payload version / revision |
+| `payload` | Raw hex payload string |
+| `battery_voltage_v` | Parsed battery voltage in volts |
+| `temperature_celsius` | Parsed temperature in degrees Celsius |
+
+## Analyze your Data
+
+You now can continue with the rest of the tutorial. We recommend starting at Chapter 6, section 6.3.

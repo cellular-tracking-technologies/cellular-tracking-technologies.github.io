@@ -5,6 +5,8 @@ knitr::opts_chunk$set(eval = FALSE)
 
 # Download Data
 
+**Note! If you are using Blu tags with a standalone Node (no Sensor Station), skip to Chapter 12.**
+
 You can download the following file types:
 
 * raw: 434 MHz tag detections
