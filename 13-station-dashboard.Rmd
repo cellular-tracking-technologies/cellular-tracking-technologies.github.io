@@ -1,0 +1,292 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Build a Sensor Station Dashboard
+
+You can use an AI coding agent (Claude, ChatGPT, Copilot, or any other) to generate a complete sensor station dashboard for your project. This chapter gives you the prompt to paste, what to tell the AI, and how to launch the result.
+
+<div class="info-box">
+<strong>No coding experience needed.</strong> You give an AI agent the prompt below, along with your project name. It creates three files. You run one command and open a browser.
+</div>
+
+## What You Need
+
+1. **An API token** from CTT (see [Chapter 1 — Request an API token](#project-setup))
+2. **Your CTT account username and password** (the same login you use at [account.celltracktech.com](https://account.celltracktech.com))
+3. **Your project name** exactly as it appears on the CTT platform
+4. **Python** installed on your computer ([python.org/downloads](https://www.python.org/downloads/) — check "Add Python to PATH" during install)
+5. **An AI coding agent** — any of these work:
+    - [Claude](https://claude.ai) (free or Pro)
+    - [ChatGPT](https://chat.openai.com) (free or Plus)
+    - [GitHub Copilot](https://github.com/features/copilot)
+    - Any other AI that can generate code
+
+## Step 1: Copy the Prompt Below and Give It to Your AI Agent
+
+Open your AI agent and paste the following prompt. **Replace only YOUR_PROJECT_NAME** with your actual project name before sending.
+
+<div class="info-box" style="border-left-color: #e74c3c; background-color: #fdf2f2;">
+<strong>⚠ Do NOT paste your API token, password, or username into the AI chat.</strong> The AI does not need your real credentials to generate the code. It only needs your project name. You will enter your credentials locally in Step 2, in a file that stays on your computer and is never sent to anyone.
+<br><br>
+<strong>Why:</strong> AI providers store conversations on their servers. Your credentials could be logged, reviewed by employees, used in training data, or exposed in a data breach. Keep them local.
+</div>
+
+<div class="info-box">
+<strong>Tip:</strong> You can also ask the AI to customize the dashboard further — add new panels, change colors, add station filtering, etc. The prompt gives it everything it needs to know about the CTT API.
+</div>
+
+---
+
+### The Prompt
+
+Copy everything inside the box below:
+
+<div style="background-color: #f5f5f5; border: 2px solid #ccc; border-radius: 8px; padding: 20px; margin: 20px 0; font-size: 13px;">
+
+<pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; margin: 0;">
+I need you to create a sensor station dashboard for my wildlife tracking project.
+My project name is: YOUR_PROJECT_NAME
+
+Create three files that I place in a folder and run:
+
+1. config.json — stores my credentials (I will fill in the real values)
+2. proxy.py — a Python HTTP server that proxies browser requests to the CTT API
+3. dashboard.html — a single-page dashboard I open in my browser
+
+Here is everything you need to know about the CTT API:
+
+== CTT API SPECIFICATION ==
+
+BASE URL: https://api.internetofwildlife.com
+All endpoints use POST with JSON body. Every request must include "token" in the body.
+Timeout: 60 seconds.
+
+ENDPOINT 1 — List Projects
+POST /station/api/projects
+Body: {"token": "..."}
+Response: {"projects": [{"id": 73, "name": "Meadows V2"}, ...]}
+Note: project "id" is an INTEGER.
+
+ENDPOINT 2 — List Stations
+POST /station/api/stations/
+Body: {"token": "...", "project-id": 73}
+Response: {"stations": [{"station": {"id": "6CA25D375881"}, "deploy-at": "2024-01-15T00:00:00.000Z", "end-at": null}]}
+CRITICAL: "project-id" MUST be an integer, not a string. If you send "73" instead of 73 it returns empty.
+Active stations have "end-at": null.
+
+ENDPOINT 3 — List Station Files
+POST /station/api/file-list
+Body: {"token": "...", "station-id": "6CA25D375881", "begin": "2024-01-01"}
+Optional: "end" (date, defaults to today), "file-types" (array), "limit", "offset"
+Valid file-types: "data", "node-data", "gps", "log", "telemetry", "sensorgnome", "ble", "blu"
+Response: {"files": {"data": [{"id": 123, "name": "CTT-...-raw-data.csv.gz", "file_at": "..."}], "node-data": [...], "gps": [...], ...}}
+CRITICAL: "files" is a DICT keyed by file type, not a flat array. Each value is an array of file objects.
+
+ENDPOINT 4 — Download File
+POST /station/api/download-file/
+Body: {"token": "...", "file-id": "..."}
+Response: raw CSV text
+
+ENDPOINT 5 — Station Checkins (DIFFERENT HOST AND AUTH)
+GET https://account.celltracktech.com/station/station-data/{station_id}/
+Auth: session cookie (NOT the API token). Requires CSRF login flow:
+  Step 1: GET /accounts/login/ — extract csrftoken from Set-Cookie header
+  Step 2: POST /accounts/login/ with csrfmiddlewaretoken, username, password
+          Must include Referer header. Expect HTTP 302 redirect.
+  Step 3: GET /station/station-data/{station_id}/ with session cookies
+Returns up to 500 most recent checkins, newest first.
+Response: {"checkins": [{"station": {"id": "..."}, "project": "...", "alias": "...",
+  "received_at": "2024-05-18T12:00:04.512000+00:00", "lat": 40.0, "lng": -75.0,
+  "bootcount": 3, "uptime": 12345, "cpu": 8, "free_memory": 900000,
+  "available_space": 25000000, "beeps_since_last_checkin": 19,
+  "unique_tags_since_last_checkin": 2, "modem": {"signal": -71, "carrier": "VZW"}}]}
+If session expired: returns HTML instead of JSON (check Content-Type).
+
+== PROXY ARCHITECTURE ==
+
+The proxy runs on localhost (e.g. port 5000) using only Python standard library (no pip installs).
+It serves dashboard.html and config.json as static files.
+It maps browser requests to the real API:
+  POST /api/projects       → POST https://api.internetofwildlife.com/station/api/projects
+  POST /api/stations       → POST https://api.internetofwildlife.com/station/api/stations/
+  POST /api/file-list      → POST https://api.internetofwildlife.com/station/api/file-list
+  POST /api/download-file  → POST https://api.internetofwildlife.com/station/api/download-file/
+  GET  /api/checkins/{id}  → GET  https://account.celltracktech.com/station/station-data/{id}/
+
+The proxy must:
+- Read credentials from config.json
+- Inject the API token into every POST body automatically
+- Coerce "project-id", "station-id", "file-id" to integers (the API rejects string IDs)
+- Handle the CSRF login flow for checkins (login once, cache the session cookies)
+- Re-login if the session expires (HTML response instead of JSON)
+- Use only Python standard library (http.server, urllib, json, ssl)
+
+== CONFIG.JSON ==
+
+{
+  "api_token": "PASTE_YOUR_API_TOKEN_HERE",
+  "ctt_username": "PASTE_YOUR_CTT_USERNAME_HERE",
+  "ctt_password": "PASTE_YOUR_CTT_PASSWORD_HERE",
+  "project_name": "YOUR_PROJECT_NAME"
+}
+
+== DASHBOARD FEATURES ==
+
+The dashboard.html should be a single self-contained HTML file (no build step) that includes:
+
+1. Status cards — active station count, last checkin time, beep count, unique tag count
+2. Interactive map — station GPS positions using Leaflet.js (CDN), with popup showing signal, beeps, tags, uptime, disk
+3. Station health table — one row per station: station ID, last checkin, signal (dBm), CPU, disk (MB), beeps, tags
+4. Time-series charts — tabbed: beeps over time, unique tags over time, signal strength over time (use Chart.js from CDN with chartjs-adapter-date-fns)
+5. File inventory — table showing file count per type (last 30 days) with a donut chart breakdown
+   File type labels: data="Raw (434 MHz)", node-data="Node Health", gps="GPS", log="Log",
+   telemetry="Telemetry", sensorgnome="SensorGnome (166 MHz)", ble="BLE / Blu (2.4 GHz)"
+
+The dashboard reads config.json at load to get the project name for the title.
+API calls go through the local proxy (fetch('/api/projects'), etc.).
+The workflow: load config → find project by name → get stations → get checkins per active station → get file list per station → render everything.
+
+== KNOWN GOTCHAS ==
+
+1. Project IDs must be integers in the JSON body — the API silently returns empty results for string IDs
+2. The file-list response is a dict keyed by type, not a flat array
+3. The checkins endpoint uses a completely different host and auth mechanism (session cookie, not API token)
+4. If the checkin endpoint returns HTML (Content-Type: text/html), the session has expired — re-login
+5. The CSRF login requires both the csrftoken cookie AND the csrfmiddlewaretoken form field, plus a Referer header
+6. Station IDs can be alphanumeric (e.g. "6CA25D375881") — only project-id needs integer coercion
+7. modem.signal can be null — handle this in charts and display
+
+Please generate all three files complete and ready to use.
+</pre>
+
+</div>
+
+---
+
+## Step 2: Save the Three Files
+
+The AI will give you three files. Create a new folder on your computer (name it anything, e.g. `my-dashboard`) and save them inside:
+
+```
+my-dashboard/
+├── config.json
+├── proxy.py
+└── dashboard.html
+```
+
+Open `config.json` in a text editor and fill in your real credentials. **This is the only place your credentials go — this file stays on your computer and is never sent to the AI or anyone else.**
+
+```json
+{
+  "api_token": "paste_your_real_token_here",
+  "ctt_username": "your_real_username",
+  "ctt_password": "your_real_password",
+  "project_name": "Your Project Name"
+}
+```
+
+Do not commit this file to GitHub or share it with anyone.
+
+<div class="info-box">
+<strong>Security note:</strong> This file contains your password. Do not share it, email it, or upload it anywhere. It stays on your computer only.
+</div>
+
+## Step 3: Launch the Dashboard
+
+Open your terminal (Mac/Linux) or Command Prompt (Windows), navigate to your folder, and start the proxy:
+
+**Mac/Linux:**
+
+```bash
+cd my-dashboard
+python3 proxy.py
+```
+
+**Windows:**
+
+```bash
+cd my-dashboard
+python proxy.py
+```
+
+You should see something like:
+
+```
+Dashboard proxy running at http://localhost:5000
+Project: Your Project Name
+Press Ctrl+C to stop.
+```
+
+Open your web browser and go to **http://localhost:5000/dashboard.html**.
+
+Your dashboard will load within a few seconds. To stop it, press `Ctrl+C` in the terminal.
+
+## Customizing Your Dashboard
+
+The best part about using an AI agent is that you can ask it to modify the dashboard after the initial generation. Here are some example follow-up prompts you can give your AI:
+
+### Change the look and feel
+
+> "Change the header color to dark blue and add our organization's name to the title"
+
+### Add new panels
+
+> "Add a panel that shows disk space remaining as a percentage for each station"
+
+> "Add a panel that shows how long each station has been online (uptime in days)"
+
+### Add filtering
+
+> "Add a dropdown at the top so I can filter everything by a single station"
+
+> "Add a date range picker that controls which checkin data is shown in the charts"
+
+### Add alerts
+
+> "Highlight stations in red in the health table if they haven't checked in for more than 24 hours"
+
+> "Show a warning banner if any station's disk space drops below 1 GB"
+
+### Change the charts
+
+> "Change the beeps chart to a bar chart grouped by day instead of a line chart"
+
+> "Add a chart that shows CPU load over time"
+
+### Add data export
+
+> "Add a button that downloads the health table as a CSV file"
+
+When asking for changes, just tell the AI what you want in plain English. If it needs context about the API, point it back to the API spec in the prompt above or to [Chapter 11 — API Reference](#api-reference).
+
+## Troubleshooting
+
+### "Project not found"
+
+Your project name in `config.json` must match exactly — including capitalization and spaces. For example, `"Meadows V2"` is different from `"meadows v2"`.
+
+### "Login failed" or no checkin data
+
+Double-check your `ctt_username` and `ctt_password` in `config.json`. These are the same credentials you use to log in at [account.celltracktech.com](https://account.celltracktech.com).
+
+### "Connection refused" in the browser
+
+Make sure the proxy is still running in your terminal. If you closed the terminal, the proxy stopped.
+
+### "python3 is not recognized" (Windows)
+
+Try `python proxy.py` instead. If that also fails, Python is not installed — download it from [python.org](https://www.python.org/downloads/) and make sure to check "Add Python to PATH" during installation.
+
+### The AI generated code that doesn't work
+
+Tell the AI what went wrong. Copy the error message from your terminal or browser console and paste it into the chat. Common issues the AI might get wrong:
+
+- **Sending project-id as a string** — tell it: "The CTT API requires project-id to be an integer, not a string. The proxy must coerce it with int()."
+- **Treating the file-list response as an array** — tell it: "The /station/api/file-list response has files as a dict keyed by type, not a flat array."
+- **Not handling the CSRF login for checkins** — tell it: "The checkins endpoint at account.celltracktech.com requires a CSRF cookie login, not the API token."
+
+### Changing your project
+
+Edit `config.json`, change the `project_name`, and refresh the browser page. No other changes needed.
