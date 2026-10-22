@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 13 Build a Sensor Station Dashboard | ‘celltracktech’ Data Analysis package</title>
+  <meta name="description" content="This is a manual for the R package ‘celltracktech’" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 13 Build a Sensor Station Dashboard | ‘celltracktech’ Data Analysis package" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a manual for the R package ‘celltracktech’" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 Build a Sensor Station Dashboard | ‘celltracktech’ Data Analysis package" />
+  
+  <meta name="twitter:description" content="This is a manual for the R package ‘celltracktech’" />
+  
+
+<meta name="author" content="Jessica Gorzo, Sean Burcher, Meelyn Pandit" />
+
+
+<meta name="date" content="2026-10-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="CTT-FB-logo-STACKED.jpg" type="image/x-icon" />
+<link rel="prev" href="blu-downloads.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">CTT Data Tools</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>AOS2024 - ‘celltracktech’ Workshop</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#additional-libraries-needed-linux-users"><i class="fa fa-check"></i><b>0.1</b> Additional Libraries Needed (Linux users)</a>
+<ul>
+<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#install-postgresql-libraries"><i class="fa fa-check"></i><b>0.1.1</b> Install PostgreSQL libraries</a></li>
+<li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#installing-r-spatial-on-ubuntu"><i class="fa fa-check"></i><b>0.1.2</b> Installing R Spatial on Ubuntu</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="project-setup.html"><a href="project-setup.html"><i class="fa fa-check"></i><b>1</b> Project Setup</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="project-setup.html"><a href="project-setup.html#create-an-r-studio-project"><i class="fa fa-check"></i><b>1.1</b> Create an R Studio Project</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="project-setup.html"><a href="project-setup.html#git"><i class="fa fa-check"></i><b>1.1.1</b> Git</a></li>
+<li class="chapter" data-level="1.1.2" data-path="project-setup.html"><a href="project-setup.html#renv"><i class="fa fa-check"></i><b>1.1.2</b> <code>renv</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="project-setup.html"><a href="project-setup.html#download-the-celltracktech-package-using-renv"><i class="fa fa-check"></i><b>1.2</b> Download the “celltracktech” package using renv</a></li>
+<li class="chapter" data-level="1.3" data-path="project-setup.html"><a href="project-setup.html#request-an-api-token"><i class="fa fa-check"></i><b>1.3</b> Request an API token</a></li>
+<li class="chapter" data-level="1.4" data-path="project-setup.html"><a href="project-setup.html#create-a-.env-file"><i class="fa fa-check"></i><b>1.4</b> Create a ‘.env’ file</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="project-setup.html"><a href="project-setup.html#load-the-api-key-into-your-rstudio-environment"><i class="fa fa-check"></i><b>1.4.1</b> Load the API key into your RStudio environment</a></li>
+<li class="chapter" data-level="1.4.2" data-path="project-setup.html"><a href="project-setup.html#add-.env-file-to-.gitignore"><i class="fa fa-check"></i><b>1.4.2</b> Add .env file to .gitignore</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="project-setup.html"><a href="project-setup.html#organize-your-project-directory"><i class="fa fa-check"></i><b>1.5</b> Organize your Project Directory</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>2</b> Download Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="download-data.html"><a href="download-data.html#create-a-duckdb-database"><i class="fa fa-check"></i><b>2.1</b> Create a DuckDB database</a></li>
+<li class="chapter" data-level="2.2" data-path="download-data.html"><a href="download-data.html#download-data-from-the-ctt-api"><i class="fa fa-check"></i><b>2.2</b> Download data from the CTT API</a></li>
+<li class="chapter" data-level="2.3" data-path="download-data.html"><a href="download-data.html#updating-the-database"><i class="fa fa-check"></i><b>2.3</b> Updating the database</a></li>
+<li class="chapter" data-level="2.4" data-path="download-data.html"><a href="download-data.html#disconnecting-from-the-database"><i class="fa fa-check"></i><b>2.4</b> Disconnecting from the database</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="download-data.html"><a href="download-data.html#create-database-from-files-on-your-computer"><i class="fa fa-check"></i><b>2.4.1</b> Create Database from Files on your Computer</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="download-data.html"><a href="download-data.html#uploading-node-data-from-the-sd-card"><i class="fa fa-check"></i><b>2.5</b> Uploading Node Data from the SD Card</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="download-data.html"><a href="download-data.html#create-nodes-directory"><i class="fa fa-check"></i><b>2.5.1</b> Create Nodes directory</a></li>
+<li class="chapter" data-level="2.5.2" data-path="download-data.html"><a href="download-data.html#create-individual-directories-for-each-node"><i class="fa fa-check"></i><b>2.5.2</b> Create individual directories for each Node</a></li>
+<li class="chapter" data-level="2.5.3" data-path="download-data.html"><a href="download-data.html#upload-node-data-to-your-duckdb-database"><i class="fa fa-check"></i><b>2.5.3</b> Upload Node data to your DuckDB database</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="download-data.html"><a href="download-data.html#create-postgres-database"><i class="fa fa-check"></i><b>2.6</b> Create Postgres Database</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html"><i class="fa fa-check"></i><b>3</b> Obtaining Data from Database</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#duckplyr"><i class="fa fa-check"></i><b>3.1</b> Duckplyr</a></li>
+<li class="chapter" data-level="3.2" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#sql-queries"><i class="fa fa-check"></i><b>3.2</b> SQL Queries</a></li>
+<li class="chapter" data-level="3.3" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#list-tables"><i class="fa fa-check"></i><b>3.3</b> List Tables</a></li>
+<li class="chapter" data-level="3.4" data-path="obtaining-data-from-database.html"><a href="obtaining-data-from-database.html#find-unique-tags-in-raw-table"><i class="fa fa-check"></i><b>3.4</b> Find unique tags in <code>raw</code> table</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="node-check.html"><a href="node-check.html"><i class="fa fa-check"></i><b>4</b> Node Check</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="node-check.html"><a href="node-check.html#node-health"><i class="fa fa-check"></i><b>4.1</b> Node Health</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="node-check.html"><a href="node-check.html#node-health---check-health-records"><i class="fa fa-check"></i><b>4.1.1</b> Node Health - Check Health Records</a></li>
+<li class="chapter" data-level="4.1.2" data-path="node-check.html"><a href="node-check.html#battery-and-solar-levels"><i class="fa fa-check"></i><b>4.1.2</b> Battery and Solar Levels</a></li>
+<li class="chapter" data-level="4.1.3" data-path="node-check.html"><a href="node-check.html#check-gps"><i class="fa fa-check"></i><b>4.1.3</b> Check GPS</a></li>
+<li class="chapter" data-level="4.1.4" data-path="node-check.html"><a href="node-check.html#check-time-offset"><i class="fa fa-check"></i><b>4.1.4</b> Check Time Offset</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="node-calibration.html"><a href="node-calibration.html"><i class="fa fa-check"></i><b>5</b> Node Calibration</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="node-calibration.html"><a href="node-calibration.html#load-library"><i class="fa fa-check"></i><b>5.1</b> Load library</a></li>
+<li class="chapter" data-level="5.2" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-data-file"><i class="fa fa-check"></i><b>5.2</b> Load sidekick data file</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="node-calibration.html"><a href="node-calibration.html#if-you-do-not-have-a-sidekick-data-file"><i class="fa fa-check"></i><b>5.2.1</b> IF YOU DO NOT HAVE A SIDEKICK DATA FILE:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="node-calibration.html"><a href="node-calibration.html#setup"><i class="fa fa-check"></i><b>5.3</b> Setup</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="node-calibration.html"><a href="node-calibration.html#load-environmental-variables-into-rstudio"><i class="fa fa-check"></i><b>5.3.1</b> Load environmental variables into RStudio</a></li>
+<li class="chapter" data-level="5.3.2" data-path="node-calibration.html"><a href="node-calibration.html#load-settings"><i class="fa fa-check"></i><b>5.3.2</b> Load settings</a></li>
+<li class="chapter" data-level="5.3.3" data-path="node-calibration.html"><a href="node-calibration.html#load-node-health-data-from-files"><i class="fa fa-check"></i><b>5.3.3</b> Load Node Health Data from Files</a></li>
+<li class="chapter" data-level="5.3.4" data-path="node-calibration.html"><a href="node-calibration.html#get-node-locations"><i class="fa fa-check"></i><b>5.3.4</b> Get Node Locations</a></li>
+<li class="chapter" data-level="5.3.5" data-path="node-calibration.html"><a href="node-calibration.html#load-station-detection-from-files"><i class="fa fa-check"></i><b>5.3.5</b> Load Station Detection from Files</a></li>
+<li class="chapter" data-level="5.3.6" data-path="node-calibration.html"><a href="node-calibration.html#load-sidekick-calibration-data"><i class="fa fa-check"></i><b>5.3.6</b> Load Sidekick Calibration Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="node-calibration.html"><a href="node-calibration.html#calculate-the-rssi-vs.-distance-relationship"><i class="fa fa-check"></i><b>5.4</b> Calculate the RSSI vs. Distance Relationship</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html"><i class="fa fa-check"></i><b>6</b> Presence/Absence Analysis</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#set-parameters"><i class="fa fa-check"></i><b>6.1</b> Set parameters</a></li>
+<li class="chapter" data-level="6.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-data-from-database-1"><i class="fa fa-check"></i><b>6.2</b> Load data from database</a></li>
+<li class="chapter" data-level="6.3" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-info"><i class="fa fa-check"></i><b>6.3</b> Load Tag Deployment Info</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#load-tag-deployment-file"><i class="fa fa-check"></i><b>6.3.1</b> Load Tag Deployment File</a></li>
+<li class="chapter" data-level="6.3.2" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#get-list-of-detected-tags"><i class="fa fa-check"></i><b>6.3.2</b> Get List of Detected Tags</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#generate-detection-summary"><i class="fa fa-check"></i><b>6.4</b> Generate Detection Summary</a></li>
+<li class="chapter" data-level="6.5" data-path="presenceabsence-analysis.html"><a href="presenceabsence-analysis.html#show-detection-history-for-a-specific-tag"><i class="fa fa-check"></i><b>6.5</b> Show Detection History for a Specific Tag</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="activity-budget.html"><a href="activity-budget.html"><i class="fa fa-check"></i><b>7</b> Activity Budget</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="activity-budget.html"><a href="activity-budget.html#load-settings-1"><i class="fa fa-check"></i><b>7.1</b> Load settings</a></li>
+<li class="chapter" data-level="7.2" data-path="activity-budget.html"><a href="activity-budget.html#load-tag-node-detection-data"><i class="fa fa-check"></i><b>7.2</b> Load Tag Node Detection Data</a></li>
+<li class="chapter" data-level="7.3" data-path="activity-budget.html"><a href="activity-budget.html#tag-activity"><i class="fa fa-check"></i><b>7.3</b> Tag Activity</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="activity-budget.html"><a href="activity-budget.html#scatter-plot-of-rssi-vs-time-by-node"><i class="fa fa-check"></i><b>7.3.1</b> Scatter Plot of RSSI vs time by Node</a></li>
+<li class="chapter" data-level="7.3.2" data-path="activity-budget.html"><a href="activity-budget.html#scatter-plot-of-activity-vs-time-by-node"><i class="fa fa-check"></i><b>7.3.2</b> Scatter Plot of activity vs time by Node</a></li>
+<li class="chapter" data-level="7.3.3" data-path="activity-budget.html"><a href="activity-budget.html#d-histogram-of-activity-over-time"><i class="fa fa-check"></i><b>7.3.3</b> 2D Histogram of Activity over Time</a></li>
+<li class="chapter" data-level="7.3.4" data-path="activity-budget.html"><a href="activity-budget.html#d-histogram-of-activity-vs-time-with-avg-activity"><i class="fa fa-check"></i><b>7.3.4</b> 2D histogram of activity vs time WITH avg activity</a></li>
+<li class="chapter" data-level="7.3.5" data-path="activity-budget.html"><a href="activity-budget.html#avg-activity-hour-vs-time."><i class="fa fa-check"></i><b>7.3.5</b> Avg activity / hour Vs time.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="habitat-use.html"><a href="habitat-use.html"><i class="fa fa-check"></i><b>8</b> Habitat Use</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="habitat-use.html"><a href="habitat-use.html#load-libraries-and-settings"><i class="fa fa-check"></i><b>8.1</b> Load libraries and settings</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="habitat-use.html"><a href="habitat-use.html#activate-renv"><i class="fa fa-check"></i><b>8.1.1</b> Activate renv</a></li>
+<li class="chapter" data-level="8.1.2" data-path="habitat-use.html"><a href="habitat-use.html#load-libraries-and-settings-1"><i class="fa fa-check"></i><b>8.1.2</b> Load libraries and settings</a></li>
+<li class="chapter" data-level="8.1.3" data-path="habitat-use.html"><a href="habitat-use.html#load-functions"><i class="fa fa-check"></i><b>8.1.3</b> Load Functions</a></li>
+<li class="chapter" data-level="8.1.4" data-path="habitat-use.html"><a href="habitat-use.html#load-rssi-coefficients"><i class="fa fa-check"></i><b>8.1.4</b> Load RSSI Coefficients</a></li>
+<li class="chapter" data-level="8.1.5" data-path="habitat-use.html"><a href="habitat-use.html#load-settings-2"><i class="fa fa-check"></i><b>8.1.5</b> Load Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="habitat-use.html"><a href="habitat-use.html#load-node-health-data-from-files-1"><i class="fa fa-check"></i><b>8.2</b> Load Node Health Data from Files</a></li>
+<li class="chapter" data-level="8.3" data-path="habitat-use.html"><a href="habitat-use.html#get-node-locations-1"><i class="fa fa-check"></i><b>8.3</b> Get Node Locations</a></li>
+<li class="chapter" data-level="8.4" data-path="habitat-use.html"><a href="habitat-use.html#load-station-detection-data"><i class="fa fa-check"></i><b>8.4</b> Load Station Detection Data</a></li>
+<li class="chapter" data-level="8.5" data-path="habitat-use.html"><a href="habitat-use.html#build-a-grid"><i class="fa fa-check"></i><b>8.5</b> Build a Grid</a></li>
+<li class="chapter" data-level="8.6" data-path="habitat-use.html"><a href="habitat-use.html#calculate-locations"><i class="fa fa-check"></i><b>8.6</b> Calculate Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html"><i class="fa fa-check"></i><b>9</b> Grid Search Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#loading-settings"><i class="fa fa-check"></i><b>9.1</b> Loading Settings</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#activate-renv-1"><i class="fa fa-check"></i><b>9.1.1</b> Activate renv</a></li>
+<li class="chapter" data-level="9.1.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-libraries"><i class="fa fa-check"></i><b>9.1.2</b> Load libraries</a></li>
+<li class="chapter" data-level="9.1.3" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-settings-3"><i class="fa fa-check"></i><b>9.1.3</b> Load settings</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-node-health-data-from-database"><i class="fa fa-check"></i><b>9.2</b> Load Node Health data from Database</a></li>
+<li class="chapter" data-level="9.3" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#get-node-locations-2"><i class="fa fa-check"></i><b>9.3</b> Get Node Locations</a></li>
+<li class="chapter" data-level="9.4" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#load-station-detection-data-1"><i class="fa fa-check"></i><b>9.4</b> Load Station Detection Data</a></li>
+<li class="chapter" data-level="9.5" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#build-a-node-grid"><i class="fa fa-check"></i><b>9.5</b> Build a Node Grid</a></li>
+<li class="chapter" data-level="9.6" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#optional-calculate-test-solution"><i class="fa fa-check"></i><b>9.6</b> (Optional) Calculate Test Solution</a></li>
+<li class="chapter" data-level="9.7" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#calculate-track"><i class="fa fa-check"></i><b>9.7</b> Calculate Track</a></li>
+<li class="chapter" data-level="9.8" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#optional-compare-with-known-track"><i class="fa fa-check"></i><b>9.8</b> (Optional) Compare with Known Track</a></li>
+<li class="chapter" data-level="9.9" data-path="grid-search-analysis.html"><a href="grid-search-analysis.html#plot-uncertainty-analysis"><i class="fa fa-check"></i><b>9.9</b> Plot Uncertainty Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="multilateration.html"><a href="multilateration.html"><i class="fa fa-check"></i><b>10</b> Multilateration</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="multilateration.html"><a href="multilateration.html#load-settings-4"><i class="fa fa-check"></i><b>10.1</b> Load settings</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="multilateration.html"><a href="multilateration.html#reset-rs-brain-remove-all-previous-objects"><i class="fa fa-check"></i><b>10.1.1</b> Reset R’s brain, remove all previous objects</a></li>
+<li class="chapter" data-level="10.1.2" data-path="multilateration.html"><a href="multilateration.html#load-libraries-1"><i class="fa fa-check"></i><b>10.1.2</b> Load libraries</a></li>
+<li class="chapter" data-level="10.1.3" data-path="multilateration.html"><a href="multilateration.html#re-create-sample-data-from-node-calibration-chapter-5"><i class="fa fa-check"></i><b>10.1.3</b> Re-create sample data from node calibration (Chapter 5)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="multilateration.html"><a href="multilateration.html#isolate-raw-received-signal-strength-rss-data-from-node-network-associated-with-test-data"><i class="fa fa-check"></i><b>10.2</b> Isolate raw Received Signal Strength (RSS) data from Node network associated with Test Data</a></li>
+<li class="chapter" data-level="10.3" data-path="multilateration.html"><a href="multilateration.html#exponential-decay-function---relationship-between-distance-and-tag-rss-values"><i class="fa fa-check"></i><b>10.3</b> Exponential Decay Function - Relationship between Distance and Tag RSS Values</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="multilateration.html"><a href="multilateration.html#preliminary-exponential-decay-model---determine-starting-values-for-the-final-model"><i class="fa fa-check"></i><b>10.3.1</b> Preliminary Exponential Decay Model - Determine starting values for the final model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="multilateration.html"><a href="multilateration.html#final-exponential-decay-model"><i class="fa fa-check"></i><b>10.3.2</b> Final Exponential Decay Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="api-reference.html"><a href="api-reference.html"><i class="fa fa-check"></i><b>11</b> API Reference</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="api-reference.html"><a href="api-reference.html#typical-workflow"><i class="fa fa-check"></i><b>11.1</b> Typical Workflow</a></li>
+<li class="chapter" data-level="11.2" data-path="api-reference.html"><a href="api-reference.html#post-wrapper"><i class="fa fa-check"></i><b>11.2</b> POST Wrapper</a></li>
+<li class="chapter" data-level="11.3" data-path="api-reference.html"><a href="api-reference.html#list-projects-projects"><i class="fa fa-check"></i><b>11.3</b> List Projects <span class="tag-label tag-projects">Projects</span></a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="api-reference.html"><a href="api-reference.html#parameters"><i class="fa fa-check"></i><b>11.3.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.3.2" data-path="api-reference.html"><a href="api-reference.html#curl-example"><i class="fa fa-check"></i><b>11.3.2</b> curl Example</a></li>
+<li class="chapter" data-level="11.3.3" data-path="api-reference.html"><a href="api-reference.html#response"><i class="fa fa-check"></i><b>11.3.3</b> Response</a></li>
+<li class="chapter" data-level="11.3.4" data-path="api-reference.html"><a href="api-reference.html#errors"><i class="fa fa-check"></i><b>11.3.4</b> Errors</a></li>
+<li class="chapter" data-level="11.3.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions"><i class="fa fa-check"></i><b>11.3.5</b> R Package Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="api-reference.html"><a href="api-reference.html#list-stations-stations"><i class="fa fa-check"></i><b>11.4</b> List Stations <span class="tag-label tag-stations">Stations</span></a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="api-reference.html"><a href="api-reference.html#parameters-1"><i class="fa fa-check"></i><b>11.4.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.4.2" data-path="api-reference.html"><a href="api-reference.html#curl-example-1"><i class="fa fa-check"></i><b>11.4.2</b> curl Example</a></li>
+<li class="chapter" data-level="11.4.3" data-path="api-reference.html"><a href="api-reference.html#response-1"><i class="fa fa-check"></i><b>11.4.3</b> Response</a></li>
+<li class="chapter" data-level="11.4.4" data-path="api-reference.html"><a href="api-reference.html#errors-1"><i class="fa fa-check"></i><b>11.4.4</b> Errors</a></li>
+<li class="chapter" data-level="11.4.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions-1"><i class="fa fa-check"></i><b>11.4.5</b> R Package Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="api-reference.html"><a href="api-reference.html#list-station-files-files"><i class="fa fa-check"></i><b>11.5</b> List Station Files <span class="tag-label tag-files">Files</span></a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="api-reference.html"><a href="api-reference.html#parameters-2"><i class="fa fa-check"></i><b>11.5.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.5.2" data-path="api-reference.html"><a href="api-reference.html#curl-examples"><i class="fa fa-check"></i><b>11.5.2</b> curl Examples</a></li>
+<li class="chapter" data-level="11.5.3" data-path="api-reference.html"><a href="api-reference.html#response-2"><i class="fa fa-check"></i><b>11.5.3</b> Response</a></li>
+<li class="chapter" data-level="11.5.4" data-path="api-reference.html"><a href="api-reference.html#errors-2"><i class="fa fa-check"></i><b>11.5.4</b> Errors</a></li>
+<li class="chapter" data-level="11.5.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions-2"><i class="fa fa-check"></i><b>11.5.5</b> R Package Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="api-reference.html"><a href="api-reference.html#download-file-files"><i class="fa fa-check"></i><b>11.6</b> Download File <span class="tag-label tag-files">Files</span></a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="api-reference.html"><a href="api-reference.html#parameters-3"><i class="fa fa-check"></i><b>11.6.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.6.2" data-path="api-reference.html"><a href="api-reference.html#curl-examples-1"><i class="fa fa-check"></i><b>11.6.2</b> curl Examples</a></li>
+<li class="chapter" data-level="11.6.3" data-path="api-reference.html"><a href="api-reference.html#response-3"><i class="fa fa-check"></i><b>11.6.3</b> Response</a></li>
+<li class="chapter" data-level="11.6.4" data-path="api-reference.html"><a href="api-reference.html#errors-3"><i class="fa fa-check"></i><b>11.6.4</b> Errors</a></li>
+<li class="chapter" data-level="11.6.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions-3"><i class="fa fa-check"></i><b>11.6.5</b> R Package Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="api-reference.html"><a href="api-reference.html#station-checkins-checkins"><i class="fa fa-check"></i><b>11.7</b> Station Checkins <span class="tag-label tag-checkins">Checkins</span></a>
+<ul>
+<li class="chapter" data-level="11.7.1" data-path="api-reference.html"><a href="api-reference.html#parameters-4"><i class="fa fa-check"></i><b>11.7.1</b> Parameters</a></li>
+<li class="chapter" data-level="11.7.2" data-path="api-reference.html"><a href="api-reference.html#curl-example-2"><i class="fa fa-check"></i><b>11.7.2</b> curl Example</a></li>
+<li class="chapter" data-level="11.7.3" data-path="api-reference.html"><a href="api-reference.html#response-4"><i class="fa fa-check"></i><b>11.7.3</b> Response</a></li>
+<li class="chapter" data-level="11.7.4" data-path="api-reference.html"><a href="api-reference.html#errors-4"><i class="fa fa-check"></i><b>11.7.4</b> Errors</a></li>
+<li class="chapter" data-level="11.7.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions-4"><i class="fa fa-check"></i><b>11.7.5</b> R Package Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="api-reference.html"><a href="api-reference.html#station-data-files-files"><i class="fa fa-check"></i><b>11.8</b> Station Data Files <span class="tag-label tag-files">Files</span></a>
+<ul>
+<li class="chapter" data-level="11.8.1" data-path="api-reference.html"><a href="api-reference.html#file-types"><i class="fa fa-check"></i><b>11.8.1</b> File Types</a></li>
+<li class="chapter" data-level="11.8.2" data-path="api-reference.html"><a href="api-reference.html#list-files"><i class="fa fa-check"></i><b>11.8.2</b> List Files</a></li>
+<li class="chapter" data-level="11.8.3" data-path="api-reference.html"><a href="api-reference.html#download-a-file"><i class="fa fa-check"></i><b>11.8.3</b> Download a File</a></li>
+<li class="chapter" data-level="11.8.4" data-path="api-reference.html"><a href="api-reference.html#errors-5"><i class="fa fa-check"></i><b>11.8.4</b> Errors</a></li>
+<li class="chapter" data-level="11.8.5" data-path="api-reference.html"><a href="api-reference.html#r-package-functions-5"><i class="fa fa-check"></i><b>11.8.5</b> R Package Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="blu-downloads.html"><a href="blu-downloads.html"><i class="fa fa-check"></i><b>12</b> Blu Downloads</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="blu-downloads.html"><a href="blu-downloads.html#prerequisites"><i class="fa fa-check"></i><b>12.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="12.2" data-path="blu-downloads.html"><a href="blu-downloads.html#set-up-your-project-directory"><i class="fa fa-check"></i><b>12.2</b> Set Up Your Project Directory</a></li>
+<li class="chapter" data-level="12.3" data-path="blu-downloads.html"><a href="blu-downloads.html#prepare-your-csv-files"><i class="fa fa-check"></i><b>12.3</b> Prepare Your CSV Files</a></li>
+<li class="chapter" data-level="12.4" data-path="blu-downloads.html"><a href="blu-downloads.html#load-the-csv-files-into-r"><i class="fa fa-check"></i><b>12.4</b> Load the CSV Files into R</a></li>
+<li class="chapter" data-level="12.5" data-path="blu-downloads.html"><a href="blu-downloads.html#extract-the-blu-data"><i class="fa fa-check"></i><b>12.5</b> Extract the BLU Data</a></li>
+<li class="chapter" data-level="12.6" data-path="blu-downloads.html"><a href="blu-downloads.html#analyze-your-data"><i class="fa fa-check"></i><b>12.6</b> Analyze your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html"><i class="fa fa-check"></i><b>13</b> Build a Sensor Station Dashboard</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#what-you-need"><i class="fa fa-check"></i><b>13.1</b> What You Need</a></li>
+<li class="chapter" data-level="13.2" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#step-1-copy-the-prompt-below-and-give-it-to-your-ai-agent"><i class="fa fa-check"></i><b>13.2</b> Step 1: Copy the Prompt Below and Give It to Your AI Agent</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#the-prompt"><i class="fa fa-check"></i><b>13.2.1</b> The Prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#step-2-save-the-three-files"><i class="fa fa-check"></i><b>13.3</b> Step 2: Save the Three Files</a></li>
+<li class="chapter" data-level="13.4" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#step-3-launch-the-dashboard"><i class="fa fa-check"></i><b>13.4</b> Step 3: Launch the Dashboard</a></li>
+<li class="chapter" data-level="13.5" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#customizing-your-dashboard"><i class="fa fa-check"></i><b>13.5</b> Customizing Your Dashboard</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#change-the-look-and-feel"><i class="fa fa-check"></i><b>13.5.1</b> Change the look and feel</a></li>
+<li class="chapter" data-level="13.5.2" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#add-new-panels"><i class="fa fa-check"></i><b>13.5.2</b> Add new panels</a></li>
+<li class="chapter" data-level="13.5.3" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#add-filtering"><i class="fa fa-check"></i><b>13.5.3</b> Add filtering</a></li>
+<li class="chapter" data-level="13.5.4" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#add-alerts"><i class="fa fa-check"></i><b>13.5.4</b> Add alerts</a></li>
+<li class="chapter" data-level="13.5.5" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#change-the-charts"><i class="fa fa-check"></i><b>13.5.5</b> Change the charts</a></li>
+<li class="chapter" data-level="13.5.6" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#add-data-export"><i class="fa fa-check"></i><b>13.5.6</b> Add data export</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#troubleshooting"><i class="fa fa-check"></i><b>13.6</b> Troubleshooting</a>
+<ul>
+<li class="chapter" data-level="13.6.1" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#project-not-found"><i class="fa fa-check"></i><b>13.6.1</b> “Project not found”</a></li>
+<li class="chapter" data-level="13.6.2" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#login-failed-or-no-checkin-data"><i class="fa fa-check"></i><b>13.6.2</b> “Login failed” or no checkin data</a></li>
+<li class="chapter" data-level="13.6.3" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#connection-refused-in-the-browser"><i class="fa fa-check"></i><b>13.6.3</b> “Connection refused” in the browser</a></li>
+<li class="chapter" data-level="13.6.4" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#python3-is-not-recognized-windows"><i class="fa fa-check"></i><b>13.6.4</b> “python3 is not recognized” (Windows)</a></li>
+<li class="chapter" data-level="13.6.5" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#the-ai-generated-code-that-doesnt-work"><i class="fa fa-check"></i><b>13.6.5</b> The AI generated code that doesn’t work</a></li>
+<li class="chapter" data-level="13.6.6" data-path="build-a-sensor-station-dashboard.html"><a href="build-a-sensor-station-dashboard.html#changing-your-project"><i class="fa fa-check"></i><b>13.6.6</b> Changing your project</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">‘celltracktech’ Data Analysis package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="build-a-sensor-station-dashboard" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Build a Sensor Station Dashboard<a href="build-a-sensor-station-dashboard.html#build-a-sensor-station-dashboard" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>You can use an AI coding agent (Claude, ChatGPT, Copilot, or any other) to generate a complete sensor station dashboard for your project. This chapter gives you the prompt to paste, what to tell the AI, and how to launch the result.</p>
+<div class="info-box">
+<p><strong>No coding experience needed.</strong> You give an AI agent the prompt below, along with your project name. It creates three files. You run one command and open a browser.</p>
+</div>
+<div id="what-you-need" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> What You Need<a href="build-a-sensor-station-dashboard.html#what-you-need" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><strong>An API token</strong> from CTT (see <a href="project-setup.html#project-setup">Chapter 1 — Request an API token</a>)</li>
+<li><strong>Your CTT account username and password</strong> (the same login you use at <a href="https://account.celltracktech.com">account.celltracktech.com</a>)</li>
+<li><strong>Your project name</strong> exactly as it appears on the CTT platform</li>
+<li><strong>Python</strong> installed on your computer (<a href="https://www.python.org/downloads/">python.org/downloads</a> — check “Add Python to PATH” during install)</li>
+<li><strong>An AI coding agent</strong> — any of these work:
+<ul>
+<li><a href="https://claude.ai">Claude</a> (free or Pro)</li>
+<li><a href="https://chat.openai.com">ChatGPT</a> (free or Plus)</li>
+<li><a href="https://github.com/features/copilot">GitHub Copilot</a></li>
+<li>Any other AI that can generate code</li>
+</ul></li>
+</ol>
+</div>
+<div id="step-1-copy-the-prompt-below-and-give-it-to-your-ai-agent" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Step 1: Copy the Prompt Below and Give It to Your AI Agent<a href="build-a-sensor-station-dashboard.html#step-1-copy-the-prompt-below-and-give-it-to-your-ai-agent" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Open your AI agent and paste the following prompt. <strong>Replace only YOUR_PROJECT_NAME</strong> with your actual project name before sending.</p>
+<div class="info-box" style="border-left-color: #e74c3c; background-color: #fdf2f2;">
+<p><strong>⚠ Do NOT paste your API token, password, or username into the AI chat.</strong> The AI does not need your real credentials to generate the code. It only needs your project name. You will enter your credentials locally in Step 2, in a file that stays on your computer and is never sent to anyone.
+<br><br>
+<strong>Why:</strong> AI providers store conversations on their servers. Your credentials could be logged, reviewed by employees, used in training data, or exposed in a data breach. Keep them local.</p>
+</div>
+<div class="info-box">
+<p><strong>Tip:</strong> You can also ask the AI to customize the dashboard further — add new panels, change colors, add station filtering, etc. The prompt gives it everything it needs to know about the CTT API.</p>
+</div>
+<hr />
+<div id="the-prompt" class="section level3 hasAnchor" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> The Prompt<a href="build-a-sensor-station-dashboard.html#the-prompt" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Copy everything inside the box below:</p>
+<div style="background-color: #f5f5f5; border: 2px solid #ccc; border-radius: 8px; padding: 20px; margin: 20px 0; font-size: 13px;">
+<pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; margin: 0;">
+I need you to create a sensor station dashboard for my wildlife tracking project.
+My project name is: YOUR_PROJECT_NAME
+
+Create three files that I place in a folder and run:
+
+1. config.json — stores my credentials (I will fill in the real values)
+2. proxy.py — a Python HTTP server that proxies browser requests to the CTT API
+3. dashboard.html — a single-page dashboard I open in my browser
+
+Here is everything you need to know about the CTT API:
+
+== CTT API SPECIFICATION ==
+
+BASE URL: https://api.internetofwildlife.com
+All endpoints use POST with JSON body. Every request must include "token" in the body.
+Timeout: 60 seconds.
+
+ENDPOINT 1 — List Projects
+POST /station/api/projects
+Body: {"token": "..."}
+Response: {"projects": [{"id": 73, "name": "Meadows V2"}, ...]}
+Note: project "id" is an INTEGER.
+
+ENDPOINT 2 — List Stations
+POST /station/api/stations/
+Body: {"token": "...", "project-id": 73}
+Response: {"stations": [{"station": {"id": "6CA25D375881"}, "deploy-at": "2024-01-15T00:00:00.000Z", "end-at": null}]}
+CRITICAL: "project-id" MUST be an integer, not a string. If you send "73" instead of 73 it returns empty.
+Active stations have "end-at": null.
+
+ENDPOINT 3 — List Station Files
+POST /station/api/file-list
+Body: {"token": "...", "station-id": "6CA25D375881", "begin": "2024-01-01"}
+Optional: "end" (date, defaults to today), "file-types" (array), "limit", "offset"
+Valid file-types: "data", "node-data", "gps", "log", "telemetry", "sensorgnome", "ble", "blu"
+Response: {"files": {"data": [{"id": 123, "name": "CTT-...-raw-data.csv.gz", "file_at": "..."}], "node-data": [...], "gps": [...], ...}}
+CRITICAL: "files" is a DICT keyed by file type, not a flat array. Each value is an array of file objects.
+
+ENDPOINT 4 — Download File
+POST /station/api/download-file/
+Body: {"token": "...", "file-id": "..."}
+Response: raw CSV text
+
+ENDPOINT 5 — Station Checkins (DIFFERENT HOST AND AUTH)
+GET https://account.celltracktech.com/station/station-data/{station_id}/
+Auth: session cookie (NOT the API token). Requires CSRF login flow:
+  Step 1: GET /accounts/login/ — extract csrftoken from Set-Cookie header
+  Step 2: POST /accounts/login/ with csrfmiddlewaretoken, username, password
+          Must include Referer header. Expect HTTP 302 redirect.
+  Step 3: GET /station/station-data/{station_id}/ with session cookies
+Returns up to 500 most recent checkins, newest first.
+Response: {"checkins": [{"station": {"id": "..."}, "project": "...", "alias": "...",
+  "received_at": "2024-05-18T12:00:04.512000+00:00", "lat": 40.0, "lng": -75.0,
+  "bootcount": 3, "uptime": 12345, "cpu": 8, "free_memory": 900000,
+  "available_space": 25000000, "beeps_since_last_checkin": 19,
+  "unique_tags_since_last_checkin": 2, "modem": {"signal": -71, "carrier": "VZW"}}]}
+If session expired: returns HTML instead of JSON (check Content-Type).
+
+== PROXY ARCHITECTURE ==
+
+The proxy runs on localhost (e.g. port 5000) using only Python standard library (no pip installs).
+It serves dashboard.html and config.json as static files.
+It maps browser requests to the real API:
+  POST /api/projects       → POST https://api.internetofwildlife.com/station/api/projects
+  POST /api/stations       → POST https://api.internetofwildlife.com/station/api/stations/
+  POST /api/file-list      → POST https://api.internetofwildlife.com/station/api/file-list
+  POST /api/download-file  → POST https://api.internetofwildlife.com/station/api/download-file/
+  GET  /api/checkins/{id}  → GET  https://account.celltracktech.com/station/station-data/{id}/
+
+The proxy must:
+- Read credentials from config.json
+- Inject the API token into every POST body automatically
+- Coerce "project-id", "station-id", "file-id" to integers (the API rejects string IDs)
+- Handle the CSRF login flow for checkins (login once, cache the session cookies)
+- Re-login if the session expires (HTML response instead of JSON)
+- Use only Python standard library (http.server, urllib, json, ssl)
+
+== CONFIG.JSON ==
+
+{
+  "api_token": "PASTE_YOUR_API_TOKEN_HERE",
+  "ctt_username": "PASTE_YOUR_CTT_USERNAME_HERE",
+  "ctt_password": "PASTE_YOUR_CTT_PASSWORD_HERE",
+  "project_name": "YOUR_PROJECT_NAME"
+}
+
+== DASHBOARD FEATURES ==
+
+The dashboard.html should be a single self-contained HTML file (no build step) that includes:
+
+1. Status cards — active station count, last checkin time, beep count, unique tag count
+2. Interactive map — station GPS positions using Leaflet.js (CDN), with popup showing signal, beeps, tags, uptime, disk
+3. Station health table — one row per station: station ID, last checkin, signal (dBm), CPU, disk (MB), beeps, tags
+4. Time-series charts — tabbed: beeps over time, unique tags over time, signal strength over time (use Chart.js from CDN with chartjs-adapter-date-fns)
+5. File inventory — table showing file count per type (last 30 days) with a donut chart breakdown
+   File type labels: data="Raw (434 MHz)", node-data="Node Health", gps="GPS", log="Log",
+   telemetry="Telemetry", sensorgnome="SensorGnome (166 MHz)", ble="BLE / Blu (2.4 GHz)"
+
+The dashboard reads config.json at load to get the project name for the title.
+API calls go through the local proxy (fetch('/api/projects'), etc.).
+The workflow: load config → find project by name → get stations → get checkins per active station → get file list per station → render everything.
+
+== KNOWN GOTCHAS ==
+
+1. Project IDs must be integers in the JSON body — the API silently returns empty results for string IDs
+2. The file-list response is a dict keyed by type, not a flat array
+3. The checkins endpoint uses a completely different host and auth mechanism (session cookie, not API token)
+4. If the checkin endpoint returns HTML (Content-Type: text/html), the session has expired — re-login
+5. The CSRF login requires both the csrftoken cookie AND the csrfmiddlewaretoken form field, plus a Referer header
+6. Station IDs can be alphanumeric (e.g. "6CA25D375881") — only project-id needs integer coercion
+7. modem.signal can be null — handle this in charts and display
+
+Please generate all three files complete and ready to use.
+</pre>
+</div>
+<hr />
+</div>
+</div>
+<div id="step-2-save-the-three-files" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Step 2: Save the Three Files<a href="build-a-sensor-station-dashboard.html#step-2-save-the-three-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The AI will give you three files. Create a new folder on your computer (name it anything, e.g. <code>my-dashboard</code>) and save them inside:</p>
+<pre><code>my-dashboard/
+├── config.json
+├── proxy.py
+└── dashboard.html</code></pre>
+<p>Open <code>config.json</code> in a text editor and fill in your real credentials. <strong>This is the only place your credentials go — this file stays on your computer and is never sent to the AI or anyone else.</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="build-a-sensor-station-dashboard.html#cb2-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="build-a-sensor-station-dashboard.html#cb2-2" tabindex="-1"></a>  <span class="dt">&quot;api_token&quot;</span><span class="fu">:</span> <span class="st">&quot;paste_your_real_token_here&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="build-a-sensor-station-dashboard.html#cb2-3" tabindex="-1"></a>  <span class="dt">&quot;ctt_username&quot;</span><span class="fu">:</span> <span class="st">&quot;your_real_username&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="build-a-sensor-station-dashboard.html#cb2-4" tabindex="-1"></a>  <span class="dt">&quot;ctt_password&quot;</span><span class="fu">:</span> <span class="st">&quot;your_real_password&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="build-a-sensor-station-dashboard.html#cb2-5" tabindex="-1"></a>  <span class="dt">&quot;project_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Your Project Name&quot;</span></span>
+<span id="cb2-6"><a href="build-a-sensor-station-dashboard.html#cb2-6" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Do not commit this file to GitHub or share it with anyone.</p>
+<div class="info-box">
+<p><strong>Security note:</strong> This file contains your password. Do not share it, email it, or upload it anywhere. It stays on your computer only.</p>
+</div>
+</div>
+<div id="step-3-launch-the-dashboard" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Step 3: Launch the Dashboard<a href="build-a-sensor-station-dashboard.html#step-3-launch-the-dashboard" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Open your terminal (Mac/Linux) or Command Prompt (Windows), navigate to your folder, and start the proxy:</p>
+<p><strong>Mac/Linux:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="build-a-sensor-station-dashboard.html#cb3-1" tabindex="-1"></a><span class="bu">cd</span> my-dashboard</span>
+<span id="cb3-2"><a href="build-a-sensor-station-dashboard.html#cb3-2" tabindex="-1"></a><span class="ex">python3</span> proxy.py</span></code></pre></div>
+<p><strong>Windows:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="build-a-sensor-station-dashboard.html#cb4-1" tabindex="-1"></a><span class="bu">cd</span> my-dashboard</span>
+<span id="cb4-2"><a href="build-a-sensor-station-dashboard.html#cb4-2" tabindex="-1"></a><span class="ex">python</span> proxy.py</span></code></pre></div>
+<p>You should see something like:</p>
+<pre><code>Dashboard proxy running at http://localhost:5000
+Project: Your Project Name
+Press Ctrl+C to stop.</code></pre>
+<p>Open your web browser and go to <strong><a href="http://localhost:5000/dashboard.html" class="uri">http://localhost:5000/dashboard.html</a></strong>.</p>
+<p>Your dashboard will load within a few seconds. To stop it, press <code>Ctrl+C</code> in the terminal.</p>
+</div>
+<div id="customizing-your-dashboard" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Customizing Your Dashboard<a href="build-a-sensor-station-dashboard.html#customizing-your-dashboard" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The best part about using an AI agent is that you can ask it to modify the dashboard after the initial generation. Here are some example follow-up prompts you can give your AI:</p>
+<div id="change-the-look-and-feel" class="section level3 hasAnchor" number="13.5.1">
+<h3><span class="header-section-number">13.5.1</span> Change the look and feel<a href="build-a-sensor-station-dashboard.html#change-the-look-and-feel" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>“Change the header color to dark blue and add our organization’s name to the title”</p>
+</blockquote>
+</div>
+<div id="add-new-panels" class="section level3 hasAnchor" number="13.5.2">
+<h3><span class="header-section-number">13.5.2</span> Add new panels<a href="build-a-sensor-station-dashboard.html#add-new-panels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>“Add a panel that shows disk space remaining as a percentage for each station”</p>
+</blockquote>
+<blockquote>
+<p>“Add a panel that shows how long each station has been online (uptime in days)”</p>
+</blockquote>
+</div>
+<div id="add-filtering" class="section level3 hasAnchor" number="13.5.3">
+<h3><span class="header-section-number">13.5.3</span> Add filtering<a href="build-a-sensor-station-dashboard.html#add-filtering" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>“Add a dropdown at the top so I can filter everything by a single station”</p>
+</blockquote>
+<blockquote>
+<p>“Add a date range picker that controls which checkin data is shown in the charts”</p>
+</blockquote>
+</div>
+<div id="add-alerts" class="section level3 hasAnchor" number="13.5.4">
+<h3><span class="header-section-number">13.5.4</span> Add alerts<a href="build-a-sensor-station-dashboard.html#add-alerts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>“Highlight stations in red in the health table if they haven’t checked in for more than 24 hours”</p>
+</blockquote>
+<blockquote>
+<p>“Show a warning banner if any station’s disk space drops below 1 GB”</p>
+</blockquote>
+</div>
+<div id="change-the-charts" class="section level3 hasAnchor" number="13.5.5">
+<h3><span class="header-section-number">13.5.5</span> Change the charts<a href="build-a-sensor-station-dashboard.html#change-the-charts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>“Change the beeps chart to a bar chart grouped by day instead of a line chart”</p>
+</blockquote>
+<blockquote>
+<p>“Add a chart that shows CPU load over time”</p>
+</blockquote>
+</div>
+<div id="add-data-export" class="section level3 hasAnchor" number="13.5.6">
+<h3><span class="header-section-number">13.5.6</span> Add data export<a href="build-a-sensor-station-dashboard.html#add-data-export" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>“Add a button that downloads the health table as a CSV file”</p>
+</blockquote>
+<p>When asking for changes, just tell the AI what you want in plain English. If it needs context about the API, point it back to the API spec in the prompt above or to <a href="api-reference.html#api-reference">Chapter 11 — API Reference</a>.</p>
+</div>
+</div>
+<div id="troubleshooting" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> Troubleshooting<a href="build-a-sensor-station-dashboard.html#troubleshooting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="project-not-found" class="section level3 hasAnchor" number="13.6.1">
+<h3><span class="header-section-number">13.6.1</span> “Project not found”<a href="build-a-sensor-station-dashboard.html#project-not-found" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Your project name in <code>config.json</code> must match exactly — including capitalization and spaces. For example, <code>"Meadows V2"</code> is different from <code>"meadows v2"</code>.</p>
+</div>
+<div id="login-failed-or-no-checkin-data" class="section level3 hasAnchor" number="13.6.2">
+<h3><span class="header-section-number">13.6.2</span> “Login failed” or no checkin data<a href="build-a-sensor-station-dashboard.html#login-failed-or-no-checkin-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Double-check your <code>ctt_username</code> and <code>ctt_password</code> in <code>config.json</code>. These are the same credentials you use to log in at <a href="https://account.celltracktech.com">account.celltracktech.com</a>.</p>
+</div>
+<div id="connection-refused-in-the-browser" class="section level3 hasAnchor" number="13.6.3">
+<h3><span class="header-section-number">13.6.3</span> “Connection refused” in the browser<a href="build-a-sensor-station-dashboard.html#connection-refused-in-the-browser" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Make sure the proxy is still running in your terminal. If you closed the terminal, the proxy stopped.</p>
+</div>
+<div id="python3-is-not-recognized-windows" class="section level3 hasAnchor" number="13.6.4">
+<h3><span class="header-section-number">13.6.4</span> “python3 is not recognized” (Windows)<a href="build-a-sensor-station-dashboard.html#python3-is-not-recognized-windows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Try <code>python proxy.py</code> instead. If that also fails, Python is not installed — download it from <a href="https://www.python.org/downloads/">python.org</a> and make sure to check “Add Python to PATH” during installation.</p>
+</div>
+<div id="the-ai-generated-code-that-doesnt-work" class="section level3 hasAnchor" number="13.6.5">
+<h3><span class="header-section-number">13.6.5</span> The AI generated code that doesn’t work<a href="build-a-sensor-station-dashboard.html#the-ai-generated-code-that-doesnt-work" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tell the AI what went wrong. Copy the error message from your terminal or browser console and paste it into the chat. Common issues the AI might get wrong:</p>
+<ul>
+<li><strong>Sending project-id as a string</strong> — tell it: “The CTT API requires project-id to be an integer, not a string. The proxy must coerce it with int().”</li>
+<li><strong>Treating the file-list response as an array</strong> — tell it: “The /station/api/file-list response has files as a dict keyed by type, not a flat array.”</li>
+<li><strong>Not handling the CSRF login for checkins</strong> — tell it: “The checkins endpoint at account.celltracktech.com requires a CSRF cookie login, not the API token.”</li>
+</ul>
+</div>
+<div id="changing-your-project" class="section level3 hasAnchor" number="13.6.6">
+<h3><span class="header-section-number">13.6.6</span> Changing your project<a href="build-a-sensor-station-dashboard.html#changing-your-project" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Edit <code>config.json</code>, change the <code>project_name</code>, and refresh the browser page. No other changes needed.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="blu-downloads.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/13-station-dashboard.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -29,6 +29,9 @@ pre code {
 .method-post {
   background-color: #49cc90;
 }
+.method-get {
+  background-color: #61affe;
+}
 .endpoint-path {
   font-family: monospace;
   font-size: 15px;
@@ -128,6 +131,7 @@ pre code {
 .tag-projects { background-color: #3498db; }
 .tag-stations { background-color: #e67e22; }
 .tag-files { background-color: #9b59b6; }
+.tag-checkins { background-color: #16a085; }
 .used-by {
   background-color: #f9f9f9;
   border: 1px solid #eee;

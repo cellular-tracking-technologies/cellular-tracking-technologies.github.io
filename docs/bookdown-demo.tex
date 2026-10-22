@@ -77,6 +77,7 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -125,7 +126,7 @@
 
 \title{`celltracktech' Data Analysis package}
 \author{Jessica Gorzo, Sean Burcher, Meelyn Pandit}
-\date{2026-05-20}
+\date{2026-10-02}
 
 \begin{document}
 \maketitle
@@ -261,7 +262,7 @@ Finally, you will need to add the .env file to the .gitignore file, so that when
 
 Open the .gitignore file in RStudio and add `.env' (without the quotes) to the file and save it.
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/git-ignore-env.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={screenshot of .gitignore file with .env listed as file to ignore when uploading to git/github.}]{bookdown-demo_files/images/git-ignore-env.png}}
 You are now ready to start downloading data!
 
 \section{Organize your Project Directory}\label{organize-your-project-directory}
@@ -279,6 +280,8 @@ In your project directory create the following folders to organize your files:
 \end{itemize}
 
 \chapter{Download Data}\label{download-data}
+
+\textbf{Note! If you are using Blu tags with a standalone Node (no Sensor Station), skip to Chapter 12.}
 
 You can download the following file types:
 
@@ -716,7 +719,7 @@ Another example is that foliage cover leads to no charging, low battery voltage,
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.1.2_check_if_nodes_are_operating_properly.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Plot of node health record counts}]{bookdown-demo_files/images/node_check_1.1.2_check_if_nodes_are_operating_properly.png}}
 \caption{Plot of node health record counts}
 \end{figure}
 
@@ -739,7 +742,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.1.3_battery_vs_time_all_nodes.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Plot of node battery voltage (V) vs.~time}]{bookdown-demo_files/images/node_check_1.1.3_battery_vs_time_all_nodes.png}}
 \caption{Plot of node battery voltage (V) vs.~time}
 \end{figure}
 
@@ -756,7 +759,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.1.3_node_specific_battery_solar_normal.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Plot of Battery and Solar voltage (V) vs.~time for a specific node}]{bookdown-demo_files/images/node_check_1.1.3_node_specific_battery_solar_normal.png}}
 \caption{Plot of Battery and Solar voltage (V) vs.~time for a specific node}
 \end{figure}
 
@@ -770,7 +773,7 @@ Check if the battery and solar voltages are adequate. If they are too low, they 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.1.3_node_specific_battery_solar_bad.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Plot of Battery and Solar voltage (V) vs.~time for a specific node}]{bookdown-demo_files/images/node_check_1.1.3_node_specific_battery_solar_bad.png}}
 Node 326710 is working properly and has consistent solar voltages during the day (\textasciitilde{} 5 V) and a consistent battery voltage over time (i.e.~3.5-3.6 V), while node 32909D has inconsistent solar voltages, hinting at either dirty solar panels or covered solar panels, and a much lower battery voltage (\textasciitilde{} 2.8 V).
 
 \subsection{Check GPS}\label{check-gps}
@@ -798,7 +801,7 @@ If the clock is out of sync, the GPS coordinates may not be calculated correctly
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.3_node_locations.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Plot of nodes in lat/lon}]{bookdown-demo_files/images/node_check_1.3_node_locations.png}}
 \#\#\# Check Time Offset
 
 Plot time offset for each node.
@@ -839,7 +842,7 @@ Plot time offset for each node.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_check_1.4_time_offset.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Node time offset}]{bookdown-demo_files/images/node_check_1.4_time_offset.png}}
 \caption{Node time offset}
 \end{figure}
 
@@ -885,6 +888,7 @@ Create your own sidekick file by walking with a tag through node grid, stopping 
 
 Example:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1698}}
   >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1132}}
@@ -920,6 +924,7 @@ radio434mhz & 4C34074B & 2023-08-03 19:42:44.721001Z & & 38.935561 & -74.948195 
 radio434mhz & 072A6633 & 2023-08-03 19:42:45.307456Z & & 38.935561 & -74.948195 & 23.548 & \\
 radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 & 15.840 & \\
 \end{longtable}
+}
 
 \section{Setup}\label{setup}
 
@@ -1013,7 +1018,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_2.4_node_loc_plot.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Node location plot}]{bookdown-demo_files/images/node_calibration_2.4_node_loc_plot.png}}
 \caption{Node location plot}
 \end{figure}
 
@@ -1034,7 +1039,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_2.4_node_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Node location map}]{bookdown-demo_files/images/node_calibration_2.4_node_map.png}}
 \caption{Node location map}
 \end{figure}
 
@@ -1088,7 +1093,7 @@ radio434mhz & 19332A07 & 2023-08-03 19:42:48.366123Z & & 38.935569 & -74.948195 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_2.5_sidekick_calibration.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Node location plot}]{bookdown-demo_files/images/node_calibration_2.5_sidekick_calibration.png}}
 \caption{Node location plot}
 \end{figure}
 
@@ -1121,7 +1126,7 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_3.1_calculate_rssi_vs_distance.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={RSSI vs.~Distance}]{bookdown-demo_files/images/node_calibration_3.1_calculate_rssi_vs_distance.png}}
 \caption{RSSI vs.~Distance}
 \end{figure}
 
@@ -1155,7 +1160,7 @@ For Blu Series tags use\_sync=TRUE, for 434 MHz tags use\_sync=FALSE.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/node_calibration_3.1_fit_relationship.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={RSSI vs.~Distance}]{bookdown-demo_files/images/node_calibration_3.1_fit_relationship.png}}
 \caption{RSSI vs.~Distance}
 \end{figure}
 
@@ -1175,6 +1180,7 @@ You will need to manually create a tag deployment csv file. This file will conta
 
 Ex.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllll@{}}
 \toprule\noalign{}
 TagId & DeployDate & Species & TagType & AntennaType \\
@@ -1186,6 +1192,7 @@ TagId & DeployDate & Species & TagType & AntennaType \\
 664C5219 & 08/23/23 & NOWA & Power & 1/8 wave \\
 4C2A0707 & 08/20/23 & NOWA & Power & 1/8 wave \\
 \end{longtable}
+}
 
 Then move that tag deployment file into the `outpath' folder.
 
@@ -1277,7 +1284,7 @@ Again, you will need to create this file yourself. You might want to include oth
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/presence_absence_detected_tags_histogram.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Number of detections per tag}]{bookdown-demo_files/images/presence_absence_detected_tags_histogram.png}}
 \caption{Number of detections per tag}
 \end{figure}
 
@@ -1321,7 +1328,7 @@ While it is good to know how many detections an individual tag has, it is better
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/presence_absence_detections_heat_bin.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Heat-plot of tag detections over time}]{bookdown-demo_files/images/presence_absence_detections_heat_bin.png}}
 \caption{Heat-plot of tag detections over time}
 \end{figure}
 
@@ -1357,7 +1364,7 @@ While it is good to know how many detections an individual tag has, it is better
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/presence_absence_detections_over_time_specific_tag.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Heat-plot of tag detections over time}]{bookdown-demo_files/images/presence_absence_detections_over_time_specific_tag.png}}
 \caption{Heat-plot of tag detections over time}
 \end{figure}
 
@@ -1469,7 +1476,7 @@ When is the animal active and/or inactive? Use the following script to answer re
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/activity_level_rssi_vs_time_by_node.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Scatter plot of RSSI vs time by Node}]{bookdown-demo_files/images/activity_level_rssi_vs_time_by_node.png}}
 \caption{Scatter plot of RSSI vs time by Node}
 \end{figure}
 
@@ -1496,7 +1503,7 @@ Next we will quantify the activity level. Activity is an arbitrary variable; it 
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/activity_level_activity_vs_time_by_node.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Scatter plot of Activity Level vs time by Node}]{bookdown-demo_files/images/activity_level_activity_vs_time_by_node.png}}
 \caption{Scatter plot of Activity Level vs time by Node}
 \end{figure}
 
@@ -1528,7 +1535,7 @@ We can summarize the above plot even further by creating a heatmap. The code chu
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/presence_absence_2d_histogram_activity_vs_time.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={2D Histogram of Activity over Time by Node}]{bookdown-demo_files/images/presence_absence_2d_histogram_activity_vs_time.png}}
 \caption{2D Histogram of Activity over Time by Node}
 \end{figure}
 
@@ -1566,7 +1573,7 @@ This code chunk makes the same plot as above, but also displays the average acti
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/activity_level_average_activity_vs_time.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={2D Histogram of Activity over Time by Node with Average Activity}]{bookdown-demo_files/images/activity_level_average_activity_vs_time.png}}
 \caption{2D Histogram of Activity over Time by Node with Average Activity}
 \end{figure}
 
@@ -1600,7 +1607,7 @@ Let's zoom in and isolate the average activity per hour:
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/activity_level_average_activity_per_hour_vs_time.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Average Activity per hour vs.~time}]{bookdown-demo_files/images/activity_level_average_activity_per_hour_vs_time.png}}
 \caption{Average Activity per hour vs.~time}
 \end{figure}
 
@@ -1728,7 +1735,7 @@ Due to variations in GPS coordinates, it is a good idea to plot the Node locatio
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_node_loc_plot.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Average node locations}]{bookdown-demo_files/images/habitat_use_node_loc_plot.png}}
 \caption{Average node locations}
 \end{figure}
 
@@ -1742,7 +1749,7 @@ Due to variations in GPS coordinates, it is a good idea to plot the Node locatio
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_node_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Node location map}]{bookdown-demo_files/images/habitat_use_node_map.png}}
 \caption{Node location map}
 \end{figure}
 
@@ -1803,7 +1810,7 @@ To actually quantify the amount of habitat an animal uses, we will create a 500x
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_grid_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Node grid map}]{bookdown-demo_files/images/habitat_use_grid_map.png}}
 \caption{Node grid map}
 \end{figure}
 
@@ -1840,7 +1847,7 @@ This will display the tag tracks and the tag location on the node grid map.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_track_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Node track map}]{bookdown-demo_files/images/habitat_use_track_map.png}}
 \caption{Node track map}
 \end{figure}
 
@@ -1858,7 +1865,7 @@ This will display the tag tracks and the tag location on the node grid map.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/habitat_use_location_density_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Location Density Map}]{bookdown-demo_files/images/habitat_use_location_density_map.png}}
 \caption{Location Density Map}
 \end{figure}
 
@@ -2291,7 +2298,7 @@ This code was developed by Dr.~Kristina Paxton and Dr.~Jessica Gorzo, and was ad
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/multilateration_rss_vs_distance.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={RSS vs.~Distance}]{bookdown-demo_files/images/multilateration_rss_vs_distance.png}}
 As distance increases, we see average RSS decreasing exponentially.
 
 \subsection{Preliminary Exponential Decay Model - Determine starting values for the final model}\label{preliminary-exponential-decay-model---determine-starting-values-for-the-final-model}
@@ -2389,7 +2396,7 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/multilateration_predicted_line.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={RSS vs.~Distance with Predicted Line}]{bookdown-demo_files/images/multilateration_predicted_line.png}}
 \caption{RSS vs.~Distance with Predicted Line}
 \end{figure}
 
@@ -2431,7 +2438,7 @@ exponential model formula: avgRSS \textasciitilde{} a * exp(-S * distance) + K
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/images/multilateration_rings_map.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Ring Map}]{bookdown-demo_files/images/multilateration_rings_map.png}}
 \caption{Ring Map}
 \end{figure}
 
@@ -3079,6 +3086,112 @@ File is marked ``failed'' in the results dataframe; remaining files continue. Fi
 \item
   Called from get\_data() in R/get\_data.R for each file in the download queue
 \end{itemize}
+
+\chapter{Blu Downloads}\label{blu-downloads}
+
+This chapter covers how to load BLU (2.4 GHz / BLE) tag detection data from your Node SD card directly into R using the \texttt{read\_node\_sd\_data()} function. This is useful when you do not have a Sensor Station and detect Blu tags using a Node.
+
+\section{Prerequisites}\label{prerequisites}
+
+Make sure you have the \texttt{celltracktech} package installed and loaded:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(celltracktech)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Set Up Your Project Directory}\label{set-up-your-project-directory}
+
+First, define your project name and output directory. The project name should match the name you use on your Blu Portal account:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myproject }\OtherTok{\textless{}{-}} \StringTok{"blu\_tags"} \CommentTok{\# use your project name on your Blu Portal account}
+\NormalTok{outpath }\OtherTok{\textless{}{-}} \StringTok{"./data"} \CommentTok{\# main directory where you will store your node folders}
+\NormalTok{node\_id }\OtherTok{\textless{}{-}} \StringTok{"abc123"} \CommentTok{\# change to your actual node id}
+\NormalTok{date }\OtherTok{\textless{}{-}} \StringTok{"20261002"}
+\end{Highlighting}
+\end{Shaded}
+
+Create your project directory if it does not already exist. Include the date the you removed the files from the node. Store the files in the date directory so you don't overwrite your files.
+
+\section{Prepare Your CSV Files}\label{prepare-your-csv-files}
+
+Place your \texttt{.csv} files from the Node SD card into your project directory. The BLU detection files on the SD card are named \texttt{blu\_beep\_0.csv}, \texttt{blu\_beep\_1.csv}, etc. (or \texttt{2p4\_ghz\_beep\_0.csv} on older firmware). You will need to copy these files manually from the SD card into your project directory.
+
+\section{Load the CSV Files into R}\label{load-the-csv-files-into-r}
+
+Use the \texttt{read\_node\_sd\_data()} function to read all CSV files from your project directory:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read\_node\_sd\_data}\NormalTok{(}
+\NormalTok{  project\_dir,}
+  \AttributeTok{node\_id =}\NormalTok{ node\_id,}
+  \AttributeTok{parse\_payload =} \ConstantTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{read\_node\_sd\_data()} function accepts the following arguments:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{path}: The path to a directory containing your CSV files, or a single CSV file. If a directory, all CSV files are read recursively.
+\item
+  \texttt{node\_id}: (Optional) Your node ID. If not provided, the function infers the node ID from the parent folder name.
+\item
+  \texttt{parse\_payload}: If \texttt{TRUE} (default), the BLU payload hex string is parsed to extract battery voltage and temperature.
+\end{itemize}
+
+The function returns a named list with up to four elements: \texttt{beep}, \texttt{blu}, \texttt{gps}, and \texttt{health}. Each element is a data frame with standardized column names, or \texttt{NULL} if no files of that type were found.
+
+\section{Extract the BLU Data}\label{extract-the-blu-data}
+
+Select just the BLU detection data from the returned list:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{detection\_df }\OtherTok{\textless{}{-}}\NormalTok{ data[[}\StringTok{"blu"}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+Preview the data to see the parsed columns, including \texttt{battery\_voltage\_v} and \texttt{temperature\_celsius}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(detection\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+The BLU data frame contains the following columns:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Column & Description \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{time} & Detection timestamp (UTC) \\
+\texttt{tag\_id} & 8-character tag ID \\
+\texttt{tag\_rssi} & Received signal strength indicator \\
+\texttt{node\_id} & Node ID that recorded the detection \\
+\texttt{sync} & Sync value \\
+\texttt{product} & Product family identifier \\
+\texttt{revision} & Payload version / revision \\
+\texttt{payload} & Raw hex payload string \\
+\texttt{battery\_voltage\_v} & Parsed battery voltage in volts \\
+\texttt{temperature\_celsius} & Parsed temperature in degrees Celsius \\
+\end{longtable}
+}
+
+\section{Analyze your Data}\label{analyze-your-data}
+
+You now can continue with the rest of the tutorial. We recommend starting at Chapter 6, section 6.3.
 
 \bibliography{doc.bib}
 
