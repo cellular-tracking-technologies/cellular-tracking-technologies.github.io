@@ -570,3 +570,384 @@ In batch downloads via `get_data()`, each file result is tracked in a dataframe.
 * Called from <code>get_data()</code> in <code>R/get_data.R</code> for each file in the download queue
 
 </div>
+
+<hr class="section-divider">
+
+## Station Checkins <span class="tag-label tag-checkins">Checkins</span>
+
+<div class="endpoint-header">
+<span class="method-badge method-get">GET</span>
+<span class="endpoint-path">/station/station-data/{station_id}/</span>
+</div>
+
+Retrieves the checkin history for a single sensor station. Stations check in periodically, reporting GPS position, modem signal, disk and memory usage, uptime, and the number of beeps and unique tags heard since the last checkin.
+
+<div class="info-box">
+<strong>Different host and authentication:</strong> this endpoint is served by <code>https://account.celltracktech.com</code>, not <code>api.internetofwildlife.com</code>. It does <strong>not</strong> accept the API token. It uses a logged-in session cookie, so you sign in with your CTT account username and password first (see the curl example below).
+<br>
+<strong>Method:</strong> GET
+<br>
+<strong>Limit:</strong> returns at most the 500 most recent checkins, newest first, starting from the station's current deployment date
+</div>
+
+### Parameters
+
+<table class="param-table">
+<thead>
+<tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>station_id</code></td>
+  <td><span class="param-type">string</span></td>
+  <td><span class="param-required">REQUIRED</span></td>
+  <td>Station identifier, passed in the URL path (e.g. <code>V30B0001</code>). The same ID returned as <code>station.id</code> by the List Stations endpoint.</td>
+</tr>
+<tr>
+  <td><code>sessionid</code></td>
+  <td><span class="param-type">cookie</span></td>
+  <td><span class="param-required">REQUIRED</span></td>
+  <td>Session cookie set by logging in at <code>/accounts/login/</code></td>
+</tr>
+</tbody>
+</table>
+
+### curl Example
+
+Logging in takes two requests: one to fetch the login form's CSRF token and one to submit your credentials. The cookies are saved to a cookie jar file and reused for the checkin request.
+
+```{bash}
+BASE=https://account.celltracktech.com
+JAR=/tmp/ctt-cookies.txt
+USERNAME=YOUR_CTT_USERNAME
+STATION=YOUR_STATION_ID
+read -s -p "Password: " PASSWORD; echo
+
+# 1. Fetch the login page (sets the csrftoken cookie) and extract the form token
+TOKEN=$(curl -c "$JAR" "$BASE/accounts/login/" \
+  | grep csrfmiddlewaretoken | head -1 \
+  | sed -E "s/.*value=['\"]([^'\"]+)['\"].*/\1/")
+
+# 2. Log in (expect HTTP 302)
+curl -b "$JAR" -c "$JAR" -e "$BASE/accounts/login/" \
+  -X POST "$BASE/accounts/login/" \
+  --data-urlencode "csrfmiddlewaretoken=$TOKEN" \
+  --data-urlencode "username=$USERNAME" \
+  --data-urlencode "password=$PASSWORD" \
+  -o /dev/null -w "HTTP %{http_code}\n"
+unset PASSWORD
+
+# 3. Get the station's checkins
+curl -b "$JAR" "$BASE/station/station-data/$STATION/"
+```
+
+**Only the most recent checkin** (requires <code>jq</code>):
+
+```{bash}
+curl -b "$JAR" "$BASE/station/station-data/$STATION/" | jq '.checkins[0]'
+```
+
+### Response
+
+<div class="response-section">
+
+**200 OK**
+
+```json
+{
+  "checkins": [
+    {
+      "station": {
+        "id": "V30B0001",
+        "imei": "359073061234567",
+        "sim": "8901260000000000000",
+        "created_at": "2024-01-10T15:22:01.000000+00:00"
+      },
+      "project": "My Wildlife Project",
+      "alias": "North Field",
+      "received_at": "2024-05-18T12:00:04.512000+00:00",
+      "lat": 40.0,
+      "lng": -75.0,
+      "bootcount": 3,
+      "uptime": 12345,
+      "cpu": 8,
+      "free_memory": 900000,
+      "available_space": 25000000,
+      "beeps_since_last_checkin": 19,
+      "unique_tags_since_last_checkin": 2,
+      "pending_uploads": null,
+      "software_update": "2.1.0",
+      "software": null,
+      "image": "2.0.5",
+      "modem": {
+        "signal": -71,
+        "carrier": "VZW",
+        "updated_at": "2024-05-18T12:00:00+00:00"
+      }
+    }
+  ]
+}
+```
+
+Key fields in each checkin:
+
+* **`received_at`**: ISO 8601 timestamp when the server received the checkin
+* **`lat`** / **`lng`**: GPS position (null if the station had no GPS fix)
+* **`beeps_since_last_checkin`**: total tag detections since the previous checkin
+* **`unique_tags_since_last_checkin`**: number of distinct tags heard since the previous checkin
+* **`cpu`**: 15-minute load average
+* **`modem.signal`**: cellular signal strength (dBm)
+
+</div>
+
+### Errors
+
+<table class="error-table">
+<thead>
+<tr><th>Status</th><th>Cause</th><th>What You See</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><span class="error-code">302 / HTML</span></td>
+  <td>Not logged in, or the session cookie has expired</td>
+  <td>The response is the HTML login page instead of JSON. Repeat steps 1–2.</td>
+</tr>
+<tr>
+  <td><span class="error-code">403</span></td>
+  <td>Login POST sent without a valid CSRF token or <code>Referer</code> header</td>
+  <td>Django "CSRF verification failed" page. Make sure step 1 ran and <code>-e</code> is set in step 2.</td>
+</tr>
+<tr>
+  <td><span class="error-code">404</span></td>
+  <td><code>station_id</code> does not exist, the station has no deployment, or your account is not a member of the station's project</td>
+  <td>HTML "Not Found" page</td>
+</tr>
+<tr>
+  <td><span class="error-code">Empty list</span></td>
+  <td>Station has not checked in since its current deployment began</td>
+  <td>Response returns <code>"checkins": []</code></td>
+</tr>
+</tbody>
+</table>
+
+### R Package Functions
+
+<div class="used-by">
+
+* None yet. This endpoint is not wrapped by the <code>celltracktech</code> R package; call it with curl or <code>httr</code> directly.
+
+</div>
+
+<hr class="section-divider">
+
+## Station Data Files <span class="tag-label tag-files">Files</span>
+
+The **Data Files** tabs on a station's page in the sensor station portal (<code>https://account.celltracktech.com/station/station-home/{station_id}/</code>) list every file the station has uploaded since its current deployment, with a download link for each one. The two endpoints below give you the same lists and downloads from the command line. Like Station Checkins, they need a logged-in session cookie, not the API token.
+
+### File Types
+
+Each portal tab corresponds to one file type. Replace <code>{station_id}</code> with your station's ID and <code>{file_id}</code> with an <code>id</code> from the file list.
+
+<table class="param-table">
+<thead>
+<tr><th>Portal Tab</th><th>File Type</th><th>Contents</th><th>File List</th><th>Download</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td>Radio</td>
+  <td><code>data</code></td>
+  <td>Tag detections (beeps) from the station's radios</td>
+  <td><code>POST /station/files/data/{station_id}/</code></td>
+  <td rowspan="7"><code>GET /station/download-file/{file_id}/</code></td>
+</tr>
+<tr>
+  <td>Node Health</td>
+  <td><code>node-data</code></td>
+  <td>Health reports from nodes (battery, solar, RSSI)</td>
+  <td><code>POST /station/files/node-data/{station_id}/</code></td>
+</tr>
+<tr>
+  <td>Log</td>
+  <td><code>log</code></td>
+  <td>Station software log</td>
+  <td><code>POST /station/files/log/{station_id}/</code></td>
+</tr>
+<tr>
+  <td>GPS</td>
+  <td><code>gps</code></td>
+  <td>Station GPS position fixes</td>
+  <td><code>POST /station/files/gps/{station_id}/</code></td>
+</tr>
+<tr>
+  <td>Telemetry</td>
+  <td><code>telemetry</code></td>
+  <td>Station telemetry data</td>
+  <td><code>POST /station/files/telemetry/{station_id}/</code></td>
+</tr>
+<tr>
+  <td>BlūSeries</td>
+  <td><code>ble</code></td>
+  <td>BlūSeries tag detections. Uploads named <code>blu</code> or <code>ble</code> are both stored under this type.</td>
+  <td><code>POST /station/files/ble/{station_id}/</code></td>
+</tr>
+<tr>
+  <td>Sensorgnome</td>
+  <td><code>sensorgnome</code></td>
+  <td>Sensorgnome-format detections, shared with <a href="https://motus.org">Motus</a></td>
+  <td><code>POST /station/files/sensorgnome/{station_id}/</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<strong>Note:</strong> the portal only lists files from the station's <strong>current</strong> deployment. To get files from earlier deployments or a specific date range, use the token-based <a href="#list-station-files-files">List Station Files</a> endpoint.
+</div>
+
+### List Files
+
+<div class="endpoint-header">
+<span class="method-badge method-post">POST</span>
+<span class="endpoint-path">/station/files/{file_type}/{station_id}/</span>
+</div>
+
+Returns one page of files of the given type, newest first. This is the request the portal makes when you open a tab.
+
+<table class="param-table">
+<thead>
+<tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>file_type</code></td>
+  <td><span class="param-type">string</span></td>
+  <td><span class="param-required">REQUIRED</span></td>
+  <td>One of the file types in the table above, in the URL path</td>
+</tr>
+<tr>
+  <td><code>station_id</code></td>
+  <td><span class="param-type">string</span></td>
+  <td><span class="param-required">REQUIRED</span></td>
+  <td>Station identifier, in the URL path</td>
+</tr>
+<tr>
+  <td><code>start</code></td>
+  <td><span class="param-type">integer</span></td>
+  <td><span class="param-required">REQUIRED</span></td>
+  <td>Number of files to skip (form field)</td>
+</tr>
+<tr>
+  <td><code>length</code></td>
+  <td><span class="param-type">integer</span></td>
+  <td><span class="param-required">REQUIRED</span></td>
+  <td>Number of files to return (form field)</td>
+</tr>
+<tr>
+  <td><code>draw</code></td>
+  <td><span class="param-type">integer</span></td>
+  <td><span class="param-required">REQUIRED</span></td>
+  <td>Any integer; echoed back in the response (form field)</td>
+</tr>
+<tr>
+  <td><code>X-CSRFToken</code></td>
+  <td><span class="param-type">header</span></td>
+  <td><span class="param-required">REQUIRED</span></td>
+  <td>Value of the <code>csrftoken</code> cookie set at login</td>
+</tr>
+</tbody>
+</table>
+
+After logging in as shown in [Station Checkins](#station-checkins-checkins) (steps 1 and 2):
+
+```{bash}
+FILETYPE=data
+CSRF=$(awk '$6=="csrftoken"{print $7}' "$JAR")
+
+curl -b "$JAR" -e "$BASE/station/station-home/$STATION/" \
+  -H "X-CSRFToken: $CSRF" \
+  -X POST "$BASE/station/files/$FILETYPE/$STATION/" \
+  --data-urlencode 'draw=1' \
+  --data-urlencode 'start=0' \
+  --data-urlencode 'length=10'
+```
+
+<div class="response-section">
+
+**200 OK**
+
+```json
+{
+  "draw": 1,
+  "recordsTotal": 412,
+  "recordsFiltered": 412,
+  "data": [
+    {
+      "id": 18234567,
+      "file_at": "2024-05-18T12:00:00+00:00",
+      "filetype": "data",
+      "filename": "CTT-V30B0001-raw-data.2024-05-18_120000.csv.gz",
+      "bytes": 48213
+    }
+  ]
+}
+```
+
+<code>recordsTotal</code> is the total number of files of this type. Increase <code>start</code> by <code>length</code> to page through them.
+
+</div>
+
+### Download a File
+
+<div class="endpoint-header">
+<span class="method-badge method-get">GET</span>
+<span class="endpoint-path">/station/download-file/{file_id}/</span>
+</div>
+
+Downloads one file using the <code>id</code> from the file list. This is the portal's **Download** button. The file is gzip-compressed CSV, so save it with a <code>.csv.gz</code> extension or pipe it through <code>gunzip</code>.
+
+```{bash}
+FILE_ID=18234567
+
+# Save the compressed file
+curl -b "$JAR" "$BASE/station/download-file/$FILE_ID/" -o "$FILE_ID.csv.gz"
+
+# Or decompress on the fly
+curl -b "$JAR" "$BASE/station/download-file/$FILE_ID/" | gunzip > "$FILE_ID.csv"
+```
+
+### Errors
+
+<table class="error-table">
+<thead>
+<tr><th>Status</th><th>Cause</th><th>What You See</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><span class="error-code">302 / HTML</span></td>
+  <td>Not logged in, or the session cookie has expired</td>
+  <td>The HTML login page instead of JSON or file contents</td>
+</tr>
+<tr>
+  <td><span class="error-code">403</span></td>
+  <td>File list request sent without the <code>X-CSRFToken</code> header or <code>Referer</code></td>
+  <td>Django "CSRF verification failed" page</td>
+</tr>
+<tr>
+  <td><span class="error-code">404</span></td>
+  <td>Unknown file type or station, your account is not on the station's project, or the file is from an earlier deployment</td>
+  <td>HTML "Not Found" page</td>
+</tr>
+<tr>
+  <td><span class="error-code">500</span></td>
+  <td><code>draw</code>, <code>start</code> or <code>length</code> missing from the file list request</td>
+  <td>HTML "Server Error" page</td>
+</tr>
+</tbody>
+</table>
+
+### R Package Functions
+
+<div class="used-by">
+
+* None. To download files with the R package, use <code>get_my_data()</code>, which uses the token-based [List Station Files](#list-station-files-files) and [Download File](#download-file-files) endpoints.
+
+</div>
